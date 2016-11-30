@@ -98,7 +98,7 @@ class CensusApiCustom
     end
 
     def end_point_available?
-      true || Rails.env.staging? || Rails.env.preproduction? || Rails.env.production?
+      Rails.env.staging? || Rails.env.preproduction? || Rails.env.production?
     end
 
     def stubbed_response_body
@@ -122,8 +122,9 @@ class CensusApiCustom
     # if the number has less digits than it should, pad with zeros to the left and add each variant to the list
     # For example, if the initial document_number is 1234, and digits=8, the result is
     # ['1234', '01234', '001234', '0001234']
+
     # Custom
-    # GET-10 Number of digits set to 9 because of available census API needs it
+    # GET-13 Number of digits set to 9 because of available census API needs it
     def get_number_variants_with_leading_zeroes_from(document_number, digits=9)
       document_number = document_number.to_s.last(digits) # Keep only the last x digits
       document_number = document_number.gsub(/^0+/, '')   # Removes leading zeros
