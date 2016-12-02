@@ -5,7 +5,10 @@
   <div class="row">
     <div class="top-bar">
 
-      <%= link_to setting['org_name'], root_path, class: "logo show-for-small-only" %>
+      <%= link_to(root_path, class: "logo show-for-small-only") do %>
+        <%= image_tag('logo_header.png', class: 'hide-for-small-only float-left', size: '80x80', alt: t("layouts.header.logo"), label: setting['org_name'], title: setting['org_name']) %>
+        <%= setting['org_name'] %>
+      <% end %>
 
       <span data-responsive-toggle="responsive-menu" data-hide-for="medium" class="float-right">
         <span class="menu-icon dark" data-toggle></span>
@@ -15,13 +18,7 @@
       <div id="responsive-menu">
         <div class="top-bar-title">
           <%= link_to root_path, class: "hide-for-small-only", accesskey: "/" do %>
-            <%= image_tag('logo_header.png', class: 'hide-for-small-only float-left', size: '80x80', alt: t("layouts.header.logo")) %>
-            <% if opendata_page? %>
-              <%= t("layouts.header.open_gov", open: "#{t('layouts.header.open')}") %> <span>|</span>
-              <span class="logo-site"><%= t("layouts.header.open_data") %></span>
-            <% else %>
-               <%= setting['org_name'] %>
-            <% end %>
+            <%= image_tag('logo_header.png', class: 'hide-for-small-only float-left',  alt: t("layouts.header.logo"), label: setting['org_name'], title: setting['org_name']) %>
           <% end %>
         </div>
 
