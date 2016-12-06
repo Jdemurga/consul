@@ -3,3 +3,24 @@
 // * English: https://github.com/consul/consul/blob/master/CUSTOMIZE_EN.md#css
 // * Spanish: https://github.com/consul/consul/blob/master/CUSTOMIZE_ES.md#css
 //
+
+
+$brand:             #B80830;
+$brand-original:    #004A83;
+$dark:              darken($brand-original, 10%);
+
+
+.highlight.custom-getafe {
+
+  background-color: #e6e7e9;
+  background-image: url('icon_home.png');
+  background-size: auto 90%;
+  background-repeat: no-repeat;
+  background-position: 80% bottom;
+}
+
+#home-with-icon-background {
+
+  background-color: white;
+
+}
