@@ -140,6 +140,8 @@ GEM
       railties (>= 3.2.6, < 5.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    domain_name (0.5.20161129)
+      unf (>= 0.0.5, < 1.0.0)
     easy_translate (0.5.0)
       json
       thread
@@ -183,6 +185,8 @@ GEM
     hashie (3.4.6)
     highline (1.7.8)
     htmlentities (4.3.4)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
     httpi (2.4.1)
       rack
     i18n (0.7.0)
@@ -238,6 +242,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.2.0)
+    netrc (0.11.0)
     newrelic_rpm (3.17.0.325)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
@@ -324,6 +329,10 @@ GEM
     request_store (1.3.1)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rest-client (2.0.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rinku (2.0.2)
     rollbar (2.13.3)
       multi_json
@@ -426,6 +435,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.3)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.2)
     unicode-display_width (1.1.1)
     unicorn (5.1.0)
       kgio (~> 2.6)
@@ -506,6 +518,7 @@ DEPENDENCIES
   rails (= 4.2.7.1)
   redcarpet
   responders (~> 2.3.0)
+  rest-client (= 2.0.0)
   rinku (~> 2.0.2)
   rollbar (~> 2.13.3)
   rspec-rails (~> 3.5)
