@@ -52,7 +52,7 @@ Setting["blog_url"] = nil
 Setting["url"] = "https://consul.getafe.es"
 
 # Consul installation's organization name
-Setting["org_name"] = "Ayuntamiento"
+Setting["org_name"] = "Participa Getafe"
 
 # Consul installation place name (City, Country...)
 Setting["place_name"] = "Getafe"
@@ -95,3 +95,21 @@ Geozone.create(name: "San Isidro")
 Geozone.create(name: "Buenavista")
 Geozone.create(name: "Los Molinos")
 Geozone.create(name: "Sector III")
+
+puts "Creating Tags Categories"
+
+ActsAsTaggableOn::Tag.create!(name:  "Asociaciones", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Cultura", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Deportes", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Derechos Sociales", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Economía", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Empleo", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Equidad", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Sostenibilidad", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Participación", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Movilidad", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Medios", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Salud", featured: true , kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Transparencia", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Seguridad y Emergencias", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Medio Ambiente", featured: true, kind: "category")
