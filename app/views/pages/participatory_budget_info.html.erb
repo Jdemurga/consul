@@ -1,0 +1,286 @@
+<div class="row">
+  <div class="menu small-12 medium-3 column">
+
+    <%= link_to :back, class: "back" do %>
+        <i class="icon-angle-left"></i>
+        <%= t("spending_proposals.new.back_link") %>
+    <% end %>
+
+    <ul class="vertical menu clear">
+      <li>
+        <p>
+          <a href="#1"><strong>Explicación detallada del proceso</strong></a>
+        </p>
+      </li>
+      <li>
+        <p>
+          <a href="#2"><strong>¿Qué puedo proponer?</strong></a>
+        </p>
+        <ul class="vertical menu clear">
+          <li><a href="#2-1">Son propuestas</a></li>
+          <li><a href="#2-2">No son propuestas</a></li>
+        </ul>
+      </li>
+      <li>
+        <p>
+          <a href="#4"><strong>Información sobre presupuestos participativos</strong></a>
+          <ul class="vertical menu clear">
+            <li><a href="#4-1">¿Qué son los Presupuestos Participativos?</a></li>
+            <li><a href="#4-2">¿Qué aportan los Presupuestos Participativos?</a></li>
+          </ul>
+        </p>
+      </li>
+      <li><p><a href="#3"><strong>Preguntas Frecuentes (F.A.Q)</strong></a></p>
+        <ul class="vertical menu clear">
+          <li><a href="#3-1">¿Quién puede votar?</a></li>
+          <li><a href="#3-2">¿Qué propuestas puedo votar?</a></li>
+          <li><a href="#3-3">¿Qué tipo de propuestas hay?</a></li>
+          <li><a href="#3-4">¿Pueden proponer asociaciones o colectivos?</a></li>
+          <li><a href="#3-5">¿Cuándo se ejecutarán las propuestas?</a></li>
+          <li><a href="#3-6">¿Cuándo puedo formar parte de una comisión de barrio?</a></li>
+          <li><a href="#3-7">¿Qué requisitos tiene que cumplir una propuesta para que sea votada?</a></li>
+          <li><a href="#3-8">Si hay varias propuestas parecidas, ¿cuál será aceptada?</a></li>
+          <li><a href="#3-9">¿Puede un proponente ejecutar su propuesta?</a></li>
+          <li><a href="#3-10">Si no tengo acceso a internet, ¿cómo puedo proponer y votar?</a></li>
+          <li><a href="#3-11">¿Cómo va a controlarse que cada persona vote una única vez por propuesta?</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="text small-12 medium-9 column">
+    <h2 id="1">Explicación detallada del proceso</h2>
+    <!-- GET-22 -->
+    <p>El <%= link_to 'Ayuntamiento de Getafe', 'http://getafe.es', target: '_blank' %> ha dotado con <strong>3.432.00 euros</strong> a los presupuestos participativos para que la ciudadanía decida su destino.
+La cantidad se dividirá en dos partes: 3.300.000 euros que se destinarán a propuestas de inversiones, y 132.000 euros destinados a propuestas de programas.  
+	Cada uno de los once barrios tendrá la misma cantidad para los dos tipos de propuestas: 300.000 euros para inversiones y 12.000 euros para programas.</p
+
+    <p>El procedimiento <strong>se iniciará el 16 de enero</strong>, y estará <strong>divido en cuatro etapas</strong>:</p>
+
+    <ul>
+      <li>
+        <p><strong>Recogida de propuestas (16 enero - 28 febrero)</strong>. Cualquier persona empadronada en Getafe podrá elaborar propuestas de inversiones o de programas, para cualquier barrio. Estas propuestas podrán ser hechas a través de <%= link_to setting['org_name'], root_path %> o a través de los centros cívicos.<p>
+	      <p>Para que facilitar su evaluación, las propuestas debe ser lo más concretas posibles.</p>
+      </li>
+      <li>
+        <p><strong>Evaluación de propuestas (1 marzo - 12 mayo)</strong>. Una vez terminada la fase de recogida, los distintos servicios técnicos del Ayuntamiento de Getafe evaluarán las propuestas. Cada propuesta debe de superar los tres criterios de viabilidad:</p>
+        <p>
+          <ol>
+              <li>
+                <strong>Viabilidad Jurídica</strong>: Las propuestas deben de enmarcarse dentro de las competencias municipales y no contravenir ninguna norma. También deben de respetar el principio de libre concurrencia de contratación del ayuntamiento. En “¿qué puedo proponer?” (hipertexto), puedes consultar un  listado de ejemplos de propuestas que son viables jurídicamente y cuáles no.
+              </li>
+              <li>
+                <strong>Viabilidad económica</strong>: Las propuestas no pueden superar los 300.000 euros si es una inversión o los 12.000 euros si es un programa.
+              </li>
+              <li>
+                <strong>Viabilidad técnica</strong>: Las propuestas deben de ser posibles técnicamente.
+              </li>
+            </ol>
+        </p>
+        <p>
+          En el caso de que existieran propuestas idénticas o parecidas, las comisiones serán las encargadas de comunicarse con los proponentes, con la intención de unirlas de cara a las votaciones.
+        </p>
+      </li>
+      <li>
+        <p><strong>Exposición de las propuestas (abril – mayo)</strong>. Toda propuesta debe ser defendida para poder llegar a la votación, por regla general se hará en la Asamblea de barrios previa al periodo de votación.</p>
+        <p>En el caso de que el proponente no pueda asistir ese día, deberá exponerla en la comisión de barrio delegando así, en este “órgano”, la explicación de la misma el día de celebración de la Asamblea de Barrio.</p>
+        <p>En la Asamblea se permitirá un turno de exposición para cada propuesta, el proponente puede aportar toda la información o material que necesite.</p>
+      </li>
+      <li>
+
+        <p><strong>Votación de la propuesta (19 – 29 junio)</strong>. Durante este periodo se habilitará en <%= link_to setting['org_name'], root_path %> la votación de las distintas propuestas. Podrán hacerlo todas aquellas personas que estando empadronadas en Getafe, se hayan inscrito en los presupuestos participativos a través del registro existente en esta misma página.</p>
+        <p>Las votaciones serán simultáneas para todos los barrios. Podrás votar en uno de los once barrios, independientemente de donde estés empadronado.  El método de votación será solidario por lo que tendrás que votar tres propuestas con 3, 2 y 1 punto.</p>
+        <p>Las votaciones serán posibles desde cualquier dispositivo que tenga acceso de internet. Para todas aquellos vecinos y vecinas que no puedan acceder se habilitarán en dependencias municipales, con horario de mañana y tarde, terminales para que puedan votar.</p>
+        <p>El resultado final del proceso se obtendrá, una vez finalizada la votación, ordenando todas las propuestas en cada lista (inversiones y programas) por votos, y seleccionando las propuestas de la más votada hasta la última. Siguiendo este orden de prelación se irán dotando de presupuesto hasta que el mismo se agote.</p>
+      </li>
+    </ul>
+
+    <!-- -->
+    <h2 id="2">¿Qué puedo proponer?</h2>
+    <h3 id="2-1">Son propuestas:</h3>
+    <ul>
+      <li>
+          <u>Nuevas infraestructuras</u>: Urbanización, viales, alumbrado, parques, zonas ajardinadas, árboles y jardineras, fuentes e hidrantes, alcantarillado, etc.
+      </li>
+      <li>
+          <u>Reposición de infraestructuras</u>: Adecuación de solares, remodelación de viales y de su señalización, reforma de alumbrado, remodelación de parques, zonas verdes, reforma de fuentes y estanques, etc.
+      </li>
+      <li>
+          <u>Construcción o reforma de edificios</u>: Reforma de centros municipales, implementación de superficies de esparcimiento, superficies deportivas de uso libre o regulado,..
+      </li>
+    </ul>
+      <h3 id="2-2">No son propuestas:</h3>
+      <ul>
+
+        <li>
+          Construcción de institutos y colegios públicos (la competencia sobre su construcción es de la Comunidad de Madrid)
+        </li>
+        <li>
+        Construcción de centros de salud (sólo es posible en el caso de centros de salud municipales)
+        </li>
+        <li>
+        Infraestructuras de carreteras de acceso a Getafe  y de ferrocarril
+        </li>
+        <li>
+          Propuestas de inversión sobre terrenos o solares no municipales
+        </li>
+        <li>
+          Gastos de contratación de personal
+        </li>
+        <li>
+          Alquileres de edificios, vehículos, mobiliario, maquinaria
+        </li>
+        <li>
+          Suministros: vestuario, combustibles, energía eléctrica, gas, alimentos
+        </li>
+        <li>
+          Subvenciones y ayudas a familias, instituciones sin ánimo de lucro, fundaciones, empresas privadas
+        </li>
+        <li>
+          Concesión de becas, premios, asistencia benéfica o asistencial
+        </li>
+        <li>
+          Concesión de becas, premios, asistencia benéfica o asistencial
+        </li>
+        <li>
+          Comisarías
+        </li>
+        <li>
+          Marquesinas</li>
+        </li>
+        <li>
+          El servicio de limpieza
+        </li>
+        <li>
+          Contratación de personal para limpieza
+        </li>
+        <li>
+          La ampliación del horario del servicio de autobuses o la modificación de rutas
+        </li>
+        <li>
+          Nuevas edificaciones
+        </li>
+      </ul>
+
+      <h2 id="4">Información de los presupuestos participativos</h2>
+      <h3 id="4-1">
+        ¿Qué son los presupuestos participativos?
+      </h3>
+      <p>
+        Los presupuestos participativos son una herramienta de participación y gestión gracias a la cual los vecinos y vecinas de Getafe pueden decidir en que invertir parte del presupuesto municipal.
+      </p>
+      <p>
+        Estos procesos se iniciaron en América latina en la ciudad de Porto Alegre (Brasil) en 1989. Desde ese momento los Presupuestos Participativos han ganado protagonismo en distintas partes del mundo.
+      </p>
+      <p>
+        Los Presupuestos Participativos en Getafe, ya se desarrollaron durante los años 1995- 2005 con una elevada aceptación ciudadana. El presente gobierno municipal ha decidido retomar esta herramienta para dotar a los vecinos y vecinas de Getafe de la posibilidad de elegir aquellas inversiones y programas que necesite su barrio.
+      </p>
+      <h3 id="4-2">¿Qué aportan los Presupuestos Participativos?</h3>
+      <p>
+          Los Presupuestos Participativos dotan a los vecinos y vecinas de una herramienta de participación directa en los presupuestos anuales municipales. Con ello podrán elegir aquellas inversiones o programas que satisfagan sus demandas o preocupaciones, incluyendo, además, el seguimiento de la ejecución de las mismas.
+      </p>
+      <p>
+        Aportan mayor transparencia y eficacia a la gestión municipal, ya que establece un debate sobre los elementos en los que se gasta el presupuesto municipal.
+      </p>
+      <p>
+        Permite que el proceso se autorregule ya que, con una periodicidad anual , se evaluará el proceso pudiendo agregar aquellas normas que los vecinos y vecinas vean necesarias en vista de aumentar la efectividad de los Presupuestos Participativos.
+      </p>
+      <p>
+        Genera un espacio de reflexión activa y de solidaridad entre los vecinos y vecinas, ya que se abren debates donde conocer las problemáticas y demandas del propio barrio y del resto.
+      </p>
+      <p>
+        Aumenta y mejora la comunicación entre la ciudadanía y la administración, debido a los espacios de interlocución entre políticos y vecinos y vecinas que se generan.
+      </p>
+
+      <h2 id="3">Preguntas Frecuentes (F.A.Q)</h2>
+      <h3 id="3-1">¿Quién puede votar?</h3>
+      <p>
+        Todas las personas con domicilio en Getafe y que hayan cumplido 16 años.
+      </p>
+
+      <h3 id="3-2">¿Qué propuestas puedo votar?</h3>
+      <p>
+        Exclusivamente se podrá votar las propuestas de uno de los 11 barrios, independientemente de la ubicación de su domicilio de empadronamiento.
+      </p>
+
+      <h3 id="3-3">¿Qué tipo de propuestas hay?</h3>
+      <p>
+        <ul>
+          <li>
+            Las propuestas de Inversiones tienen el formato de ejecución de obra, obra menor o adquisición de equipamiento.
+          </li>
+          <li>
+            Las propuestas de Programas tiene el formato de servicios.
+          </li>
+        </ul>
+      </p>
+
+      <h3 id="3-4">¿Pueden proponer asociaciones o colectivos?</h3>
+      <p>
+        Sí. La proposición puede será, en todo caso, de persona física en representación de asociaciones, entidades o colectivos cuyo domicilio social o ámbito de actuación esté ubicado en Getafe.
+      </p>
+
+      <h3 id="3-5">¿Cuándo se ejecutarán las propuestas?</h3>
+      <p>
+        Como regla general las propuestas ganadoras se ejecutarán el año siguiente a su aprobación.
+      </p>
+
+      <h3 id="3-6">¿Cuándo puedo formar parte de una comisión de barrio?</h3>
+      <p>
+        Los vecinos y vecinas de Getafe pueden inscribirse en la comisión de su barrio de residencia en cualquier momento del proceso
+      </p>
+
+      <h3 id="3-7">¿Qué requisitos tiene que cumplir una propuesta para que sea votada?</h3>
+      <p>
+        Toda propuesta debe de superar tres criterios de viabilidad:
+        <ul>
+          <li>
+            <strong>Viabilidad Jurídica</strong>: Las propuestas deben de enmarcarse dentro de las competencias municipales. No se incluirán aquellas que entren en el ámbito de las competencias de otras administraciones. También se estudiara si las propuestas contravienen alguna normativa. Por último, las propuestas, deben respetar el principio de libre concurrencia de contratación pública. El proponente, en ningún caso, puede ser objeto de contratación.
+          </li>
+          <li>
+            <strong>Viabilidad Económica</strong>: Las propuestas no pueden exceder el presupuesto acordado para cada proceso en cada barrio. No podrán coincidir con inversiones, gastos de mantenimiento o programas previstos por las distintas áreas municipales, salvo que puedan significar un complemento o mejora cualitativa de las mismas con sustantividad propia.
+          </li>
+          <li>
+            <strong>Viabilidad Técnica</strong>: Las propuestas deben ser posibles técnicamente.
+          </li>
+        </ul>
+        Además de pasar estos criterios deberá ser presentada en la Asamblea por el proponente o por la Comisión.
+      </p>
+
+      <h3 id="3-8">Si hay varias propuestas parecidas, ¿cuál será aceptada?</h3>
+      <p>
+        En el caso de que varias propuestas sean iguales o parecidas, la comisión llamará a los proponentes para ver la posibilidad de unirlas de cara a la votación.
+      </p>
+
+      <h3 id="3-9">¿Puede un proponente ejecutar su propuesta?</h3>
+      <p>
+        Todas las propuestas aprobadas deben respetar el principio de libre concurrencia de contratación pública. En ningún caso, el proponente puede ser objeto de contratación.
+      </p>
+
+      <h3 id="3-10">Si no tengo acceso a internet, ¿cómo puedo proponer y votar?</h3>
+      <p>
+        Previendo que algunos vecinos y vecinas no tengan facilidad para acceder a la herramienta web, en los centros cívicos se habilitará un procedimiento de acceso asistido al proceso.
+      </p>
+
+      <h3 id="3-11">¿Cómo va a controlarse que cada persona vote una única vez por propuesta?</h3>
+      <p>
+        Las votaciones presenciales en las dependencias municipales están controladas porque la persona tiene que presentar su DNI. Para la votación a través de Internet se verifica que la cuenta de usuario corresponde a un único ciudadano/a. Para ello se le facilita un código personal seguro de verificación de la cuenta que se comunica a través de canales de comunicación privados, como son teléfonos móviles que constan en el Ayuntamiento que pertenecen a la persona adecuada, o por correo a través del buzón que figura en la dirección de empadronamiento. De esta forma nos aseguramos de que sólo esa persona ha recibido el código. En caso de que dichos medios de comunicación no estén disponibles se solicitará a la persona que acuda presencialmente a alguna de las Oficinas de Atención al Ciudadano, para obtener su código.
+      </p>
+
+      <h3 id="3-12"></h3>
+      <p>
+
+      </p>
+
+      <h3 id="3-"></h3>
+      <p>
+
+      </p>
+
+      <h3 id="3-"></h3>
+      <p>
+
+      </p>
+
+  </div>
+</div>

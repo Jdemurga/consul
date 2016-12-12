@@ -49,8 +49,8 @@
 <div class="row margin-top">
   <div class="small-12 column text-center">
     <h2>Presupuestos Participativos en 2 minutos</h2>
-    <%= link_to "¿Qué puedo proponer?", page_path('participatory_budget_info', anchor: "20") %>&nbsp;|&nbsp;
-    <%= link_to "Explicación detallada del proceso", page_path('participatory_budget_info', anchor: "19") %>
+    <%= link_to "¿Qué puedo proponer?", page_path('participatory_budget_info', anchor: "2") %>&nbsp;|&nbsp;
+    <%= link_to "Explicación detallada del proceso", page_path('participatory_budget_info', anchor: "4") %>
   </div>
 </div>
 
@@ -114,20 +114,19 @@
   <div class="row">
     <div class="small-12 column text-center">
       <h2 id="spending-proposals-budget">Distribución del presupuesto participativo y propuestas de inversión</h2>
-      <p>Una inversión es básicamente todo aquello que el Ayuntamiento puede construir o adquirir y que su duración prevista es superior a un año.<br> <%= link_to "Sigue leyendo para entender la definición en detalle", page_path('participatory_budget_info', anchor: "21") %></p>
+      <p>Una inversión es básicamente todo aquello que el Ayuntamiento puede construir o adquirir y que su duración prevista es superior a un año.<br> <%= link_to "Sigue leyendo para entender la definición en detalle", page_path('participatory_budget_info', anchor: "1") %></p>
 
       <div class="row">
-        <div class="small-12 medium-7 column margin show-for-medium">
+        <div class="small-12 medium-6 column margin show-for-medium">
           <%= image_tag("map.jpg", alt: "Mapa de barrios de Getafe") %>
         </div>
-        <div class="small-12 medium-5 column margin">
-
+        <div class="small-12 medium-6 column margin">
           <table>
             <thead>
               <tr>
                 <th>Barrio</th>
-                <th>D. Inversiones</th>
-                <th>D. Programas</th>
+                <th>D.E. Inversiones</th>
+                <th>D.E. Programas</th>
               </tr>
             </thead>
             <tbody>
@@ -140,8 +139,10 @@
               <% end %>
             </tbody>
           </table>
+          <small>
+            (*)<i>"D.E."</i> es la abreviación de <i>"Dotación económica"</i>
+          </small>
         </div>
-
       </div>
     </div>
   </div>
