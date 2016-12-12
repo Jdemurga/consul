@@ -1,7 +1,7 @@
 # coding: utf-8
 # Default admin user (change password after first deploy to a server!)
 if Administrator.count == 0 && !Rails.env.test?
-  admin = User.create!(username: 'admin', email: 'admin@consul.dev', password: '12345678', password_confirmation: '12345678', confirmed_at: Time.current, terms_of_service: "1")
+  admin = User.create!(username: 'admin_getafe', email: 'admin-consul@getafe.es', password: '@Getafe10%', password_confirmation: '@Getafe10%', confirmed_at: Time.current, terms_of_service: "1")
   admin.create_administrator
 end
 
@@ -26,7 +26,7 @@ Setting["max_votes_for_proposal_edit"] = 1000
 Setting['comments_body_max_length'] = 1000
 
 # Prefix for the Proposal codes
-Setting["proposal_code_prefix"] = 'MAD'
+Setting["proposal_code_prefix"] = 'GET'
 
 # Number of votes needed for proposal success
 Setting["votes_for_proposal_success"] = 53726
@@ -49,24 +49,24 @@ Setting["youtube_handle"] = nil
 Setting["blog_url"] = nil
 
 # Public-facing URL of the app.
-Setting["url"] = "http://example.com"
+Setting["url"] = "https://consul.getafe.es"
 
 # Consul installation's organization name
-Setting["org_name"] = "Consul"
+Setting["org_name"] = "Participa Getafe"
 
 # Consul installation place name (City, Country...)
-Setting["place_name"] = "Consul-land"
+Setting["place_name"] = "Getafe"
 
 # Feature flags
-Setting['feature.debates'] = true
+Setting['feature.debates'] = false
 Setting['feature.spending_proposals'] = true
-Setting['feature.twitter_login'] = true
-Setting['feature.facebook_login'] = true
-Setting['feature.google_login'] = true
-Setting['feature.public_stats'] = true
+Setting['feature.twitter_login'] = false
+Setting['feature.facebook_login'] = false
+Setting['feature.google_login'] = false
+Setting['feature.public_stats'] = false
 
 # Spending proposals feature flags
-Setting['feature.spending_proposal_features.voting_allowed'] = true
+Setting['feature.spending_proposal_features.voting_allowed'] = false
 
 # Banner styles
 Setting['banner-style.banner-style-one']   = "Banner style 1"
@@ -81,3 +81,35 @@ Setting['banner-img.banner-img-three'] = "Banner image 3"
 # Proposal notifications
 Setting['proposal_notification_minimum_interval_in_days'] = 3
 Setting['direct_message_max_per_day'] = 3
+
+
+puts "Creating Geozones"
+Geozone.create(name: "Centro")
+Geozone.create(name: "Getafe Norte")
+Geozone.create(name: "Alhóndiga")
+Geozone.create(name: "Perales del Río")
+Geozone.create(name: "Juan de la Cierva")
+Geozone.create(name: "Bercial")
+Geozone.create(name: "Margaritas")
+Geozone.create(name: "San Isidro")
+Geozone.create(name: "Buenavista")
+Geozone.create(name: "Los Molinos")
+Geozone.create(name: "Sector III")
+
+puts "Creating Tags Categories"
+
+ActsAsTaggableOn::Tag.create!(name:  "Asociaciones", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Cultura", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Deportes", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Derechos Sociales", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Economía", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Empleo", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Equidad", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Sostenibilidad", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Participación", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Movilidad", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Medios", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Salud", featured: true , kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Transparencia", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Seguridad y Emergencias", featured: true, kind: "category")
+ActsAsTaggableOn::Tag.create!(name:  "Medio Ambiente", featured: true, kind: "category")
