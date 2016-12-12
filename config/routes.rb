@@ -272,8 +272,9 @@ Rails.application.routes.draw do
   get '/blog' => redirect("http://blog.consul/")
 
   # GET-17
+  # GET-22
   get 'participatory_budget/in_two_minutes', to: 'pages#show', id: 'participatory_budget/in_two_minutes'
   get 'participatory_budget', to: 'spending_proposals#welcome', as: 'participatory_budget'
-  
+
   resources :pages, path: '/', only: [:show]
 end
