@@ -275,6 +275,7 @@ Rails.application.routes.draw do
   # GET-22
   get 'participatory_budget/in_two_minutes', to: 'pages#show', id: 'participatory_budget/in_two_minutes'
   get 'participatory_budget', to: 'spending_proposals#welcome', as: 'participatory_budget'
+  get 'more_information', to: 'pages#show', as: 'mode_information', id: 'participatory_budget_info'
 
   resources :pages, path: '/', only: [:show]
 end
