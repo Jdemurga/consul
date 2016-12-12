@@ -1,14 +1,18 @@
 <footer>
-	<div class="row">
+  <div class="row">
     <div class="small-12 large-4 column">
       <h1 class="logo">
-        <%= link_to t("layouts.header.open_gov", open: "#{t('layouts.header.open')}").html_safe %>
+        <%= link_to root_path, title: setting['org_name'] do %>
+            <%= image_tag('logo_footer') %>
+        <% end %>
+
       </h1>
 
       <p class="info">
-        <%= t("layouts.footer.description",
-          open_source: link_to(t("layouts.footer.open_source"), t("layouts.footer.open_source_url"), target: "blank"),
-          consul:  link_to(t("layouts.footer.consul"), t("layouts.footer.consul_url"), target: "blank")).html_safe
+        <%= link_to setting['org_name'] %>
+        <%= t("layouts.footer.description", project_name: setting['org_name'],
+              open_source: link_to(t("layouts.footer.open_source"), t("layouts.footer.open_source_url"), target: "blank"),
+              consul:  link_to(t("layouts.footer.consul"), t("layouts.footer.consul_url"), target: "blank")).html_safe
         %>
         <%= t("layouts.footer.contact_us") %>
         <%= link_to t("layouts.footer.faq"), page_path('faq') %>
@@ -54,36 +58,36 @@
       <div class="text-right">
         <ul>
           <% if setting['twitter_handle'] %>
-            <li class="inline-block">
-              <%= link_to "https://twitter.com/#{setting['twitter_handle']}", target: "_blank", title: t("social.twitter") + t('shared.target_blank_html') do %>
-                <span class="sr-only"><%= t("social.twitter") %></span>
-                <span class="icon-twitter" aria-hidden="true"></span>
-              <% end %>
-            </li>
+              <li class="inline-block">
+                <%= link_to "https://twitter.com/#{setting['twitter_handle']}", target: "_blank", title: t("social.twitter") + t('shared.target_blank_html') do %>
+                    <span class="sr-only"><%= t("social.twitter") %></span>
+                    <span class="icon-twitter" aria-hidden="true"></span>
+                <% end %>
+              </li>
           <% end %>
           <% if setting['facebook_handle'] %>
-            <li class="inline-block">
-              <%= link_to "https://www.facebook.com/#{setting['facebook_handle']}/", target: "_blank", title: t("social.facebook") + t('shared.target_blank_html') do %>
-                <span class="sr-only"><%= t("social.facebook") %></span>
-                <span class="icon-facebook" aria-hidden="true"></span>
-              <% end %>
-            </li>
+              <li class="inline-block">
+                <%= link_to "https://www.facebook.com/#{setting['facebook_handle']}/", target: "_blank", title: t("social.facebook") + t('shared.target_blank_html') do %>
+                    <span class="sr-only"><%= t("social.facebook") %></span>
+                    <span class="icon-facebook" aria-hidden="true"></span>
+                <% end %>
+              </li>
           <% end %>
           <%  if setting['blog_url'] %>
-            <li class="inline-block">
-              <%= link_to setting['blog_url'], target: "_blank", title: t("social.blog") + t('shared.target_blank_html') do %>
-                <span class="sr-only"><%= t("social.blog") %></span>
-                <span class="icon-blog" aria-hidden="true"></span>
-              <% end %>
-            </li>
+              <li class="inline-block">
+                <%= link_to setting['blog_url'], target: "_blank", title: t("social.blog") + t('shared.target_blank_html') do %>
+                    <span class="sr-only"><%= t("social.blog") %></span>
+                    <span class="icon-blog" aria-hidden="true"></span>
+                <% end %>
+              </li>
           <% end %>
           <% if setting['youtube_handle'] %>
-            <li class="inline-block">
-              <%= link_to "https://www.youtube.com/#{setting['youtube_handle']}", target: "_blank", title: t("social.youtube") + t('shared.target_blank_html') do %>
-                <span class="sr-only"><%= t("social.youtube") %></span>
-                <span class="icon-youtube" aria-hidden="true"></span>
-              <% end %>
-            </li>
+              <li class="inline-block">
+                <%= link_to "https://www.youtube.com/#{setting['youtube_handle']}", target: "_blank", title: t("social.youtube") + t('shared.target_blank_html') do %>
+                    <span class="sr-only"><%= t("social.youtube") %></span>
+                    <span class="icon-youtube" aria-hidden="true"></span>
+                <% end %>
+              </li>
           <% end %>
         </ul>
       </div>
