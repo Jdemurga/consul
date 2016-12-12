@@ -10,6 +10,7 @@ $brand-original:    #004A83;
 $dark:              darken($brand-original, 10%);
 
 
+/* In two minutes pages */
 .highlight.custom-getafe {
 
   background-color: #e6e7e9;
@@ -17,6 +18,11 @@ $dark:              darken($brand-original, 10%);
   background-size: auto 90%;
   background-repeat: no-repeat;
   background-position: 80% bottom;
+}
+
+.expanded.highlight {
+
+  padding-top: 20px;
 }
 
 #home-with-icon-background {
@@ -39,6 +45,9 @@ h1.logo {
 
 
 /* Spending proposals */
+
+
+
 .spending-proposals {
   background: $budget image-url('spending_proposals_bg.jpg');
   background-position: 50% 50%;
