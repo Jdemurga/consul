@@ -20,6 +20,16 @@ $dark:              darken($brand-original, 10%);
   background-position: 80% bottom;
 }
 
+
+tr.small > td {
+
+  vertical-align: top;
+  p {
+
+    font-size: 85% !important;
+  }
+}
+
 .expanded.highlight {
 
   padding-top: 20px;
