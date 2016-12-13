@@ -1,7 +1,7 @@
 class SpendingProposalsController < ApplicationController
   include FeatureFlags
 
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :results]
   before_action -> { flash.now[:notice] = flash[:notice].html_safe if flash[:html_safe] && flash[:notice] }
 
   load_and_authorize_resource
@@ -48,7 +48,20 @@ class SpendingProposalsController < ApplicationController
     set_spending_proposal_votes(@spending_proposal)
   end
 
+  def results
+    @geozone = daily_cache("geozone_geozone_#{params[:geozone_id]}") { (params[:geozone_id].blank? || params[:geozone_id] == 'all') ? nil : Geozone.find(params[:geozone_id]) }
+    @spending_proposals = SpendingProposal.feasible.valuation_finished
+    @spending_proposals = @spending_proposals.where(geozone_id: @geozone.id) if @geozone
+    
+
+    @incompatibles = []
+  end
+
   private
+
+    def daily_cache(key, &block)
+      Rails.cache.fetch("spending_proposals_results/#{Time.now.strftime("%Y-%m-%d")}/#{key}", &block)
+    end
 
     def spending_proposal_params
       params.require(:spending_proposal).permit(:title, :description, :external_url, :geozone_id, :association_name, :terms_of_service)

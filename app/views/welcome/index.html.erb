@@ -5,8 +5,13 @@
       <p>
         <%= t("layouts.header.open_city_slogan_html") %>&nbsp;
       </p>
-      <div class="small-12 medium-6">
-        <%= link_to t("layouts.header.about_participatory_budget"), 'participatory_budget/in_two_minutes', class: "button see-more expanded" %>
+      <div class="row">
+        <div class="small-12 medium-6 column">
+          <%= link_to t("layouts.header.about_participatory_budget"), 'participatory_budget/in_two_minutes', class: "button see-more expanded" %>
+        </div>
+        <div class="small-12 medium-6 column">
+          <%= link_to t("layouts.header.participatory_budget_results_2016"), participatory_budget_results_path, class: "button see-more expanded" %>
+        </div>
       </div>
     </div>
 

@@ -271,6 +271,8 @@ Rails.application.routes.draw do
   # static pages
   get '/blog' => redirect("http://blog.consul/")
 
+  # GET-24 Carga de resultados de 2016-06
+  get 'presupuestos-participativos-2016-resultados', to: 'spending_proposals#results', as: 'participatory_budget_results'
   # GET-17
   # GET-22
   get 'participatory_budget/in_two_minutes', to: 'pages#show', id: 'participatory_budget/in_two_minutes'
