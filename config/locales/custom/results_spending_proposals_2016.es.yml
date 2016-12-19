@@ -1,0 +1,16 @@
+es:
+  spending_proposals:
+    results:
+      page_title: "Presupuestos participativos | Resultados"
+      heading: "RESULTADO PRESUPUESTOS PARTICIPATIVOS 2016"
+      results_link: Resultados
+      stats_link: "Estadísticas de participación"
+      geozone_selection_title: "Ámbito de actuación"
+      spending_proposal: Título de la propuesta
+      hide_discarded_link: Ocultar descartadas
+      show_all_link: Mostrar todas
+      price: Coste
+      amount_available: Presupuesto disponible
+      incompatible: Incompatibles
+      accepted: "Propuesta de inversión aceptada: "
+      discarded: "Propuesta de inversión descartada: "

@@ -13,7 +13,7 @@ set :application, 'consul'
 set :full_app_name, deploysecret(:full_app_name)
 
 set :server_name, deploysecret(:server_name)
-set :repo_url, 'https://github.com/consul/consul.git'
+set :repo_url, 'https://github.com/pedroleon/consul.git'
 
 set :scm, :git
 set :revision, `git rev-parse --short #{fetch(:branch)}`.strip
@@ -22,7 +22,7 @@ set :log_level, :info
 set :pty, true
 set :use_sudo, false
 
-set :linked_files, %w{config/database.yml config/secrets.yml}
+set :linked_files, %w{config/database.yml config/secrets.yml config/puma_staging.rb config/application_custom.rb}
 set :linked_dirs, %w{log tmp public/system public/assets}
 
 set :keep_releases, 5
@@ -35,15 +35,15 @@ set(:config_files, %w(
   log_rotation
   database.yml
   secrets.yml
-  unicorn.rb
+  puma/staging.rb
 ))
 
 set :whenever_roles, -> { :app }
 
 namespace :deploy do
-  before :starting, 'rvm1:install:rvm'  # install/update RVM
-  before :starting, 'rvm1:install:ruby' # install Ruby and create gemset
-  before :starting, 'install_bundler_gem' # install bundler gem
+  #before :starting, 'rvm1:install:rvm'  # install/update RVM
+  #before :starting, 'rvm1:install:ruby' # install Ruby and create gemset
+  #before :starting, 'install_bundler_gem' # install bundler gem
 
   after :publishing, 'deploy:restart'
   after :published, 'delayed_job:restart'

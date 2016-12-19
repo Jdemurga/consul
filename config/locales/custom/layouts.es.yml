@@ -1,0 +1,33 @@
+es:
+  layouts:
+      footer:
+        accessibility: Accesibilidad
+        conditions: Condiciones de uso
+        consul: Consul
+        consul_url: https://github.com/consul/consul
+        contact_us: Puedes consultar las preguntas más frecuentes sobre el uso de este portal aquí
+        copyright: Ayuntamiento de Getafe, %{year}
+        description: es una adaptación de la plataforma %{open_source} %{consul} desarrollada por el Ayuntamiento de Madrid y adaptada por el Ayuntamiento de Getafe.
+        faq: Asistencia técnica
+        more_info: Más información
+        open_data_text: Todos los datos del Ayuntamiento son tuyos.
+        open_data_title: Datos Abiertos
+        open_source: software libre
+        open_source_url: http://www.gnu.org/licenses/agpl-3.0.html
+        participation_text: Decide cómo debe ser la ciudad que quieres.
+        participation_title: Participación
+        privacy: Política de privacidad
+        transparency_text: Obtén cualquier información sobre la ciudad.
+        transparency_title: Transparencia
+        transparency_url: https://transparencia.getafe.es
+      header:
+        about_participatory_budget: 'Más información'
+        participatory_budget_results_2016: 'Presupuestos 2016'
+        external_link_transparency_url: https://transparencia.getafe.es
+        logo: Getafe Participa
+        open_city_slogan_html: <strong>Si eres vecino o vecina de Getafe</strong> y tienes más de 16 años, <strong>tú puedes decidir</strong> en qué se invierte el dinero en tu barrio.
+        open_city_title: Tú decides cómo invertir en tu ciudad
+        spending_proposals: Presupuestos participativos
+  shared:
+        outline:
+          budget: Presupuestos participativos
