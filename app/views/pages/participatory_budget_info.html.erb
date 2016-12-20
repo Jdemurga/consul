@@ -793,21 +793,29 @@ cualitativa de las mismas con sustantividad propia.
 
           <li>¿Has puesto el DNI o documento con todos los caracteres juntos, incluyendo la letra al final?</li>
           <li>¿Estás seguro que estás empadronado en Getafe? Quizás hay algún problema con tus datos en el registro de empadronamiento. Consulta en tu oficina de atención al vecino más cercana y confirma que tu información del Padrón es correcta.</li>
-          <li>Si todos los pasos anteriores no solucionan el problema, puedes enviarnos un correo electrónico a suport@consul.getafe.es   (o la dirección que sea).</li>
+          <li>Si todos los pasos anteriores no solucionan el problema, puedes enviarnos un correo electrónico a <%= link_to setting['support_email'], "emailto:#{setting['support_email']}" %> (o la dirección que sea).</li>
         </ul>
 
-
       </p>
 
-      <h3 id="3-13"></h3>
+      <h3 id="3-13">No recuerdo mi contraseña, ¿qué puedo hacer?</h3>
       <p>
-
+        Se puede solicitar una nueva contraseña siguiendo los pasos que se enviarán a tu correo electrónico al hacer clic en <i>"<%= link_to '¿Has olvidado tu contraseña?',  new_user_password_path %>"</i>.
       </p>
 
-      <h3 id="3-"></h3>
+      <h3 id="3-14">¿Cómo me registro en <%= setting['org_name']%>?</h3>
       <p>
-
+          Es tan sencillo como rellenar los datos que se piden en la sección <i><%=  link_to 'Registrarse', new_user_registration_path %></i>. Posteriormente deberás validar la cuenta con el código que se te enviará a tu teléfono móvil o email. Ten en cuenta que si estos datos no están actualizados en tu padrón, no te llegarán correctamente.
       </p>
 
+      <h3 id="3-15">¿Cómo registro mi asociación o colectivo?</h3>
+
+        Como se explica en <i>“<a href="#3-4">¿Pueden proponer asociaciones o colectivos?”</a></i> para que las asociaciones o colectivos puedan proponer, una persona física lo tiene que hacer en su nombre.
+      </p>
+
+      <h3 id="3-16">¿Cómo puedo cambiar mi dirección electrónica, mi nombre de usuario, la contraseña, darme de baja o activar o desactivar las notificaciones que me llegan al correo electrónico?</h3>
+      <p>
+        Haz clic en el enlace <i>"<%= link_to 'Entrar', new_user_session_path %>"</i>, introduce tu dirección electrónica y la contraseña, y pulsa el botón "Entra". Una vez hecho esto, haz clic en el enlace <i>"<%= link_to 'Mi cuenta', account_path %>"</i>, donde encontrarás todas las opciones que te permitirán cambiar tu dirección electrónica, nombre de usuario, contraseña, darte de baja o activar o desactivar las notificaciones. Una vez hecho el cambio adecuado, asegúrate de hacer clic al botón "guardar los cambios".
+      </p>
   </div>
 </div>
