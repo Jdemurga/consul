@@ -1,7 +1,13 @@
 # coding: utf-8
 # Default admin user (change password after first deploy to a server!)
+
+
+admin_password = Rails.application.secrets.consul_admin_default_pass
+admin_email = Rails.application.secrets.consul_admin_default_email
+raise "Not administrator password or email suplied, please configure it" unless admin_password|| admin_email
+
 if Administrator.count == 0 && !Rails.env.test?
-  admin = User.create!(username: 'admin_getafe', email: 'admin-consul@getafe.es', password: '@Getafe10%', password_confirmation: '@Getafe10%', confirmed_at: Time.current, terms_of_service: "1")
+  admin = User.create!(username: 'admin_getafe', email: admin_email, password: admin_password, password_confirmation: admin_password, confirmed_at: Time.current, terms_of_service: "1")
   admin.create_administrator
 end
 
@@ -12,6 +18,9 @@ Setting["official_level_2_name"] = "Organización Municipal"
 Setting["official_level_3_name"] = "Directores generales"
 Setting["official_level_4_name"] = "Concejales"
 Setting["official_level_5_name"] = "Alcaldesa"
+
+
+Setting["support_email"] = "participa@getafe.es"
 
 # Max percentage of allowed anonymous votes on a debate
 Setting["max_ratio_anon_votes_on_debates"] = 50

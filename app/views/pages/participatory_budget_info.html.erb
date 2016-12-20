@@ -9,6 +9,15 @@
     <ul class="vertical menu clear">
       <li>
         <p>
+          <a href="#0"><strong>Más información</strong></a>
+          <ul class="vertical menu clear">
+            <li><a href="#0-1">¿Qué es <%= setting['org_name'] %>?</a></li>
+            <li><a href="#0-2">¿Qué puedo hacer con <%= setting['org_name'] %>?</a></li>
+          </ul>
+        </p>
+      </li>
+      <li>
+        <p>
           <a href="#1"><strong>Explicación detallada del proceso</strong></a>
         </p>
       </li>
@@ -57,17 +66,60 @@
           <li><a href="#3-9">¿Puede un proponente ejecutar su propuesta?</a></li>
           <li><a href="#3-10">Si no tengo acceso a internet, ¿cómo puedo proponer y votar?</a></li>
           <li><a href="#3-11">¿Cómo va a controlarse que cada persona vote una única vez por propuesta?</a></li>
+          <li><a href="#3-12">No me funciona la verificación de residencia</a></li>
+          <li><a href="#3-13">No recuerdo mi contraseña, ¿qué puedo hacer?</a></li>
+          <li><a href="#3-14">¿Cómo me registro en Participa Getafe?</a></li>
+          <li><a href="#3-15">¿Cómo registro mi asociación o colectivo?</a></li>
+          <li><a href="#3-16">¿Cómo puedo cambiar mi dirección electrónica, mi nombre de usuario, la contraseña, darme de baja o activar o desactivar las notificaciones que me llegan al correo electrónico?</a></li>
         </ul>
       </li>
     </ul>
   </div>
 
   <div class="text small-12 medium-9 column">
+    <h2 id="0">Más información sobre <%=  setting['org_name']%></h2>
+    <p>
+      Regístrate para entrar en los distintos procesos participativos. Con “<%=  link_to setting['org_name'], root_path %>” podrás crear propuestas para tu municipio, interaccionar con otras y votar las propuestas del barrio que elijas, podrás dar tu opinión y votar en distintas consultas ciudadanas.
+    </p>
+    <h3 id="0-1">¿Qué es <%= setting['org_name'] %>?</h3>
+    <p>
+      <strong>Una plataforma para decidir el Getafe que queremos</strong>
+    </p>
+    <p>
+      Es una herramienta de participación on-line que se pone a disposición de los vecinos y vecinas de Getafe, que complementa el trabajo presencial de los barrios. Con ella se quiere fomentar un espacio de construcción colectiva de nuestra ciudad.
+    </p>
+
+    <h3 id="0-2">¿Qué puedo hacer en <%= setting['org_name'] %>?</h3>
+
+    <h4>Informarme</h4>
+    <ul>
+      <li>Consultar los procesos participativos.</li>
+      <li>Navegar por las propuestas más recientes, las más valoradas.</li>
+      <li>Filtrar los contenidos que te interesen en función de variables como Barrio, temas o etiquetas.</li>
+    </ul>
+
+    <h4>Participar</h4>
+    <ul>
+      <li>Hacer propuestas nuevas</li>
+      <li>Interaccionar con las propuestas existentes, tanto las del Ayuntamiento como las ciudadanas.</li>
+      <li>Opinar en las consultas ciudadanas.</li>
+    </ul>
+
+    <h4>Apoyar las propuestas</h4>
+    <ul>
+      <li>Comparte las propuestas en las redes sociales.</li>
+      <li>Haz seguimiento de las propuestas.</li>
+      <li>Conoce las fechas de las distintas Comisiones de Barrio.</li>
+      <li>Marca una propuesta y sigue toda la evolución.</li>
+    </ul>
+
+    <hr>
+
     <h2 id="1">Explicación detallada del proceso</h2>
     <!-- GET-22 -->
     <p>El <%= link_to 'Ayuntamiento de Getafe', 'http://getafe.es', target: '_blank' %> ha dotado con <strong>3.432.00 euros</strong> a los presupuestos participativos para que la ciudadanía decida su destino.
 La cantidad se dividirá en dos partes: 3.300.000 euros que se destinarán a propuestas de inversiones, y 132.000 euros destinados a propuestas de programas.  
-	Cada uno de los once barrios tendrá la misma cantidad para los dos tipos de propuestas: 300.000 euros para inversiones y 12.000 euros para programas.</p
+	Cada uno de los once barrios tendrá la misma cantidad para los dos tipos de propuestas: 300.000 euros para inversiones y 12.000 euros para programas.</p>
 
     <p>El procedimiento <strong>se iniciará el 16 de enero</strong>, y estará <strong>divido en cuatro etapas</strong>:</p>
 
@@ -734,12 +786,20 @@ cualitativa de las mismas con sustantividad propia.
         Las votaciones presenciales en las dependencias municipales están controladas porque la persona tiene que presentar su DNI. Para la votación a través de Internet se verifica que la cuenta de usuario corresponde a un único ciudadano/a. Para ello se le facilita un código personal seguro de verificación de la cuenta que se comunica a través de canales de comunicación privados, como son teléfonos móviles que constan en el Ayuntamiento que pertenecen a la persona adecuada, o por correo a través del buzón que figura en la dirección de empadronamiento. De esta forma nos aseguramos de que sólo esa persona ha recibido el código. En caso de que dichos medios de comunicación no estén disponibles se solicitará a la persona que acuda presencialmente a alguna de las Oficinas de Atención al Ciudadano, para obtener su código.
       </p>
 
-      <h3 id="3-12"></h3>
+      <h3 id="3-12">No me funciona la verificación de residencia</h3>
       <p>
+        Comprueba las siguientes posibilidades:
+        <ul>
+
+          <li>¿Has puesto el DNI o documento con todos los caracteres juntos, incluyendo la letra al final?</li>
+          <li>¿Estás seguro que estás empadronado en Getafe? Quizás hay algún problema con tus datos en el registro de empadronamiento. Consulta en tu oficina de atención al vecino más cercana y confirma que tu información del Padrón es correcta.</li>
+          <li>Si todos los pasos anteriores no solucionan el problema, puedes enviarnos un correo electrónico a suport@consul.getafe.es   (o la dirección que sea).</li>
+        </ul>
+
 
       </p>
 
-      <h3 id="3-"></h3>
+      <h3 id="3-13"></h3>
       <p>
 
       </p>
