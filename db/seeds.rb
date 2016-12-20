@@ -22,6 +22,9 @@ Setting["official_level_5_name"] = "Alcaldesa"
 
 Setting["support_email"] = "participa@getafe.es"
 Setting["official_email"] = "presupuestos.participativos@ayto-getafe.org"
+Setting["twitter_handle"] = "participagetafe"
+Setting["facebook_handle"] = "ParticipaGetafe-1455484134478988"
+
 
 # Max percentage of allowed anonymous votes on a debate
 Setting["max_ratio_anon_votes_on_debates"] = 50
