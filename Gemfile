@@ -17,7 +17,7 @@ gem 'coffee-rails', '~> 4.2.1'
 gem 'jquery-rails', '~> 4.2.1'
 gem 'jquery-ui-rails', '5.0.5'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '2.5.3'
 
 # Fix sprockets on the
 gem 'sprockets', '~> 3.7.0'
