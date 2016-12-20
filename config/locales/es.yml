@@ -166,11 +166,11 @@ es:
     footer:
       accessibility: Accesibilidad
       conditions: Condiciones de uso
-      consul: aplicación Consul
+      consul: Consul
       consul_url: https://github.com/consul/consul
-      contact_us: Para asistencia técnica entra en
+      contact_us: Puedes consultar las preguntas más frecuentes sobre el uso de este portal aquí
       copyright: Consul, %{year}
-      description: Este portal usa la %{consul} que es %{open_source}.
+      description: es una adaptación de la plataforma %{open_source} %{consul} desarrollada por el Ayuntamiento de Madrid y adaptada por el Ayuntamiento de Getafe.
       faq: Asistencia técnica
       more_info: Más información
       open_data_text: Todos los datos del Ayuntamiento son tuyos.
