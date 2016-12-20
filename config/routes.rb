@@ -280,6 +280,7 @@ Rails.application.routes.draw do
   get 'participatory_budget/in_two_minutes', to: 'pages#show', id: 'participatory_budget/in_two_minutes'
   get 'participatory_budget', to: 'spending_proposals#welcome', as: 'participatory_budget'
   get 'more_information', to: 'pages#show', as: 'mode_information', id: 'participatory_budget_info'
+  get 'about_neighborhood_commissions', to: 'pages#show', as: 'sobre-comisiones-barrio', id: 'about_neighborhood_commissions'
 
   resources :pages, path: '/', only: [:show]
 end
