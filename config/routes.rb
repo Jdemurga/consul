@@ -271,7 +271,7 @@ Rails.application.routes.draw do
   mount Tolk::Engine => '/translate', :as => 'tolk'
 
   # static pages
-  get '/blog' => redirect("http://blog.consul/")
+  get '/blog' => redirect("http://getafe.es/")
 
   # GET-24 Carga de resultados de 2016-06
   get 'presupuestos-participativos-2016-resultados', to: 'spending_proposals#results', as: 'participatory_budget_results'
