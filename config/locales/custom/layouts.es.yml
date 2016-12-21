@@ -1,4 +1,12 @@
 es:
+  geozones:
+    none: Toda la ciudad
+    all: Todos los ámbitos
+  map:
+    title: "Barrios"
+    proposal_for_district: "Crea una propuesta para tu barrio"
+    select_district: "Ámbito de actuación"
+    start_proposal: Crea una propuesta
   layouts:
       footer:
         accessibility: Accesibilidad
@@ -24,10 +32,16 @@ es:
         about_participatory_budget: 'Más información'
         participatory_budget_results_2016: 'Presupuestos 2016'
         external_link_transparency_url: https://transparencia.getafe.es
-        logo: Getafe Participa
-        open_city_slogan_html: Es una <strong>herramienta de participación on-line que se pone a disposición de los vecinos y vecinas de Getafe</strong>, que complementa el trabajo presencial de los barrios. Con ella se quiere fomentar un espacio de construcción colectiva de nuestra ciudad.
+        logo: Participa Getafe
+        open_city_slogan_html: Es una herramienta de participación on-line que se pone a disposición de los vecinos y vecinas de Getafe, que complementa el trabajo presencial de los barrios. Con ella se quiere fomentar un espacio de construcción colectiva de nuestra ciudad
         open_city_title: PARTICIPA GETAFE
-        spending_proposals: Presupuestos participativos
+        participatory_budgets_2017: Presupuestos participativos 2017
+        participatory_budgets_2016: Presupuestos Participativos 2016
   shared:
         outline:
           budget: Presupuestos participativos
+        tags_cloud:
+              tags: Tendencias
+              districts: "Barrios"
+              districts_list: "Listado de barrios"
+              categories: "Categorías"

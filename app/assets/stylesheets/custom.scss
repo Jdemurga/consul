@@ -9,12 +9,22 @@ $brand:             #B80830;
 $brand-original:    #004A83;
 $dark:              darken($brand-original, 10%);
 
+body, html {
 
+  text-rendering: optimizeLegibility;
+  text-rendering: geometricPrecision;
+  font-smooth: always;
+
+  font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
 
 h1, h2, h3, h4, h5 {
 
-  font-weight: lighter !important;
   text-transform: uppercase;
+  font-weight: lighter !important;
 }
 
 /* In two minutes pages */

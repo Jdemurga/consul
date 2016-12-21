@@ -1,21 +1,21 @@
-<div class="small-12 medium-9 column">
+<div class="small-12 medium-12 column">
   <ul>
     <% if feature?(:debates) %>
       <li>
         <%= link_to t("layouts.header.debates"), debates_path, class: ("active" if controller_name == "debates"), accesskey: "d" %>
       </li>
     <% end %>
+    <% if feature?(:proposals) %>
     <li>
       <%= link_to t("layouts.header.proposals"), proposals_path, class: ("active" if  controller_name == "proposals"), accesskey: "p" %>
     </li>
-    <li>
-      <%= link_to t("layouts.header.proposal_ballot"), proposal_ballots_path, class: ("active" if  controller_name == "proposal_ballots"), accesskey: "v" %>
-    </li>
-    <% if feature?(:spending_proposals) %>
-      <li>
-        <%= link_to t("layouts.header.spending_proposals"), spending_proposals_path, class: ("active" if controller_name == "spending_proposals"), accesskey: "s" %>
-      </li>
     <% end %>
+    <li>
+      <%= link_to t("layouts.header.participatory_budgets_2017"), page_path('participatory_budget/in_two_minutes'), class: ("active" if current_page?("/participatory_budget_results")), accesskey: "p"  %>
+    </li>
+    <li>
+      <%= link_to t("layouts.header.participatory_budgets_2016"), page_path('participatory_budget_results'), class: ("active" if current_page?("/participatory_budget_results")), accesskey: "i"  %>
+    </li>
     <li>
       <%= link_to t("layouts.header.more_information"), page_path('more_information'), class: ("active" if current_page?("/more_information")), accesskey: "i"  %>
     </li>

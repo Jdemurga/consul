@@ -97,16 +97,16 @@ Setting['direct_message_max_per_day'] = 3
 
 
 puts "Creating Geozones"
+alhondiga = Geozone.create(name: "Alhóndiga")
+bercial = Geozone.create(name: "Bercial")
+buenavista = Geozone.create(name: "Buenavista")
 centro = Geozone.create(name: "Centro")
 norte = Geozone.create(name: "Getafe Norte")
-alhondiga = Geozone.create(name: "Alhóndiga")
-perales = Geozone.create(name: "Perales del Río")
 cierva = Geozone.create(name: "Juan de la Cierva")
-bercial = Geozone.create(name: "Bercial")
-margaritas = Geozone.create(name: "Margaritas")
-isidro = Geozone.create(name: "San Isidro")
-buenavista = Geozone.create(name: "Buenavista")
 molinos = Geozone.create(name: "Los Molinos")
+margaritas = Geozone.create(name: "Margaritas")
+perales = Geozone.create(name: "Perales del Río")
+isidro = Geozone.create(name: "San Isidro")
 sector3 = Geozone.create(name: "Sector III")
 
 puts "Creating Tags Categories"

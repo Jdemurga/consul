@@ -277,10 +277,10 @@ Rails.application.routes.draw do
   get 'presupuestos-participativos-2016-resultados', to: 'spending_proposals#results', as: 'participatory_budget_results'
   # GET-17
   # GET-22
-  get 'participatory_budget/in_two_minutes', to: 'pages#show', id: 'participatory_budget/in_two_minutes'
+  get 'presupuestos-participativos-2017', to: 'pages#show', id: 'participatory_budget/in_two_minutes'
   get 'participatory_budget', to: 'spending_proposals#welcome', as: 'participatory_budget'
   get 'more_information', to: 'pages#show', as: 'mode_information', id: 'more_information'
-  get 'about_neighborhood_commissions', to: 'pages#show', as: 'sobre-comisiones-barrio', id: 'about_neighborhood_commissions'
+  get 'comisiones-de-barrio', to: 'pages#show', as: 'about_neighborhood_commissions', id: 'about_neighborhood_commissions'
 
   resources :pages, path: '/', only: [:show]
 end
