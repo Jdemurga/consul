@@ -1,39 +1,45 @@
-<% provide :title do %><%= t('participatory_budget.in_two_minutes.title_page') %><% end %>
-<% provide :social_media_meta_tags do %>
-    <%= render "shared/social_media_meta_tags_participatory_budget" %>
-<% end %>
+<% provide :title do %><%= t('public_consultation.about.title_page') %><% end %>
 <div class="expanded spending-proposals">
   <div class="row no-margin-top">
     <div class="small-12 column text-center">
-      <h1><%= t('participatory_budget.in_two_minutes.title_html') %></h1>
+      <h1><%= t('public_consultation.about.title_html') %></h1>
+      <br><br><br>
     </div>
+  </div>
+</div>
 
-    <div class="small-12 column spending-proposal-timeline text-center">
-      <ul class="no-bullet">
-        <li>
-          <i class="icon-calendar"></i>
-          <p class="title"><%= t('participatory_budget.in_two_minutes.date_1_info') %></p>
-          <p><%= t('participatory_budget.in_two_minutes.date_1') %></p>
-        </li>
+<div class="row margin-top">
+  <div class="small-12 column text-center">
+    <h2>Consultas Ciudadanas en Getafe</h2>
+    <%= link_to "Ver la primera Propuesta Ciudadana publicada en Participa Getafe", page_path('public_consultation_1') %>&nbsp;
 
-        <li>
-          <i class="icon-calendar"></i>
-          <p class="title"><%= t('participatory_budget.in_two_minutes.date_2_info') %></p>
-          <p><%= t('participatory_budget.in_two_minutes.date_2') %></p>
-        </li>
+  </div>
+</div>
 
-        <li>
-          <i class="icon-calendar"></i>
-          <p class="title"><%= t('participatory_budget.in_two_minutes.date_3_info') %></p>
-          <p><%= t('participatory_budget.in_two_minutes.date_3') %></p>
-        </li>
 
-        <li>
-          <i class="icon-calendar"></i>
-          <p class="title"><%= t('participatory_budget.in_two_minutes.date_4_info') %></p>
-          <p><%= t('participatory_budget.in_two_minutes.date_4') %></p>
-        </li>
-      </ul>
+<div class="spending-proposals-text">
+  <div class="row margin">
+    <div class="small-12 medium-6 column">
+      <h3>¿Qué son las consultas ciudadanas?</h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultrices, nibh non dapibus congue, odio diam euismod tellus, ut iaculis eros dui quis massa. Donec lorem nisl.
+      </p>
+      <br>
+      <h3>¿Cómo hago llegar mi opinión?</h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultrices, nibh non dapibus congue, odio diam euismod tellus, ut iaculis eros dui quis massa. Donec lorem nisl, egestas ut vestibulum vitae, tincidunt ac lectus. Pellentesque tincidunt gravida dui, in luctus ligula viverra a. Curabitur nibh est, dictum id est eu, maximus eleifend tellus. Aenean malesuada massa ac nulla sodales iaculis. Morbi egestas gravida elementum. Vivamus fringilla ex purus, et hendrerit libero varius sed. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In nec mauris neque. Fusce eu euismod lorem, in rutrum ligula. In id sem scelerisque, laoreet mi cursus, fringilla arcu. Aenean posuere in odio a posuere. Ut facilisis ut.
+      </p>
+
+    </div>
+    <div class="small-12 medium-4 medium-offset-1 column box">
+      <h3>Título de la Primera consulta ciudadana</h3>
+      <h5>Objetivo de la consulta</h5>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultrices, nibh non dapibus congue, odio diam euismod tellus, ut iaculis eros dui quis massa. Donec lorem nisl.
+      </p>
+      <p>
+        <%= link_to 'Ir a la consulta', page_path('public_consultation_1'), class: 'button big primary expanded see-more' %>
+      </p>
     </div>
   </div>
 </div>
