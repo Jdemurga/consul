@@ -1,0 +1,39 @@
+<% provide :title do %><%= t('participatory_budget.in_two_minutes.title_page') %><% end %>
+<% provide :social_media_meta_tags do %>
+    <%= render "shared/social_media_meta_tags_participatory_budget" %>
+<% end %>
+<div class="expanded spending-proposals">
+  <div class="row no-margin-top">
+    <div class="small-12 column text-center">
+      <h1><%= t('participatory_budget.in_two_minutes.title_html') %></h1>
+    </div>
+
+    <div class="small-12 column spending-proposal-timeline text-center">
+      <ul class="no-bullet">
+        <li>
+          <i class="icon-calendar"></i>
+          <p class="title"><%= t('participatory_budget.in_two_minutes.date_1_info') %></p>
+          <p><%= t('participatory_budget.in_two_minutes.date_1') %></p>
+        </li>
+
+        <li>
+          <i class="icon-calendar"></i>
+          <p class="title"><%= t('participatory_budget.in_two_minutes.date_2_info') %></p>
+          <p><%= t('participatory_budget.in_two_minutes.date_2') %></p>
+        </li>
+
+        <li>
+          <i class="icon-calendar"></i>
+          <p class="title"><%= t('participatory_budget.in_two_minutes.date_3_info') %></p>
+          <p><%= t('participatory_budget.in_two_minutes.date_3') %></p>
+        </li>
+
+        <li>
+          <i class="icon-calendar"></i>
+          <p class="title"><%= t('participatory_budget.in_two_minutes.date_4_info') %></p>
+          <p><%= t('participatory_budget.in_two_minutes.date_4') %></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
