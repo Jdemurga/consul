@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213213421) do
+ActiveRecord::Schema.define(version: 20161221174824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -349,6 +349,10 @@ ActiveRecord::Schema.define(version: 20161213213421) do
     t.tsvector "tsv"
     t.string   "responsible_name",            limit: 60
     t.integer  "physical_votes",                          default: 0
+    t.string   "spending_type"
+    t.date     "phase_pre_bidding_at"
+    t.date     "phase_in_bidding_at"
+    t.date     "phase_in_progress_at"
   end
 
   add_index "spending_proposals", ["author_id"], name: "index_spending_proposals_on_author_id", using: :btree

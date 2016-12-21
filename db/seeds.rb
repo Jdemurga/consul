@@ -244,20 +244,12 @@ SpendingProposal.create(
 Adecuación de sendas.
 </li>
 <li>
-Implementación de mobiliario urbano (mesas de ajedrez, sombra artificial en determinados lugares con implementación de bancos,...)
+Ampliación de zona infantil con juegos inclusivos.
 </li>
 <li>
-Zona deportiva Cross Fitt con vallado perimetral.
+Zona deportiva Cross Fitt-Work Out
 </li>
-<li>
-Zona deportiva y recreativa con elementos adaptados.
-</li>
-<li>
-Adecuación del Campo de Beisbol situado tras el Complejo Deportivo Municipal Alhóndiga-Sector III.
-</li>
-<li>
-Adecuación del lago para posibilitar la pesca deportiva y la instalación de un Cable-esquí.
-</li>
+
 </ul>',
     external_url: 'http://getafe.es/wp-content/uploads/prepar16_alhondiga_inv_6.pdf',
     price: 100000,
@@ -290,7 +282,7 @@ SpendingProposal.create(
     created_at: '2016-06-31', valuation_finished: true )
 
 SpendingProposal.create(
-    title: 'Instalación de columpios impulsivos',
+    title: 'Instalación de columpios inclusivos',
     geozone: alhondiga,
     description: '<strong>ALH-INV-03</strong><p>Adaptación completa o parcial de las Zonas Infantiles del Barrio equipándolas con columpios inclusivos para infancia con movilidad reducida temporal o permanente y sin ninguna dificultad de movilidad. Dotar de pavimento en el que la movilidad de una silla de ruedas sea posible. Equipación adicional de las siguientes áreas:</p>
     <ul><li>Plaza Príncipe de Vergara</li><li>Plaza Rufino Castro</li><li>C/ Alondra con Paseo Alonso de Mendoza</li><li>Plaza Tirso de Molina</li><li>C/ Cóndor con Paseo Alonso de Mendoza</li><li> Plaza colindante con C/ Fray Diego Ruiz, Pintor Rosales y Alonso de Mendoza</li><li>Plaza Greco</li></ul>',
@@ -371,9 +363,9 @@ created_at: '2016-06-31', valuation_finished: true )
 
 # PERALES
 SpendingProposal.create(
-title: 'Equipamiento escenario centro cultural del barrio',
+title: 'Biblioteca',
 geozone: perales,
-description: '<strong>PR-INV-05 Y OTROS</strong><p>Dotar al escenario del Centro Cultural de telón y cortinajes, habilitar espacio de escena y tras escena, juego de luces, tramoya, equipo de sonido y posibilidad de oscurecer el Patio de Butacas.</p>',
+description: '<strong>PR-INV-06</strong><p>Realización de las actuaciones necesarias para tener una Biblioteca con todas las prestaciones en el Centro Cívico del Barrio.</p>',
 external_url: 'http://getafe.es/wp-content/uploads/prepar16_perales_inv_2.pdf',
 price: 50000,
 author_id: admin.id,
@@ -384,8 +376,8 @@ created_at: '2016-06-31', valuation_finished: true )
 SpendingProposal.create(
     title: 'Ampliación superficies deportivas anexas al campo de fútbol',
     geozone: perales,
-    description: '<strong>PR-INV-09 Y OTROS</strong><p>Varios proponentes vecinos del Barrio de Perales del Río proponen la construcción de pistas deportivas anexas al Campo de Fútbol ya existente en este orden de prelación:</p>
-    <ul><li>Pistas de Pádel</li><li>Pistas de Tenis</li><li>Skate Park</li></ul>',
+    description: '<strong>PR-INV-09 Y OTROS</strong><p>Vecinos del Barrio de Perales del Río proponen la construcción de pistas deportivas anexas al Campo de Fútbol ya existente en este orden de prelación:</p>
+    <ol><li>Skate Park</li><li>Pistas de Pádel</li><li>Pistas de Tenis</li></ol>',
     external_url: 'http://getafe.es/wp-content/uploads/prepar16_perales_inv_4.pdf',
     price: 255354.01,
     author_id: admin.id,
@@ -430,9 +422,9 @@ terms_of_service: '1',
 created_at: '2016-06-31', valuation_finished: true )
 
 SpendingProposal.create(
-title: 'Programación estable cultural en época primaveral y estival dirigido al público familiar',
+title: 'Programa de convivencia y educación de calle',
 geozone: cierva,
-description: '<strong>JC-PRO-05</strong><p>Se establecen dos líneas de trabajo:</p><ul><li> Reducción y gestión de los conflictos interpersonales, grupales y entre organizaciones presentes en el desarrollo de la convivencia de las actividades del Centro Cívico</li><li>Apoyo, identificación y trabajo de calle para las situaciones de bulling y acoso escolar en medio abierto de los centros IES Laguna de Joatzel e IES Satafi. Trabajo en los espacios externos del centro</li></ul>',
+description: '<strong>JC-PRO-05</strong><p>Se establecen dos líneas de trabajo:</p><ul><li>Reducción y gestión de los conflictos interpersonales, grupales y entre organizaciones presentes en el desarrollo de la convivencia de las actividades del Centro Cívico</li><li>Apoyo, identificación y trabajo de calle para las situaciones de bulling y acoso escolar en medio abierto de los centros IES Laguna de Joatzel e IES Satafi. Trabajo en los espacios externos del centro.</li></ul>',
 external_url: 'http://getafe.es/wp-content/uploads/prepar16_jcierva_pro_1.pdf',
 price: 12000,
 author_id: admin.id,
@@ -505,7 +497,7 @@ created_at: '2016-06-31', valuation_finished: true )
 SpendingProposal.create(
 title: 'Ampliación zona deportiva EQ8',
 geozone: molinos,
-description: '<strong>LM-INV-05</strong><p>Se propone ampliar la zona deportiva de la Parcela EQ8, complementándola con juegos deportivos cómo mesas fijas de Pin Pon o Ajedrez.</p>',
+description: '<strong>LM-INV-05</strong><p>Se implementará con pista de patinaje, mesas de pin pon y ajedrez.</p>',
 external_url: 'http://getafe.es/wp-content/uploads/prepar16_molinos_inv_4.pdf',
 price: 220000,
 author_id: admin.id,
@@ -537,8 +529,8 @@ created_at: '2016-06-31', valuation_finished: true )
 
 SpendingProposal.create(
 title: 'Proceso participado',
-geozone: buenavista,
-description: 'Sin especificar',
+geozone: molinos,
+description: '<ol><li>Difusión</li><li>Actividades lúdicas</li><li>Talleres</li><li>Celebración</li></ol>',
 external_url: nil,
 price: 5000,
 author_id: admin.id,
@@ -551,7 +543,7 @@ created_at: '2016-06-31', valuation_finished: true )
 SpendingProposal.create(
 title: 'Propuesta mixta',
 geozone: buenavista,
-description: '<strong></strong><p></p>',
+description: '<strong></strong><p>Pista polideportiva en parcela ZV3, columpios aislados, techado de pérgolas, juegos pintados en pavimento y pavimentado de zona infantil.</p>',
 external_url: 'http://getafe.es/areas-de-gobierno/area-social/participacion-ciudadana/actuaciones/presupuestos-participativos/proceso-de-votaciones-de-presupuestos-participativos-mayo-junio-2016/presupuestos-participativos-propuestas-aceptadas-buenavista/',
 price: 220000,
 author_id: admin.id,
@@ -562,7 +554,7 @@ created_at: '2016-06-31', valuation_finished: true )
 SpendingProposal.create(
 title: 'Arreglo de las gradas de madera',
 geozone: buenavista,
-description: '<strong>BUE-INV-31</strong><p>Arreglo de las gradas de madera de la plaza sita entre las calles María Lejárraga, José Giral, Santiago Casares y Federico Melchor.</p>',
+description: '<strong>BUE-INV-31</strong><p>Arreglo de las gradas de madera de la plaza sita entre las calles María Lejárraga, José Giral, Santiago Casares y Federico Melchor. Acabado en madera tecnológica.</p>',
 external_url: 'http://getafe.es/wp-content/uploads/prepar16_buenavista_inv_10.pdf',
 price: 60000,
 author_id: admin.id,
@@ -586,7 +578,7 @@ created_at: '2016-06-31', valuation_finished: true )
 SpendingProposal.create(
 title: 'Adecuación de huerto urbano educativo y aula en la naturaleza',
 geozone: sector3,
-description: '<strong>S3-INV-10</strong><p>Se propone la creación de un huerto urbano colaborativo con implementación de talleres para divulgar conocimientos relativos al medio ambiente y el uso sostenible de recursos.</p>',
+description: '<strong>S3-INV-10</strong><p>Se propone la creación de un invernadero y huerto educativo con implementación de talleres para divulgar conocimientos relativos al medio ambiente y el uso sostenible de recursos.</p>',
 external_url: 'http://getafe.es/wp-content/uploads/prepar16_sector3_inv_2.pdf',
 price: 125000,
 author_id: admin.id,

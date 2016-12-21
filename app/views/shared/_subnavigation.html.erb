@@ -11,10 +11,10 @@
     </li>
     <% end %>
     <li>
-      <%= link_to t("layouts.header.participatory_budgets_2017"), page_path('participatory_budget/in_two_minutes'), class: ("active" if current_page?("/participatory_budget_results")), accesskey: "p"  %>
+      <%= link_to t("layouts.header.participatory_budgets_2017"), page_path('participatory_budget/in_two_minutes'), class: ("active" if current_page?("/participatory_budget/in_two_minutes")), accesskey: "p"  %>
     </li>
     <li>
-      <%= link_to t("layouts.header.participatory_budgets_2016"), participatory_budget_results_path, class: ("active" if current_page?("/participatory_budget_results")), accesskey: "i"  %>
+      <%= link_to t("layouts.header.participatory_budgets_2016"), participatory_budget_results_path, class: ("active" if current_page?(participatory_budget_results_path)), accesskey: "i"  %>
     </li>
     <li>
       <%= link_to t("layouts.header.public_consultation"), page_path('public_consultation'), class: ("active" if current_page?("/public_consultation")), accesskey: "a"  %>
