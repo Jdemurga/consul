@@ -275,11 +275,12 @@ Rails.application.routes.draw do
 
   # GET-24 Carga de resultados de 2016-06
   get 'presupuestos-participativos-2016-resultados', to: 'spending_proposals#results', as: 'participatory_budget_results'
+
   # GET-17
   # GET-22
   get 'presupuestos-participativos-2017', to: 'pages#show', id: 'participatory_budget/in_two_minutes'
   get 'participatory_budget', to: 'spending_proposals#welcome', as: 'participatory_budget'
-  get 'more_information', to: 'pages#show', as: 'mode_information', id: 'more_information'
+  get 'informacion-detallada-participa-getage', to: 'pages#show', as: 'mode_information', id: 'more_information'
   get 'comisiones-de-barrio', to: 'pages#show', as: 'about_neighborhood_commissions', id: 'about_neighborhood_commissions'
 
   resources :pages, path: '/', only: [:show]

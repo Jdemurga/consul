@@ -82,14 +82,10 @@ Setting['feature.public_stats'] = false
 Setting['feature.spending_proposal_features.voting_allowed'] = false
 
 # Banner styles
-Setting['banner-style.banner-style-one']   = "Banner style 1"
-Setting['banner-style.banner-style-two']   = "Banner style 2"
-Setting['banner-style.banner-style-three'] = "Banner style 3"
+Setting['banner-style.banner-style-one']   = "Banner color primario"
 
 # Banner images
-Setting['banner-img.banner-img-one']   = "Banner image 1"
-Setting['banner-img.banner-img-two']   = "Banner image 2"
-Setting['banner-img.banner-img-three'] = "Banner image 3"
+Setting['banner-img.banner-img-one']   = "Imagen del Ayuntamiento"
 
 # Proposal notifications
 Setting['proposal_notification_minimum_interval_in_days'] = 3

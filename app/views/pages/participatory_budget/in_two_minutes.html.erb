@@ -49,8 +49,8 @@
 <div class="row margin-top">
   <div class="small-12 column text-center">
     <h2>Presupuestos Participativos en 2 minutos</h2>
-    <%= link_to "¿Qué puedo proponer?", page_path('participatory_budget_info', anchor: "2") %>&nbsp;|&nbsp;
-    <%= link_to "Explicación detallada del proceso", page_path('participatory_budget_info', anchor: "4") %>
+    <%= link_to "¿Qué puedo proponer?", page_path('more_information', anchor: "2") %>&nbsp;|&nbsp;
+    <%= link_to "Explicación detallada del proceso", page_path('more_information', anchor: "1") %>
   </div>
 </div>
 
@@ -61,15 +61,23 @@
     </div>
     <div class="small-12 medium-6 column">
       <h3>Recogida de Propuestas</h3>
-      <p><strong>Del 16 de enero al 28 de febrero</strong>, cualquier persona empadronada en Getafe puede proponer alguna inversión o programas para un barrio concreto o varios. <strong>Los 3.300.000 millones en Inversiones y 132.000 en Programas</strong> se repartirán proporcionalmente en los 11 barrios.</p>
-      <p>En cada barrio habrá espacios donde ir a debatir, pensar y trabajar juntos sobre las propuestas, las Comisiones de Barrio. Las propuestas se pueden hacer en esta web, sino sabes acude a tu centro de referencia y te asistirán para que lo hagas.</p>
+      <p>Del <strong>16 de enero al 28 de febrero</strong>, toda persona  empadronada en Getafe podrá crear
+        propuestas para uno o varios barrios. Los 3.432.000 euros destinados a Inversiones y
+        Programas se repartirán proporcionalmente en los 11 barrios.</p>
+
+      <p>Las propuestas se pueden hacer en esta web o de forma asistida en dependencias municipales
+        de los barrios. A través de las Comisiones de Barrio se podrá debatir, pensar y trabajar juntos
+        sobre las propuestas.</p>
     </div>
   </div>
 
   <div class="row margin">
     <div class="small-12 medium-6 column text-right">
       <h3>Evaluación</h3>
-      <p><strong>Del 1de marzo al 12 de mayo</strong> el Ayuntamiento estudiará que cada una de esas propuestas cumple los requisitos necesarios: que sean propuestas de inversión, viables y legales desde el Ayuntamiento te diremos si todo esto se cumple, y tasará cuánto cuesta llevarlas a cabo.</p>
+      <p><strong>Del 1de marzo al 12 de mayo</strong> de mayo el Ayuntamiento estudiará  cada una de las propuestas para
+        valorar si cumplen los requisitos necesarios, es decir, que sean propuestas de inversión o
+        programas, viables desde el punto de vista jurídico, técnico y económico. Desde el
+        Ayuntamiento se devolverán los resultados de esta evaluación.</p>
     </div>
 
     <div class="small-12 medium-6 column show-for-medium text-center">
@@ -83,16 +91,25 @@
     </div>
     <div class="small-12 medium-6 column">
       <h3>Votación</h3>
-      <p><strong>Del 19 al 29 de Junio</strong> será el momento de votar aquellas propuestas que se han presentado en la Asamblea de Barrio. Tendrás que votar con 3, 2 y 1 punto a las tres propuestas que hayas elegido en el barrio que prefieras.</p>
-      <p>Esta votación será simultánea en los 11 barrios ya que votarás en la aplicación web desde cualquier dispositivo. Durante este periodo habrá, en los centros cívicos, ordenadores para poder votar, con asistencia municipal, si lo necesitas.</p>
-      <%= link_to "Más información sobre presupuestos participativos", page_path('participatory_budget_info') %>
+      <p><strong>Del 19 al 29 de Junio</strong> será el momento de votar aquellas propuestas que se han presentado en
+        la Asamblea de Barrio. Tendrás que votar con 3, 2 y 1 punto a las tres propuestas que hayas
+        elegido en el barrio que prefieras.</p>
+      <p>
+        Esta votación será simultánea en los 11 barrios ya que votarás en la aplicación web desde
+        cualquier dispositivo. Durante este periodo habrá, en distintas dependencias, ordenadores
+        para poder votar, con asistencia municipal, si lo necesitas.
+      </p>
+      <%= link_to "Más información sobre presupuestos participativos", page_path('more_information') %>
     </div>
   </div>
 
   <div class="row margin">
     <div class="small-12 medium-6 column text-right">
       <h3>Inicio de trabajos y seguimiento</h3>
-      <p>Como regla general las propuestas ganadoras se llevarán a cabo el año siguiente a su aprobación. Podrás ver cuál es el estado de cada propuesta a través de esta web.</p>
+      <p>Una vez seleccionadas las propuestas ganadoras se iniciará el proceso de licitación,
+        contratación y construcción o desarrollo. A través de esta web se podrá hacer un seguimiento
+        del estado de las propuestas. Hay que tener en cuenta que, por regla general, las inversiones o
+        programas se llevarán a cabo el año siguiente a su aprobación.</p>
     </div>
 
     <div class="small-12 medium-6 column show-for-medium text-center">
@@ -114,7 +131,7 @@
   <div class="row">
     <div class="small-12 column text-center">
       <h2 id="spending-proposals-budget">Distribución del presupuesto participativo y propuestas de inversión</h2>
-      <p>Una inversión es básicamente todo aquello que el Ayuntamiento puede construir o adquirir y que su duración prevista es superior a un año.<br> <%= link_to "Sigue leyendo para entender la definición en detalle", page_path('participatory_budget_info', anchor: "1") %></p>
+      <p>Una inversión es básicamente todo aquello que el Ayuntamiento puede construir o adquirir y que su duración prevista es superior a un año.<br> <%= link_to "Sigue leyendo para entender la definición en detalle", page_path('more_information', anchor: "1") %></p>
 
       <div class="row">
         <div class="small-12 medium-6 column margin show-for-medium">
