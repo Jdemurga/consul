@@ -10,6 +10,13 @@ $brand-original:    #004A83;
 $dark:              darken($brand-original, 10%);
 
 
+
+h1, h2, h3, h4, h5 {
+
+  font-weight: lighter !important;
+  text-transform: uppercase;
+}
+
 /* In two minutes pages */
 .highlight.custom-getafe {
 
