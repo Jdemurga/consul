@@ -5,18 +5,33 @@
 
   <table id="spending-proposals-results">
     <thead>
+      <th></th>
       <th><%= t("spending_proposals.results.spending_proposal") %></th>
+      <th><%= t("spending_proposals.results.spending_proposal_type") %></th>
+      <th><%= t("spending_proposals.results.current_phase") %></th>
       <th class="text-right"><%= t("spending_proposals.results.price") %></th>
     </thead>
     <tbody>
       <% available_budget = @initial_budget.to_i %>
       <% @spending_proposals.each do |spending_proposal| %>
           <tr id="<%= dom_id(spending_proposal) %>" class="spending_proposal success">
-            <td>
-              <span class="icon-check">
+            <td class="text-center">
+              <% if spending_proposal.feasible? %>
+                <span class="icon-check"></span>
                 <span class="sr-only"><%= t("spending_proposals.results.accepted") %></span>
-              </span>
+              <% else %>
+                  <span class="icon-x"></span>
+                  <span class="sr-only"><%= t("spending_proposals.results.discarded") %></span>
+              <% end %>
+            </td>
+            <td>
               <%= link_to spending_proposal.title, spending_proposal_path(spending_proposal) %>
+            </td>
+            <td style="width: 200px;">
+              <%= t("spending_proposals.results.spending_proposal_phases.#{spending_proposal.phase}") %>
+            </td>
+            <td>
+              <%= t("spending_proposals.results.spending_type.#{spending_proposal.spending_type}") %>
             </td>
             <td class="text-right" style="width:100px">
               <%= format_price spending_proposal.price %>
@@ -26,35 +41,5 @@
     </tbody>
   </table>
 
-  <% if @incompatibles.any? %>
-    <div class="js-discarded" style="display:none">
-
-      <h3 class="inline-block"><%= t("spending_proposals.results.incompatible") %></h3>
-
-      <table id="incompatible-spending-proposals">
-        <thead>
-          <th><%= t("spending_proposals.results.spending_proposal") %></th>
-          <th class="text-center"><%= t("spending_proposals.results.ballot_lines_count") %></th>
-          <th class="text-center"><%= t("spending_proposals.results.price") %></th>
-        </thead>
-        <tbody>
-          <% @incompatibles.each do |spending_proposal| %>
-            <tr id="<%= dom_id(spending_proposal) %>" class="spending_proposal">
-              <td>
-                <span class="icon-x"></span>
-                <%= link_to spending_proposal.title, spending_proposal_path(spending_proposal) %>
-                (id: <%= spending_proposal.id %>)
-              </td>
-              <td class="text-center">
-                <%= spending_proposal.ballot_lines_count + (@delegated_ballots[spending_proposal.id] || 0) %>
-              </td>
-              <td class="text-center">
-                <%= format_price spending_proposal.price %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
+  <div><strong>(*)Nota:</strong> Las propuestas marcadas con el símbolo <span class="icon-x"></span> no se ejecutan porque su presupuesto se pasa una vez ejecutado en orden de prelación, puesto que exceden presupuesto</div>
 </div>

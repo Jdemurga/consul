@@ -329,8 +329,8 @@ ActiveRecord::Schema.define(version: 20161221174824) do
     t.text     "description"
     t.integer  "author_id"
     t.string   "external_url"
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.integer  "geozone_id"
     t.integer  "price",                       limit: 8
     t.boolean  "feasible"
@@ -350,9 +350,7 @@ ActiveRecord::Schema.define(version: 20161221174824) do
     t.string   "responsible_name",            limit: 60
     t.integer  "physical_votes",                          default: 0
     t.string   "spending_type"
-    t.date     "phase_pre_bidding_at"
-    t.date     "phase_in_bidding_at"
-    t.date     "phase_in_progress_at"
+    t.string   "phase",                                   default: "pre_bidding"
   end
 
   add_index "spending_proposals", ["author_id"], name: "index_spending_proposals_on_author_id", using: :btree
@@ -466,7 +464,7 @@ ActiveRecord::Schema.define(version: 20161221174824) do
     t.boolean  "email_digest",                              default: true
     t.boolean  "email_on_direct_message",                   default: true
     t.boolean  "official_position_badge",                   default: false
-    t.datetime "password_changed_at",                       default: '2016-12-21 15:51:07', null: false
+    t.datetime "password_changed_at",                       default: '2016-12-21 18:44:02', null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

@@ -50,7 +50,7 @@ class SpendingProposalsController < ApplicationController
 
   def results
     @geozone = daily_cache("geozone_geozone_#{params[:geozone_id]}") { (params[:geozone_id].blank? || params[:geozone_id] == 'all') ? nil : Geozone.find(params[:geozone_id]) }
-    @spending_proposals = SpendingProposal.feasible.valuation_finished
+    @spending_proposals = SpendingProposal.valuation_finished.order('price desc')
     @spending_proposals = @spending_proposals.where(geozone_id: @geozone.id) if @geozone
     
 
