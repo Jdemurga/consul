@@ -1,4 +1,6 @@
 es:
+  account:
+    change_neigh_comission: Inscribirme en una comisión de barrio
   geozones:
     none: Toda la ciudad
     all: Todos los ámbitos
