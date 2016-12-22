@@ -72,9 +72,8 @@ class Verification::Residence
     end
 
     def residency_valid?
-      @census_api_response.valid? &&
-        @census_api_response.postal_code == postal_code &&
-        @census_api_response.date_of_birth == date_of_birth
+        # GET-44 Customer requirements about residence check
+        @census_api_response.valid? && @census_api_response.date_of_birth == date_of_birth
     end
 
     def clean_document_number
