@@ -29,7 +29,7 @@ class Verification::SmsController < ApplicationController
     if @sms.verified?
 
       # GET-44 CUSTOMER REQUIREMENTS
-      current_user.update(confirmed_phone: current_user.unconfirmed_phone, phone_number: current_user.unconfirmed_phone verified_at: Time.current)
+      current_user.update(confirmed_phone: current_user.unconfirmed_phone, phone_number: current_user.unconfirmed_phone, verified_at: Time.current)
       ahoy.track(:level_2_user, user_id: current_user.id) rescue nil
 
       #if VerifiedUser.phone?(current_user)
