@@ -1,21 +1,24 @@
 <div class="expanded highlight padding no-margin-top custom-getafe">
   <div class="row">
-    <div class="small-12 medium-6 column">
-      <h1><%= t("layouts.header.open_city_title") %></h1>
-      <p>
+    <div class="small-12 large-6 column">
+      <h1 class="project-title"><%= t("layouts.header.open_city_title") %></h1>
+      <h2 class="project-slogan">
         <%= t("layouts.header.open_city_slogan_html") %>&nbsp;
+      </h2>
+      <p class="project-introduction">
+        <%= t("layouts.header.open_city_introduction_html") %>&nbsp;
       </p>
       <div class="row">
-        <div class="small-12 medium-6 column">
+        <div class="small-12 column">
           <%= link_to t("layouts.header.about_participatory_budget"), page_path('participatory_budget/in_two_minutes'), class: "button see-more expanded" %>
         </div>
-        <div class="small-12 medium-6 column">
+        <div class="small-12 column">
           <%= link_to t("layouts.header.participatory_budget_results_2016"), participatory_budget_results_path, class: "button see-more expanded" %>
         </div>
       </div>
     </div>
 
-    <div class="hide-for-small-only small-12 medium-5 column text-center" id="home-with-icon-background">
+    <div class="small-12 large-6 column text-center" id="home-with-icon-background">
 
     </div>
   </div>

@@ -39,6 +39,32 @@ h1, h2, h3, h4, h5 {
   font-weight: lighter !important;
 }
 
+h1.project-title {
+
+  font-weight: normal !important;
+  font-size: 400%;
+  margin-bottom: 0px;
+  text-align: left;
+  line-height: 50px;
+  margin-top: 50px;
+}
+
+h2.project-slogan {
+
+  text-transform: lowercase !important;
+  font-style: italic;
+  color: #a9a9a9;
+  text-align: left;
+}
+
+h2.project-slogan:first-letter {
+  text-transform: capitalize !important;
+}
+
+p.project-introduction {
+  background-color: #e6e7e9;
+}
+
 /* In two minutes pages */
 .highlight.custom-getafe {
 
@@ -82,10 +108,43 @@ h1.logo {
 }
 
 
+/* public consultation */
+.public-consultations {
+  background: $budget image-url('public_consultations_bg.jpg');
+  background-position: 70% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  h1 {
+    color: white;
+    margin: $line-height 0;
+  }
+
+  .button {
+    background: white;
+    color: $budget;
+  }
+
+  &.results {
+
+    .back {
+      color: white;
+    }
+  }
+}
+
+
 
 /* Spending proposals */
 
+table#spending-proposals-results {
 
+  td.index {
+    color: #777;
+    font-weight: bolder;
+    text-align: center;
+  }
+}
 
 .spending-proposals {
   background: $budget image-url('spending_proposals_bg.jpg');

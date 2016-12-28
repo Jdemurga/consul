@@ -6,6 +6,7 @@
   <table id="spending-proposals-results">
     <thead>
       <th></th>
+      <th></th>
       <th><%= t("spending_proposals.results.spending_proposal") %></th>
       <th><%= t("spending_proposals.results.spending_proposal_type") %></th>
       <th><%= t("spending_proposals.results.current_phase") %></th>
@@ -13,8 +14,13 @@
     </thead>
     <tbody>
       <% available_budget = @initial_budget.to_i %>
-      <% @spending_proposals.each do |spending_proposal| %>
+      <% @spending_proposals.each_with_index do |spending_proposal, index| %>
           <tr id="<%= dom_id(spending_proposal) %>" class="spending_proposal success">
+            <td class="index">
+              <% if @geozone %>
+                <%= index + 1 %>
+              <% end %>
+            </td>
             <td class="text-center">
               <% if spending_proposal.feasible? %>
                 <span class="icon-check"></span>
@@ -40,6 +46,6 @@
       <% end %>
     </tbody>
   </table>
-
-  <div><strong>(*)Nota:</strong> Las propuestas marcadas con el símbolo <span class="icon-x"></span> no se ejecutan porque su presupuesto se pasa una vez ejecutado en orden de prelación, puesto que exceden presupuesto</div>
+  <div><p><a href="http://getafe.es/areas-de-gobierno/area-social/participacion-ciudadana/actuaciones/presupuestos-participativos/proceso-de-votaciones-de-presupuestos-participativos-mayo-junio-2016/" target="_blank">Consultar documentación sobre Presupuestos Participativos 2016</a></p></div>
+  <div class="small"><strong>(*)Nota:</strong> Las propuestas se muestran ordenadas por orden de votación (para cada barrio). Aquellas propuestas marcadas con el símbolo <span class="icon-x"></span> no se ejecutan porque su presupuesto se pasa una vez ejecutado en orden de prelación, puesto que exceden presupuesto</div>
 </div>

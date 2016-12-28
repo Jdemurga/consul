@@ -30,16 +30,20 @@ es:
         transparency_text: Obtén cualquier información sobre la ciudad.
         transparency_title: Transparencia
         transparency_url: https://transparencia.getafe.es
+        participatory_page_url: http://getafe.es/areas-de-gobierno/area-social/participacion-ciudadana/
       header:
-        about_participatory_budget: 'Presupuestos 2017'
-        participatory_budget_results_2016: 'Presupuestos 2016'
+        about_participatory_budget: 'Presupuestos Participativos 2017'
+        participatory_budget_results_2016: 'Presupuestos Participativos 2016'
         external_link_transparency_url: https://transparencia.getafe.es
         logo: Participa Getafe
-        open_city_slogan_html: Es una herramienta de participación on-line que se pone a disposición de los vecinos y vecinas de Getafe, que complementa el trabajo presencial de los barrios. Con ella se quiere fomentar un espacio de construcción colectiva de nuestra ciudad
-        open_city_title: PARTICIPA GETAFE
+        open_city_slogan_html: Decide qué ciudad quieres
+        open_city_introduction_html: Es una herramienta de participación on-line que se pone a disposición de los vecinos y vecinas de Getafe, que complementa el trabajo presencial de los barrios. Con ella se quiere fomentar un espacio de construcción colectiva de nuestra ciudad.
+        open_city_title: Participa Getafe
         participatory_budgets_2017: Presupuestos Participativos 2017
-        participatory_budgets_2016: Resultados Presupuestos Participativos 2016
+        participatory_budgets_2016: Presupuestos Participativos 2016
         public_consultation: Consultas ciudadanas
+        external_link_participatory_url: http://getafe.es/areas-de-gobierno/area-social/participacion-ciudadana/
+        external_link_participatory: Participación Ciudadana
   shared:
         outline:
           budget: Presupuestos participativos

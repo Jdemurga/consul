@@ -158,7 +158,7 @@ los peatones, el acceso de los vehículos de urgencia y el giro de los autobuses
   created_at: '2016-06-31', valuation_finished: true )
 
 SpendingProposal.create(
-    title: 'Plan de acerado y pasos de peatones',
+    title: 'Plan de acerado y pasos de peatones'  ,
     geozone: margaritas,
     phase: 'bidding',
     spending_type: 'investment',
