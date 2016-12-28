@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   include Verification
+  include BelongsToCommission
 
   devise :database_authenticatable, :registerable, :confirmable, :recoverable, :rememberable,
          :trackable, :validatable, :omniauthable, :async, :password_expirable, :secure_validatable

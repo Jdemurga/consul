@@ -1,0 +1,15 @@
+es:
+  activerecord:
+    attributes:
+      user:
+        commission: "Comisión de barrio"
+
+  devise_views:
+    users:
+      registrations:
+        edit:
+          commission_label: 'Comisión de barrio a la que suscribirse'
+          commission_hint: 'NOTA IMPORTANTE: ¡Atención! Una vez que seleccione una comisión de barrio, esta no podrá ser cambiada'
+          no_commission_selected: 'Sin asignar a comisión de barrio'
+  errors:
+    commission_can_not_be_updated_twice: 'no puede ser establecida por segunda vez'

@@ -72,4 +72,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       users_sign_up_success_path
     end
 
+    def account_update_params
+      # GET-50 Custom field
+      params.require(:user).permit(:email, :password, :password_confirmation, :current_password, :commission_id)
+
+
+    end
 end
