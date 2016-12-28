@@ -81,3 +81,10 @@ Setting['banner-img.banner-img-three'] = "Banner image 3"
 # Proposal notifications
 Setting['proposal_notification_minimum_interval_in_days'] = 3
 Setting['direct_message_max_per_day'] = 3
+
+
+Commission.create(name: "Comisión Presupuestos Participativos Alhóndiga", place: "Centro Cívico Alhóndiga", address: "Plaza Rafael Pazos Pría, 1", geozone_id: alhondiga.id)
+Commission.create(name: "Comisión Presupuestos Participativos Bercial", place: "Centro Cívico Bercial", address: "Avenida Buenos Aires, 2", geozone_id: bercial.id)
+Commission.create(name: "Comisión Presupuestos Participativos Buenavista", place: "Centro Social Buenavista", address: "	Calle Ignacio Sánchez Coy, 2", geozone_id: buenavista.id)
+raise "FALTAN COMISIONES"
+# TODO - Incluir resto
