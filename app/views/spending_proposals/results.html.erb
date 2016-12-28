@@ -4,16 +4,10 @@
 <% end %>
 
 
-
 <% cache [locale_and_user_status(nil), @geozone] do %>
-  <div class="expanded spending-proposals results no-margin-top">
+  <div class="expanded page-background-row spending-proposal-bg results no-margin-top">
     <div class="row">
       <div class="small-12 column padding text-center">
-        <%= link_to root_path, class: "left back" do %>
-          <i class="icon-angle-left"></i>
-          <%= t("shared.back") %>
-        <% end %>
-
         <h1 class="title"><%= t("spending_proposals.results.heading") %></h1>
       </div>
     </div>

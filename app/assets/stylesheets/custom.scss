@@ -108,32 +108,14 @@ h1.logo {
 }
 
 
-/* public consultation */
-.public-consultations {
-  background: $budget image-url('public_consultations_bg.jpg');
-  background-position: 70% 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  h1 {
-    color: white;
-    margin: $line-height 0;
-  }
-
-  .button {
-    background: white;
-    color: $budget;
-  }
-
-  &.results {
-
-    .back {
-      color: white;
-    }
-  }
+/* custom background */
+.spending-proposal-bg {
+  background: $budget image-url('spending_proposals_bg.jpg');
 }
 
-
+.public-consultations-bg {
+  background: $budget image-url('public_consultations_bg.jpg');
+}
 
 /* Spending proposals */
 
@@ -146,14 +128,15 @@ table#spending-proposals-results {
   }
 }
 
-.spending-proposals {
-  background: $budget image-url('spending_proposals_bg.jpg');
+.page-background-row {
+
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
 
   h1 {
     color: white;
+    font-weight: normal !important;
     margin: $line-height 0;
   }
 
