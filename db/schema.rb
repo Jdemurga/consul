@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221174824) do
+ActiveRecord::Schema.define(version: 20161228084344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,17 @@ ActiveRecord::Schema.define(version: 20161221174824) do
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["hidden_at"], name: "index_comments_on_hidden_at", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "commissions", force: :cascade do |t|
+    t.integer  "geozone_id"
+    t.string   "name"
+    t.string   "place"
+    t.string   "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "commissions", ["geozone_id"], name: "index_commissions_on_geozone_id", using: :btree
 
   create_table "debates", force: :cascade do |t|
     t.string   "title",                        limit: 80
@@ -465,8 +476,13 @@ ActiveRecord::Schema.define(version: 20161221174824) do
     t.boolean  "email_on_direct_message",                   default: true
     t.boolean  "official_position_badge",                   default: false
     t.datetime "password_changed_at",                       default: '2016-12-21 18:44:02', null: false
+<<<<<<< HEAD
+=======
+    t.integer  "commission_id"
+>>>>>>> user-extra-fields
   end
 
+  add_index "users", ["commission_id"], name: "index_users_on_commission_id", using: :btree
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["geozone_id"], name: "index_users_on_geozone_id", using: :btree
@@ -552,6 +568,7 @@ ActiveRecord::Schema.define(version: 20161221174824) do
   add_foreign_key "administrators", "users"
   add_foreign_key "annotations", "legislations"
   add_foreign_key "annotations", "users"
+  add_foreign_key "commissions", "geozones"
   add_foreign_key "failed_census_calls", "users"
   add_foreign_key "flags", "users"
   add_foreign_key "identities", "users"
@@ -560,6 +577,7 @@ ActiveRecord::Schema.define(version: 20161221174824) do
   add_foreign_key "moderators", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "organizations", "users"
+  add_foreign_key "users", "commissions"
   add_foreign_key "users", "geozones"
   add_foreign_key "valuators", "users"
 end

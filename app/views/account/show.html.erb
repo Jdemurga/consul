@@ -140,6 +140,7 @@
               <span class="verify-account">
                 <% if current_user.level_three_verified? %>
                   <p class="already-verified">
+                    <div><%= link_to t("account.show.change_commission"), edit_user_registration_path(tab: true), class: "button primary" %></div>
                     <span class="icon-check"></span>
                     <%= t("account.show.verified_account") %>
                   </p>
