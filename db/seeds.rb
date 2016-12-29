@@ -729,7 +729,3 @@ Commission.create(name: "Comisión Centro Cívico Las Margaritas", place: "Centr
 Commission.create(name: "Comisión Centro Cívico Perales del Río", place: "Centro Cultural Julián Marías", address: "Calle Juan de Mairena, s/n", geozone_id: perales.id)
 Commission.create(name: "Comisión Centro Cívico San Isidro", place: "Centro Cívico San Isidro", address: "Calle Leoncio Rojas, 18", geozone_id: isidro.id)
 Commission.create(name: "Comisión Centro Cívico Sector III", place: "Centro Cívico Cerro Buenavista", address: "Buenavista	Avenida de las Arcas del Agua s/n", geozone_id: sector3.id)
-
-raise "FALTAN COMISIONES"
-# TODO - Incluir resto
-
