@@ -3,8 +3,8 @@ es:
     results:
       # Custom field just for first release (with 2016 archive while new budget model is released)
       spending_type:
-        investment: 'Inversión'
-        program: 'Programa'
+        investment: 'Inversiones'
+        program: 'Programas'
 
       # Custom field to show phase just for first release (with 2016 archive while new budget model is released)
       spending_proposal_phases:

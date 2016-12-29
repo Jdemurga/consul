@@ -143,8 +143,10 @@
                     <span class="icon-check"></span>
                     <%= t("account.show.verified_account") %>
                   </p>
-                    <%= link_to t("account.show.change_neigh_comission"), edit_user_registration_path, class: "button success" %>
 
+
+                    <%= link_to t("account.show.change_neigh_comission"), edit_user_registration_path, class: "button success" %>
+                    <div><span class="small">(*)<%= t("account.show.change_neigh_comission_hint") %></span></div>
                 <% elsif current_user.level_two_verified? %>
                   <%= link_to t("account.show.finish_verification"), verification_path, class: "button success" %>
                 <% else %>
