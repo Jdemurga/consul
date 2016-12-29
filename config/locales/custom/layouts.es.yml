@@ -56,7 +56,9 @@ es:
         participatory_budgets_2017: Presupuestos Participativos 2017
         participatory_budgets_2016: Presupuestos Participativos 2016
         public_consultation: Consultas ciudadanas
-        external_link_participatory_url: http://getafe.es/areas-de-gobierno/area-social/participacion-ciudadana/
+        previous_hearing: Audiencias previas
+        previous_hearing_url: 'https://transparencia.getafe.es/portalGetafe/transparencia/se_contenedor2.jsp?seccion=s_fdes_d4_v2.jsp&codbusqueda=207&language=es&codResi=1&codMenuPN=107&codMenuSN=117&codMenuTN=297&codMenu=318'
+        external_link_participatory_url: 'http://getafe.es/areas-de-gobierno/area-social/participacion-ciudadana/'
         external_link_participatory: Participación Ciudadana
   shared:
         outline:

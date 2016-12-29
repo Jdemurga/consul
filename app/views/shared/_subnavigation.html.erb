@@ -20,6 +20,9 @@
       <%= link_to t("layouts.header.public_consultation"), page_path('public_consultation'), class: ("active" if current_page?("/public_consultation")), accesskey: "a"  %>
     </li>
     <li>
+      <%= link_to t("layouts.header.previous_hearing"), t('layouts.header.previous_hearing_url'), target: '_blank'  %>
+    </li>
+    <li>
       <%= link_to t("layouts.header.more_information"), page_path('more_information'), class: ("active" if current_page?("/more_information")), accesskey: "i"  %>
     </li>
   </ul>
