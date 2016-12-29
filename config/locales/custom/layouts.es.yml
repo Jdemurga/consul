@@ -1,6 +1,8 @@
 es:
   account:
     show:
+      change_neigh_comission: Inscribirme en la comisión de mi barrio
+      change_neigh_comission_hint: Puedes formar parte de la comisión de presupuestos participativos de tu barrio
       user_permission_debates: Opinar sobre consultas ciudadanas
       user_permission_info: Con tu cuenta ya puedes...
       user_permission_proposal: Crear nuevas propuestas de Presupuestos Participativos
@@ -20,6 +22,8 @@ es:
     start_proposal: Crea una propuesta
   layouts:
       footer:
+        getafe_home_url: 'http://getafe.es'
+        getafe_home_title: 'Ayuntamiento de Getafe'
         accessibility: Accesibilidad
         conditions: Condiciones de uso
         consul: Consul
@@ -42,7 +46,8 @@ es:
         participatory_page_url: http://getafe.es/areas-de-gobierno/area-social/participacion-ciudadana/
       header:
         about_participatory_budget: 'Presupuestos Participativos 2017'
-        participatory_budget_results_2016: 'Presupuestos Participativos 2016'
+        participatory_budget_results_2016_callout: 'Presupuestos Participativos 2016'
+        public_consultation_callout: 'Primera consulta ciudadana'
         external_link_transparency_url: https://transparencia.getafe.es
         logo: Participa Getafe
         open_city_slogan_html: Decide qué ciudad quieres
@@ -51,7 +56,9 @@ es:
         participatory_budgets_2017: Presupuestos Participativos 2017
         participatory_budgets_2016: Presupuestos Participativos 2016
         public_consultation: Consultas ciudadanas
-        external_link_participatory_url: http://getafe.es/areas-de-gobierno/area-social/participacion-ciudadana/
+        previous_hearing: Audiencias previas
+        previous_hearing_url: 'https://transparencia.getafe.es/portalGetafe/transparencia/se_contenedor2.jsp?seccion=s_fdes_d4_v2.jsp&codbusqueda=207&language=es&codResi=1&codMenuPN=107&codMenuSN=117&codMenuTN=297&codMenu=318'
+        external_link_participatory_url: 'http://getafe.es/areas-de-gobierno/area-social/participacion-ciudadana/'
         external_link_participatory: Participación Ciudadana
   shared:
         outline:

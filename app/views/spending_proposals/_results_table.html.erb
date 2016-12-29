@@ -3,49 +3,11 @@
 
   <span class="float-right"><%= link_to t("spending_proposals.results.show_all_link"), "#", class: "js-toggle-link button hollow margin-bottom", data: {'toggle-selector' => '.js-discarded', 'toggle-text' => t("spending_proposals.results.hide_discarded_link")} %></span>
 
-  <table id="spending-proposals-results">
-    <thead>
-      <th></th>
-      <th></th>
-      <th><%= t("spending_proposals.results.spending_proposal") %></th>
-      <th><%= t("spending_proposals.results.spending_proposal_type") %></th>
-      <th><%= t("spending_proposals.results.current_phase") %></th>
-      <th class="text-right"><%= t("spending_proposals.results.price") %></th>
-    </thead>
-    <tbody>
-      <% available_budget = @initial_budget.to_i %>
-      <% @spending_proposals.each_with_index do |spending_proposal, index| %>
-          <tr id="<%= dom_id(spending_proposal) %>" class="spending_proposal success">
-            <td class="index">
-              <% if @geozone %>
-                <%= index + 1 %>
-              <% end %>
-            </td>
-            <td class="text-center">
-              <% if spending_proposal.feasible? %>
-                <span class="icon-check"></span>
-                <span class="sr-only"><%= t("spending_proposals.results.accepted") %></span>
-              <% else %>
-                  <span class="icon-x"></span>
-                  <span class="sr-only"><%= t("spending_proposals.results.discarded") %></span>
-              <% end %>
-            </td>
-            <td>
-              <%= link_to spending_proposal.title, spending_proposal_path(spending_proposal) %>
-            </td>
-            <td style="width: 200px;">
-              <%= t("spending_proposals.results.spending_proposal_phases.#{spending_proposal.phase}") %>
-            </td>
-            <td>
-              <%= t("spending_proposals.results.spending_type.#{spending_proposal.spending_type}") %>
-            </td>
-            <td class="text-right" style="width:100px">
-              <%= format_price spending_proposal.price %>
-            </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <h4><%= t("spending_proposals.results.spending_type.investment") %></h4>
+  <%= render 'spending_proposals/table', proposals: @spending_proposals.investments %>
+  <h4><%= t("spending_proposals.results.spending_type.program") %></h4>
+  <%= render 'spending_proposals/table', proposals: @spending_proposals.programs %>
+
   <div><p><a href="http://getafe.es/areas-de-gobierno/area-social/participacion-ciudadana/actuaciones/presupuestos-participativos/proceso-de-votaciones-de-presupuestos-participativos-mayo-junio-2016/" target="_blank">Consultar documentación sobre Presupuestos Participativos 2016</a></p></div>
   <div class="small"><strong>(*)Nota:</strong> Las propuestas se muestran ordenadas por orden de votación (para cada barrio). Aquellas propuestas marcadas con el símbolo <span class="icon-x"></span> no se ejecutan porque su presupuesto se pasa una vez ejecutado en orden de prelación, puesto que exceden presupuesto</div>
 </div>
