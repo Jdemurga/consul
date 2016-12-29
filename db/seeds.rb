@@ -721,6 +721,9 @@ created_at: '2016-06-31', valuation_finished: true )
 Commission.create(name: "Comisión Presupuestos Participativos Alhóndiga", place: "Centro Cívico Alhóndiga", address: "Plaza Rafael Pazos Pría, 1", geozone_id: alhondiga.id)
 Commission.create(name: "Comisión Presupuestos Participativos Bercial", place: "Centro Cívico Bercial", address: "Avenida Buenos Aires, 2", geozone_id: bercial.id)
 Commission.create(name: "Comisión Presupuestos Participativos Buenavista", place: "Centro Social Buenavista", address: "	Calle Ignacio Sánchez Coy, 2", geozone_id: buenavista.id)
+Commission.create(name: "Comisión Presupuestos Participativos Centro", place: "Fábrica de Harinas", address: "	Calle Ramón y Cajal, 22", geozone_id: centro.id)
+Commission.create(name: "Comisión Presupuestos Participativos Getafe Norte", place: "Centro Cívico Getafe Norte", address: "Avenida Rigoberta Menchú, 2", geozone_id: centro.id)
+
 raise "FALTAN COMISIONES"
 # TODO - Incluir resto
 
