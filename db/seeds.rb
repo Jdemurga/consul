@@ -716,3 +716,5 @@ author_id: admin.id,
 feasible: true,
 terms_of_service: '1',
 created_at: '2016-06-31', valuation_finished: true )
+
+
