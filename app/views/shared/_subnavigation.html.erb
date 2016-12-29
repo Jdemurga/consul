@@ -1,15 +1,5 @@
 <div class="small-12 medium-12 column">
   <ul>
-    <% if feature?(:debates) %>
-      <li>
-        <%= link_to t("layouts.header.debates"), debates_path, class: ("active" if controller_name == "debates"), accesskey: "d" %>
-      </li>
-    <% end %>
-    <% if feature?(:proposals) %>
-    <li>
-      <%= link_to t("layouts.header.proposals"), proposals_path, class: ("active" if  controller_name == "proposals"), accesskey: "p" %>
-    </li>
-    <% end %>
     <li>
       <%= link_to t("layouts.header.participatory_budgets_2017"), page_path('participatory_budget/in_two_minutes'), class: ("active" if current_page?("/participatory_budget/in_two_minutes")), accesskey: "p"  %>
     </li>
