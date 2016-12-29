@@ -723,6 +723,12 @@ Commission.create(name: "Comisión Presupuestos Participativos Bercial", place: 
 Commission.create(name: "Comisión Presupuestos Participativos Buenavista", place: "Centro Social Buenavista", address: "	Calle Ignacio Sánchez Coy, 2", geozone_id: buenavista.id)
 Commission.create(name: "Comisión Presupuestos Participativos Centro", place: "Fábrica de Harinas", address: "	Calle Ramón y Cajal, 22", geozone_id: centro.id)
 Commission.create(name: "Comisión Presupuestos Participativos Getafe Norte", place: "Centro Cívico Getafe Norte", address: "Avenida Rigoberta Menchú, 2", geozone_id: centro.id)
+Commission.create(name: "Comisión Presupuestos Participativos Juan de la Cierva", place: "Centro Cívico Juan de la Cierva", address: "Plaza de Las Provincias, 1", geozone_id: cierva.id)
+Commission.create(name: "Comisión Presupuestos Participativos Los Molinos", place: "Centro Social Los Molinos", address: "Avenida Rocinante,2", geozone_id: molinos.id)
+Commission.create(name: "Comisión Centro Cívico Las Margaritas", place: "Centro Cívico Las Margaritas", address: "Avenida de las Ciudades, 11", geozone_id: margaritas.id)
+Commission.create(name: "Comisión Centro Cívico Perales del Río", place: "Centro Cultural Julián Marías", address: "Calle Juan de Mairena, s/n", geozone_id: perales.id)
+Commission.create(name: "Comisión Centro Cívico San Isidro", place: "Centro Cívico San Isidro", address: "Calle Leoncio Rojas, 18", geozone_id: isidro.id)
+Commission.create(name: "Comisión Centro Cívico Sector III", place: "Centro Cívico Cerro Buenavista", address: "Buenavista	Avenida de las Arcas del Agua s/n", geozone_id: sector3.id)
 
 raise "FALTAN COMISIONES"
 # TODO - Incluir resto
