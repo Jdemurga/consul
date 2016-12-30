@@ -55,14 +55,14 @@ Setting["email_domain_for_officials"] = ''
 Setting['per_page_code'] =  ''
 
 # Social settings
-Setting["twitter_handle"] = nil
-Setting["twitter_hashtag"] = nil
-Setting["facebook_handle"] = nil
+Setting["twitter_handle"] = 'http://twitter.com/participagetafe'
+Setting["twitter_hashtag"] = 'participagetafe'
+Setting["facebook_handle"] = 'https://www.facebook.com/ParticipaGetafe-1455484134478988/'
 Setting["youtube_handle"] = nil
 Setting["blog_url"] = nil
 
 # Public-facing URL of the app.
-Setting["url"] = "https://consul.getafe.es"
+Setting["url"] = "https://participa.getafe.es"
 
 # Consul installation's organization name
 Setting["org_name"] = "Participa Getafe"
@@ -71,7 +71,7 @@ Setting["org_name"] = "Participa Getafe"
 Setting["place_name"] = "Getafe"
 
 # Feature flags
-Setting['feature.debates'] = false
+Setting['feature.debates'] = true
 Setting['feature.spending_proposals'] = true
 Setting['feature.twitter_login'] = false
 Setting['feature.facebook_login'] = false
@@ -729,3 +729,8 @@ Commission.create(name: "Comisión Centro Cívico Las Margaritas", place: "Centr
 Commission.create(name: "Comisión Centro Cívico Perales del Río", place: "Centro Cultural Julián Marías", address: "Calle Juan de Mairena, s/n", geozone_id: perales.id)
 Commission.create(name: "Comisión Centro Cívico San Isidro", place: "Centro Cívico San Isidro", address: "Calle Leoncio Rojas, 18", geozone_id: isidro.id)
 Commission.create(name: "Comisión Centro Cívico Sector III", place: "Centro Cívico Cerro Buenavista", address: "Buenavista	Avenida de las Arcas del Agua s/n", geozone_id: sector3.id)
+
+
+Debate.create(title: 'Pregunta 1. Actividades', description: '¿Qué actividades consideras que se deberían llevar a cabo en tu barrio para mejorar la convivencia entre sus vecinos y vecinas?', author_id: admin.id, terms_of_service: '1' )
+Debate.create(title: 'Pregunta 2. Opiniones', description: 'Las medidas que están contempladas en el Plan, ¿consideras que son necesarias en tu barrio? Opiniones y sugerencias al respecto.', author_id: admin.id, terms_of_service: '1' )
+Debate.create(title: 'Pregunta 3. Valores', description: 'A tu juicio, ¿Cuál es el principal valor que aportan las diferentes diversidades (género, edad, procedencia, funcional, sexual, religiosa…) a la convivencia en la ciudad?', author_id: admin.id, terms_of_service: '1' )
