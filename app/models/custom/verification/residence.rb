@@ -27,8 +27,8 @@ class Verification::Residence
     end
 
     def residency_valid?
+        # GET-37 || GET-44
         @census_api_response.valid? &&
-        @census_api_response.postal_code == postal_code &&
         @census_api_response.date_of_birth == date_of_birth
     end
 
