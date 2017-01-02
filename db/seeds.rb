@@ -93,17 +93,17 @@ Setting['direct_message_max_per_day'] = 3
 
 
 puts "Creating Geozones"
-alhondiga = Geozone.create(name: "Alhóndiga")
-bercial = Geozone.create(name: "Bercial")
-buenavista = Geozone.create(name: "Buenavista")
-centro = Geozone.create(name: "Centro")
-norte = Geozone.create(name: "Getafe Norte")
-cierva = Geozone.create(name: "Juan de la Cierva")
-molinos = Geozone.create(name: "Los Molinos")
-margaritas = Geozone.create(name: "Margaritas")
-perales = Geozone.create(name: "Perales del Río")
-isidro = Geozone.create(name: "San Isidro")
-sector3 = Geozone.create(name: "Sector III")
+alhondiga = Geozone.create(name: "Alhóndiga", census_code: 'La Alhóndiga')
+bercial = Geozone.create(name: "Bercial", census_code: 'El Bercial')
+buenavista = Geozone.create(name: "Buenavista", census_code: 'Buenavista')
+centro = Geozone.create(name: "Centro", census_code: 'Centro')
+norte = Geozone.create(name: "Getafe Norte", census_code: 'Getafe-Norte')
+cierva = Geozone.create(name: "Juan de la Cierva", census_code: 'Juan de la Cierva')
+molinos = Geozone.create(name: "Los Molinos", census_code: '')
+margaritas = Geozone.create(name: "Margaritas", census_code: 'Las Margaritas')
+perales = Geozone.create(name: "Perales del Río", census_code: 'Perales del Rio')
+isidro = Geozone.create(name: "San Isidro", census_code: 'San Isidro')
+sector3 = Geozone.create(name: "Sector III", census_code: 'Sector III')
 
 puts "Creating Tags Categories"
 
