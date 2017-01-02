@@ -11,8 +11,8 @@ class Verification::Residence
   end
 
   def residence_in_getafe
-    return if errors.any?
 
+    return if errors.any?
     unless residency_valid?
       errors.add(:residence_in_getafe, false)
       store_failed_attempt
@@ -20,9 +20,19 @@ class Verification::Residence
     end
   end
 
+
+  def district_code
+    @census_api_response.district_name
+  end
+
+  def phone
+    @census_api_response.phone_number
+  end
+  
   private
 
     def valid_postal_code?
+
       postal_code =~ /^289/
     end
 
