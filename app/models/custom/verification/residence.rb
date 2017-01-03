@@ -38,8 +38,11 @@ class Verification::Residence
 
     def residency_valid?
         # GET-37 || GET-44
-        @census_api_response.valid? &&
-        @census_api_response.date_of_birth == date_of_birth
+        is_valid = @census_api_response.valid? && @census_api_response.valid? && @census_api_response.date_of_birth == date_of_birth
+
+        errors.add(:date_of_birth, "No pudimos verificar el padrón") unless is_valid
+
+        is_valid
     end
 
     def call_census_api

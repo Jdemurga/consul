@@ -23,11 +23,16 @@ class CensusApiCustom
       variants += number_variants
       variants += letter_variants
     else # if not a DNI, just use the document_number, with no variants
-      variants << document_number
+      document_number, letter = split_letter_from(document_number)
+
+      variants << document_number.upcase
+      variants << document_number.downcase
     end
 
     variants
   end
+
+
 
   class Response
     def initialize(body)
@@ -41,9 +46,13 @@ class CensusApiCustom
     def date_of_birth
       str = data[:nacim_fecha]
       # GET-10 - Rest API return date with time and timezone always set to 0
-      year, month, day = str.match(/(\d\d\d?\d?)\D(\d\d?)\D(\d\d?)(T00:00:00.000Z)?/)[1..3]
+       year, month, day = str.match(/(\d\d\d?\d?)\D(\d\d?)\D(\d\d?)(T00:00:00.000Z)?/)[1..3]
       return nil unless day.present? && month.present? && year.present?
       Date.new(year.to_i, month.to_i, day.to_i)
+    end
+
+    def document_number_letter
+      data[:letra_dni]
     end
 
     def postal_code
@@ -93,16 +102,18 @@ class CensusApiCustom
     end
 
     def end_point_available?
-      Rails.env.staging? || Rails.env.preproduction? || Rails.env.production?
+      true || Rails.env.staging? || Rails.env.preproduction? || Rails.env.production?
     end
 
     def stubbed_response_body
-      {nacim_fecha: "31-12-1980", dni: "12345678", letra_dni: "R", codigo_postal: "28901", gender: 1, geozone_name: 'Sector III' }
+      {nacim_fecha: "31-12-1980", dni: "12345678Z", descripcion_sexo: "Varón" }
     end
 
     def is_dni?(document_type)
       document_type.to_s == "1"
     end
+
+
 
     def split_letter_from(document_number)
       letter = document_number.last

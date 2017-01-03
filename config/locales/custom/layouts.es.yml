@@ -1,4 +1,8 @@
 es:
+  verification:
+    residence:
+      new:
+        error_verifying_census: "El Padrón no pudo verificar tu información. Por favor, confirma que tus datos de empadronamiento sean correctos a través de los servicios del Ayuntamiento de Getafe para ese efecto."
   votes:
     anonymous: 'Es necesario %{verify_account} para poder opinar en las consultas ciudadanas'
   debates:
