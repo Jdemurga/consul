@@ -20,7 +20,7 @@
 
   img {
     height: 48px;
-    width: 48px;
+    width: auto;
 
     @include breakpoint(medium) {
       height: 80px;
