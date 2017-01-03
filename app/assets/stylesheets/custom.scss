@@ -69,11 +69,16 @@ p.project-introduction {
 .highlight.custom-getafe {
 
   background-color: #e6e7e9;
-  background-image: image-url('icon_home.gif');
-  background-size: auto 90%;
-  background-repeat: no-repeat;
-  background-position: 80% bottom;
 }
+
+ #home-with-icon-background {
+   background-color: transparent !important;
+   background-image: image-url('icon_home.gif');
+   min-height: 500px;
+   background-size: auto 70%;
+   background-repeat: no-repeat;
+   background-position: center bottom;
+ }
 
 
 tr.small > td {
