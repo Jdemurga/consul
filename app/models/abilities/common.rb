@@ -11,6 +11,7 @@ module Abilities
       can :update, Debate do |debate|
         debate.editable_by?(user)
       end
+      cannot :update, Debate # GET-53
 
       can :read, Proposal
       can :update, Proposal do |proposal|
@@ -21,10 +22,10 @@ module Abilities
       can :read, SpendingProposal
 
       can :create, Comment
-      can :create, Debate
+      cannot :create, Debate #GET-53
       can :create, Proposal
 
-      can :suggest, Debate
+      cannot :suggest, Debate #GET-53
       can :suggest, Proposal
 
       can [:flag, :unflag], Comment

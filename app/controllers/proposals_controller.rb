@@ -11,7 +11,7 @@ class ProposalsController < ApplicationController
   before_action :load_geozones, only: [:edit, :map, :summary]
   before_action :authenticate_user!, except: [:index, :show, :map, :summary]
 
-  feature_flag :proposals #GET-53 Disable proposals by default  
+  feature_flag :proposals #GET-53 Disable proposals by default
 
   invisible_captcha only: [:create, :update], honeypot: :subtitle
 
