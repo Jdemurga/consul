@@ -41,7 +41,7 @@ class CensusApiCustom
     def date_of_birth
       str = data[:nacim_fecha]
       # GET-10 - Rest API return date with time and timezone always set to 0
-       year, month, day = str.match(/(\d\d\d?\d?)\D(\d\d?)\D(\d\d?)(T00:00:00.000Z)?/)[1..3]
+      year, month, day = str.match(/(\d\d\d?\d?)\D(\d\d?)\D(\d\d?)(T00:00:00.000Z)?/)[1..3]
       return nil unless day.present? && month.present? && year.present?
       Date.new(year.to_i, month.to_i, day.to_i)
     end
@@ -50,12 +50,18 @@ class CensusApiCustom
       data[:codigo_postal]
     end
 
-    def district_code
-      nil
+    def phone_number
+      data[:phone_number]
+    end
+
+    def district_name
+      data[:geozone_name]
     end
 
     def gender
-      'male'
+      # All census records has gender
+      # All census records are correctly defined 1=male 6=female
+      data[:gender] == 1 ? 'male' : 'female'
     end
 
     private
@@ -86,23 +92,12 @@ class CensusApiCustom
       @client = RestClient::Resource.new("#{Rails.application.secrets.census_api_end_point}/#{document_number}")
     end
 
-    def request(document_type, document_number)
-      { request:
-        { codigo_institucion: Rails.application.secrets.census_api_institution_code,
-          codigo_portal:      Rails.application.secrets.census_api_portal_name,
-          codigo_usuario:     Rails.application.secrets.census_api_user_code,
-          documento:          document_number,
-          tipo_documento:     document_type,
-          codigo_idioma:      102,
-          nivel: 3 }}
-    end
-
     def end_point_available?
       Rails.env.staging? || Rails.env.preproduction? || Rails.env.production?
     end
 
     def stubbed_response_body
-      {get_habita_datos_response: {get_habita_datos_return: {hay_errores: false, datos_habitante: { item: {fecha_nacimiento_string: "31-12-1980", identificador_documento: "12345678Z", descripcion_sexo: "Varón" }}, datos_vivienda: {item: {codigo_postal: "28013", codigo_distrito: "01"}}}}}
+      {nacim_fecha: "31-12-1980", dni: "12345678", letra_dni: "R", codigo_postal: "28901", gender: 1, geozone_name: 'Sector III' }
     end
 
     def is_dni?(document_type)
