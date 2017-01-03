@@ -7,6 +7,7 @@ es:
       verify: 'verificar tu cuenta con el padrón'
   account:
     show:
+      user_permission_neigh_commission: Inscribirse en la comisión de tu barrio
       change_neigh_comission: Inscribirme en la comisión de mi barrio
       change_neigh_comission_hint: Puedes formar parte de la comisión de presupuestos participativos de tu barrio
       user_permission_debates: Opinar sobre consultas ciudadanas
