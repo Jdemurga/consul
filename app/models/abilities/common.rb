@@ -21,11 +21,13 @@ module Abilities
 
       can :read, SpendingProposal
 
-      can :create, Comment
+      #GET-53
+      cannot :create, Comment
       cannot :create, Debate #GET-53
-      can :create, Proposal
+      cannot :create, Proposal
+      cannot :suggest, Debate
 
-      cannot :suggest, Debate #GET-53
+
       can :suggest, Proposal
 
       can [:flag, :unflag], Comment
@@ -49,6 +51,7 @@ module Abilities
         can :create, SpendingProposal
         can :create, DirectMessage
         can :show, DirectMessage, sender_id: user.id
+        can :create, Comment
       end
 
       can [:create, :show], ProposalNotification, proposal: { author_id: user.id }

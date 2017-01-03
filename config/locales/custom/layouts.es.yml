@@ -1,4 +1,10 @@
 es:
+  votes:
+    anonymous: 'Es necesario %{verify_account} para poder opinar en las consultas ciudadanas'
+  debates:
+    show:
+      validate_to_comment: 'Es necesario %{verify} para poder opinar en las consultas ciudadanas'
+      verify: 'verificar tu cuenta con el padrón'
   account:
     show:
       change_neigh_comission: Inscribirme en la comisión de mi barrio
