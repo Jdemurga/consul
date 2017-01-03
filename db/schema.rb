@@ -475,7 +475,7 @@ ActiveRecord::Schema.define(version: 20161228084344) do
     t.boolean  "email_digest",                              default: true
     t.boolean  "email_on_direct_message",                   default: true
     t.boolean  "official_position_badge",                   default: false
-    t.datetime "password_changed_at",                       default: '2016-12-21 18:44:02', null: false
+    t.datetime "password_changed_at",                       default: '2017-01-02 12:07:51', null: false
     t.integer  "commission_id"
   end
 
