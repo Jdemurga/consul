@@ -8,6 +8,7 @@
 $brand:             #B80830;
 $brand-original:    #004A83;
 $dark:              darken($brand-original, 10%);
+$box-bg:            #e9e9e9;
 
 body, html {
 
@@ -23,7 +24,7 @@ body, html {
 
 .panel {
   background: white;
-  border: 1px solid #DEE0E3;
+  border: 1px solid darken($box-bg,10%);
   padding: 1.5rem;
 
   .info-date {
@@ -35,6 +36,11 @@ body, html {
   .button {
     margin-bottom: 0px;
   }
+}
+
+.panel-highlight.panel {
+
+  background-color: $box-bg;
 }
 
 .box {
@@ -518,4 +524,39 @@ table.age-groups-investment-projects {
 footer h2 a {
 
   border-bottom: none;
+}
+
+/* Auth page */
+.auth p, .auth a, .auth .checkbox {
+  font-size: 0.875rem;
+}
+
+.auth-page {
+  background: $brand image-url("auth_bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .button {
+    margin-bottom: 20px;
+  }
+
+  form {
+    margin-bottom: 10px;
+  }
+
+  h1:not(.logo) {
+    @include logo;
+
+    a {
+      color: white;
+      display: block;
+      line-height: rem-calc(80); // Same as logo image height
+      text-align: center;
+
+      @include breakpoint(medium) {
+        display: inline-block;
+        text-align: left;
+      }
+    }
+  }
 }
