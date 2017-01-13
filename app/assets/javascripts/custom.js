@@ -5,3 +5,17 @@
 //
 //
 
+
+var initialize_custom_components = function() {
+
+    $('.tabs').on('toggled', function (event, tab) {
+        console.log(tab);
+    });
+}
+
+$(function(){
+
+    $(document).ready(initialize_custom_components);
+    $(document).on('page:load', initialize_custom_components);
+    $(document).on('ajax:complete', initialize_custom_components);
+});

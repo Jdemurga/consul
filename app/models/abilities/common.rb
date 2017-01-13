@@ -11,6 +11,7 @@ module Abilities
       can :update, Debate do |debate|
         debate.editable_by?(user)
       end
+      cannot :update, Debate # GET-53
 
       can :read, Proposal
       can :update, Proposal do |proposal|
@@ -18,11 +19,14 @@ module Abilities
       end
       can [:retire_form, :retire], Proposal, author_id: user.id
 
-      can :create, Comment
-      can :create, Debate
-      can :create, Proposal
+      can :read, SpendingProposal
 
-      can :suggest, Debate
+      #GET-53
+      cannot :create, Comment
+      cannot :create, Debate
+      cannot :create, Proposal
+      cannot :suggest, Debate
+
       can :suggest, Proposal
 
       can [:flag, :unflag], Comment
@@ -52,6 +56,7 @@ module Abilities
 
         can :create, DirectMessage
         can :show, DirectMessage, sender_id: user.id
+        can :create, Comment
       end
 
       can [:create, :show], ProposalNotification, proposal: { author_id: user.id }

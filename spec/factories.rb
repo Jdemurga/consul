@@ -1,4 +1,10 @@
 FactoryGirl.define do
+  factory :commission do
+    geozone_id nil
+    name "MyString"
+    place "MyString"
+    address "MyString"
+  end
   sequence(:document_number) { |n| "#{n.to_s.rjust(8, '0')}X" }
 
   factory :user do

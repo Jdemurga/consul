@@ -4,9 +4,7 @@ class WelcomeController < ApplicationController
   layout "devise", only: [:welcome, :verification]
 
   def index
-    if current_user
-      redirect_to :proposals
-    end
+
   end
 
   def welcome

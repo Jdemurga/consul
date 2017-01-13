@@ -53,8 +53,9 @@ $small-font-size:     rem-calc(14);
 $line-height:         rem-calc(24);
 $tiny-font-size:      rem-calc(12);
 
-$brand:             #004A83;
-$dark:              darken($brand, 10%);
+$brand:             #B80830;
+$brand-original:    #004A83;
+$dark:              darken($brand-original, 10%);
 
 $text:              #222222;
 $text-medium:       #515151;
@@ -108,7 +109,7 @@ $global-font-size: 100%;
 $global-width: rem-calc(1200);
 $global-lineheight: 1.5;
 $foundation-palette: (
-  primary: #2199e8,
+  primary: lighten($brand, 40%),
   secondary: #777,
   success: #3adb76,
   warning: #ffae00,

@@ -68,13 +68,12 @@ class Verification::Residence
   private
 
     def call_census_api
-      @census_api_response = CensusApi.new.call(document_type, document_number)
+      @census_api_response = CensusApiCustom.new.call(document_type, document_number)
     end
 
     def residency_valid?
-      @census_api_response.valid? &&
-        @census_api_response.postal_code == postal_code &&
-        @census_api_response.date_of_birth == date_of_birth
+        # GET-44 Customer requirements about residence check
+        @census_api_response.valid? && @census_api_response.date_of_birth == date_of_birth
     end
 
     def clean_document_number

@@ -1,40 +1,19 @@
-<div class="small-12 medium-9 column">
+<div class="small-12 medium-12 column">
   <ul>
-    <% if feature?(:debates) %>
-      <li>
-        <%= layout_menu_link_to t("layouts.header.debates"),
-                                debates_path,
-                                controller_name == 'debates',
-                                accesskey: "d" %>
-      </li>
-    <% end %>
     <li>
-      <%= layout_menu_link_to t("layouts.header.proposals"),
-                                proposals_path,
-                                controller_name == 'proposals',
-                                accesskey: "p" %>
+      <%= link_to t("layouts.header.participatory_budgets_2017"), page_path('participatory_budget/in_two_minutes'), class: ("active" if current_page?("/participatory_budget/in_two_minutes")), accesskey: "p"  %>
     </li>
     <li>
-      <%= layout_menu_link_to t("layouts.header.proposal_ballot"),
-                                proposal_ballots_path,
-                                controller_name == 'proposal_ballots',
-                                accesskey: "v" %>
+      <%= link_to t("layouts.header.participatory_budgets_2016"), participatory_budget_results_path, class: ("active" if current_page?(participatory_budget_results_path)), accesskey: "i"  %>
     </li>
-    <% if feature?(:spending_proposals) %>
-      <li>
-        <%= layout_menu_link_to t("layouts.header.spending_proposals"),
-                                  spending_proposals_path,
-                                  controller_name == 'spending_proposals',
-                                  accesskey: "s" %>
-      </li>
-    <% end %>
-    <% if feature?(:budgets) %>
-      <li>
-        <%= layout_menu_link_to t("layouts.header.budgets"),
-                                  budgets_path,
-                                  controller_name == "budgets" || controller_name == "investments",
-                                  accesskey: "b" %>
-      </li>
-    <% end %>
+    <li>
+      <%= link_to t("layouts.header.public_consultation"), page_path('public_consultation'), class: ("active" if current_page?("/public_consultation")), accesskey: "a"  %>
+    </li>
+    <li>
+      <%= link_to t("layouts.header.previous_hearing"), t('layouts.header.previous_hearing_url'), target: '_blank'  %>
+    </li>
+    <li>
+      <%= link_to t("layouts.header.more_information"), page_path('more_information'), class: ("active" if current_page?("/more_information")), accesskey: "i"  %>
+    </li>
   </ul>
 </div>
