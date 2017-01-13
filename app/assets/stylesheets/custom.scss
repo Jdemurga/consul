@@ -21,6 +21,22 @@ body, html {
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
+.panel {
+  background: white;
+  border: 1px solid #DEE0E3;
+  padding: 1.5rem;
+
+  .info-date {
+
+    color: $brand;
+
+  }
+
+  .button {
+    margin-bottom: 0px;
+  }
+}
+
 .box {
 
     background-color: #e9e9e9;
@@ -46,7 +62,7 @@ h1.project-title {
   margin-bottom: 0px;
   text-align: left;
   line-height: 65px;
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 h2.project-slogan {
@@ -74,7 +90,7 @@ p.project-introduction {
  #home-with-icon-background {
    background-color: transparent !important;
    background-image: image-url('icon_home.gif');
-   min-height: 500px;
+   min-height: 300px;
    background-size: auto 70%;
    background-repeat: no-repeat;
    background-position: center bottom;
@@ -95,9 +111,12 @@ tr.small > td {
   padding-top: 20px;
 }
 
-#home-with-icon-background {
+/* Welcome */
 
-  background-color: white;
+.open-processes {
+  border-left: 1px solid $brand;
+  color: $brand;
+  padding-left: 0.75rem;
 
 }
 
