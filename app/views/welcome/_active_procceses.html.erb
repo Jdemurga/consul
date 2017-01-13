@@ -1,0 +1,55 @@
+<div class="row margin">
+  <div class="small-12 column">
+    <h2 class="title open-processes inline-block">
+      Procesos abiertos
+    </h2>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="small-12 medium-4 column">
+    <div class="panel panel-highlight" data-equalizer-watch="">
+      <div style="min-height: 252px;">
+        <h3>Abiertos Presupuestos Participativos 2017</h3>
+        <p class="info-date"><span class="icon-calendar"></span>&nbsp;Participa hasta el <strong>28 de Febrero</strong></p>
+        <p class="info">
+          Abierto plazo para recogida de propuestas de Presupuestos Participativos 2017.
+          Propón a través de este proceso las mejoras para el barrio.
+        </p>
+      </div>
+      <%= link_to t("layouts.header.participatory_budget_callout"), budgets_path, class: "button see-more expanded" %>
+    </div>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <div class="panel" data-equalizer-watch="">
+
+      <div style="min-height: 252px;">
+        <h3>I BORRADOR DEL PLAN DE CONVIVENCIA DE GETAFE</h3>
+        <p class="info-date">GETAFE CONTIGO</p>
+        <p class="info">
+          Os presentamos el I Borrador del PLAN DE CONVIVENCIA DE GETAFE una apuesta y un compromiso del Ayuntamiento.
+        </p>
+      </div>
+      <%= link_to t("layouts.header.public_consultation_callout"), page_path('coexistence_plan_public_consultation'), class: "button see-more expanded" %>
+    </div>
+  </div>
+
+
+  <div class="small-12 medium-4 column">
+    <div class="panel" data-equalizer-watch="">
+
+      <div style="min-height: 252px;">
+        <h3>Audiencias Previas</h3>
+        <p class="info-date">GETAFE CONTIGO</p>
+        <p class="info">
+          <br>
+          En regulación de la normativa municipal <u>tu opinión cuenta</u>.
+        </p>
+      </div>
+      <%= link_to t("layouts.header.more_information"), t('layouts.header.previous_hearing_url'), class: "button see-more expanded", target: '_blank' %>
+    </div>
+  </div>
+
+</div>
