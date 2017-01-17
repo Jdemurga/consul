@@ -15,7 +15,7 @@
       <div class="small-12 search-results margin-bottom">
 
         <% if params[:unfeasible].present? %>
-          <h2><%= t("budgets.investments.index.unfeasible") %></h2>
+          <h3><%= t("budgets.investments.index.unfeasible") %></h3>
           <p>
               <%= t("budgets.investments.index.unfeasible_text",
               definitions: link_to(t("budgets.investments.index.unfeasible_text_definitions"), "https://decide.madrid.es/participatory_budget_info#20")).html_safe %>
@@ -24,10 +24,10 @@
 
 
         <% if params[:search].present? %>
-          <h2>
+          <h3>
             <%= page_entries_info @investments %>
             <%= t("budgets.investments.index.search_results", count: @investments.size, search_term: params[:search]) %>
-          </h2>
+          </h3>
         <% end %>
       </div>
 

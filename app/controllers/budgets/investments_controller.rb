@@ -32,6 +32,12 @@ module Budgets
     end
 
     def new
+      if params[:heading_id]
+        @heading = @budget.headings.find(params[:heading_id])
+        @group = @heading.group
+      else
+        redirect_to @budget, notice: I18n.t('budgets.investments.new.should_select_a_geozone', budget_page_url: budget_path(@budget)).html_safe
+      end
     end
 
     def show
@@ -44,12 +50,15 @@ module Budgets
 
     def create
       @investment.author = current_user
+      @heading = @investment.heading
+      @group = @heading.group
 
       if @investment.save
         Mailer.budget_investment_created(@investment).deliver_later
         redirect_to budget_investment_path(@budget, @investment),
                     notice: t('flash.actions.create.budget_investment')
       else
+
         render :new
       end
     end

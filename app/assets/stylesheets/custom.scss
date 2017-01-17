@@ -571,9 +571,9 @@ footer h2 a {
 
 .budget.expanded {
 
-  background-color: $brand;
+  background-color: darken($brand, 5%);
   .info {
-    background-color: darken($brand, 5%);
+    background-color: $brand;
 
     .callout {
       display: none;
@@ -599,9 +599,16 @@ footer h2 a {
       }
 
       a.active {
-        font-weight: bolder !important;
         text-decoration: underline;
       }
     }
   }
+}
+
+span.hint {
+
+  font-size: 80%;
+  color: $dark;
+  font-style: italic;
+  padding-left: 5px;
 }

@@ -10,7 +10,7 @@ es:
           one: "Has votado <span>una</span> propuesta."
           other: "Has votado <span>%{count}</span> propuestas."
         voted_info_html: "Puedes cambiar tus votos en cualquier momento hasta el cierre de esta fase.<br> No hace falta que inviertas todo el dinero disponible."
-        zero: "Todavía no has votado ninguna propuesta de inversión."
+        zero: "Todavía no has votado ninguna propuesta."
       reasons_for_not_balloting:
         not_logged_in: Necesitas %{signin} o %{signup} para continuar.
         not_verified: Las propuestas sólo pueden ser apoyadas por usuarios verificados, %{verify_account}.
@@ -33,6 +33,16 @@ es:
     index:
       title: Presupuestos participativos
     investments:
+      new:
+        title: 'Alta de propuesta'
+        should_select_a_geozone: 'Para crear una propuesta seleccione antes un barrio de la página inicial de Presupuestos Participativos'
+        what_is_investment_proposal: 'Propuestas de INVERSIÓN'
+        what_is_investment_proposal_body: 'Con formato de obra, obra menor o adquisición de equipamiento puedes proponer mejoras para las infraestructuras del barrio.'
+        what_is_investment_program: 'Propuestas de PROGRAMAS SOCIO COMUNITARIOS'
+        what_is_investment_program_body: 'Con formato de ejecución de servicios puedes proponer actividades culturales, educativas, de ocio juvenil e infantil o para nuestros mayores.'
+        about_investment_types: '¿Qué tipos de propuestas hay?'
+        more_information: '¿Tienes alguna duda sobre lo que es una propuesta de Presupuesto Participativo?'
+        about_attachment_restrictitions: '(*) Sólo permitidos ficheros de menos de 5Mb en formatos: png, gif, jpg y pdf'
       form:
         tags_instructions: "Etiqueta esta propuesta. Puedes elegir entre las categorías propuestas o introducir las que desees"
         tags_label: Temas
@@ -58,11 +68,12 @@ es:
             one: "<strong>Has votado una propuesta por un valor de %{amount_spent}</strong>"
             other: "<strong>Has votado %{count} propuestas por un valor de %{amount_spent}</strong>"
           voted_info: Puedes cambiar tus votos en cualquier momento hasta el cierre de esta fase. No hace falta que gastes todo el dinero disponible.
-          zero: "Todavía no has votado ninguna propuesta de inversión."
-          verified_only: "Para crear una nueva propuesta de inversión %{verify}."
+          zero: "Todavía no has votado ninguna propuesta."
+          verified_only: "Para crear una nueva propuesta %{verify}."
           verify_account: "verifica tu cuenta"
-          create: "Crear propuesta de inversión"
-          not_logged_in: "Para crear una nueva propuesta de inversión debes %{sign_in} o %{sign_up}."
+          have_and_verify_account: " entrar con su cuenta y verificar su identidad"
+          create: "Crear propuesta"
+          not_logged_in: "Para crear una nueva propuesta debes %{sign_in} o %{sign_up}."
           sign_in: "iniciar sesión"
           sign_up: "registrarte"
           by_feasibility: Por viabilidad
@@ -87,7 +98,7 @@ es:
       investment:
         title: Propuesta de inversión
         add: Añadir
-        already_added: "Ya has añadido esta propuesta de inversión"
+        already_added: "Ya has añadido esta propuesta"
         already_supported: Ya has apoyado esta propuesta. ¡Compártelo!
         support_title: Apoyar esta propuesta
         confirm_group: "Sólo puedes apoyar propuestas en un distrito. Si sigues adelante no podrás cambiar esta decisión. ¿Estás seguro?"
