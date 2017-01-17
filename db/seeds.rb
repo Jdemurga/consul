@@ -757,9 +757,9 @@ Debate.create(title: 'Pregunta 3. Valores', description: 'A tu juicio, ¿Cuál e
 # GET-57 Initialize Budget
 budget = Budget.create(name: 'Presupuestos Participativos 2017', currency_symbol: '€', phase: 'accepting', description_accepting: '<p>Del <strong>23 de enero al 28 de febrero</strong>, toda persona empadronada en Getafe podrá crear propuestas para uno o varios barrios. Los 3.432.000 euros destinados a Inversiones y Programas se repartirán proporcionalmente en los 11 barrios.</p><p>Las propuestas se pueden hacer en esta web o de forma asistida en dependencias municipales de los barrios. A través de las Comisiones de Barrio se podrá debatir, pensar y trabajar juntos sobre las propuestas.</p>')
 Geozone.order('name asc').each do |geozone|
-  group = budget.groups.create(name: geozone.name, geozone_id: geozone.id)
+  group = budget.groups.create(name: geozone.name, geozone_id:geozone.id)
   Budget::Heading.create(name: 'Propuestas de inversión', price: 300000, group_id: group.id)
-  Budget::Heading.create(name: 'Propuestas de programas', price: 12000, group_id: group.id)
+  Budget::Heading.create(name: 'Propuestas de programas socio comunitarios', price: 12000, group_id: group.id)
 end
 
 Geozone.find_by_census_code('La Alhóndiga').update(html_map_coordinates: '157,62,110,134,122,198,127,147,142,105')
