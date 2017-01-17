@@ -20,7 +20,7 @@
             <h1 class="margin-top"><%= @group.name %></h1>
             <h2 class=""><%= @budget.name %></h2>
 
-            <ul class="no-bullet headings-list">
+            <ul class="no-bullet headings-list hide">
               <%  @group.headings.each do |heading| %>
                   <li class="inline-block">
                     <%= link_to current_path_with_query_params(page: 1, heading_id: heading.id ), class: heading.id == @heading.try(:id) ? 'active' : '' do %>

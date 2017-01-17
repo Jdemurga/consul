@@ -4,7 +4,6 @@
       <%= back_link_to budgets_path %>
 
       <h1><%= @budget.name %></h1>
-
       <%= @budget.description %>
     </div>
     <div class="small-12 medium-3 column info padding" data-equalizer-watch>
@@ -39,10 +38,11 @@
 
 <div class="row margin-top">
   <div class="small-12 column margin">
-    <h2>Selecciona el barrio en el que realizarás tu propuesta</h2>
+
   </div>
 
   <div class="small-12 medium-9 column margin-top">
+    <h2>Selecciona el barrio en el que realizarás tu propuesta</h2>
     <div class="text-center">
       <%= image_tag('map.jpg', id: 'map', usemap: '#html_map', class: 'margin-top', alt: 'Barrios de Getafe') %>
       <map name="html_map" id="html_map">
@@ -58,7 +58,17 @@
   </div>
 
   <div class="small-12 medium-3 column margin">
+    <div class="sidebar-divider"></div>
+    <h2 class="sidebar-title">Información sobre Presupuestos Participativos</h2>
+    <br>
+    <ul id="geozones" class="no-bullet">
+      <li><%= link_to 'El proceso en dos minutos', page_path('participatory_budget/in_two_minutes') %></li>
+      <li><%= link_to 'Información detallada', page_path('more_information', anchor: '4') %></li>
+    </ul>
 
+    <div class="sidebar-divider"></div>
+    <h2 class="sidebar-title">Barrios</h2>
+    <br>
     <ul id="geozones" class="no-bullet">
       <% @budget.groups.each do |group| %>
           <li><%= link_to group.name, budget_investments_path(@budget, group_id: group.id), class: ("active" if group.id == params[:group]) %></li>
