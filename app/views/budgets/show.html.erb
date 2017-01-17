@@ -49,7 +49,7 @@
         <% @budget.groups.each do |geozone| %>
             <area shape="poly"
                   coords="<%= geozone.geozone.html_map_coordinates %>"
-                  href="<%= budget_investments_path(@budget, heading_id: geozone.headings.first) %>"
+                  href="<%= budget_investments_path(@budget, group_id: geozone.id) %>"
                   title="<%= geozone.name %>"
                   alt="<%= geozone.name %>">
         <% end %>
@@ -61,7 +61,7 @@
 
     <ul id="geozones" class="no-bullet">
       <% @budget.groups.each do |group| %>
-          <li><%= link_to group.name, budget_investments_path(@budget, heading_id: group.headings.first), class: ("active" if group.id == params[:group]) %></li>
+          <li><%= link_to group.name, budget_investments_path(@budget, group_id: group.id), class: ("active" if group.id == params[:group]) %></li>
       <% end %>
     </ul>
   </div>

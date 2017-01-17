@@ -72,6 +72,8 @@ es:
           verified_only: "Para crear una nueva propuesta %{verify}."
           verify_account: "verifica tu cuenta"
           have_and_verify_account: " entrar con su cuenta y verificar su identidad"
+          by_type: 'Tipos de propuesta en %{group_name}'
+          by_any_type: 'Cualquier tipo de propuesta'
           create: "Crear propuesta"
           not_logged_in: "Para crear una nueva propuesta debes %{sign_in} o %{sign_up}."
           sign_in: "iniciar sesión"
@@ -91,12 +93,12 @@ es:
         location_html: 'Ubicación: <strong>%{location}</strong>'
         organization_name_html: 'Organización: <strong>%{name}</strong>'
         share: Compartir
-        title: Propuesta de inversión
+        title: Propuesta
         supports: Apoyos
         votes: Votos
       wrong_price_format: Solo puede incluir caracteres numéricos
       investment:
-        title: Propuesta de inversión
+        title: Propuesta
         add: Añadir
         already_added: "Ya has añadido esta propuesta"
         already_supported: Ya has apoyado esta propuesta. ¡Compártelo!

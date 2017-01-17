@@ -6,7 +6,7 @@
         <div class="budget-investment-content">
 
           <% cache [locale_and_user_status(investment), 'index', investment, investment.author] do %>
-            <span class="label-budget-investment float-left"><%= t("budgets.investments.investment.title") %></span>
+            <span class="label-budget-investment float-left"><%= investment.heading.name %></span>
             <span class="icon-budget"></span>
             <h3><%= link_to investment.title, namespaced_budget_investment_path(investment) %></h3>
             <p class="investment-project-info">
@@ -32,7 +32,7 @@
               <% end %>
 
               <span class="bullet">&nbsp;&bull;&nbsp;</span>
-              <%= investment.heading.name %>
+              <strong><%= link_to(investment.group.name, budget_investments_path(investment.budget, group_id: investment.group_id )) %></strong>
             </p>
             <div class="investment-project-description">
               <p><%= investment.description %></p>

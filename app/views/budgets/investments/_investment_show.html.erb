@@ -12,7 +12,7 @@
         <span class="bullet">&nbsp;&bull;&nbsp;</span>
         <%= l investment.created_at.to_date %>
         <span class="bullet">&nbsp;&bull;&nbsp;</span>
-        <%= investment.heading.name %>
+        <strong><%= link_to(investment.group.name, budget_investments_path(investment.budget, group_id: investment.group_id )) %></strong>
       </div>
 
       <br>
@@ -106,7 +106,7 @@
       <div class="small-12 medium-3 column">
         <div class="float-right">
           <span class="label-budget-investment float-left">
-            <%= t("budgets.investments.show.title") %>
+            <%= investment.heading.name %>
           </span>
           <span class="icon-budget"></span>
         </div>

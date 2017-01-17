@@ -12,6 +12,7 @@ module Budgets
     before_action -> { flash.now[:notice] = flash[:notice].html_safe if flash[:html_safe] && flash[:notice] }
     before_action :load_ballot, only: [:index, :show]
     before_action :load_heading, only: [:index, :show]
+    before_action :load_group, only: [:index, :show]
     before_action :set_random_seed, only: :index
     before_action :load_categories, only: [:index, :new, :create]
 
@@ -32,9 +33,9 @@ module Budgets
     end
 
     def new
-      if params[:heading_id]
-        @heading = @budget.headings.find(params[:heading_id])
-        @group = @heading.group
+      if params[:group_id]
+        @group = @budget.groups.find(params[:group_id])
+        @heading = @group.headings.first
       else
         redirect_to @budget, notice: I18n.t('budgets.investments.new.should_select_a_geozone', budget_page_url: budget_path(@budget)).html_safe
       end
@@ -101,10 +102,17 @@ module Budgets
         @ballot = @budget.balloting? ? query.first_or_create : query.first_or_initialize
       end
 
+      def load_group
+        if params[:group_id].present?
+          @group = @budget.groups.find(params[:group_id])
+        end
+      end
+
       def load_heading
         if params[:heading_id].present?
           @heading = @budget.headings.find(params[:heading_id])
           @assigned_heading = @ballot.try(:heading_for_group, @heading.try(:group))
+          @group = @heading.group
         end
       end
 

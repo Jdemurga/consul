@@ -1,10 +1,10 @@
 <div class="clear"></div>
 
-<% if @heading %>
+<% if @group %>
   <% if can?(:create, Budget::Investment.new(budget: @budget))  %>
     <% if current_user && current_user.level_two_or_three_verified? %>
       <%= link_to t("budgets.investments.index.sidebar.create"),
-                 new_budget_investment_path(budget_id: @budget.id, heading_id: @heading.try(:id)), class: "button budget expanded" %>
+                 new_budget_investment_path(budget_id: @budget.id, group_id: @group.try(:id), heading_id: @heading.try(:id)), class: "button budget expanded" %>
     <% else %>
       <div class="callout warning">
         <%= t("budgets.investments.index.sidebar.verified_only",
@@ -21,8 +21,31 @@
   <% end %>
 <% end %>
 
-<%= render "shared/tag_cloud", taggable: 'budget/investment' %>
-<%= render 'budgets/investments/categories' %>
+
+<% if @group %>
+<div class="sidebar-divider"></div>
+<h2 class="sidebar-title"><%= t("budgets.investments.index.sidebar.by_type", group_name: @group.name) %></h2>
+<br>
+
+<ul id="by_type" class="no-bullet heading-options">
+  <li class="inline-block">
+    <%= link_to t("budgets.investments.index.sidebar.by_any_type"), budget_investments_path(@budget, group_id: @group.id ), class: ( 'active' unless @heading ) %></li>
+  <% @group.headings.each do |heading| %>
+      <li class="inline-block">
+        <%= link_to heading.name,
+                    budget_investments_path(@budget, group_id: @group.id, heading_id: heading.id), class: ( 'active' if ( @heading.try(:id) == heading.id ) ) %></li>
+  <% end %>
+</ul>
+<% end %>
+
+
+<% if @tag_cloud.tags.any? %>
+  <%= render "shared/tag_cloud", taggable: 'budget/investment' %>
+  <%= render 'budgets/investments/categories' %>
+<% else %>
+    <%= render 'budgets/investments/categories' %>
+    <%= render "shared/tag_cloud", taggable: 'budget/investment' %>
+<% end %>
 <%= render 'budgets/investments/feasibility_link' %>
 
 <% if @heading && can?(:show, @ballot) %>

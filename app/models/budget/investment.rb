@@ -252,6 +252,7 @@ class Budget
         investments = params[:unfeasible].present? ? investments.unfeasible : investments.not_unfeasible
       end
       investments = investments.by_heading(params[:heading_id]) if params[:heading_id].present?
+      investments = investments.by_group(params[:group_id]) if params[:group_id].present?
       investments = investments.search(params[:search])         if params[:search].present?
       investments
     end
