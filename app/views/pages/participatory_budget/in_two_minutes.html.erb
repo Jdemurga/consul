@@ -10,10 +10,13 @@
 
     <div class="small-12 column spending-proposal-timeline text-center">
       <ul class="no-bullet">
-        <li>
-          <i class="icon-calendar"></i>
-          <p class="title"><%= t('participatory_budget.in_two_minutes.date_1_info') %></p>
-          <p><%= t('participatory_budget.in_two_minutes.date_1') %></p>
+
+        <li class="active">
+          <%= link_to budgets_path do %>
+            <i class="icon-calendar"></i>
+            <p class="title"><%= t('participatory_budget.in_two_minutes.date_1_info') %></p>
+            <p><%= t('participatory_budget.in_two_minutes.date_1') %></p>
+          <% end %>
         </li>
 
         <li>

@@ -11,7 +11,7 @@ class BudgetsController < ApplicationController
 
   def index
     @budgets = @budgets.order(:created_at)
-    redirect_to @budgets.first
+    redirect_to @budgets.last
   end
 
 end

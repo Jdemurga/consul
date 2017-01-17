@@ -4,7 +4,7 @@
 
       <div class="row">
         <div class="small-12 column">
-          <%= back_link_to budget_group_path(@budget, @heading.group) %>
+          <%= back_link_to budget_path(@budget) %>
 
           <% if can? :show, @ballot %>
             <%= link_to t("budgets.investments.header.check_ballot"),
@@ -17,7 +17,21 @@
       <div class="row progress-votes">
         <div class="small-12 column">
           <div class="progress-bar-nav" data-fixed-bar>
-            <h1 class="inline-block margin-top"><%= @heading.name %></h1>
+            <h1 class="margin-top"><%= @heading.group.name %></h1>
+            <h2 class=""><%= @budget.name %></h2>
+
+            <ul class="no-bullet headings-list">
+              <%  @heading.group.headings.each do |heading| %>
+                  <li class="inline-block">
+                    <%= link_to current_path_with_query_params(page: 1, heading_id: heading.id ), class: heading.id == @heading.id ? 'active' : '' do %>
+                        <h4>
+                          <%= heading.name %>
+                        </h4>
+                    <% end %>
+                  </li>
+              <% end %>
+            </ul>
+
             <% if can? :show, @ballot %>
               <div id="check-ballot" style="display: none;">
                 <%= link_to t("budgets.investments.header.check_ballot"),
@@ -38,7 +52,7 @@
                 </p>
               <% end %>
             <% else %>
-              <h2><%= @budget.formatted_heading_price(@heading) %></h2>
+              <h2 class="hide"><%= @budget.formatted_heading_price(@heading) %></h2>
             <% end %>
           </div>
         </div>
@@ -50,8 +64,8 @@
     <div class="row">
       <div class="small-12 column">
         <%= back_link_to budget_path(@budget) %>
-
-        <h1><%= t('budgets.investments.index.title') %></h1>
+        <h1 class="margin-top"><%= @budget.name %></h1>
+        <h2><%= t('budgets.investments.index.any_group') %></h2>
       </div>
     </div>
   </div>

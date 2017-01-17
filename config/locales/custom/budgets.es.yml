@@ -13,7 +13,7 @@ es:
         zero: "Todavía no has votado ninguna propuesta de inversión."
       reasons_for_not_balloting:
         not_logged_in: Necesitas %{signin} o %{signup} para continuar.
-        not_verified: Las propuestas de inversión sólo pueden ser apoyadas por usuarios verificados, %{verify_account}.
+        not_verified: Las propuestas sólo pueden ser apoyadas por usuarios verificados, %{verify_account}.
         organization: Las organizaciones no pueden votar.
         not_selected: No se pueden votar propuestas inviables.
         not_enough_money: No hay fondos suficientes.
@@ -39,16 +39,16 @@ es:
         tag_category_label: "Categorías"
         tags_placeholder: "Escribe las etiquetas que desees separadas por una coma (',')"
       index:
-        any_group: Todos los barrios
         title: Presupuestos participativos
         unfeasible: Propuestas de inversión no viables
         unfeasible_text: Las propuestas presentadas deben cumplir una serie de criterios (legalidad, concreción, ser competencia del Ayuntamiento, no superar el tope del presupuesto; %{definitions}) para ser declaradas viables y llegar hasta la fase de votación final. Todas las propuestas que no cumplen estos criterios son marcadas como inviables y publicadas en la siguiente lista, junto con su informe de inviabilidad.
         unfeasible_text_definitions: ver definiciones aquí
-        by_heading: "Propuestas de inversión con ámbito: %{heading}"
+        by_heading: "Propuestas presentadas"
         search_form:
           button: Buscar
-          placeholder: Buscar propuestas de inversión...
+          placeholder: Buscar propuestas...
           title: Buscar
+        empty: 'Aún no hay propuestas presentadas por los ciudadanos'
         search_results:
           one: " que contiene '%{search_term}'"
           other: " que contienen '%{search_term}'"

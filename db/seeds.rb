@@ -753,3 +753,23 @@ Commission.create(name: "Comisión Centro Cívico Sector III", place: "Centro C�
 Debate.create(title: 'Pregunta 1. Actividades', description: '¿Qué actividades consideras que se deberían llevar a cabo en tu barrio para mejorar la convivencia entre sus vecinos y vecinas?', author_id: admin.id, terms_of_service: '1' )
 Debate.create(title: 'Pregunta 2. Opiniones', description: 'Las medidas que están contempladas en el Plan, ¿consideras que son necesarias en tu barrio? Opiniones y sugerencias al respecto.', author_id: admin.id, terms_of_service: '1' )
 Debate.create(title: 'Pregunta 3. Valores', description: 'A tu juicio, ¿Cuál es el principal valor que aportan las diferentes diversidades (género, edad, procedencia, funcional, sexual, religiosa…) a la convivencia en la ciudad?', author_id: admin.id, terms_of_service: '1' )
+
+# GET-57 Initialize Budget
+budget = Budget.create(name: 'Presupuestos Participativos 2017', currency_symbol: '€', phase: 'accepting', description_accepting: '<p>Del <strong>23 de enero al 28 de febrero</strong>, toda persona empadronada en Getafe podrá crear propuestas para uno o varios barrios. Los 3.432.000 euros destinados a Inversiones y Programas se repartirán proporcionalmente en los 11 barrios.</p><p>Las propuestas se pueden hacer en esta web o de forma asistida en dependencias municipales de los barrios. A través de las Comisiones de Barrio se podrá debatir, pensar y trabajar juntos sobre las propuestas.</p>')
+Geozone.order('name asc').each do |geozone|
+  group = budget.groups.create(name: geozone.name, geozone_id: geozone.id)
+  Budget::Heading.create(name: 'Propuestas de inversión', price: 300000, group_id: group.id)
+  Budget::Heading.create(name: 'Propuestas de programas', price: 12000, group_id: group.id)
+end
+
+Geozone.find_by_census_code('La Alhóndiga').update(html_map_coordinates: '157,62,110,134,122,198,127,147,142,105')
+Geozone.find_by_census_code('El Bercial').update(html_map_coordinates: '162,28,138,41,125,56,106,68,95,105,112,123,160,54,169,36')
+Geozone.find_by_census_code('Buenavista').update(html_map_coordinates: '81,125,40,177,41,187,39,196,48,198,78,184,83,156,85,137')
+Geozone.find_by_census_code('Centro').update(html_map_coordinates: '145,112,139,125,134,138,129,155,131,164,137,168,144,169,154,168,161,160,162,141,157,131,163,126,155,119,152,128,149,123')
+Geozone.find_by_census_code('Getafe-Norte').update(html_map_coordinates: '172,39,160,67,159,89,178,104,201,120,214,124,212,94,212,78,203,80,200,69,197,59')
+Geozone.find_by_census_code('Juan de la Cierva').update(html_map_coordinates: '181,114,169,129,163,133,166,139,190,140,215,136,214,129,196,127')
+Geozone.find_by_census_code('Los Molinos').update(html_map_coordinates: '219,80,217,93,220,119,234,115,242,119,249,121,258,117,270,113,275,104,273,92,261,86,239,85')
+Geozone.find_by_census_code('Las Margaritas').update(html_map_coordinates: '158,73,144,107,151,123,155,116,167,125,181,112,157,95')
+Geozone.find_by_census_code('Perales del Rio').update(html_map_coordinates: '360,70,365,96,375,93,390,97,424,98,437,108,447,101,453,107,463,99,430,74,407,65,398,62,392,56,380,59,374,53,366,58')
+Geozone.find_by_census_code('San Isidro').update(html_map_coordinates: '128,165,125,196,135,186,148,182,154,170,142,170,135,172')
+Geozone.find_by_census_code('Sector III').update(html_map_coordinates: '71,284,113,207,108,195,116,196,105,138,107,124,93,110,85,121,87,141,86,155,84,169,82,184,73,191,62,195,52,200,45,204,38,201,37,209,59,279')

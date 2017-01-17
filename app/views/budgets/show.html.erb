@@ -14,7 +14,7 @@
         <%= t("budgets.phase.#{@budget.phase}") %>
       </p>
 
-      <% if can?(:create, Budget::Investment.new(budget: @budget))%>
+      <% if @budget.accepting? %>
         <% if current_user %>
           <% if current_user.level_two_or_three_verified? %>
             <%= link_to t("budgets.investments.index.sidebar.create"), new_budget_investment_path(@budget), class: "button margin-top expanded" %>
@@ -36,28 +36,35 @@
   </div>
 </div>
 
+
 <div class="row margin-top">
-  <div class="small-12 medium-9 column">
-    <table class="table-fixed">
-      <thead>
-        <th><%= t('budgets.show.group') %></th>
-      </thead>
-      <tbody>
-        <% @budget.groups.each do |group| %>
-          <tr>
-            <td>
-              <% if group.headings.count == 1 %>
-                <%= link_to group.name,
-                            budget_investments_path(@budget, heading_id: group.headings.first.id),
-                            data: { no_turbolink: true } %>
-              <% else %>
-                <%= link_to group.name, budget_group_path(@budget, group) %>
-              <% end %>
-              <br>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <div class="small-12 column margin">
+    <h2>Selecciona el barrio en el que realizarás tu propuesta</h2>
   </div>
+
+  <div class="small-12 medium-9 column margin-top">
+    <div class="text-center">
+      <%= image_tag('map.jpg', id: 'map', usemap: '#html_map', class: 'margin-top', alt: 'Barrios de Getafe') %>
+      <map name="html_map" id="html_map">
+        <% @budget.groups.each do |geozone| %>
+            <area shape="poly"
+                  coords="<%= geozone.geozone.html_map_coordinates %>"
+                  href="<%= budget_investments_path(@budget, heading_id: geozone.headings.first) %>"
+                  title="<%= geozone.name %>"
+                  alt="<%= geozone.name %>">
+        <% end %>
+      </map>
+    </div>
+  </div>
+
+  <div class="small-12 medium-3 column margin">
+
+    <ul id="geozones" class="no-bullet">
+      <% @budget.groups.each do |group| %>
+          <li><%= link_to group.name, budget_investments_path(@budget, heading_id: group.headings.first), class: ("active" if group.id == params[:group]) %></li>
+      <% end %>
+    </ul>
+  </div>
+
+
 </div>

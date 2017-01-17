@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170115205958) do
+ActiveRecord::Schema.define(version: 20170117041907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,7 +100,8 @@ ActiveRecord::Schema.define(version: 20170115205958) do
 
   create_table "budget_groups", force: :cascade do |t|
     t.integer "budget_id"
-    t.string  "name",      limit: 50
+    t.string  "name",       limit: 50
+    t.integer "geozone_id"
   end
 
   add_index "budget_groups", ["budget_id"], name: "index_budget_groups_on_budget_id", using: :btree
@@ -143,6 +144,7 @@ ActiveRecord::Schema.define(version: 20170115205958) do
     t.boolean  "selected",                              default: false
     t.string   "location"
     t.string   "organization_name"
+    t.datetime "unfeasible_email_sent_at"
   end
 
   add_index "budget_investments", ["administrator_id"], name: "index_budget_investments_on_administrator_id", using: :btree

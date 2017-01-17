@@ -231,6 +231,12 @@ table#spending-proposals-results {
       padding-top: $line-height*1.5;
       position: relative;
 
+      /* GET-57 Mark active phase */
+      a:hover {
+
+        text-decoration: none;
+      }
+
       @include breakpoint(medium) {
         display: inline-block;
         margin-right: $line-height*2.5;
@@ -556,6 +562,45 @@ footer h2 a {
       @include breakpoint(medium) {
         display: inline-block;
         text-align: left;
+      }
+    }
+  }
+}
+
+/* Budgets */
+
+.budget.expanded {
+
+  background-color: $brand;
+  .info {
+    background-color: darken($brand, 5%);
+
+    .callout {
+      display: none;
+    }
+  }
+}
+
+.jumbo-budget {
+
+  background-color: darken($brand, 5%);
+
+  .no-bullet.headings-list {
+    li {
+      margin-right: 20px;
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: white !important;
+        text-decoration: underline;
+      }
+
+      a.active {
+        font-weight: bolder !important;
+        text-decoration: underline;
       }
     }
   }
