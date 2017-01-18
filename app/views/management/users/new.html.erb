@@ -15,7 +15,9 @@
       <%= f.text_field :email,
           label: t('management.email_label'),
           placeholder: t('management.email_label') %>
-
+      <%= f.check_box :credentials_generated, class: "auto-generate", hint: t('management.random_generated_hint') %>
+        <br>
+        <br>
       <%= f.submit t("management.users.create_user_submit"), class: "button success" %>
     <% end %>
   </div>

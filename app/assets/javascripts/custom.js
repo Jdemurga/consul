@@ -4,13 +4,15 @@
 // * Spanish: https://github.com/consul/consul/blob/master/CUSTOMIZE_ES.md#javascript
 //
 //
-
+//= require custom_management_utils
 
 var initialize_custom_components = function() {
 
     $('.tabs').on('toggled', function (event, tab) {
         console.log(tab);
     });
+
+    App.CustomManangementUtils.initialize();
 }
 
 $(function(){
