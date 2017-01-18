@@ -27,7 +27,7 @@ es:
     none: Toda la ciudad
     all: Todos los ámbitos
   management:
-    random_generated_hint: 'Marque esta casilla cuando el ciudadano no tenga una dirección de correo disponible'
+    random_generated_hint: 'Marque esta casilla cuando el ciudadano no tenga una dirección de correo disponible. Serán generadas credenciales aleatorias para este ciudadano.'
   map:
     title: "Barrios"
     proposal_for_district: "Crea una propuesta para tu barrio"

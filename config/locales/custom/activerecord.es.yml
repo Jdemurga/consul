@@ -86,7 +86,7 @@ es:
         official_position: "Cargo público"
         official_level: "Nivel del cargo"
         redeemable_code: "Código de verificación por carta (opcional)"
-        credentials_generated: "Generar credenciales automáticamente"
+        randomly_generated_credentials: "Generar credenciales automáticamente"
       organization:
         name: "Nombre de organización"
         responsible_name: "Persona responsable del colectivo"
