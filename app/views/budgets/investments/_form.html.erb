@@ -10,13 +10,21 @@
       </div>
     </div>
 
+    <% if @group %>
     <div class="small-12 medium-6  column">
       <%= f.select :group_id, [[@group.name, @group.id]], {include_blank: false } %>
     </div>
+    <% end %>
 
+    <% if @heading %>
     <div class="small-12 medium-6 column">
       <%= f.select :heading_id, @group.headings.collect { |h| [h.name, h.id] }, {include_blank: false } %>
     </div>
+    <% else %>
+        <div class="small-12 medium-6 column">
+          <%= f.select :heading_id, budget_heading_select_options(@budget), {include_blank: true } %>
+        </div>
+    <% end %>
 
     <div class="small-12 column">
       <%= f.text_field :title, maxlength: SpendingProposal.title_max_length %>

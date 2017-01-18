@@ -67,6 +67,16 @@ class CensusApiCustom
       data[:geozone_name]
     end
 
+    # GET-57
+    def first_name
+      data[:ternombre]
+    end
+
+    # GET-57
+    def last_names
+      [data[:terapell1], data[:terapell2]]
+    end
+
     def gender
       # All census records has gender
       # All census records are correctly defined 1=male 6=female

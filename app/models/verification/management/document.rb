@@ -18,7 +18,7 @@ class Verification::Management::Document
   end
 
   def in_census?
-    response = CensusApiCustom.new.call(document_type, document_number)
+    response = CensusApiCustom.new.call(document_type, document_number) #GET-57
     response.valid? && valid_age?(response)
   end
 

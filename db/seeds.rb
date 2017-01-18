@@ -773,3 +773,5 @@ Geozone.find_by_census_code('Las Margaritas').update(html_map_coordinates: '158,
 Geozone.find_by_census_code('Perales del Rio').update(html_map_coordinates: '360,70,365,96,375,93,390,97,424,98,437,108,447,101,453,107,463,99,430,74,407,65,398,62,392,56,380,59,374,53,366,58')
 Geozone.find_by_census_code('San Isidro').update(html_map_coordinates: '128,165,125,196,135,186,148,182,154,170,142,170,135,172')
 Geozone.find_by_census_code('Sector III').update(html_map_coordinates: '71,284,113,207,108,195,116,196,105,138,107,124,93,110,85,121,87,141,86,155,84,169,82,184,73,191,62,195,52,200,45,204,38,201,37,209,59,279')
+
+Setting['credentials_generated_domain'] = 'ciudadanos.getafe.es'
