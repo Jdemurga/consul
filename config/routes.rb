@@ -243,6 +243,12 @@ Rails.application.routes.draw do
       put :hide, on: :member
       put :moderate, on: :collection
     end
+
+    #GET-57
+    resources :investments, only: :index do
+      put :hide, on: :member
+      put :moderate, on: :collection
+    end
   end
 
   namespace :valuation do
