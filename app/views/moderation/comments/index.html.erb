@@ -33,8 +33,11 @@
     <% @comments.each do |comment| %>
       <tr id="comment_<%= comment.id %>">
         <td>
-          <%= comment.commentable_type.constantize.model_name.human %> -
-          <%= link_to comment.commentable.title, comment.commentable %>
+          <%= comment.commentable_type.constantize.model_name.human %> - <%= link_to_commentable_safe(comment) %>
+
+
+
+
           <br>
           <span class="date"><%= l comment.updated_at.to_date %></span>
           <span class="bullet">&nbsp;&bull;&nbsp;</span>
