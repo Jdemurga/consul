@@ -569,11 +569,35 @@ footer h2 a {
 
 /* Budgets */
 
+.budget-header-bg {
+
+  background: $budget image-url('spending_proposals_bg.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+
+  .inner-info {
+    background-color: rgba(0,0,0,0.3);
+  }
+
+  a.back {
+    span {
+      color: white;
+    }
+    color: white;
+  }
+
+  .callout {
+    display: none;
+  }
+}
+
 .budget.expanded {
 
   background-color: darken($brand, 5%);
   .info {
-    background-color: $brand;
+
 
     .callout {
       display: none;
