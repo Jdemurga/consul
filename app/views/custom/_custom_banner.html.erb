@@ -1,21 +1,23 @@
-<div class="banner">
-  <div class="row banner-inner">
+<% unless @budget  %>
+  <div class="banner">
+    <div class="row banner-inner">
 
-    <div class="medium-1 hide-for-small-only column banner-icon">
-      &nbsp;
-    </div>
+      <div class="medium-1 hide-for-small-only column banner-icon">
+        &nbsp;
+      </div>
 
-    <div class="medium-7 small-12 column banner-left">
+      <div class="medium-7 small-12 column banner-left">
 
-      <span class="message">
-        <%= t('budgets.banner.message').html_safe %>
-      </span>
+        <span class="message">
+          <%= t('budgets.banner.message').html_safe %>
+        </span>
 
 
-    </div>
-    <div class="medium-4 small-12 column banner-right">
+      </div>
+      <div class="medium-4 small-12 column banner-right">
 
-      <%= link_to t('budgets.banner.callout'), budgets_path, class: "button" %>
+        <%= link_to t('budgets.banner.callout'), budgets_path, class: "button" %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
