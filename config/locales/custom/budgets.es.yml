@@ -42,7 +42,7 @@ es:
         what_is_investment_program_body: 'Con formato de ejecución de servicios puedes proponer actividades culturales, educativas, de ocio juvenil e infantil o para nuestros mayores.'
         about_investment_types: '¿Qué tipos de propuestas hay?'
         more_information: '¿Tienes alguna duda sobre lo que es una propuesta de Presupuesto Participativo?'
-        about_attachment_restrictitions: '(*) Sólo permitidos ficheros de menos de 5Mb en formatos: png, gif, jpg y pdf'
+        about_attachment_restrictitions: '(*) Su fichero NO SE PUBLICARÁ DIRECTAMENTE, quedará pendiente de una revisión manual. Sólo permitidos ficheros de menos de 5Mb en formatos: png, gif, jpg y pdf.'
       form:
         tags_instructions: "Etiqueta esta propuesta. Puedes elegir entre las categorías propuestas o introducir las que desees"
         tags_label: Temas
@@ -91,6 +91,8 @@ es:
         unfeasibility_explanation: Informe de inviabilidad
         code_html: 'Código propuesta de gasto: <strong>%{code}</strong>'
         location_html: 'Ubicación: <strong>%{location}</strong>'
+        attachment_pending_moderation: 'Fichero adjunto no descargable (pendiente de moderación)'
+        attachment_moderated: 'Fichero adjunto disponible'
         organization_name_html: 'Organización: <strong>%{name}</strong>'
         share: Compartir
         title: Propuesta

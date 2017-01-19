@@ -43,6 +43,17 @@ module Abilities
 
       can :block, User
       cannot :block, User, id: user.id
+
+      #GET-62
+      can :hide, Budget::Investment, hidden_at: nil
+      cannot :hide, Budget::Investment, author_id: user.id
+
+      can :ignore_flag, Budget::Investment, ignored_flag_at: nil, hidden_at: nil
+      cannot :ignore_flag, Budget::Investment, author_id: user.id
+
+      can :moderate, Budget::Investment
+      cannot :moderate, Budget::Investment, author_id: user.id
+
     end
   end
 end

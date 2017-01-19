@@ -1,4 +1,4 @@
-<div class="expanded budget no-margin-top">
+<div class="expanded budget-header-bg no-margin-top">
   <div class="row" data-equalizer>
     <div class="small-12 medium-9 column padding" data-equalizer-watch>
       <%= back_link_to budgets_path %>
@@ -6,7 +6,7 @@
       <h1><%= @budget.name %></h1>
       <%= @budget.description %>
     </div>
-    <div class="small-12 medium-3 column info padding" data-equalizer-watch>
+    <div class="small-12 medium-3 column inner-info info padding" data-equalizer-watch>
       <p>
         <strong><%= t('budgets.show.phase') %></strong>
         <br>

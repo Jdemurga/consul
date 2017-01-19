@@ -9,6 +9,7 @@ $brand:             #B80830;
 $brand-original:    #004A83;
 $dark:              darken($brand-original, 10%);
 $box-bg:            #e9e9e9;
+$banner-bg:         #f3da3f;
 
 body, html {
 
@@ -569,11 +570,35 @@ footer h2 a {
 
 /* Budgets */
 
+.budget-header-bg {
+
+  background: $budget image-url('spending_proposals_bg.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+
+  .inner-info {
+    background-color: rgba(0,0,0,0.3);
+  }
+
+  a.back {
+    span {
+      color: white;
+    }
+    color: white;
+  }
+
+  .callout {
+    display: none;
+  }
+}
+
 .budget.expanded {
 
   background-color: darken($brand, 5%);
   .info {
-    background-color: $brand;
+
 
     .callout {
       display: none;
@@ -584,6 +609,12 @@ footer h2 a {
 .jumbo-budget {
 
   background-color: darken($brand, 5%);
+
+  .progress-bar-nav {
+
+    background-color: transparent;
+  }
+
 
   .no-bullet.headings-list {
     li {
@@ -623,23 +654,42 @@ span.hint {
 
 .banner {
 
-  background-color: $like;
+  background-color: $banner-bg;
 
-  color: white;
   text-align: left;
   font-size: 120%;
+  padding: 0px 10px;
+  margin-top: 0px;
 
   .banner-inner {
+    .banner-icon {
 
-    padding: 10px 0px;
+      background-image: image-url('icon_home_proposal.png');
+      height: 64px;
+      background-size: auto 100%;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
 
     .banner-left {
-      font-size: 140%;
+
       margin-top: 10px;
+
+      font-size: 120%;
+      text-transform: uppercase;
+      font-weight: lighter;
+
+
+      span.lead {
+        color: $brand;
+        font-weight: bolder !important;
+      }
     }
 
     .banner-right {
+      text-align: right;
       padding: 10px 0px;
+      padding-right: 15px;
       .button {
         margin-bottom: 0px;
       }

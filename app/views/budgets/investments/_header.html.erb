@@ -1,6 +1,6 @@
 <% if @group.present? %>
   <section class="no-margin-top margin-bottom">
-    <div class="expanded jumbo-budget budget-heading padding">
+    <div class="expanded jumbo-budget budget-header-bg budget-heading padding">
 
       <div class="row">
         <div class="small-12 column">
@@ -62,7 +62,7 @@
     </div>
   </section>
 <% else %>
-  <div class="expanded jumbo-budget padding no-margin-top margin-bottom">
+  <div class="expanded jumbo-budget budget-header-bg padding no-margin-top margin-bottom">
     <div class="row">
       <div class="small-12 column">
         <%= back_link_to budget_path(@budget) %>

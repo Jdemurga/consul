@@ -13,6 +13,7 @@
         <%= l investment.created_at.to_date %>
         <span class="bullet">&nbsp;&bull;&nbsp;</span>
         <strong><%= link_to(investment.group.name, budget_investments_path(investment.budget, group_id: investment.group_id )) %></strong>
+        <%= render 'budgets/custom/attachment', investment: investment %>
       </div>
 
       <br>

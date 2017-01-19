@@ -94,6 +94,10 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (1.0.0)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
     chronic (0.10.2)
     ckeditor (4.2.2)
       cocaine
@@ -520,6 +524,7 @@ DEPENDENCIES
   capistrano-rails (= 1.1.8)
   capistrano3-delayed-job (~> 1.0)
   capybara
+  carrierwave
   ckeditor (~> 4.2.2)
   coffee-rails (~> 4.2.1)
   coveralls
