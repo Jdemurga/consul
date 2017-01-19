@@ -72,24 +72,28 @@ es:
           index:
             block_authors: Bloquear autores
             confirm: "¿Estás seguro?"
+            reject_attachment: 'Marcar adjunto como inapropiado'
             filter: Filtro
             filters:
               all: Todas
               pending_flag_review: Pendientes de revisión
-              with_ignored_flag: Marcadas como revisadas
+              with_pending_attachment_verification: 'Adjuntos pendientes'
+              with_attachment_verified: 'Adjuntos aprobados'
+              with_attachment_rejected: 'Adjuntos inapropiados'
             headers:
               moderate: Moderar
               proposal: Proyecto de inversión
             hide_proposals: Ocultar proyectos de inversión
             attachment: 'Fichero adjunto'
             attachment_moderation_peding: 'Fichero adjunto pendiente de revisión'
-            attachment_verified: 'Fichero adjunto revisado y aceptado por "%{by}"'
+            attachment_verified: 'El fichero es visible. Revisado y aceptado por "%{by}"'
+            attachment_moderation_rejected:  'El fichero está oculto. Revisado como inapropiado por "%{by}"'
             verify_attachments: Verificar adjuntos
             ignore_flags: Marcar como revisados
             order: Ordenar por
             orders:
-              created_at: Más recientes
-              flags: Más denunciadas
+              created_at: Más antiguas primero
+              created_at_desc: Más recientes primero
             title: Proyectos de inversión
     users:
       index:

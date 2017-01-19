@@ -52,7 +52,7 @@ class Management::Budgets::InvestmentsController < Management::BaseController
     end
 
     def investment_params
-      params.require(:budget_investment).permit(:title, :description, :external_url, :heading_id)
+      params.require(:budget_investment).permit(:title, :description, :heading_id, :attachment, :attachment_cache)
     end
 
     def only_verified_users

@@ -1,8 +1,8 @@
 class Moderation::InvestmentsController < Moderation::BaseController
   include ModerateActions
 
-  has_filters %w{pending_flag_review all with_ignored_flag}, only: :index
-  has_orders %w{flags created_at}, only: :index
+  has_filters %w{pending_flag_review with_pending_attachment_verification with_attachment_verified with_attachment_rejected  all}, only: :index
+  has_orders %w{created_at created_at_desc}, only: :index
 
   before_action :load_resources, only: [:index, :moderate]
 
@@ -12,6 +12,8 @@ class Moderation::InvestmentsController < Moderation::BaseController
 
   def index
     @resources = @resources
+                     .send(@current_filter)
+                     .send("sort_by_#{@current_order}")
                      .page(params[:page])
                      .per(50)
     set_resources_instance
@@ -23,6 +25,9 @@ class Moderation::InvestmentsController < Moderation::BaseController
 
     if params[:verify_attachments].present?
       @resources.accessible_by(current_ability, :hide).each {|resource| resource.verify_attachment!(current_user)}
+      redirect_to request.query_parameters.merge(action: :index)
+    elsif params[:reject_attachments].present?
+      @resources.accessible_by(current_ability, :hide).each {|resource| resource.reject_attachment!(current_user)}
       redirect_to request.query_parameters.merge(action: :index)
     else
       super
