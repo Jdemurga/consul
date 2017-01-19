@@ -95,6 +95,7 @@ es:
         location_html: 'Ubicación: <strong>%{location}</strong>'
         attachment_pending_moderation: 'Fichero adjunto no descargable (pendiente de moderación)'
         attachment_moderated: 'Fichero adjunto disponible'
+        attachment_rejected: 'Fichero adjunto no descargable (marcado como inapropiado)'
         organization_name_html: 'Organización: <strong>%{name}</strong>'
         share: Compartir
         title: Propuesta

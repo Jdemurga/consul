@@ -4,8 +4,14 @@
 <div class="row">
   <h3 class="small-8 large-8 columns"><%= page_entries_info @investments %></h3>
   <div class="small-4 large-4 columns">
+    <div class="float-right">
+      <%= t("moderation.investments.index.order") %>
+      <%= render 'shared/order_selector', i18n_namespace: "moderation.investments.index" %>
+    </div>
   </div>
 </div>
+
+<%= render 'shared/filter_subnav', i18n_namespace: "moderation.investments.index" %>
 
 <%= form_tag moderate_moderation_investments_path(request.query_parameters), method: :put do %>
   <p class="js-check">
@@ -44,10 +50,12 @@
           <br>
 
           <% if investment.has_attachment? %>
-                  <% if investment.attachment_verified %>
-                  <span class="label success"><%= t("moderation.investments.index.attachment_verified", by: investment.attachment_verified_by ) %></span>
+                  <% if investment.attachment_verified? %>
+                    <span class="label success"><%= t("moderation.investments.index.attachment_verified", by: investment.attachment_verified_by ) %></span>
+                  <% elsif investment.attachment_rejected? %>
+                    <span class="label primary"><%= t("moderation.investments.index.attachment_moderation_rejected", by: investment.attachment_verified_by  ) %></span>
                   <% else %>
-                  <span class="label"><%= t("moderation.investments.index.attachment_moderation_peding") %></span>
+                    <span class="label warning"><%= t("moderation.investments.index.attachment_moderation_peding") %></span>
                   <% end %>
           <% end %>
           <br>
@@ -69,6 +77,18 @@
                  class: "button success",
                  data: {confirm: t('moderation.investments.index.confirm')}
   %>
+
+  <%= submit_tag t('moderation.investments.index.ignore_flags'),
+                 name: "ignore_flags",
+                 class: "button success hollow",
+                 data: {confirm: t('moderation.investments.index.confirm')}
+  %>
+
+    <%= submit_tag t('moderation.investments.index.reject_attachment'),
+                   name: "reject_attachments",
+                   class: "button alert hollow",
+                   data: {confirm: t('moderation.investments.index.reject_attachment')}
+    %>
 
   <div class="float-right">
     <%= submit_tag t('moderation.investments.index.hide_proposals'),

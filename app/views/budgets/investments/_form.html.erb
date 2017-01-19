@@ -43,7 +43,6 @@
       <%= f.file_field :attachment, accept: ".pdf,.jpg,.gif,.png"  %>
 
 
-
       <% if @investment.attachment? && @investment.errors[:attachment].empty? %>
           <%= f.hidden_field :attachment_cache %>
           <div class="callout primary">
