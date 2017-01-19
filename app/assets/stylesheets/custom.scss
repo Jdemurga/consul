@@ -9,6 +9,7 @@ $brand:             #B80830;
 $brand-original:    #004A83;
 $dark:              darken($brand-original, 10%);
 $box-bg:            #e9e9e9;
+$banner-bg:         #f3da3f;
 
 body, html {
 
@@ -647,9 +648,8 @@ span.hint {
 
 .banner {
 
-  background-color: $like;
+  background-color: $banner-bg;
 
-  color: white;
   text-align: left;
   font-size: 120%;
 
@@ -665,7 +665,7 @@ span.hint {
     .banner-right {
       padding: 10px 0px;
       .button {
-        margin-bottom: none;
+        margin-bottom: 0px;
       }
     }
   }
