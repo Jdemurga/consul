@@ -91,6 +91,8 @@ es:
         unfeasibility_explanation: Informe de inviabilidad
         code_html: 'Código propuesta de gasto: <strong>%{code}</strong>'
         location_html: 'Ubicación: <strong>%{location}</strong>'
+        attachment_pending_moderation: 'Fichero adjunto no descargable (pendiente de moderación)'
+        attachment_moderated: 'Fichero adjunto disponible'
         organization_name_html: 'Organización: <strong>%{name}</strong>'
         share: Compartir
         title: Propuesta
