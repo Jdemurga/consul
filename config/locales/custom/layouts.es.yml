@@ -9,6 +9,10 @@ es:
     show:
       validate_to_comment: 'Es necesario %{verify} para poder opinar en las consultas ciudadanas'
       verify: 'verificar tu cuenta con el padrón'
+  budgets:
+    banner:
+      message: 'Proceso activo de Presupuestos Participativos <span class="lead">2017</span>'
+      callout: 'Participa aquí, tu opinión cuenta'
   investments:
     show:
       validate_to_comment: 'Es necesario %{verify} para poder opinar en las propuestas del proceso  '

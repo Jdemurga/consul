@@ -652,18 +652,38 @@ span.hint {
 
   text-align: left;
   font-size: 120%;
+  padding: 0px 10px;
+  margin-top: 0px;
 
   .banner-inner {
+    .banner-icon {
 
-    padding: 10px 0px;
+      background-image: image-url('icon_home_proposal.png');
+      height: 80px;
+      background-size: auto 100%;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
 
     .banner-left {
-      font-size: 140%;
+
       margin-top: 10px;
+
+      font-size: 120%;
+      text-transform: uppercase;
+      font-weight: lighter;
+
+
+      span.lead {
+        color: $brand;
+        font-weight: bolder !important;
+      }
     }
 
     .banner-right {
+      text-align: right;
       padding: 10px 0px;
+      padding-right: 15px;
       .button {
         margin-bottom: 0px;
       }
