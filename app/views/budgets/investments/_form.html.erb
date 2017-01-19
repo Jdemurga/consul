@@ -1,4 +1,4 @@
-<%= form_for(@investment, url: form_url, method: :post) do |f| %>
+<%= form_for(@investment, url: form_url, multipart: true, method: :post) do |f| %>
   <%= render 'shared/errors', resource: @investment %>
 
   <div class="row">
@@ -37,7 +37,24 @@
     </div>
 
     <div class="small-12 column">
-      <%= f.file_field :attachment, hint: t('budgets.investments.new.about_attachment_restrictitions'), accept: ".pdf,.jpg,.gif,.png"  %>
+
+
+
+      <%= f.file_field :attachment, accept: ".pdf,.jpg,.gif,.png"  %>
+      <%= f.hidden_field :attachment_cache %>
+
+      <% if @investment.attachment? %>
+          <div class="callout primary">
+            <%= link_to(t('budgets.investments.new.attachment_already_uploaded'), @investment.attachment_url, {target: '_blank'}) if @investment && @investment.attachment? %>
+          </div>
+      <% end %>
+
+      <div class="callout info">
+        <%= t('budgets.investments.new.about_attachment_restrictitions').html_safe %>
+      </div>
+
+
+
     </div>
 
     <div class="small-12 column">

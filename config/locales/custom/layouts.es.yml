@@ -1,4 +1,7 @@
 es:
+  errors:
+    messages:
+      extension_whitelist_error: 'El tipo de fichero subido no está permitido. Sólo se permiten imágenes y PDF.'
   verification:
     residence:
       new:

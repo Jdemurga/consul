@@ -95,7 +95,7 @@ module Budgets
 
       def investment_params
         #GET-62 Permit uploads
-        params.require(:budget_investment).permit(:title, :description, :external_url, :heading_id, :tag_list, :organization_name, :location, :terms_of_service, :attachment)
+        params.require(:budget_investment).permit(:title, :description, :external_url, :heading_id, :tag_list, :organization_name, :location, :terms_of_service, :attachment, :attachment_cache)
       end
 
       def load_ballot

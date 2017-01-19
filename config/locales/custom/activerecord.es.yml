@@ -103,6 +103,10 @@ es:
         document_numbers: "Números de documentos"
     errors:
       models:
+        budget/investment:
+          attributes:
+            attachment:
+              file_size_is_less_than: 'El tamaño supera los 5 megabytes, reduzca el tamaño para ser adjuntado a la propuesta'
         user:
           attributes:
             email:
