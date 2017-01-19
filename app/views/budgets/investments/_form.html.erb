@@ -41,9 +41,11 @@
 
 
       <%= f.file_field :attachment, accept: ".pdf,.jpg,.gif,.png"  %>
-      <%= f.hidden_field :attachment_cache %>
 
-      <% if @investment.attachment? %>
+
+
+      <% if @investment.attachment? && @investment.errors[:attachment].empty? %>
+          <%= f.hidden_field :attachment_cache %>
           <div class="callout primary">
             <%= link_to(t('budgets.investments.new.attachment_already_uploaded'), @investment.attachment_url, {target: '_blank'}) if @investment && @investment.attachment? %>
           </div>
