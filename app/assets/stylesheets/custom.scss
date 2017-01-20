@@ -652,6 +652,26 @@ span.hint {
   }
 }
 
+.budget-investment, .budget-investment-show {
+
+  .votes {
+    @include votes;
+
+    .against {
+      margin-left: $line-height/4;
+    }
+
+    @include breakpoint(medium) {
+      text-align: center;
+    }
+  }
+}
+
+.debate-show .votes {
+  border: 0;
+  padding: $line-height/2 0;
+}
+
 .banner {
 
   background-color: $banner-bg;
@@ -695,6 +715,4 @@ span.hint {
       }
     }
   }
-
-
 }

@@ -70,7 +70,7 @@ module Budgets
     end
 
     def vote
-      @investment.register_selection(current_user)
+      @investment.register_selection(current_user, params[:value]) #GET-62
       load_investment_votes(@investment)
       respond_to do |format|
         format.html { redirect_to budget_investments_path(heading_id: @investment.heading.id) }
@@ -95,7 +95,7 @@ module Budgets
 
       def investment_params
         #GET-62 Permit uploads
-        params.require(:budget_investment).permit(:title, :description, :heading_id, :tag_list, :organization_name, :location, :terms_of_service, :attachment, :attachment_cache)
+        params.require(:budget_investment).permit(:title, :description, :external_url, :heading_id, :tag_list, :organization_name, :location, :terms_of_service, :attachment, :attachment_cache)
       end
 
       def load_ballot

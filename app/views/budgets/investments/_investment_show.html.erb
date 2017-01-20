@@ -112,6 +112,13 @@
           <span class="icon-budget"></span>
         </div>
         <br>
+
+        <div id="likes" class="sidebar-divider"></div>
+        <h2><%= t("budgets.investments.show.likes") %></h2>
+        <div id="budget_investment_<%= investment.id %>_votes" class="invesment_votes">
+          <%= render 'likes', investment: investment %>
+        </div>
+
       <% end %>
       <div id="social-share" class="sidebar-divider"></div>
       <h2><%= t("budgets.investments.show.share") %></h2>

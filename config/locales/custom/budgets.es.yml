@@ -98,6 +98,7 @@ es:
         attachment_rejected: 'Fichero adjunto no descargable (marcado como inapropiado)'
         organization_name_html: 'Organización: <strong>%{name}</strong>'
         share: Compartir
+        likes: Opinión
         title: Propuesta
         supports: Apoyos
         votes: Votos
