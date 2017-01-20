@@ -1,5 +1,5 @@
 <li id="<%= dom_id(notification) %>" class="notification">
-  <%= link_to notification do %>
+
     <p>
       <em>
         <%= t("notifications.index.#{notification.notifiable_action}",
@@ -9,5 +9,5 @@
     </p>
 
     <p class="time"><%= l notification.timestamp, format: :datetime %></p>
-  <% end %>
+
 </li>
