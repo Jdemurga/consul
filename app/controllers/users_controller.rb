@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   #GET-65
   def find_by_username
     @user = User.find_by_param(params[:id])
+    raise ActiveRecord::RecordNotFound.new() unless @user #GET-67 User's profile only accessible by username
   end
 
     def set_activity_counts
