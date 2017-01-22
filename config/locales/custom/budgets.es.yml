@@ -60,11 +60,22 @@ es:
           button: Buscar
           placeholder: Buscar propuestas...
           title: Buscar
-        empty: 'Aún no hay propuestas presentadas por los ciudadanos'
+        empty: 'No se han encontrado propuestas presentadas por los vecinos %{extra_information}'
+        empty_investments_current_search: 'con sus criterios de búsqueda actual.'
+        empty_investments_current_group: 'en el barrio seleccionado.'
+        empty_see_all: 'Puede %{link_see_all} o seleccionar un barrio para %{link_add_new}'
+        empty_see_all_link: 'ver las propuestas de todos los barrios'
+        empty_select_and_add: 'crear una propuesta'
+        remove_filters: 'ver todas '
+        register_invesment_link: 'haciendo click en este enlace'
+        map_title: 'SELECCIONA UN BARRIO PARA HACER TU PROPUESTA'
+        map_see_all_proposals: 'también puedes consultar las %{link}'
+        map_see_all_proposals_link: 'propuestas de todos los barrios'
         search_results:
           one: " que contiene '%{search_term}'"
           other: " que contienen '%{search_term}'"
         sidebar:
+          information: Más Información sobre el proceso
           my_ballot: Mis votos
           voted_html:
             one: "<strong>Has votado una propuesta por un valor de %{amount_spent}</strong>"

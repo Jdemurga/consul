@@ -32,7 +32,7 @@ class Budget
 
     def votable_by?(user)
       return false unless user
-      true #user.level_two_or_three_verified?
+      user.level_three_verified?
       #!user.voted_for?(self) #REV
     end
 

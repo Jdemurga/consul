@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 20170119162413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_trgm"
   enable_extension "unaccent"
+  enable_extension "pg_trgm"
 
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
@@ -597,9 +597,9 @@ ActiveRecord::Schema.define(version: 20170119162413) do
     t.boolean  "email_digest",                              default: true
     t.boolean  "email_on_direct_message",                   default: true
     t.boolean  "official_position_badge",                   default: false
-    t.datetime "password_changed_at",                       default: '2016-12-30 01:08:21', null: false
-    t.integer  "commission_id"
+    t.datetime "password_changed_at",                       default: '2017-01-22 09:42:35', null: false
     t.boolean  "created_from_signature",                    default: false
+    t.integer  "commission_id"
   end
 
   add_index "users", ["commission_id"], name: "index_users_on_commission_id", using: :btree

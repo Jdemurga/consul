@@ -42,7 +42,11 @@
   </div>
 
   <div class="small-12 medium-9 column margin-top">
-    <h2>Selecciona el barrio en el que realizarás tu propuesta</h2>
+    <h2><%= t("budgets.investments.index.map_title") %></h2>
+    <h5><%= t('budgets.investments.index.map_see_all_proposals',
+              link: link_to(t("budgets.investments.index.map_see_all_proposals_link"), budget_investments_path(@budget) )
+            ).html_safe %>
+    </h5>
     <div class="text-center">
       <%= image_tag('map.jpg', id: 'map', usemap: '#html_map', class: 'margin-top', alt: 'Barrios de Getafe') %>
       <map name="html_map" id="html_map">
@@ -59,7 +63,7 @@
 
   <div class="small-12 medium-3 column margin">
     <div class="sidebar-divider"></div>
-    <h2 class="sidebar-title">Información sobre Presupuestos Participativos</h2>
+    <h2 class="sidebar-title"><%= t("budgets.investments.index.sidebar.information") %></h2>
     <br>
     <ul id="geozones" class="no-bullet">
       <li><%= link_to 'El proceso en dos minutos', page_path('participatory_budget/in_two_minutes') %></li>

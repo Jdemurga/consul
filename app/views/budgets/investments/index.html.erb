@@ -45,7 +45,20 @@
 
         <%= paginate @investments %>
       <% else %>
-          <%= t("budgets.investments.index.empty") %>
+          <div class="investments-list-empty">
+            <% if @group %>
+              <%= t("budgets.investments.index.empty", extra_information: t("budgets.investments.index.empty_investments_current_group")).html_safe %>
+            <% elsif params[:search] %>
+                <%= t("budgets.investments.index.empty", extra_information: t("budgets.investments.index.empty_investments_current_search")).html_safe %>
+            <% else %>
+                <%= t("budgets.investments.index.empty", extra_information: '.').html_safe %>
+          <% end %>
+            <br>
+            <br>
+            <%= t("budgets.investments.index.empty_see_all",
+                  link_see_all: link_to(t("budgets.investments.index.empty_see_all_link"), budget_investments_path(@budget)).html_safe,
+                  link_add_new: link_to(t("budgets.investments.index.empty_select_and_add"), budget_path(@budget)).html_safe).html_safe %>
+          </div>
       <% end %>
     </div>
 
