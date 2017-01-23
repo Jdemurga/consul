@@ -8,12 +8,5 @@
                     taggable_path(taggable.class.name.underscore, tag.name),
                     search: tag.name %></li>
     <% end %>
-
-    <% if taggable.tags_count_out_of_limit(limit) > 0 %>
-      <li class="inline-block">
-        <%= link_to "#{taggable.tags_count_out_of_limit(limit)}+",
-                    send("#{taggable.class.name.underscore}_path", taggable) %>
-      </li>
-    <% end %>
   </ul>
 <% end %>
