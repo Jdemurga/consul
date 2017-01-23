@@ -63,7 +63,7 @@ es:
         empty: 'No se han encontrado propuestas presentadas por los vecinos %{extra_information}'
         empty_investments_current_search: 'con sus criterios de búsqueda actual.'
         empty_investments_current_group: 'en el barrio seleccionado.'
-        empty_see_all: 'Puede %{link_see_all} o seleccionar un barrio para %{link_add_new}'
+        empty_see_all: 'Puede %{link_see_all} o puede %{link_add_new} tras seleccionar un barrio.'
         empty_see_all_link: 'ver las propuestas de todos los barrios'
         empty_select_and_add: 'crear una propuesta'
         remove_filters: 'ver todas '

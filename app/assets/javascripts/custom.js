@@ -5,6 +5,7 @@
 //
 //
 //= require custom_management_utils
+//= require budgets_investments
 
 var initialize_custom_components = function() {
 
@@ -13,6 +14,7 @@ var initialize_custom_components = function() {
     });
 
     App.CustomManangementUtils.initialize();
+    App.BudgetsInvestments.initialize();
 }
 
 $(function(){
