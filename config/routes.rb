@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   get '/cuentasegura', to: 'welcome#verification', as: :cuentasegura
 
   # GET-67 Usernames can include dots and needs to be shown by username
-  get 'users/:id', to: 'users#show', constraints: { id: /[a-zA-Z1-9\.]+/ }
+  get 'users/:id', to: 'users#show', constraints: { id: /[a-zA-Z1-9\.@]+/ }
 
   resources :debates do
     member do
