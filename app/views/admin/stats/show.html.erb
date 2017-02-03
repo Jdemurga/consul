@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <%= javascript_include_tag "stat_graphs", 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag "stat_graphs", 'data-turbolinks-track' => true %>
 <% end %>
 <div class="stats">
   <div class="row">
@@ -28,8 +28,8 @@
             <span class="number"><%= number_with_delimiter(@debates) %></span>
           </p>
           <p>
-            <%= t "admin.stats.show.summary.proposals" %><br>
-            <span class="number"><%= number_with_delimiter(@proposals) %></span>
+            <%= t "admin.stats.show.summary.investments_count" %><br>
+            <span class="number"><%= number_with_delimiter(@investments) %></span>
           </p>
           <p>
             <%= t "admin.stats.show.summary.comments" %><br>
@@ -38,10 +38,6 @@
         </div>
 
         <div class="small-12 medium-3 column">
-          <p class="featured">
-            <%= t "admin.stats.show.summary.proposal_votes" %><br>
-            <span class="number"><%= number_with_delimiter(@proposal_votes) %><br></span>
-          </p>
 
           <p>
             <%= t "admin.stats.show.summary.debate_votes" %><br>
@@ -69,13 +65,16 @@
             <%= t "admin.stats.show.summary.unverified_users" %><br>
             <span class="number"><%= number_with_delimiter(@unverified_users) %></span>
           </p>
-        </div>
 
-        <div class="small-12 medium-3 column">
           <p class="featured">
             <%= t "admin.stats.show.summary.users" %><br>
             <span class="number"><%= number_with_delimiter(@users) %></span>
           </p>
+
+        </div>
+
+        <div class="small-12 medium-3 column">
+
 
           <p>
             <%= t "admin.stats.show.summary.user_level_two" %><br>
@@ -90,12 +89,10 @@
           <p>
             <%= t "admin.stats.show.summary.verified_users_who_didnt_vote_proposals" %><br>
             <span class="number">
-              <%=number_with_delimiter(@user_ids_who_didnt_vote_proposals)%>
+              <%= number_with_delimiter(@user_ids_who_didnt_vote_proposals) %>
             </span>
           </p>
-        </div>
 
-        <div class="small-12 medium-3 column">
           <p class="featured">
             <%= t "admin.stats.show.summary.spending_proposals" %><br>
             <span class="number"><%= number_with_delimiter(@spending_proposals) %></span>
@@ -103,23 +100,51 @@
         </div>
       </div>
 
-      <div class="small-12 column">
-        <h2><%= t "admin.stats.show.visits_title" %></h2>
-        <%= visits_chart_tag id: "visits" %>
-      </div>
+    </div>
+
+    <%- @budgets_procceses.each do |budget| %>
+    <div class="row stats-numbers">
 
       <div class="small-12 column">
-        <% @event_types.each do |event, count| %>
+        <div class="small-12 column">
+          <h2><%= t "admin.stats.show.summary.budgets_investments" , proccess_name: budget.name %> (<span class="number"><%= number_with_delimiter(@investments) %></span>)</h2>
+          <div class="clear"></div>
+        </div>
+
+      <%- @groups.each do |group| %>
+          <div class="small-12 medium-3 column">
+          <p class="featured">
+            <%= "#{group.name}" %>
+          </p>
+            <p><%- group.headings.each do |heading| %>
+                    <span class="number">
+                      <%= number_with_delimiter(heading.investments.count) %>
+                      <small><%= heading.name %></small><br />
+                    </span>
+              <% end %></p>
+          </div>
+      <% end %>
+      </div>
+    </div>
+    <% end %>
+
+    <div class="small-12 column">
+      <h2><%= t "admin.stats.show.visits_title" %></h2>
+      <%= visits_chart_tag id: "visits" %>
+    </div>
+
+    <div class="small-12 column">
+      <% @event_types.each do |event, count| %>
           <h2><%= event.titleize %> (<%= count %>)</h2>
           <%= events_chart_tag event %>
-        <% end %>
-      </div>
-
-      <div class="small-12 column">
-        <h2><%= t "admin.stats.show.spending_proposals_title" %></h2>
-        <%= spending_proposals_chart_tag id: "spending_proposals" %>
-      </div>
-
+      <% end %>
     </div>
+
+    <div class="small-12 column">
+      <h2><%= t "admin.stats.show.spending_proposals_title" %></h2>
+      <%= spending_proposals_chart_tag id: "spending_proposals" %>
+    </div>
+
   </div>
+</div>
 </div>
