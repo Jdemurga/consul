@@ -16,7 +16,9 @@
         </div>
         <div class="medium-4 small-12 column banner-right">
 
-          <%= link_to t('budgets.banner.callout'), budgets_path, class: "button" %>
+          <%= link_to budgets_path, class: "clickhere-button" do %>
+            <%= image_tag 'clickhere.png', title: t('budgets.banner.callout'), alt: t('budgets.banner.callout') %>
+          <% end %>
         </div>
       </div>
     </div>
