@@ -775,3 +775,6 @@ Geozone.find_by_census_code('San Isidro').update(html_map_coordinates: '128,165,
 Geozone.find_by_census_code('Sector III').update(html_map_coordinates: '71,284,113,207,108,195,116,196,105,138,107,124,93,110,85,121,87,141,86,155,84,169,82,184,73,191,62,195,52,200,45,204,38,201,37,209,59,279')
 
 Setting['credentials_generated_domain'] = 'ciudadanos.getafe.es'
+
+Debate.create(title: 'Pregunta 1. Plan Normativo 2017', description: '¿Consideras en el Plan Presentado debe incluirse algún asunto determinado?, ¿qué enfoque te gustaría darle?.', author_id: 1, terms_of_service: '1' )
+Debate.create(title: 'Pregunta 2. Plan Normativo 2017', description: '¿Crees necesaria la revisión o la redacción de alguna ordenanza o reglamento que no esté recogido en el Plan Normativo 2017?', author_id: 1, terms_of_service: '1' )
