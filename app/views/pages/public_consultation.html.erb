@@ -45,15 +45,33 @@
       </p>
 
     </div>
-    <div class="small-12 medium-4 column box">
-      <h3>I BORRADOR DEL PLAN DE CONVIVENCIA DE GETAFE</h3>
-      <h5>GETAFE CONTIGO</h5>
-      <p>
-        <small>Os presentamos el I Borrador del PLAN DE CONVIVENCIA DE GETAFE una apuesta y un compromiso del Ayuntamiento para impulsar políticas públicas para la mejora de la convivencia y el desarrollo social en la ciudad, basándose en 5 principios básicos: la cohesión social.</small>
-      </p>
-      <p>
-        <%= link_to t("layouts.header.public_consultation_callout"), page_path('coexistence_plan_public_consultation'), class: "button see-more expanded" %>
-      </p>
+    <div class="small-12 medium-4 column">
+      <div class="panel panel-highlight">
+
+        <h3>PLAN NORMATIVO 2017</h3>
+        <h5>GETAFE CONTIGO</h5>
+        <p>
+          <small>Nueva consulta ciudadana sobre publicación del Plan Normativo 2017.</small>
+        </p>
+        <p>
+          <%= link_to 'Ver proceso', page_path('normative_plan_2017'), class: "button see-more expanded" %>
+        </p>
+      </div>
+
+      <div class="panel margin">
+        <h3>I BORRADOR DEL PLAN DE CONVIVENCIA DE GETAFE</h3>
+        <h5>GETAFE CONTIGO</h5>
+        <p>
+          <small>Os presentamos el I Borrador del PLAN DE CONVIVENCIA DE GETAFE una apuesta y un compromiso del Ayuntamiento para impulsar políticas públicas para la mejora de la convivencia y el desarrollo social en la ciudad, basándose en 5 principios básicos: la cohesión social.</small>
+        </p>
+        <p>
+          <%= link_to 'Ver proceso', page_path('coexistence_plan_public_consultation'), class: "button see-more expanded" %>
+        </p>
+        <br>
+      </div>
+
+
     </div>
+
   </div>
 </div>
