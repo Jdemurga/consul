@@ -39,6 +39,11 @@ body, html {
   }
 }
 
+.panel-image {
+
+  padding: 0px;
+  box-shadow: 1px 4px 5px #777;
+}
 .panel-highlight.panel {
 
   background-color: $box-bg;
