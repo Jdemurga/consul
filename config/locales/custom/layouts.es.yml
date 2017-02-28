@@ -14,7 +14,7 @@ es:
       verify: 'verificar tu cuenta con el padrón'
   budgets:
     banner:
-      message: 'Proceso activo de Presupuestos Participativos <span class="lead">2017</span>'
+      message: '<span class="lead lead-block">Plazo ampliado hasta 12 de Marzo</span><br />Presenta tus propuestas para Presupuestos Participativos <span class="lead"><strong>2017</strong></span>'
       callout: 'Participa aquí, tu opinión cuenta'
   investments:
     show:
