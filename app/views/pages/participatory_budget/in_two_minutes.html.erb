@@ -11,7 +11,7 @@
     <div class="small-12 column spending-proposal-timeline text-center">
       <ul class="no-bullet">
 
-        <li class="active">
+        <li class="">
           <%= link_to budgets_path do %>
             <i class="icon-calendar"></i>
             <p class="title"><%= t('participatory_budget.in_two_minutes.date_1_info') %></p>
@@ -19,10 +19,12 @@
           <% end %>
         </li>
 
-        <li>
-          <i class="icon-calendar"></i>
-          <p class="title"><%= t('participatory_budget.in_two_minutes.date_2_info') %></p>
-          <p><%= t('participatory_budget.in_two_minutes.date_2') %></p>
+        <li class="active">
+          <%= link_to page_path('proposal_revision_period') do %>
+            <i class="icon-calendar"></i>
+            <p class="title"><%= t('participatory_budget.in_two_minutes.date_2_info') %></p>
+            <p><%= t('participatory_budget.in_two_minutes.date_2') %></p>
+          <% end %>
         </li>
 
         <li>

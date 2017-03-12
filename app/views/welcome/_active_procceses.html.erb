@@ -7,26 +7,25 @@
 </div>
 
 <div class="row">
-  <div class="smal-12 medium-4 column">
-    <div class="margin panel-image" data-equalizer-watch="">
-      <%= link_to page_path('citizen_assembly_2017') do %>
-        <%= image_tag('20170216_1000_participacion_asambleas_calendario_general.jpg', label: 'Calendario  de asambleas de barrio Getafe 2017', title: 'Calendario  de asambleas de barrio Getafe 2017') %>
-      <% end %>
-    </div>
-  </div>
 
   <div class="small-12 medium-4 column ">
     <div class="panel panel-highlight margin" data-equalizer-watch="">
       <div style="min-height: 419px;">
-        <h3>Abiertos Presupuestos Participativos 2017</h3>
-        <p class="info-date"><span class="icon-calendar"></span>&nbsp;Participa hasta el <strong>12 de marzo</strong> (plazo ampliado)</p>
+        <h3>Iniciado proceso de evaluación de propuestas Presupuestos Participativos 2017</h3>
+        <p class="info-date"><span class="icon-calendar"></span>&nbsp;Hasta el <strong>12 de mayo</strong></p>
         <p class="info">
-          Abierto plazo para recogida de propuestas de Presupuestos Participativos 2017.
-          Propón a través de este proceso las mejoras para el barrio.<br />
-          <strong>Ampliado plazo hasta el 12 de marzo 2017</strong>.
+          En este periodo los Servicios Técnicos del Ayuntamiento de Getafe analizarán la viabilidad de las propuestas recibidas, tanto de inversiones como de programas socio comunitarios. Las Comisiones de cada barrio se reunirán para trabajar sobre las propuestas recibidas.
         </p>
       </div>
-      <%= link_to t("layouts.header.participatory_budget_callout"), budgets_path, class: "button see-more expanded" %>
+      <%= link_to "Más información", page_path('proposal_revision_period'), class: "button see-more expanded" %>
+    </div>
+  </div>
+
+  <div class="smal-12 medium-4 column">
+    <div class="margin panel-image" data-equalizer-watch="">
+      <%= link_to page_path('proposal_revision_period') do %>
+        <%= image_tag('20170216_1000_participacion_asambleas_calendario_general.jpg', label: 'Calendario  de asambleas de barrio Getafe 2017', title: 'Calendario  de asambleas de barrio Getafe 2017') %>
+      <% end %>
     </div>
   </div>
 

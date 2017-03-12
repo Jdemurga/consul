@@ -23,6 +23,11 @@ body, html {
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
+.text-muted {
+
+  color: #a9a9a9;
+}
+
 .panel {
   background: white;
   border: 1px solid darken($box-bg,10%);
@@ -730,7 +735,7 @@ span.hint {
       padding: 10px 0px;
       padding-right: 15px;
       .button {
-        margin-bottom: 0px;
+        top-bottom: 20px;
       }
     }
   }

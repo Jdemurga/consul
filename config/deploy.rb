@@ -18,7 +18,7 @@ set :repo_url, deploysecret(:git_repo)
 set :scm, :git
 set :revision, `git rev-parse --short #{fetch(:branch)}`.strip
 
-set :log_level, :info
+set :log_level, :debug
 set :pty, true
 set :use_sudo, false
 
