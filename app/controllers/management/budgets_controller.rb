@@ -6,7 +6,7 @@ class Management::BudgetsController < Management::BaseController
   before_action :only_verified_users, except: :print_investments
 
   def create_investments
-    @budgets = Budget.accepting.order(created_at: :desc).page(params[:page])
+    @budgets = Budget.order(created_at: :desc).page(params[:page])
   end
 
   def support_investments
