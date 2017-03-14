@@ -18,6 +18,10 @@ class Budget
     scope :with_ignored_flag, -> { where.not(ignored_flag_at: nil).where(hidden_at: nil) }
 
 
+    def image_attached?
+      !"application/pdf".eql?(attachment.try(:content_type))
+    end
+
     def likes
       cached_votes_up
     end

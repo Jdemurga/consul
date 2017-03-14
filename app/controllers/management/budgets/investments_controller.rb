@@ -41,7 +41,7 @@ class Management::Budgets::InvestmentsController < Management::BaseController
   end
 
   def print
-    @investments = @investments.apply_filters_and_search(@budget, params).order(cached_votes_up: :desc).for_render.limit(15)
+    @investments = @investments.apply_filters_and_search(@budget, params).order(created_at: :asc).for_render
     load_investment_votes(@investments)
   end
 
