@@ -13,6 +13,7 @@ es:
         bidding: 'Fase de licitación'
         in_progress: 'Fase de realización'
         being_processed: 'Tramintándose ((*)nota a pie de tabla)'
+        almost_finished: 'Realizado parcialmente'
         finished: 'Realizado'
       current_phase: Fase actual
       page_title: "Presupuestos participativos | Resultados"

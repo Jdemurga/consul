@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119162413) do
+ActiveRecord::Schema.define(version: 20170316232906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "unaccent"
   enable_extension "pg_trgm"
+  enable_extension "unaccent"
 
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
@@ -483,6 +483,7 @@ ActiveRecord::Schema.define(version: 20170119162413) do
     t.integer  "physical_votes",                          default: 0
     t.string   "spending_type"
     t.string   "phase",                                   default: "pre_bidding"
+    t.string   "extra_info"
   end
 
   add_index "spending_proposals", ["author_id"], name: "index_spending_proposals_on_author_id", using: :btree
@@ -597,9 +598,9 @@ ActiveRecord::Schema.define(version: 20170119162413) do
     t.boolean  "email_digest",                              default: true
     t.boolean  "email_on_direct_message",                   default: true
     t.boolean  "official_position_badge",                   default: false
-    t.datetime "password_changed_at",                       default: '2017-01-22 09:42:35', null: false
-    t.boolean  "created_from_signature",                    default: false
+    t.datetime "password_changed_at",                       default: '2016-12-30 01:08:21', null: false
     t.integer  "commission_id"
+    t.boolean  "created_from_signature",                    default: false
   end
 
   add_index "users", ["commission_id"], name: "index_users_on_commission_id", using: :btree
