@@ -12,7 +12,7 @@ es:
         pre_bidding: 'Fase previa a licitación'
         bidding: 'Fase de licitación'
         in_progress: 'Fase de realización'
-        being_processed: 'Tramintándose ((*)nota a pie de tabla)'
+        being_processed: 'Tramintándose (*)'
         almost_finished: 'Realizado parcialmente'
         finished: 'Realizado'
       current_phase: Fase actual
