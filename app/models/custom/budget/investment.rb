@@ -1,4 +1,5 @@
 require_dependency Rails.root.join('app', 'models', 'budget', 'investment').to_s
+require 'csv'
 
 class Budget
   class Investment < ActiveRecord::Base
@@ -73,6 +74,34 @@ class Budget
 
     def attachment_pending?
       attachment_verified.nil?
+    end
+
+    def group_name
+      group.name
+    end
+
+    def author_name
+    author.name
+    end
+
+    def author_email
+      author.email
+    end
+
+    def author_phone
+      author.phone_number
+    end
+
+    def self.to_csv
+      attributes = %w{id title created_at group_name author_name author_email author_phone}
+
+      CSV.generate(headers: true) do |csv|
+        csv << attributes.map { |attr| Budget::Investment.human_attribute_name attr }
+
+        all.each do |user|
+          csv << attributes.map{ |attr| user.send(attr) }
+        end
+      end
     end
   end
 end

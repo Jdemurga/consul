@@ -62,6 +62,12 @@ es:
         title: "Título"
         location: "Ubicación"
         organization_name: "Si estás proponiendo en nombre de una organización o colectivo, escribe su nombre"
+        author_phone: 'Teléfono'
+        author_name: 'Usuario'
+        author_full_name: 'Nombre'
+        author_email: 'Email'
+        group_name: 'Barrio'
+        created_at: 'Alta de propuesta'
       comment:
         body: "Comentario"
         user: "Usuario"

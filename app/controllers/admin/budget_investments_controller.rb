@@ -12,6 +12,11 @@ class Admin::BudgetInvestmentsController < Admin::BaseController
   before_action :load_investments, only: [:index, :toggle_selection]
 
   def index
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @investments.limit(nil).reorder('id asc').to_csv, filename: "propuestas-#{Date.today}.csv" }
+    end
   end
 
   def show
