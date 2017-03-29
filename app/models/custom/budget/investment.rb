@@ -18,6 +18,24 @@ class Budget
     scope :pending_flag_review, -> { where(ignored_flag_at: nil, hidden_at: nil) }
     scope :with_ignored_flag, -> { where.not(ignored_flag_at: nil).where(hidden_at: nil) }
 
+    #GET-98
+    scope :not_unified, -> { where(unified_with_id: nil) }
+
+    belongs_to :unified_with, class_name: 'Budget::Investment', foreign_key: :unified_with_id
+    has_many :investments_unified_to_me, class_name: 'Budget::Investment', foreign_key: :unified_with_id
+
+    #GET-98
+    def has_unifications?
+      investments_unified_to_me.any?
+    end
+
+    def is_unified?
+      !unified_with_id.blank?
+    end
+    
+    def name_and_group
+      "#{title} || #{group.name} - #{heading.name}"
+    end
 
     def image_attached?
       !"application/pdf".eql?(attachment.try(:content_type))

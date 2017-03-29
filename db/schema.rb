@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170316232906) do
+ActiveRecord::Schema.define(version: 20170329055430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,12 +150,17 @@ ActiveRecord::Schema.define(version: 20170316232906) do
     t.string   "attachment_verified_by"
     t.datetime "ignored_flag_at"
     t.integer  "flags_count",                           default: 0
+    t.integer  "unified_with_id"
+    t.datetime "unified_at"
+    t.string   "unification_reason"
+    t.text     "unification_explanation"
   end
 
   add_index "budget_investments", ["administrator_id"], name: "index_budget_investments_on_administrator_id", using: :btree
   add_index "budget_investments", ["author_id"], name: "index_budget_investments_on_author_id", using: :btree
   add_index "budget_investments", ["heading_id"], name: "index_budget_investments_on_heading_id", using: :btree
   add_index "budget_investments", ["tsv"], name: "index_budget_investments_on_tsv", using: :gin
+  add_index "budget_investments", ["unified_with_id"], name: "index_budget_investments_on_unified_with_id", using: :btree
 
   create_table "budget_valuator_assignments", force: :cascade do |t|
     t.integer  "valuator_id"

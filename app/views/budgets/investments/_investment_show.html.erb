@@ -16,6 +16,8 @@
         <%= render 'budgets/custom/attachment', investment: investment %>
       </div>
 
+      <%= render 'custom/budget_investment_unification_heading', investment: investment %>
+
       <br>
       <p id="investment_code">
         <%= t("budgets.investments.show.code_html", code: investment.id) %>
@@ -36,6 +38,8 @@
       <%= render 'shared/tags', taggable: investment %>
 
       <%= safe_html_with_links investment.description.html_safe %>
+
+      <%= render 'custom/budget_investment_unification_explanation', investment: investment %>
 
       <% if investment.external_url.present? %>
         <div class="document-link">

@@ -23,6 +23,7 @@ class Admin::BudgetInvestmentsController < Admin::BaseController
   end
 
   def edit
+    load_not_unified_investments
     load_admins
     load_valuators
     load_tags
@@ -48,6 +49,12 @@ class Admin::BudgetInvestmentsController < Admin::BaseController
 
   private
 
+    #GET-98
+    def load_not_unified_investments
+      @investments = Budget::Investment.scoped_filter(params, @current_filter)
+                         .not_unified.order(:title)
+    end
+
     def load_investments
       @investments = Budget::Investment.scoped_filter(params, @current_filter)
                                        .order(cached_votes_up: :desc, created_at: :desc)
@@ -56,7 +63,12 @@ class Admin::BudgetInvestmentsController < Admin::BaseController
 
     def budget_investment_params
       params.require(:budget_investment)
-            .permit(:title, :description, :external_url, :heading_id, :administrator_id, :valuation_tag_list, valuator_ids: [])
+            .permit(budget_investment_unification_params + [:title, :description, :external_url, :heading_id, :administrator_id, :valuation_tag_list, valuator_ids: []])
+    end
+
+
+    def budget_investment_unification_params
+      [:unified_with_id, :unification_reason, :unification_explanation]
     end
 
     def load_budget
