@@ -52,7 +52,7 @@ class Admin::BudgetInvestmentsController < Admin::BaseController
     #GET-98
     def load_not_unified_investments
       @investments = Budget::Investment.scoped_filter(params, @current_filter)
-                         .not_unified.order(:title)
+                         .where.not(id: @investment.id).not_unified.order(:title)
     end
 
     def load_investments
