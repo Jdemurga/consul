@@ -18,6 +18,7 @@
             </span>
         </div>
 
+        <% if current_user.administrator? %>
         <div class="small-4 column">
             <span class="radio">
               <%= f.radio_button :feasibility, 'feasible', label: false %>
@@ -31,6 +32,10 @@
               <%= f.label :feasibility_unfeasible, t('valuation.budget_investments.edit.unfeasible') %>
             </span>
         </div>
+        <% else %>
+            <div class="small-4 column"></div>
+            <div class="small-4 column"></div>
+        <% end %>
       </fieldset>
     </div>
   </div>
