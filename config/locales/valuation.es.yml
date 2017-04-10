@@ -22,7 +22,7 @@ es:
         filters:
           valuation_open: Abiertas
           valuating: En evaluación
-          valuation_finished: Evaluación finalizada
+          valuation_finished: Evaluación final finalizada
         title: Propuestas de inversión
         assigned_to: "Asignadas a %{valuator}"
         edit: Editar informe
@@ -33,6 +33,7 @@ es:
         table_id: ID
         table_title: Título
         table_heading_name: Nombre de la partida
+        table_heading_valuation_status: Estado de mi informe
         table_actions: Acciones
       show:
         back: Volver
@@ -66,7 +67,8 @@ es:
         unfeasible: Inviable
         undefined_feasible: Sin decidir
         feasible_explanation_html: "Informe de inviabilidad <small>(en caso de que lo sea, dato público)</small>"
-        valuation_finished: Informe finalizado
+        valuation_finished: Informe final finalizado
+        own_valuation_finished: He finalizado mi informe de evaluación
         duration_html: "Plazo de ejecución <small>(opcional, dato no público)</small>"
         internal_comments_html: "Comentarios y observaciones <small>(para responsables internos, dato no público)</small>"
         save: Guardar cambios

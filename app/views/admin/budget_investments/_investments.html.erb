@@ -11,6 +11,7 @@
       <th><%= t("admin.budget_investments.index.table_feasibility") %></th>
       <th class="text-center"><%= t("admin.budget_investments.index.table_valuation_finished") %></th>
       <th class="text-center"><%= t("admin.budget_investments.index.table_selection") %></th>
+      <th class="text-center"><%= t("admin.budget_investments.index.valuation_finished_by") %></th>
     </tr>
   </thead>
 
@@ -67,6 +68,30 @@
                       remote: true,
                       class: "button small hollow expanded" do %>
             <%= t("admin.budget_investments.index.select") %>
+          <% end %>
+        <% end %>
+      </td>
+      <td class="text-center">
+        <% if investment.valuator_assignments_count == 0 %>
+          <span class="radius secondary label" title="<%= t("admin.budget_investments.index.no_valuators_assigned") %>">
+                  <%= investment.valuator_assignments_finished_count %> / <%= investment.valuator_assignments_count %>
+          </span>
+        <% else %>
+          <% if investment.is_mark_as_finished_for_every_valuator? %>
+              <span class="radius success label" title="<%= t("admin.budget_investments.index.all_valuators_completed") %>">
+                <%= investment.valuator_assignments_finished_count %> / <%= investment.valuator_assignments_count %>
+              </span>
+          <% else %>
+            <% if investment.is_mark_as_finished_for_any_valuator? %>
+                  <span class="radius warning label" title="<%= t("admin.budget_investments.index.not_all_valuators_finished") %>">
+                    <%= investment.valuator_assignments_finished_count %> / <%= investment.valuator_assignments_count %>
+                  </span>
+            <% else %>
+                  <span class="radius danger label" title="<%= t("admin.budget_investments.index.not_any_valuators_finished") %>">
+                    <%= investment.valuator_assignments_finished_count %> / <%= investment.valuator_assignments_count %>
+
+                  </span>
+            <% end %>
           <% end %>
         <% end %>
       </td>

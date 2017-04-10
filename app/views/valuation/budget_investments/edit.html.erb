@@ -8,6 +8,7 @@
 <%= form_for(@investment, url: valuate_valuation_budget_budget_investment_path(@budget, @investment), html: {id: "valuation_budget_investment_edit_form"}) do |f| %>
   <%= render 'shared/errors', resource: @investment %>
   <div class="row">
+    <% if can?(:mark_feasibility, @investment) %>
     <div class="small-12 medium-8 column">
       <fieldset class="fieldset">
         <legend><%= t('valuation.budget_investments.edit.feasibility') %></legend>
@@ -18,7 +19,6 @@
             </span>
         </div>
 
-        <% if current_user.administrator? %>
         <div class="small-4 column">
             <span class="radio">
               <%= f.radio_button :feasibility, 'feasible', label: false %>
@@ -32,12 +32,9 @@
               <%= f.label :feasibility_unfeasible, t('valuation.budget_investments.edit.unfeasible') %>
             </span>
         </div>
-        <% else %>
-            <div class="small-4 column"></div>
-            <div class="small-4 column"></div>
-        <% end %>
       </fieldset>
     </div>
+    <% end %>
   </div>
 
   <div id="unfeasible_fields" >
@@ -58,11 +55,6 @@
         <%= f.label :price, "#{t('valuation.budget_investments.edit.price_html', currency: @budget.currency_symbol)}" %>
         <%= f.number_field :price, label: false, max: 1000000000000000 %>
       </div>
-
-      <div class="small-12 medium-4 column end">
-        <%= f.label :price_first_year, "#{t('valuation.budget_investments.edit.price_first_year_html', currency:  @budget.currency_symbol)}" %>
-        <%= f.number_field :price_first_year, label: false, max: 1000000000000000 %>
-      </div>
     </div>
 
     <div class="row">
@@ -80,15 +72,26 @@
     </div>
 
   </div>
-
-  <div class="row">
-    <div class="small-12 medium-8 column">
-      <%= f.label :valuation_finished do %>
-        <%= f.check_box :valuation_finished, title: t('valuation.budget_investments.edit.valuation_finished'), label: false %>
-        <span class="checkbox"><%= t("valuation.budget_investments.edit.valuation_finished") %></span>
-      <% end %>
-    </div>
-  </div>
+    <%- if can?(:finish_valuation, @investment) %>
+      <div class="row">
+        <div class="small-12 medium-8 column">
+          <%= f.label :valuation_finished do %>
+            <%= f.check_box :valuation_finished, title: t('valuation.budget_investments.edit.valuation_finished'), label: false %>
+            <span class="checkbox"><%= t("valuation.budget_investments.edit.valuation_finished") %></span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <%- if can?(:mark_as_finished_own_valuation, @investment) %>
+        <div class="row">
+          <div class="small-12 medium-8 column">
+            <%= f.label :mark_as_finished_own_valuation do %>
+                <%= f.check_box :mark_as_finished_own_valuation, title: t('valuation.budget_investments.edit.valuation_finished'), label: false %>
+                <span class="checkbox"><%= t("valuation.budget_investments.edit.own_valuation_finished") %></span>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
 
   <div class="row">
     <div class="small-12 medium-8 column">

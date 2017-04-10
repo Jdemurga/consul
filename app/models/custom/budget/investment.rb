@@ -18,6 +18,56 @@ class Budget
     scope :pending_flag_review, -> { where(ignored_flag_at: nil, hidden_at: nil) }
     scope :with_ignored_flag, -> { where.not(ignored_flag_at: nil).where(hidden_at: nil) }
 
+    attr_accessor :mark_as_finished_own_valuation
+
+    def update_own_validation_for_valuator(valuator_id)
+      return if valuator_id.nil?
+
+      valuation = valuator_assignments.find_by_valuator_id(valuator_id)
+      if valuation
+        if mark_as_finished_own_valuation? && valuation.finished_by_user_at.nil?
+
+          # Mark with time
+          valuation.update(finished_by_user_at: Time.now)
+        elsif !mark_as_finished_own_valuation? && valuation.finished_by_user_at
+
+          # Unmark
+          valuation.update(finished_by_user_at: nil)
+        end
+      end
+    end
+
+    def is_mark_as_finished_own_valuation_for_valuator?(valuator_id)
+      return false if valuator_id.nil?
+      !valuator_assignments.find_by_valuator_id(valuator_id).try(:finished_by_user_at).blank?
+    end
+
+    def is_mark_as_finished_for_every_valuator?()
+      valuator_assignments.pluck(:finished_by_user_at).all?
+    end
+
+    def is_mark_as_finished_for_valuator?(valuator_id)
+      valuator_assignments.find_by_valuator_id(valuator_id).try(:finished_by_user_at)
+    end
+
+    def is_mark_as_finished_for_any_valuator?()
+      valuator_assignments.pluck(:finished_by_user_at).any?
+    end
+
+    def valuator_assignments_count
+      valuator_assignments.count
+    end
+
+    def valuator_assignments_ordered_by_completion_date
+      valuator_assignments.order("finished_by_user_at DESC")
+    end
+    def valuator_assignments_finished_count
+      valuator_assignments.where.not(finished_by_user_at: nil).count
+    end
+
+    def mark_as_finished_own_valuation?
+      "1".eql?(mark_as_finished_own_valuation)
+    end
 
     def image_attached?
       !"application/pdf".eql?(attachment.try(:content_type))

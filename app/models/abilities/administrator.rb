@@ -47,6 +47,8 @@ module Abilities
       can [:read, :create, :update, :destroy], Budget::Heading
       can [:hide, :update, :toggle_selection], Budget::Investment
       can :valuate, Budget::Investment
+      can :mark_feasibility, Budget::Investment
+      can :finish_valuation, Budget::Investment
       can :create, Budget::ValuatorAssignment
 
       can [:search, :edit, :update, :create, :index, :destroy], Banner
