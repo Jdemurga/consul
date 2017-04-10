@@ -17,8 +17,28 @@ class Budget
     scope :sort_by_created_at_desc, -> { order('created_at desc') }
     scope :pending_flag_review, -> { where(ignored_flag_at: nil, hidden_at: nil) }
     scope :with_ignored_flag, -> { where.not(ignored_flag_at: nil).where(hidden_at: nil) }
+    #GET-98
+    scope :not_unified, -> { where(unified_with_id: nil) }
+
+    belongs_to :unified_with, class_name: 'Budget::Investment', foreign_key: :unified_with_id
+    has_many :investments_unified_to_me, class_name: 'Budget::Investment', foreign_key: :unified_with_id
 
     attr_accessor :mark_as_finished_own_valuation
+
+    #GET-98
+    def has_unifications?
+      investments_unified_to_me.any?
+    end
+
+    def is_unified?
+      !unified_with_id.blank?
+    end
+
+    def name_and_group
+      "#{id} - #{title} || #{group.name} - #{heading.name}"
+    end
+
+
 
     def update_own_validation_for_valuator(valuator_id)
       return if valuator_id.nil?

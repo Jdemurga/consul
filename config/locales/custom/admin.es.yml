@@ -160,6 +160,12 @@ es:
         tags: Etiquetas
         tags_placeholder: "Escribe las etiquetas que desees separadas por comas (,)"
         undefined: Sin definir
+        unification: "Unificación de propuestas"
+        unification_explanation: "Explicación detallada sobre unificación/retirada"
+        unification_reason: "Explicación breve sobre unificación/retirada"
+        unified_with: "Propuesta a la cual se agrega/unifica/se retira en favor de"
+        unified_with_id: "Propuesta a la cual se agrega/unifica/se retira en favor de"
+        not_unified_option: "Propuesta no unificada/agregada/retirada"
     comments:
       index:
         filter: Filtro
