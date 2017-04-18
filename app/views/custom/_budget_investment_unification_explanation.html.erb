@@ -1,9 +1,15 @@
 <% if investment.is_unified? %>
   <div id="unification_explanation" class="callout margin">
     <h4>
-      <%= investment.unification_reason %>
+      <% if investment.unification_reason %>
+        <%= safe_html_with_links investment.unification_reason.html_safe %>
+      <% end %>
     </h4>
-    <p class="small"><%= investment.unification_explanation %></p>
+    <% if investment.unification_explanation %>
+      <p class="small">
+        <%= safe_html_with_links investment.unification_explanation.html_safe %>
+      </p>
+    <% end %>
     <p>Esta propuesta ha sido retirada en favor de "<%= link_to(investment.unified_with.title, budget_investment_path(investment.unified_with.budget, investment.unified_with)) %>".</p>
   </div>
 <% else %>
