@@ -44,6 +44,10 @@ module Abilities
       end
 
       if user.level_two_or_three_verified?
+
+
+        can :create, Proposal #GET-104
+
         can :vote, Proposal
         can :vote_featured, Proposal
         can :vote, SpendingProposal

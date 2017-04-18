@@ -36,7 +36,8 @@ class ProposalsController < ApplicationController
   end
 
   def vote
-    @proposal.register_vote(current_user, 'yes')
+    # GET-104 Supports to likes
+    @proposal.register_vote(current_user, params[:value] || 'yes')
     set_proposal_votes(@proposal)
   end
 
