@@ -68,7 +68,9 @@
 
         <div id="<%= dom_id(comment) %>_reply" class="reply">
           <div id="<%= dom_id(comment) %>_votes" class="comment-votes float-right">
-            <%= render 'comments/votes', comment: comment %>
+            <% unless comment.commentable.try(:likes_disallowed?) %>
+              <%= render 'comments/votes', comment: comment %>
+            <% end %>
           </div>
 
           <% if comment.children.size > 0 %>

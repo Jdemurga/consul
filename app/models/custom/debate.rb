@@ -2,6 +2,10 @@ require_dependency Rails.root.join('app', 'models', 'debate').to_s
 
 class Debate
 
+  def likes_disallowed?
+    likes_disallowed
+  end
+
   # GET-53 Custom permissions to vote
   def votable_by?(user)
     return false unless user

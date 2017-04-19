@@ -5,6 +5,11 @@ module Abilities
     def initialize(user)
       self.merge Abilities::Moderation.new(user)
 
+
+      # GET-106 DEBATES SIN LIKES
+      can :create, Debate
+      can :suggest, Debate
+
       can :restore, Comment
       cannot :restore, Comment, hidden_at: nil
 

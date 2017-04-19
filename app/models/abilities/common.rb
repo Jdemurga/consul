@@ -43,6 +43,10 @@ module Abilities
         can :vote, Comment
       end
 
+      cannot :vote, Comment do |comment|
+        comment.commentable.try(:likes_disallowed?)
+      end
+
       if user.level_two_or_three_verified?
         can :vote, Proposal
         can :vote_featured, Proposal
