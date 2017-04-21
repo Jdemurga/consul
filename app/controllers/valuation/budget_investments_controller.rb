@@ -26,6 +26,13 @@ class Valuation::BudgetInvestmentsController < Valuation::BaseController
       # Set the valuation status for each  user
       @investment.update_own_validation_for_valuator(current_user.try(:valuator).try(:id))
 
+
+      if @investment.unfeasible_email_pending?
+        @investment.send_unfeasible_email
+      end
+
+      Activity.log(current_user, :valuate, @investment)
+
       redirect_to valuation_budget_budget_investment_path(@budget, @investment), notice: t('valuation.budget_investments.notice.valuate')
     else
       render action: :edit
