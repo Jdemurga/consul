@@ -83,14 +83,18 @@
             <%= t("comments.comment.responses", count: 0) %>
           <% end %>
 
-          <% if user_signed_in? %>
-            <span class="divider">&nbsp;|&nbsp;</span>
-            <%= link_to(comment_link_text(comment), "",
+          <% if user_signed_in? && can?(:create, Comment) %>
+
+              <% if can?(:create_nested, Comment) %>
+                  <span class="divider">&nbsp;|&nbsp;</span>
+                <%= link_to(comment_link_text(comment), "",
                         class: "js-add-comment-link", data: {'id': dom_id(comment)}) %>
+              <% end %>
 
             <%= render 'comments/actions', comment: comment %>
-
-            <%= render 'comments/form', {commentable: comment.commentable, parent_id: comment.id, toggeable: true} %>
+              <% if can?(:create_nested, Comment) %>
+                <%= render 'comments/form', {commentable: comment.commentable, parent_id: comment.id, toggeable: true} %>
+              <% end %>
           <% end %>
         </div>
       <% end %>

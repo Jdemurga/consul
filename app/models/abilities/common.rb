@@ -60,7 +60,8 @@ module Abilities
 
         can :create, DirectMessage
         can :show, DirectMessage, sender_id: user.id
-        can :create, Comment
+        can :create, Comment,  parent_id: nil
+        can :create, Comment,  parent_id: nil
       end
 
       can [:create, :show], ProposalNotification, proposal: { author_id: user.id }
