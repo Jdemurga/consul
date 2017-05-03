@@ -41,7 +41,11 @@ es:
         info: Datos de envío
         by: Enviada por
         sent: Fecha de creación
-        heading: Partida
+        heading: Tipo de propuesta
+        group: Barrio
+        attachment: Adjunto
+        no_attachment_available: Sin adjunto
+        download_attachment: Descargar adjunto
         dossier: Informe
         edit_dossier: Editar informe
         price: Coste
