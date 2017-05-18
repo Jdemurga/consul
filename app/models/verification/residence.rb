@@ -47,7 +47,7 @@ class Verification::Residence
   # WIll calculate all variants to avoid repeat
   def valid_variants
 
-    if (document_number_from_census && document_number_letter)
+    if (@census_api_response.valid? && document_number_from_census && document_number_letter)
       CensusApiCustom.new.get_document_number_variants(document_type, document_number_from_census + document_number_letter)
     else
       document_number
