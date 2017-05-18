@@ -13,7 +13,7 @@ class Verification::Sms
   end
 
   def normalized_phone
-    normalized = PhonyRails.normalize_number(phone, default_country_code: 'ES',  strict: true)
+    normalized = PhonyRails.normalize_number(phone.gsub('+',''), default_country_code: 'ES',  strict: true)
   end
 
   def save

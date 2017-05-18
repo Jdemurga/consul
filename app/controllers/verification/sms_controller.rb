@@ -45,7 +45,7 @@ class Verification::SmsController < ApplicationController
   private
 
     def normalize_phone(phone)
-      PhonyRails.normalize_number(phone, default_country_code: 'ES', strict: true)
+      PhonyRails.normalize_number(phone.gsub('+',''), default_country_code: 'ES', strict: true)
     end
     def sms_params
       params.require(:sms).permit(:phone, :confirmation_code)
