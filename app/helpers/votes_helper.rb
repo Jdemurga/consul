@@ -1,7 +1,7 @@
 module VotesHelper
 
   def debate_percentage_of_likes(debate)
-    debate.likes.percent_of(debate.total_votes)
+    debate.get_up_votes.count.percent_of(debate.total_votes)
   end
 
   def votes_percentage(vote, debate)
@@ -12,6 +12,16 @@ module VotesHelper
       (100 - debate_percentage_of_likes(debate)).to_s + "%"
     end
   end
+
+  def proposal_votes_percentage(vote, proposal)
+    return "0%" if proposal.total_votes == 0
+    if vote == 'likes'
+      debate_percentage_of_likes(proposal).to_s + "%"
+    elsif vote == 'dislikes'
+      (100 - debate_percentage_of_likes(proposal)).to_s + "%"
+    end
+  end
+
 
   def css_classes_for_vote(votes, votable)
     case votes[votable.id]
