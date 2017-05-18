@@ -10,7 +10,6 @@ class Verification::SmsController < ApplicationController
   def new
     @sms = Verification::Sms.new(phone: params[:phone])
   end
-
   def create
     @sms = Verification::Sms.new(phone: @phone, user: current_user)
     if @sms.save
