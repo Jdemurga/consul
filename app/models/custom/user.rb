@@ -1,6 +1,17 @@
 require_dependency Rails.root.join('app', 'models', 'user').to_s
 
 class User
+
+  def normalize_email
+    return unless self.email
+    if self.email.include?('+') && self.email.include?('@')
+      name, domain = self.email.split('@')
+      valid_part, _ = name.split('+')
+      self.email = "#{valid_part}@#{domain}"
+    end
+  end
+
+
   def to_param
     username
   end
