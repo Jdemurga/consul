@@ -1,0 +1,67 @@
+<div class="row margin-top">
+
+
+
+    <div class="small-12 medium-9 column margin-top">
+      <h3>Papeleta de votación de <%= @budget.name %> en <strong><%= @group.name %></strong></h3>
+    <table class="ballot-paper">
+      <theading>
+        <th class="text-left">
+          Título de propuesta
+        </th>
+        <th class="text-right">
+          Puntos por voto
+        </th>
+      </theading>
+      <tbody>
+      <% @investments.each do |investment| %>
+        <%= render 'budgets/ballot/investment_ballot_with_points', investment: investment %>
+      <% end %>
+      </tbody>
+    </table>
+    </div>
+    <div class="small-12 medium-3 column margin">
+
+      <h5>Tu votación</h5>
+      <% if  @ballot.investments.any? %>
+        <ul class="ballot-list">
+          <% if @group %>
+              <% @ballot.sorted_investments.each do |investment| %>
+                  <%= render 'budgets/ballot/investment_with_points_for_sidebar',
+                             investment: investment,
+                             investment_ids: @investment_ids %>
+              <% end %>
+          <% end %>
+        </ul>
+
+      <% else %>
+      <div class="text-muted">
+        <small>
+          <p>Aún no ha votado ninguna propuesta.</p>
+          <p>Utiliza la <u>papeleta de votación</u> que ve a su derecha para elegir las propuestas que quieres votar y asignales una puntuación por orden de preferencia.</p>
+        </small>
+      </div>
+      <% end %>
+      <div class="">
+        <small>
+          <p>Recuerda  que:</p>
+          <ul>
+            <li>
+              Puedes cambiar tus votos hasta el día de cierre de votación.
+            </li>
+            <li>
+              Sólo puedes votar en un barrio (el que tú elijas).
+            </li>
+            <li>
+              Puedes votar un máximo de 3 propuestas.
+            </li>
+            <li>
+              Cada voto tiene un peso diferente en puntos (1, 2 ó 3 puntos).
+            </li>
+          </ul>
+        </small>
+      </div>
+
+    </div>
+
+</div>

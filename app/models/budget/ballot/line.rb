@@ -1,6 +1,9 @@
 class Budget
   class Ballot
     class Line < ActiveRecord::Base
+
+      POINTS = [1, 2, 3]
+
       belongs_to :ballot
       belongs_to :investment
       belongs_to :heading
@@ -12,6 +15,8 @@ class Budget
       validate :check_selected
       validate :check_sufficient_funds
       validate :check_valid_heading
+      validates :points, presence: true, uniqueness: { scope: [:budget_id, :ballot_id] }, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 3}
+      validates :investment_id, presence: true, uniqueness: { scope: [:budget_id, :ballot_id] }
 
       before_validation :set_denormalized_ids
 
@@ -20,6 +25,7 @@ class Budget
       end
 
       def check_valid_heading
+        return #GET-107
         errors.add(:heading, "This heading's budget is invalid, or a heading on the same group was already selected") unless ballot.valid_heading?(self.heading)
       end
 

@@ -2,7 +2,7 @@ module Budgets
   class BallotsController < ApplicationController
     before_action :authenticate_user!
     load_and_authorize_resource :budget
-    before_action :load_ballot
+    before_action :load_ballot, :load_group, :load_investments
 
     def show
       authorize! :show, @ballot
@@ -16,5 +16,21 @@ module Budgets
         @ballot = @budget.balloting? ? query.first_or_create : query.first_or_initialize
       end
 
+    #GET-107
+    def load_group
+      unless @ballot.group.nil?
+        @group = @ballot.group
+      else
+        if params[:group_id]
+          @group = @budget.groups.find(params[:group_id])
+        end
+      end
+    end
+
+    def load_investments
+      if @group
+        @investments = @budget.investments.where(group_id: @group.id).where(selected: true)
+      end
+    end
   end
 end

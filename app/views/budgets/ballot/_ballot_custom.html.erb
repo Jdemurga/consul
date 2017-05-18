@@ -1,0 +1,32 @@
+<div class="expanded no-margin-top padding page-background-row budgets-ballot-bg">
+  <div class="row">
+    <%= render 'shared/back_link' %>
+
+    <h1 class="text-center"><%= t("budgets.ballots.show.title") %></h1>
+
+    <div class="small-12 medium-8 column small-centered text-center">
+      <h2>
+        <%= t("budgets.ballots.show.voted_html",
+            count: @ballot.investments.count) %>
+      </h2>
+      <p>
+        <small>
+          <%= t("budgets.ballots.show.voted_info_html") %>
+        </small>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="row ballot">
+  <div class="margin-top">
+
+    <% if @group.nil? %>
+
+        <%= render 'budgets/ballot/ballot_map' %>
+
+    <% else %>
+        <%= render 'budgets/ballot/ballot_paper_by_group' %>
+    <% end %>
+  </div>
+</div>
