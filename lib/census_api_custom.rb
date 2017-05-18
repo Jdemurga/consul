@@ -51,6 +51,10 @@ class CensusApiCustom
       Date.new(year.to_i, month.to_i, day.to_i)
     end
 
+    def document_number_from_census
+      data[:dni]
+    end
+
     def document_number_letter
       data[:letra_dni]
     end
@@ -112,11 +116,11 @@ class CensusApiCustom
     end
 
     def end_point_available?
-      true || Rails.env.staging? || Rails.env.preproduction? || Rails.env.production?
+      Rails.env.staging? || Rails.env.preproduction? || Rails.env.production?
     end
 
     def stubbed_response_body
-      {nacim_fecha: "31-12-1980", dni: "12345678Z", descripcion_sexo: "Varón" }
+      {nacim_fecha: "31-12-1980", dni: "12345678", letra_dni: "Z", geozone: "sector3" }
     end
 
     def is_dni?(document_type)

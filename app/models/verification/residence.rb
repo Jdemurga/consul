@@ -41,8 +41,13 @@ class Verification::Residence
 
   def document_number_uniqueness
 
-    valid_variants = CensusApiCustom.new.get_document_number_variants(document_type, document_number)
     errors.add(:document_number, I18n.t('errors.messages.taken')) if User.where(document_number: valid_variants).any?
+  end
+
+  # WIll calculate all variants to avoid repeat
+  def valid_variants
+
+    CensusApiCustom.new.get_document_number_variants(document_type, document_number_from_census + document_number_letter)
   end
 
   def store_failed_attempt
@@ -53,6 +58,15 @@ class Verification::Residence
       date_of_birth:   date_of_birth,
       postal_code:     postal_code
     })
+  end
+
+
+  def document_number_from_census
+    @census_api_response.document_number_from_census
+  end
+
+  def document_number_letter
+    @census_api_response.document_number_letter
   end
 
   def geozone
