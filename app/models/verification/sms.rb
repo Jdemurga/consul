@@ -24,7 +24,12 @@ class Verification::Sms
   end
 
   def update_user_phone_information
-    user.update(unconfirmed_phone: normalized_phone, sms_confirmation_code: generate_confirmation_code)
+    pin = generate_confirmation_code
+    user.update(unconfirmed_phone: normalized_phone, sms_confirmation_code: pin)
+
+    # Security
+    # One time pin by normalized phone
+    SmsOtp.create_or_update(normalized_phone, pin)
   end
 
   def send_sms
@@ -32,7 +37,7 @@ class Verification::Sms
   end
 
   def verified?
-    user.sms_confirmation_code == confirmation_code
+    (user.sms_confirmation_code == confirmation_code) && SmsOtp.is_confirmed?(user.unconfirmed_phone, confirmation_code)
   end
 
   private

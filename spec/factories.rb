@@ -1,4 +1,8 @@
 FactoryGirl.define do
+  factory :sms_otp do
+    phone_number "MyString"
+    confirmation_code "MyString"
+  end
   factory :commission do
     geozone_id nil
     name "MyString"
