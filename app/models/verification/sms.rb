@@ -8,7 +8,12 @@ class Verification::Sms
   validate :uniqness_phone
 
   def uniqness_phone
-    errors.add(:phone, :taken) if User.where(confirmed_phone: phone).any?
+
+    errors.add(:phone, :taken) if User.where(confirmed_phone: normalized_phone).any?
+  end
+
+  def normalized_phone
+    normalized = PhonyRails.normalize_number(phone, default_country_code: 'ES',  strict: true)
   end
 
   def save
@@ -19,7 +24,7 @@ class Verification::Sms
   end
 
   def update_user_phone_information
-    user.update(unconfirmed_phone: phone, sms_confirmation_code: generate_confirmation_code)
+    user.update(unconfirmed_phone: normalized_phone, sms_confirmation_code: generate_confirmation_code)
   end
 
   def send_sms

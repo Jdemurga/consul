@@ -323,6 +323,10 @@ GEM
       activerecord (>= 3.1)
       activesupport (>= 3.1)
       arel
+    phony (2.15.44)
+    phony_rails (0.14.5)
+      activesupport (>= 3.0)
+      phony (~> 2.15)
     poltergeist (1.10.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -564,6 +568,7 @@ DEPENDENCIES
   paranoia (~> 2.2.0)
   pg (~> 0.19.0)
   pg_search
+  phony_rails
   poltergeist
   puma (= 3.6.2)
   quiet_assets
@@ -592,4 +597,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.13.6
+   1.14.6
