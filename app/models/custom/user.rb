@@ -2,7 +2,7 @@ require_dependency Rails.root.join('app', 'models', 'user').to_s
 
 class User
 
-  before_save :normalize_email
+  before_validation :normalize_email
 
   def normalize_email
     return unless self.email
