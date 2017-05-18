@@ -40,7 +40,9 @@ class Verification::Residence
   end
 
   def document_number_uniqueness
-    errors.add(:document_number, I18n.t('errors.messages.taken')) if User.where(document_number: document_number).any?
+
+    valid_variants = CensusApiCustom.new.get_document_number_variants(document_type, document_number)
+    errors.add(:document_number, I18n.t('errors.messages.taken')) if User.where(document_number: valid_variants).any?
   end
 
   def store_failed_attempt
