@@ -8,8 +8,28 @@ class Budget
     has_many :groups, -> { uniq }, through: :lines
     has_many :headings, -> { uniq }, through: :groups
 
+    #GET-107
+    def group
+      groups.first
+    end
+
+    def investment_points(investment)
+      line  = lines.where(investment_id: investment.id).first
+      line ? line.points : 0
+    end
+
+    def sorted_investments(heading_id = nil)
+      investments = lines.order(:points).collect(&:investment)
+      investments = investments.select { |investment| investment.heading_id == heading_id } if heading_id
+      investments
+    end
+
     def add_investment(investment)
       lines.create!(investment: investment)
+    end
+
+    def add_investment(investment, points)
+      lines.create!(investment: investment, points: points)
     end
 
     def total_amount_spent

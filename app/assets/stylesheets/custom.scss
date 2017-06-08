@@ -183,6 +183,41 @@ h1.logo {
   background: $budget image-url('public_consultations_bg.jpg');
 }
 
+.budgets-ballot-bg {
+
+  background: $budget image-url('ballot-bg.jpg');
+  background-size: auto 100% !important;
+  background-position: right 20px !important;
+  background-color: white;
+  border-bottom: 1px solid #a9a9a9;
+
+
+  h1 { color: $brand !important; }
+}
+
+/* Ballot colors */
+ul.ballot-list li:hover {
+
+  background-color: $brand;
+}
+
+table.ballot-paper td,
+table.ballot-paper th {
+
+  background-color: #FFFFE0;
+}
+
+
+.ballot-points {
+  background-color: #FFFFE0 !important;
+  font-weight: bold;
+}
+
+table.ballot-paper tr.ballot-selected {
+
+};
+
+
 /* Spending proposals */
 
 table#spending-proposals-results {
@@ -286,6 +321,10 @@ table#spending-proposals-results {
       }
     }
   }
+}
+
+.text-right {
+  text-align: right !important;
 }
 
 .spending-proposals-text {

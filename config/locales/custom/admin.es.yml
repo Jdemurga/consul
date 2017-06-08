@@ -59,6 +59,13 @@ es:
         title: Actividad de los Moderadores
         type: Tipo
     budgets:
+      results:
+        title: Resultados de votación %{budget_name}
+        spending_proposal: Propuesta
+        ballot_lines_count: Votos
+        ballot_lines_sum: Puntos
+        ballot_lines_ratio: Media
+        price: Coste propuesta
       index:
         title: Presupuestos participativos
         new_link: Crear nuevo presupuesto
@@ -69,10 +76,12 @@ es:
         table_name: Nombre
         table_phase: Fase
         table_investments: Propuestas de inversión
+        table_results: Votación
         table_edit_groups: Grupos de partidas
         table_edit_budget: Editar
         edit_groups: Editar grupos de partidas
         edit_budget: Editar presupuesto
+        budget_results: Ver resultados
       create:
         notice: ¡Nueva campaña de presupuestos participativos creada con éxito!
       update:

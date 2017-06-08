@@ -18,8 +18,10 @@ module Budgets
         load_investment
         load_heading
 
-        unless @ballot.add_investment(@investment)
+        unless @ballot.add_investment(@investment, line_params[:points])
           head :bad_request
+        else
+          redirect_to budget_ballot_path(@budget)
         end
       end
 
@@ -30,6 +32,7 @@ module Budgets
         @line.destroy
         load_investments
         #@ballot.reset_geozone
+        redirect_to budget_ballot_path(@budget, group_id: @line.group)
       end
 
       private
@@ -39,7 +42,7 @@ module Budgets
         end
 
         def line_params
-          params.permit(:investment_id, :budget_id)
+          params.permit(:investment_id, :budget_id, :points)
         end
 
         def load_budget
