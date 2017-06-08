@@ -299,6 +299,8 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resources :proposals, only: [:index, :new, :create, :show] do
       post :vote, on: :member
+      post :vote_up, on: :member
+      post :vote_down, on: :member
       get :print, on: :collection
     end
 
