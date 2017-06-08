@@ -30,6 +30,7 @@
           <%= t("management.menu.support_proposals") %>
         <% end %>
       </li>
+
     <% end %>
 
     <% if feature?('feature.spending_proposal_features.open_process') %>
@@ -61,6 +62,13 @@
       <%= link_to support_investments_management_budgets_path do %>
         <span class="icon-like"></span>
         <%= t("management.menu.support_budget_investments") %>
+      <% end %>
+    </li>
+
+    <li <%= "class=active" if controller_name == "proposals" && action_name == "ballot"  %>>
+      <%= link_to ballot_investments_management_budgets_path do %>
+          <span class="icon-check"></span>
+          <%= t("management.menu.ballot_investments") %>
       <% end %>
     </li>
 

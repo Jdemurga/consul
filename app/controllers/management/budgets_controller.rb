@@ -17,6 +17,10 @@ class Management::BudgetsController < Management::BaseController
     @budgets = Budget.current.order(created_at: :desc).page(params[:page])
   end
 
+  def ballot_investments
+    @budgets = Budget.current.order(created_at: :desc).page(params[:page])
+  end
+
   private
 
     def only_verified_users
