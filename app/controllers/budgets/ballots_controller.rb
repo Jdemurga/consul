@@ -11,10 +11,10 @@ module Budgets
 
     private
 
-      def load_ballot
-        query = Budget::Ballot.where(user: current_user, budget: @budget)
-        @ballot = @budget.balloting? ? query.first_or_create : query.first_or_initialize
-      end
+    def load_ballot
+      query = Budget::Ballot.where(user: current_user, budget: @budget)
+      @ballot = @budget.balloting? ? query.first_or_create : query.first_or_initialize
+    end
 
     #GET-107
     def load_group
@@ -31,7 +31,9 @@ module Budgets
       if params[:heading_id]
         @heading = @group.headings.find(params[:heading_id])
       else
-        @heading = @group.headings.first
+        if @group
+          @heading = @group.headings.first
+        end
       end
     end
 

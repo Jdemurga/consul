@@ -1,4 +1,4 @@
-<tr id="<%= dom_id(investment) %>_ballot_with_points">
+<tr id="<%= dom_id(investment) %>_ballot_with_points" class="<%= 'ballot-selected' if @ballot.investments.include?(investment) %>">
   <td>
 
     <%= investment.title %> <br>
@@ -27,7 +27,7 @@
   </td>
   <td class="text-right">
     <div class="button-group">
-      <% not_available_points = @ballot.lines.pluck(:points) %>
+      <% not_available_points = @ballot.lines.where(heading: @heading).pluck(:points) %>
       <% Budget::Ballot::Line::POINTS.each do |points| %>
 
           <% if @ballot.investments.include?(investment) %>

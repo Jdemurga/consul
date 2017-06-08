@@ -13,15 +13,22 @@ class Budget
       validates :ballot_id, :investment_id, :heading_id, :group_id, :budget_id, presence: true
 
       validate :check_selected
-      validate :check_sufficient_funds
+      #validate :check_sufficient_funds
+      validate :check_sufficient_points
       validate :check_valid_heading
-      validates :points, presence: true, uniqueness: { scope: [:budget_id, :ballot_id] }, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 3}
+      validates :points, presence: true, uniqueness: { scope: [:budget_id, :ballot_id, :heading_id] }, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 3}
       validates :investment_id, presence: true, uniqueness: { scope: [:budget_id, :ballot_id] }
 
       before_validation :set_denormalized_ids
 
+      # GET-111
       def check_sufficient_funds
         errors.add(:money, "insufficient funds") if ballot.amount_available(investment.heading) < investment.price.to_i
+      end
+
+      def check_sufficient_points
+        # TODO - Check points model
+        #errors.add(:points, "points already added") if ballot.amount_available(investment.heading) < investment.price.to_i
       end
 
       def check_valid_heading

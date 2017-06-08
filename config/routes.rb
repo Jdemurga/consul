@@ -163,6 +163,12 @@ Rails.application.routes.draw do
     end
 
     resources :budgets do
+
+      #GET-112
+      member do
+        get :results
+      end
+
       resources :budget_groups do
         resources :budget_headings do
         end
