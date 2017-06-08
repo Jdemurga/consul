@@ -2,7 +2,7 @@ class Budget
   class Ballot
     class Line < ActiveRecord::Base
 
-      POINTS = [1, 2, 3]
+      POINTS = [3, 2, 1]
 
       belongs_to :ballot
       belongs_to :investment

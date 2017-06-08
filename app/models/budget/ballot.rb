@@ -18,8 +18,10 @@ class Budget
       line ? line.points : 0
     end
 
-    def sorted_investments
-      lines.order(:points).collect &:investment
+    def sorted_investments(heading_id = nil)
+      investments = lines.order(:points).collect(&:investment)
+      investments = investments.select { |investment| investment.heading_id == heading_id } if heading_id
+      investments
     end
 
     def add_investment(investment)

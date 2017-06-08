@@ -3,11 +3,15 @@
 
 
     <div class="small-12 medium-9 column margin-top">
-      <h3>Papeleta de votación de <%= @budget.name %> en <strong><%= @group.name %></strong></h3>
+      <h3><strong><%= @heading.name %></strong></h3>
+      <h5><%= @budget.name %> en <strong><%= @group.name %></strong></h5>
     <table class="ballot-paper">
       <theading>
         <th class="text-left">
           Título de propuesta
+        </th>
+        <th class="text-right">
+          Coste estimado
         </th>
         <th class="text-right">
           Puntos por voto
@@ -22,26 +26,11 @@
     </div>
     <div class="small-12 medium-3 column margin">
 
-      <h5>Tu votación</h5>
-      <% if  @ballot.investments.any? %>
-        <ul class="ballot-list">
-          <% if @group %>
-              <% @ballot.sorted_investments.each do |investment| %>
-                  <%= render 'budgets/ballot/investment_with_points_for_sidebar',
-                             investment: investment,
-                             investment_ids: @investment_ids %>
-              <% end %>
-          <% end %>
-        </ul>
-
-      <% else %>
-      <div class="text-muted">
-        <small>
-          <p>Aún no ha votado ninguna propuesta.</p>
-          <p>Utiliza la <u>papeleta de votación</u> que ve a su derecha para elegir las propuestas que quieres votar y asignales una puntuación por orden de preferencia.</p>
-        </small>
-      </div>
+      <h4>Tu votación</h4>
+      <% @group.headings.each do |heading| %>
+          <%= render 'budgets/ballot/ballot_group_heading', budget: @budget, group: @group,  heading: heading %>
       <% end %>
+
       <div class="">
         <small>
           <p>Recuerda  que:</p>
