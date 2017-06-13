@@ -91,6 +91,7 @@ es:
         edit_groups: Editar grupos de partidas
         edit_budget: Editar presupuesto
         budget_results: Ver resultados
+        budget_results_disabled: Resultados no accesibles
         budget_print_ballot_paper: Imprimir
       create:
         notice: ¡Nueva campaña de presupuestos participativos creada con éxito!

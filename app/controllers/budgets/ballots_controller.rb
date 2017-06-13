@@ -39,7 +39,7 @@ module Budgets
 
     def load_investments
       if @group
-        @investments = @budget.investments.where(group_id: @group.id, heading_id: @heading.id).where(selected: true)
+        @investments = @budget.investments.where(group_id: @group.id, heading_id: @heading.id).where(selected: true).sort_by_random
       end
     end
   end

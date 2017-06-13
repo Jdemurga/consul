@@ -13,11 +13,11 @@
 
     <% elsif @ballot.completed_by_heading?(@heading) %>
           <div data-alert class="ballot-alert ballot-success">
-            <span class="icon-ok-sign"></span> Su papeleta de votación de <%= @heading.name %> <strong>es válida</strong>
+            <span class="icon-check icon"></span> Su papeleta de votación de <%= @heading.name %> <strong>es válida</strong>
           </div>
       <% else %>
           <div data-alert class="ballot-alert ballot-warning">
-            <span class="icon-times"></span>
+            <span class="icon-x icon"></span>
             Le quedan por marcar <%= @ballot.number_remaining_lines_to_complete(@heading) %> <%= @heading.name %>, <strong>su papeleta no está completa</strong>
           </div>
       <% end %>
@@ -61,7 +61,7 @@
               Sólo puedes votar en un barrio (el que tú elijas).
             </li>
             <li>
-              Puedes votar un máximo de 3 propuestas.
+              Debe votar <%= @ballot.number_of_mandatory_lines_to_complete(@heading) %> propuestas.
             </li>
             <li>
               Cada voto tiene un peso diferente en puntos (1, 2 ó 3 puntos).

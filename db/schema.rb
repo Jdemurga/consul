@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508055632) do
+ActiveRecord::Schema.define(version: 20170518095108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -462,6 +462,15 @@ ActiveRecord::Schema.define(version: 20170508055632) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "sms_otps", force: :cascade do |t|
+    t.string   "phone_number",      null: false
+    t.string   "confirmation_code", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "sms_otps", ["phone_number"], name: "index_sms_otps_on_phone_number", using: :btree
 
   create_table "spending_proposals", force: :cascade do |t|
     t.string   "title",                       limit: 255
