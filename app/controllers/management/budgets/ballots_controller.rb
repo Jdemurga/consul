@@ -44,7 +44,7 @@ class Management::Budgets::BallotsController < Management::BaseController
 
   def load_investments
     if @group
-      @investments = @budget.investments.where(group_id: @group.id, heading_id: @heading.id).where(selected: true)
+      @investments = @budget.investments.where(group_id: @group.id, heading_id: @heading.id).where(selected: true).order('title asc')
     end
   end
 end

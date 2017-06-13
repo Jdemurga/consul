@@ -1,5 +1,8 @@
 <tr id="<%= dom_id(investment) %>_ballot_with_points" class="<%= 'ballot-selected' if @ballot.investments.include?(investment) %>">
   <td class="text-center">
+    <strong><%= index %></strong>
+  </td>
+  <td class="text-center">
     <strong><%= investment.id %></strong>
   </td>
   <td>

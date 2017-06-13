@@ -26,6 +26,9 @@
         <th class="text-left">
         </th>
         <th class="text-left">
+          Código
+        </th>
+        <th class="text-left">
           Título de propuesta
         </th>
         <th class="text-right">
@@ -33,8 +36,8 @@
         </th>
       </theading>
       <tbody>
-      <% @investments.each do |investment| %>
-        <%= render 'management/budgets/ballots/investment_ballot_with_points', investment: investment %>
+      <% @investments.each_with_index do |investment, index| %>
+        <%= render 'management/budgets/ballots/investment_ballot_with_points', investment: investment, index: index + 1%>
       <% end %>
       </tbody>
     </table>
