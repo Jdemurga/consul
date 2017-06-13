@@ -25,7 +25,7 @@
   <td class="text-right">
     <%= number_to_currency investment.price %>
   </td>
-  <td class="text-right">
+  <td class="text-right" style="width: 170px;">
     <div class="button-group">
       <% not_available_points = @ballot.lines.where(heading: @heading).pluck(:points) %>
       <% Budget::Ballot::Line::POINTS.each do |points| %>

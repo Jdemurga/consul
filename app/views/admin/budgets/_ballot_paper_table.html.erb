@@ -18,8 +18,11 @@
       <table id="budget-ballot-paper" cellspacing="0" cellpadding="0">
         <thead>
         <tr>
+          <th scope="col" style="width: 10px; color: #999;">
+
+          </th>
           <th scope="col" style="width: 20px;">
-            <%= t("admin.budgets.ballot_paper.index") %>
+            <%= t("admin.budgets.ballot_paper.investment_id") %>
           </th>
           <th scope="col" style="text-align: left;">
             <%= t("admin.budgets.ballot_paper.description", heading_name: heading.name ) %>
@@ -37,11 +40,21 @@
         <% heading.investments.selected.sort_by_title.each_with_index do |investment, index| %>
             <tr id="<%= dom_id(investment) %>"
                 class="spending_proposal success">
-              <td style="text-align: center;">
+              <td style="color: #999; text-align: center;">
                 <%= index + 1 %>
               </td>
+              <td style="text-align: center;">
+                <%= investment.id %>
+              </td>
               <td class="title">
-                <%= investment.title %>
+                <%= investment.title %> <br>
+                <% if investment.investments_unified_to_me.any? %>
+                  <small>
+                  Unifica propuestas:
+                  <%= investment.investments_unified_to_me.collect { |i| i.id }.join(', ') %>
+
+                  </small>
+                <% end %>
               </td>
               <td class="cost">
                 <%= format_price investment.price %>
@@ -65,6 +78,10 @@
   <br>
   <div>
     NOMBRE Y APELLIDOS_____________________________________DNI_________________
+  </div>
+  <br>
+  <div>
+    EMAIL__________________________________________________FIRMA_________________
   </div>
   <br>
   <div class="small">

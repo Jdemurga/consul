@@ -72,6 +72,7 @@ es:
         title_with_heading: Papeleta de votación %{heading}
         index: Propuesta
         description: Descripción %{heading_name}
+        investment_id: Código
         points: Puntos
         estimated_cost: Presupuesto
       index:
