@@ -754,6 +754,14 @@ span.hint {
   }
 }
 
+.votes-custom {
+
+  .percentage {
+
+    position: relative !important;
+  }
+}
+
 .debate-show .votes {
   border: 0;
   padding: $line-height/2 0;
