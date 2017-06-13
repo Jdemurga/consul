@@ -217,6 +217,31 @@ table.ballot-paper tr.ballot-selected {
 
 };
 
+.ballot-alert {
+
+  border-radius: 10px;
+  padding: 7px 10px;
+  margin-bottom: 25px;
+  color: white;
+}
+
+
+.ballot-alert.ballot-secondary {
+
+  background-color: #e7e7e7;
+  color: #333;
+}
+
+.ballot-alert.ballot-warning {
+
+  background-color: #ffae00;
+}
+
+.ballot-alert.ballot-success {
+
+  background-color: #43AC6A;
+}
+
 
 /* Spending proposals */
 

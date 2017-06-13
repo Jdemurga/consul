@@ -1,16 +1,43 @@
 class Budget
   class Ballot < ActiveRecord::Base
+
+    MAX_LINES_PER_HEADING = 3 #GET-107
+
     belongs_to :user
     belongs_to :budget
 
     has_many :lines, dependent: :destroy
     has_many :investments, through: :lines
     has_many :groups, -> { uniq }, through: :lines
-    has_many :headings, -> { uniq }, through: :groups
+    has_many :headings, -> { uniq }, through: :lines
 
     #GET-107
     def group
       groups.first
+    end
+
+    def not_started?
+      lines.empty?
+    end
+
+    def completed?
+      headings.collect { |h| !completed_by_heading?(h) }.select() { |a| a }.empty?
+    end
+
+    def completed_by_heading?(heading)
+
+      number_remaining_lines_to_complete(heading) == 0
+    end
+
+    def number_remaining_lines_to_complete(heading)
+
+      ballot_lines_count = lines.where(heading_id: heading.id).count
+      number_of_mandatory_lines_to_complete(heading) - ballot_lines_count
+    end
+
+    def number_of_mandatory_lines_to_complete(heading)
+      investments_count = heading.investments.selected.count
+      [investments_count, MAX_LINES_PER_HEADING].min
     end
 
     def investment_points(investment)

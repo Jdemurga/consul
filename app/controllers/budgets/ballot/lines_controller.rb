@@ -21,7 +21,7 @@ module Budgets
         unless @ballot.add_investment(@investment, line_params[:points])
           head :bad_request
         else
-          redirect_to budget_ballot_path(@budget)
+          redirect_to budget_ballot_path(@budget, heading_id: @heading.id)
         end
       end
 
@@ -32,7 +32,7 @@ module Budgets
         @line.destroy
         load_investments
         #@ballot.reset_geozone
-        redirect_to budget_ballot_path(@budget, group_id: @line.group)
+        redirect_to budget_ballot_path(@budget, group_id: @line.group, heading_id: @line.heading_id)
       end
 
       private
