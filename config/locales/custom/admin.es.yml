@@ -66,6 +66,14 @@ es:
         ballot_lines_sum: Puntos
         ballot_lines_ratio: Media
         price: Coste propuesta
+      ballot_paper:
+        title: Impresión papeletas de voto
+        title_with_geozone: Asamblea barrio %{geozone}
+        title_with_heading: Papeleta de votación %{heading}
+        index: Propuesta
+        description: Descripción %{heading_name}
+        points: Puntos
+        estimated_cost: Presupuesto
       index:
         title: Presupuestos participativos
         new_link: Crear nuevo presupuesto
@@ -77,11 +85,13 @@ es:
         table_phase: Fase
         table_investments: Propuestas de inversión
         table_results: Votación
+        table_print_ballot_paper: Papeletas Vot.
         table_edit_groups: Grupos de partidas
         table_edit_budget: Editar
         edit_groups: Editar grupos de partidas
         edit_budget: Editar presupuesto
         budget_results: Ver resultados
+        budget_print_ballot_paper: Imprimir
       create:
         notice: ¡Nueva campaña de presupuestos participativos creada con éxito!
       update:

@@ -20,7 +20,17 @@ class Admin::BudgetsController < Admin::BaseController
   def edit
   end
 
+  #GET-112
   def results
+    if params[:group_id]
+      @group = @budget.groups.find(params[:group_id])
+    else
+      @group = @budget.groups.first if @budget.groups.any?
+    end
+  end
+
+  #GET-112
+  def ballot_paper
     if params[:group_id]
       @group = @budget.groups.find(params[:group_id])
     else

@@ -14,6 +14,7 @@
       <th><%= t("admin.budgets.index.table_name") %></th>
       <th><%= t("admin.budgets.index.table_phase") %></th>
       <th><%= t("admin.budgets.index.table_results") %></th>
+      <th><%= t("admin.budgets.index.table_print_ballot_paper") %></th>
       <th><%= t("admin.budgets.index.table_investments") %></th>
       <th><%= t("admin.budgets.index.table_edit_groups") %></th>
       <th><%= t("admin.budgets.index.table_edit_budget") %></th>
@@ -30,6 +31,9 @@
         </td>
         <td class="small">
           <%= link_to t("admin.budgets.index.budget_results"), results_admin_budget_path(budget) %>
+        </td>
+        <td class="small">
+          <%= link_to t("admin.budgets.index.budget_print_ballot_paper"), ballot_paper_admin_budget_path(budget) %>
         </td>
         <td class="small">
           <%= link_to t("admin.budgets.index.budget_investments"), admin_budget_budget_investments_path(budget_id: budget.id) %>

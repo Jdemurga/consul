@@ -167,6 +167,7 @@ Rails.application.routes.draw do
       #GET-112
       member do
         get :results
+        get :ballot_paper
       end
 
       resources :budget_groups do

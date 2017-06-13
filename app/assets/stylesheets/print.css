@@ -87,3 +87,72 @@ a:after { content: none !important; }
 .date-for-print { font-size: 14px !important; line-height: 20px !important; }
 
 .filters { height: 48px !important;}
+
+
+#budget-ballot-paper-container {
+    font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    margin-top: -22px;
+}
+
+#budget-ballot-paper-container .small {
+
+    font-size: 12px;
+    color: #333;
+}
+
+#budget-ballot-paper-container h2 {
+
+    border-bottom: 2px solid black; padding-bottom: 10px; text-align:center;text-transform: uppercase;
+    font-size: 30px;
+}
+
+#budget-ballot-paper-container h3 {
+    margin: 15px auto;
+    text-align:center;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+#budget-ballot-paper-container table  {
+    width: 100%;
+}
+#budget-ballot-paper-container td,
+#budget-ballot-paper-container th {
+
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    margin: 0px;
+    font-size: 12px;
+    padding: 3px 5px;
+    border-spacing: 0px;
+}
+
+
+#budget-ballot-paper-container tr td:last-child,
+#budget-ballot-paper-container tr th:last-child
+{
+    border-right: 1px solid black
+}
+
+#budget-ballot-paper-container th {
+    border-top: 1px solid black;
+}
+
+#budget-ballot-paper-container td.title {
+
+    font-size: 15px;
+    text-transform: uppercase;
+    width: 65%;
+}
+
+#budget-ballot-paper-container td.points {
+    font-size: 20px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+#budget-ballot-paper-container td.cost {
+    font-size: 15px;
+    text-align: right;
+
+}
