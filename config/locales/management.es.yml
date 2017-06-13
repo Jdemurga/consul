@@ -53,6 +53,7 @@ es:
       create_budget_investment: Crear proyectos de inversión
       print_budget_investments: Imprimir proyectos de inversión
       support_budget_investments: Apoyar proyectos de inversión
+      ballot_investments: Votación
       users: Usuarios
       edit_user_accounts: Editar cuenta de usuario
       user_invites: Invitaciones para usuarios
@@ -80,6 +81,7 @@ es:
       create_new_investment: Crear nuevo proyecto
       print_investments: Imprimir proyectos
       support_investments: Apoyar proyectos
+      manage_ballot: Votar con  papeleta
     budget_investments:
       alert:
         unverified_user: Usuario no verificado

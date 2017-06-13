@@ -163,6 +163,13 @@ Rails.application.routes.draw do
     end
 
     resources :budgets do
+
+      #GET-112
+      member do
+        get :results
+        get :ballot_paper
+      end
+
       resources :budget_groups do
         resources :budget_headings do
         end
@@ -306,7 +313,13 @@ Rails.application.routes.draw do
         get :create_investments
         get :support_investments
         get :print_investments
+        get :ballot_investments
       end
+
+      resources :ballots, only: [:new, :show], controller: 'budgets/ballots' do
+          resources :lines, controller: "budgets/ballots/lines", only: [:create, :destroy]
+      end
+
       resources :investments, only: [:index, :new, :create, :show], controller: 'budgets/investments' do
         post :vote, on: :member
         get :print, on: :collection

@@ -1,0 +1,20 @@
+<h5><%= link_to heading.name, budget_ballot_path(budget, heading_id: heading.id, group_id: group.id) %></h5>
+<% investments = @ballot.sorted_investments(heading.id) %>
+<% if investments.any? %>
+    <ul class="ballot-list">
+      <% if @group %>
+          <% investments.each do |investment| %>
+              <%= render 'budgets/ballot/investment_with_points_for_sidebar',
+                         investment: investment,
+                         investment_ids: @investment_ids %>
+          <% end %>
+      <% end %>
+    </ul>
+
+<% else %>
+    <div class="text-muted">
+      <small>
+        <p>Aún no ha votado ninguna propuesta.</p>
+      </small>
+    </div>
+<% end %>

@@ -114,6 +114,9 @@ module Budgets
           @heading = @budget.headings.find(params[:heading_id])
           @assigned_heading = @ballot.try(:heading_for_group, @heading.try(:group))
           @group = @heading.group
+        else
+          # GET-107 - Default heading
+          @heading = @budget.headings.first
         end
       end
 

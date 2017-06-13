@@ -5,20 +5,17 @@
         <div class="medium-8 small-12 column banner-left">
 
           <span class="message">
-            <%= t('budgets.banner.message').html_safe %>
+            <span class=""><span class="lead">Iniciada fase de votación de propuestas</span><br/>de presupuestos participativos 2017 hasta el 19 Junio.</span>
           </span>
 
 
         </div>
         <div class="medium-4 small-12 column banner-right text-center">
 
-          <%= link_to page_path('proposal_revision_period'), class: "button" do %>
-            Más información
+          <%= link_to budget_ballot_path(Budget.first), class: "button expanded" do %>
+            VOTAR
           <% end %>
 
-          <%= link_to budgets_path, class: "button" do %>
-              Ver propuestas
-          <% end %>
         </div>
       </div>
     </div>

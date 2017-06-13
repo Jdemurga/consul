@@ -20,14 +20,30 @@ class Budget
     #GET-98
     scope :not_unified, -> { where(unified_with_id: nil) }
 
+    #GET-112
+    scope :sort_by_ballots,  -> { joins("LEFT JOIN budget_ballot_lines ON budget_ballot_lines.investment_id = budget_investments.id" ,).reorder( 'sum(budget_ballot_lines.points) desc' ).group('budget_investments.id') }
+    scope :sort_by_title,  -> { reorder( :title ) }
+
     belongs_to :unified_with, class_name: 'Budget::Investment', foreign_key: :unified_with_id
     has_many :investments_unified_to_me, class_name: 'Budget::Investment', foreign_key: :unified_with_id
+
+    #GET-112
+    has_many :budget_ballot_lines, :class_name => 'Budget::Ballot::Line'
 
     attr_accessor :mark_as_finished_own_valuation
 
     #GET-98
     def has_unifications?
       investments_unified_to_me.any?
+    end
+
+    #GET-112
+    def ballot_lines_sum
+      budget_ballot_lines.sum(:points)
+    end
+
+    def ballot_lines_ratio
+      budget_ballot_lines.count > 0 ? (1.0 * ballot_lines_sum) / budget_ballot_lines.count : 0
     end
 
     def is_unified?
@@ -38,6 +54,27 @@ class Budget
       "#{id} - #{title} || #{group.name} - #{heading.name}"
     end
 
+    def should_show_aside?
+      return false # GET-110
+      (budget.selecting?  && !unfeasible?) ||
+          (budget.balloting?  && feasible?)    ||
+          (budget.valuating? && feasible?)
+    end
+
+    def should_show_votes?
+      return false # GET-110
+      budget.selecting?
+    end
+
+    def should_show_vote_count?
+      return false # GET-110
+      budget.valuating?
+    end
+
+    def should_show_ballots?
+      return false # GET-110
+      budget.balloting?
+    end
 
 
     def update_own_validation_for_valuator(valuator_id)

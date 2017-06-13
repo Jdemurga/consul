@@ -20,6 +20,7 @@ class Budget
     has_many :valuators, through: :valuator_assignments
     has_many :comments, as: :commentable
 
+
     validates :title, presence: true
     validates :author, presence: true
     validates :description, presence: true

@@ -1,0 +1,73 @@
+<div class="row margin-top">
+
+
+
+    <div class="small-12 medium-9 column margin-top">
+      <h3><strong><%= @heading.name %></strong></h3>
+      <h5><%= @budget.name %> en <strong><%= @group.name %></strong></h5>
+
+      <% if @ballot.not_started? %>
+          <div data-alert class="ballot-alert ballot-secondary">
+            <span class="icon-ok-sign"></span> Comience a votar <%= @heading.name %> para completar su papeleta
+          </div>
+
+      <% elsif @ballot.completed_by_heading?(@heading) %>
+          <div data-alert class="ballot-alert ballot-success">
+            <span class="icon-check icon"></span> Su papeleta de votación de <%= @heading.name %> <strong>es válida</strong>
+          </div>
+      <% else %>
+          <div data-alert class="ballot-alert ballot-warning">
+            <span class="icon-x icon"></span>
+            Le quedan por marcar <%= @ballot.number_remaining_lines_to_complete(@heading) %> <%= @heading.name %>, <strong>su papeleta no está completa</strong>
+          </div>
+      <% end %>
+    <table class="ballot-paper">
+      <theading>
+        <th class="text-left">
+        </th>
+        <th class="text-left">
+          Título de propuesta
+        </th>
+        <th class="text-right">
+          Puntos por voto
+        </th>
+      </theading>
+      <tbody>
+      <% @investments.each do |investment| %>
+        <%= render 'management/budgets/ballots/investment_ballot_with_points', investment: investment %>
+      <% end %>
+      </tbody>
+    </table>
+    </div>
+    <div class="small-12 medium-3 column margin">
+
+
+
+      <h4>Votación <u><%= current_user.name %></u></h4>
+      <% @group.headings.each do |heading| %>
+          <%= render 'management/budgets/ballots/ballot_group_heading', budget: @budget, group: @group,  heading: heading %>
+      <% end %>
+
+      <div class="">
+        <small>
+          <p>Recuerda  que:</p>
+          <ul>
+            <li>
+              Puedes cambiar tus votos hasta el día de cierre de votación.
+            </li>
+            <li>
+              Sólo puedes votar en un barrio (el que tú elijas).
+            </li>
+            <li>
+              Puedes votar un máximo de 3 propuestas.
+            </li>
+            <li>
+              Cada voto tiene un peso diferente en puntos (1, 2 ó 3 puntos).
+            </li>
+          </ul>
+        </small>
+      </div>
+
+    </div>
+
+</div>

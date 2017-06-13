@@ -10,6 +10,13 @@ module Abilities
       can :create, Debate
       can :suggest, Debate
 
+
+      #GET-112 VER RESULTADOS
+      can :results, Budget
+
+      #GET-113 IMPRIMIR PAPELETAS
+      can :ballot_paper, Budget
+
       can :restore, Comment
       cannot :restore, Comment, hidden_at: nil
 

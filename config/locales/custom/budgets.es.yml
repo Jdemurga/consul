@@ -2,14 +2,14 @@ es:
   budgets:
     ballots:
       show:
-        title: Mis votos
+        title: Papeleta de votación
         amount_spent: Coste total
         remaining: "Te quedan <span>%{amount}</span> para invertir"
         remove: Quitar voto
         voted_html:
           one: "Has votado <span>una</span> propuesta."
           other: "Has votado <span>%{count}</span> propuestas."
-        voted_info_html: "Puedes cambiar tus votos en cualquier momento hasta el cierre de esta fase.<br> No hace falta que inviertas todo el dinero disponible."
+        voted_info_html: "Puedes cambiar tus votos en cualquier momento hasta el cierre de esta fase. Recuerda: <br><u>Sólo puedes votar en un barrio</u> | <u>puedes votar un máximo de 3 propuestas</u> | <u>cada voto tiene un peso diferente en puntos (1, 2 ó 3 puntos)</u>"
         zero: "Todavía no has votado ninguna propuesta."
       reasons_for_not_balloting:
         not_logged_in: Necesitas %{signin} o %{signup} para continuar.
