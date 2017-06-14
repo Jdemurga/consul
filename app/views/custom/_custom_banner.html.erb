@@ -1,22 +1,29 @@
 <% unless @budget ||  current_page?(page_path('proposal_revision_period'))%>
     <div class="banner">
-      <div class="row banner-inner">
+    <div class="row banner-inner">
 
-        <div class="medium-8 small-12 column banner-left">
+      <div class="medium-8 small-12 column banner-left">
 
           <span class="message">
-            <span class=""><span class="lead">Iniciada fase de votación de propuestas</span><br/>de presupuestos participativos 2017 hasta el 19 Junio.</span>
+            <span class=""><span class="lead">Fase de evaluación de propuestas</span><br/>de presupuestos participativos 2017 hasta el 12 Mayo.</span>
           </span>
 
 
-        </div>
-        <div class="medium-4 small-12 column banner-right text-center">
-
-          <%= link_to budget_ballot_path(Budget.first), class: "button expanded" do %>
-            VOTAR
-          <% end %>
-
-        </div>
       </div>
+      <div class="medium-4 small-12 column banner-right text-center">
+
+        <%= link_to page_path('proposal_revision_period'), class:'button' do %>
+
+          Más información
+
+        <% end %>
+
+        <%= link_to budgets_path, class:'button' do %>
+          Ver propuestas
+        <% end %>
+
+            </div>
+
+    </div>
     </div>
 <% end %>
