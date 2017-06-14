@@ -4,8 +4,12 @@
     <td><%= budget.name %></td>
     <td><%= budget.translated_phase %></td>
     <td align="right">
-      <%= link_to t("management.budgets.manage_ballot"),
+      <% if budget.balloting? %>
+        <%= link_to t("management.budgets.manage_ballot"),
                   new_management_budget_ballot_path(budget) %>
+      <% else %>
+          <small> <i>Votación asistida deshabilitada fuera de fase de votaciones</i> </small>
+      <% end %>
     </td>
   </tr>
 <% end %>
