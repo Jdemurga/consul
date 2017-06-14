@@ -118,7 +118,15 @@
 <h2><%= t("valuation.budget_investments.show.info") %></h2>
 
 <p><strong><%= t("valuation.budget_investments.show.by") %>:</strong>
-  <%= link_to @investment.author.name, user_path(@investment.author) %>
+  <% if @investment.author.hidden? || @investment.author.erased? %>
+
+      <span class="author">
+                  <%= t("budgets.investments.show.author_deleted") %>
+                </span>
+  <% else %>
+
+      <%= link_to @investment.author.name, admin_user_path(@investment.author) %>
+  <% end %>
 </p>
 
 <p><strong><%= t("valuation.budget_investments.show.group") %>:</strong>
