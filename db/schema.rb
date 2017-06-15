@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615091430) do
+ActiveRecord::Schema.define(version: 20170615150213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,8 +113,9 @@ ActiveRecord::Schema.define(version: 20170615091430) do
   create_table "budget_ballots", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "budget_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.float    "random_seed", default: 0.0
   end
 
   create_table "budget_groups", force: :cascade do |t|

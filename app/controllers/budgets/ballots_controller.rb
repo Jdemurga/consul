@@ -2,7 +2,7 @@ module Budgets
   class BallotsController < ApplicationController
     before_action :authenticate_user!
     load_and_authorize_resource :budget
-    before_action :load_ballot, :load_group, :load_heading, :load_investments
+    before_action :load_ballot, :set_random_seed, :load_group, :load_heading, :load_investments
 
     def show
       authorize! :show, @ballot
@@ -66,6 +66,11 @@ module Budgets
       if @group
         @investments = @budget.investments.where(group_id: @group.id, heading_id: @heading.id).where(selected: true).sort_by_random
       end
+    end
+
+    def set_random_seed
+
+      Budget::Investment.connection.execute "select setseed(#{@ballot.random_seed})"
     end
   end
 end

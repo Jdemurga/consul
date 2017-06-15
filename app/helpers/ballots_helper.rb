@@ -12,4 +12,13 @@ module BallotsHelper
 
     links.join(' y ')
   end
+
+  def inline_mandatory_groups(ballot, group)
+    pending = group.headings
+    links = pending.collect do |heading|
+      content_tag(:strong, "#{@ballot.number_of_mandatory_lines_to_complete(heading)} #{link_to(heading.name, budget_ballot_path(ballot.budget, heading_id: heading.id, group_id: group.id)).html_safe}".html_safe)
+    end
+
+    links.join(' y ')
+  end
 end

@@ -1,10 +1,10 @@
 <tr id="<%= dom_id(investment) %>_ballot_with_points" class="<%= 'ballot-selected' if @ballot.investments.include?(investment) %>">
   <td>
 
-    <%= investment.title %> <br>
+    <%= link_to investment.title, budget_investment_path(@budget, investment), target: 'blank' %> <br>
     <small><strong><%= investment.id %></strong></small>
     <span class="bullet">&nbsp;&bull;&nbsp;</span>
-    <small class="text-muted"><%= link_to investment.author.name, investment.author %></small>
+    <small class="text-muted"><%= link_to investment.author.name, investment.author, target: 'blank' %></small>
     <span class="bullet">&nbsp;&bull;&nbsp;</span>
     <small class="text-muted"><%= investment.heading.name %></small>
     <% unless investment.location.blank? %>
