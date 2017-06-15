@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518095108) do
+ActiveRecord::Schema.define(version: 20170615091430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,24 @@ ActiveRecord::Schema.define(version: 20170518095108) do
   end
 
   add_index "banners", ["hidden_at"], name: "index_banners_on_hidden_at", using: :btree
+
+  create_table "budget_ballot_confirmations", force: :cascade do |t|
+    t.string   "phone_number"
+    t.integer  "group_id"
+    t.integer  "ballot_id"
+    t.integer  "budget_id"
+    t.integer  "user_id"
+    t.integer  "confirmed_by_user_id"
+    t.datetime "confirmed_at"
+    t.string   "confirmed_by_user_name"
+    t.integer  "discarted_by_user_id"
+    t.datetime "discarted_at"
+    t.string   "discarted_by_user_name"
+    t.datetime "sms_sent_at"
+    t.text     "ballot_summary"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "budget_ballot_lines", force: :cascade do |t|
     t.integer  "ballot_id"

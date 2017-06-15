@@ -10,6 +10,36 @@ class Budget
     has_many :investments, through: :lines
     has_many :groups, -> { uniq }, through: :lines
     has_many :headings, -> { uniq }, through: :lines
+    has_one :confirmation
+
+    #GET-125
+    def summary
+      lines_summary = lines.collect { |line| "#{line.heading.name} #{line.points}" }
+      "user_id: #{user.name}, group_id: #{group.name}, completed: #{completed?}, lines: #{lines_summary}"
+    end
+
+    def unconfirmed?
+      confirmation.nil?
+    end
+
+    def confirmed?
+      !confirmation.nil?
+    end
+
+    def confirm(current_user)
+      @confirmation = Budget::Ballot::Confirmation.create(ballot: self, budget: budget, group: group, confirmed_by_user: current_user, confirmed_by_user_name: current_user.username, user: user, phone_number: user.confirmed_phone, ballot_summary: summary, confirmed_at: Time.now )
+      @confirmation.deliver_sms_confirmation()
+    end
+
+    def discard(user)
+      Budget::Ballot.transaction do |t|
+        # soft destroy confirmation
+        confirmation.update!(discarted_by_user: user, discarted_by_user_name: user.email, discarted_at: Time.now)
+
+        # remove lines
+        lines.destroy_all
+      end
+    end
 
     #GET-107
     def group

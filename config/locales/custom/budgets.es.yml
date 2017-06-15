@@ -1,11 +1,19 @@
 es:
   budgets:
+    ballot_confirmation_sms_body: 'Su papeleta  de votación ha sido confirmada en Participa Getafe con éxito'
     ballots:
       show:
         title: Papeleta de votación
         amount_spent: Coste total
         remaining: "Te quedan <span>%{amount}</span> para invertir"
         remove: Quitar voto
+        ballot_confirmed: 'Su votación ha sido confirmada el %{confirmed_at}'
+        complete_ballot_to_vote: 'Complete su papeleta para votar'
+        ballot_completed_message: 'Su papeleta de votación es válida, por favor haga click en  "VOTAR" para confirmar su voto.'
+        ballot_not_completed_message: "Le quedan por marcar %{links} para poder enviar su votación"
+        discard_ballot: 'Cambiar mi votación'
+        confirm_ballot: 'VOTAR'
+        confirm_discard_ballot: 'Con esta acción retirará su voto y podrá cambiar las propuestas que apoya. Será necesario que vuelva a confirmar su papeleta. ¿Confirma que quiere retirar su votación y comenzar de nuevo?'
         voted_html:
           one: "Has votado <span>una</span> propuesta."
           other: "Has votado <span>%{count}</span> propuestas."

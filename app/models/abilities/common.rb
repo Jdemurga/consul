@@ -60,7 +60,9 @@ module Abilities
         can :create, Budget::Investment,               budget: { phase: "accepting" }
         can :vote,   Budget::Investment,               budget: { phase: "accepting" } #GET-65
         can [:show, :create], Budget::Ballot,          budget: { phase: "balloting" }
-        can [:create, :destroy], Budget::Ballot::Line, budget: { phase: "balloting" }
+        can [:confirm], Budget::Ballot,          budget: { phase: "balloting" }, "completed?" => true #, "confirmed?" => false #GET-125 #GET-125
+        can [:discard], Budget::Ballot,          budget: { phase: "balloting" }, "confirmed?" => true #, "confirmed?" => true #GET-125
+        can [:create, :destroy], Budget::Ballot::Line, budget: { phase: "balloting" }, ballot: { "confirmed?" => false } #GET-125
 
         can :create, DirectMessage
         can :show, DirectMessage, sender_id: user.id

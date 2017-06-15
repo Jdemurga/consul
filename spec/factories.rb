@@ -1,4 +1,13 @@
 FactoryGirl.define do
+  factory :budget_ballot_confirmation, class: 'Budget::Ballot::Confirmation' do
+    phone_number "MyString"
+    sms_sent_at "2017-06-15 11:15:13"
+    ballot_summary "MyText"
+    group_id 1
+    ballot_id 1
+    budget_id 1
+    confirmed_by "MyString"
+  end
   factory :sms_otp do
     phone_number "MyString"
     confirmation_code "MyString"

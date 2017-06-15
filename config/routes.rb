@@ -80,6 +80,12 @@ Rails.application.routes.draw do
       member { post :vote }
     end
     resource :ballot, only: :show, controller: "budgets/ballots" do
+
+      member do
+        post :confirm
+        delete :discard
+      end
+
       resources :lines, controller: "budgets/ballot/lines", only: [:create, :destroy]
     end
   end

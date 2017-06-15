@@ -6,17 +6,7 @@
 
     <div class="small-12 medium-9 column margin-top">
 
-      <% if @ballot.completed? %>
-          <div data-alert class="ballot-alert ballot-success">
-             Su papeleta de votación de <%= @heading.name %> es válida, por favor <br><strong>haga click "VOTAR" para completar su votación</strong>.
-          </div>
-      <% else %>
-          <div data-alert class="ballot-alert ballot-warning">
-            Le quedan por marcar
-            <%= inline_pending_groups(@ballot, @group).html_safe %>
-            para poder enviar su votación de <%= @budget.name %>.
-          </div>
-      <% end %>
+      <%= render 'budgets/ballot/ballot_paper_status', ballot: @ballot %>
 
       <h3><strong><%= @heading.name %></strong></h3>
       <h5><%= @budget.name %> en <strong><%= @group.name %></strong></h5>
@@ -40,21 +30,7 @@
     </table>
     </div>
     <div class="small-12 medium-3 column margin">
-
-
-
-      <% if @ballot.completed? %>
-        <%= link_to budget_ballot_lines_url, class: 'button expanded success' do %>
-              VOTAR
-        <% end %>
-      <% else %>
-        <%= link_to '#ballot', class: 'button expanded secondary', disabled: 'disabled' do %>
-              VOTAR
-        <% end %>
-      <% end %>
-      <small><%= link_to 'o descartar propuestas y cambiar de barrio', '#' %></small>
-      <br>
-      <br>
+      <%= render 'budgets/ballot/confirmations/show_confirmation' %>
 
       <% @group.headings.each do |heading| %>
           <%= render 'budgets/ballot/ballot_group_heading', budget: @budget, group: @group,  heading: heading %>

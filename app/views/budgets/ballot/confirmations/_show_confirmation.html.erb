@@ -1,0 +1,21 @@
+<% if @ballot.confirmed? %>
+    <div data-alert class="ballot-alert ballot-success text-center">
+      <span class="icon-check lead"></span><br>
+      <%= t('budgets.ballots.show.ballot_confirmed', confirmed_at: l(@ballot.confirmation.created_at, format: :short)) %>
+    </div>
+    <small><%= link_to t('budgets.ballots.show.discard_ballot'), discard_budget_ballot_url(), method: :delete, data: { confirm: t('budgets.ballots.show.confirm_discard_ballot') }%></small>
+    <br>
+    <br>
+<% else %>
+    <% if @ballot.completed? %>
+        <%= link_to confirm_budget_ballot_url(), method: 'post', class: 'button expanded success' do %>
+            <%= t('budgets.ballots.show.confirm_ballot') %>
+        <% end %>
+    <% else %>
+        <%= link_to '#ballot', class: 'button expanded secondary', disabled: 'disabled' do %>
+            <%= t('budgets.ballots.show.complete_ballot_to_vote') %>
+        <% end %>
+    <% end %>
+<% end %>
+
+

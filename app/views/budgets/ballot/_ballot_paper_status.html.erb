@@ -1,0 +1,12 @@
+<% unless @ballot.confirmed? %>
+  <% if @ballot.completed? %>
+      <div data-alert class="ballot-alert ballot-success">
+
+        <%= t('budgets.ballots.show.ballot_completed_message') %>
+      </div>
+  <% else %>
+      <div data-alert class="ballot-alert ballot-warning">
+        <%= t('budgets.ballots.show.ballot_not_completed_message', links: inline_pending_groups(@ballot, @group).html_safe).html_safe %>
+      </div>
+  <% end %>
+<% end %>

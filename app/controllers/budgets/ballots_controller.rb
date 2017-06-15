@@ -9,6 +9,31 @@ module Budgets
       render template: "budgets/ballot/show"
     end
 
+    # GET-125
+    def confirm
+      authorize! :confirm, @ballot
+
+      if @ballot.completed?
+        if @ballot.confirm(current_user)
+          redirect_to budget_ballot_path, info: 'Su votación ha quedado confirmada'
+        else
+          redirect_to budget_ballot_path, alert: 'Su votación no se ha podido confirmar'
+        end
+      end
+    end
+
+    def discard
+      authorize! :discard, @ballot
+
+      if @ballot.confirmed?
+        if @ballot.discard(current_user)
+          redirect_to budget_ballot_path, alert: 'Su votación ha sido descartada'
+        else
+          redirect_to budget_ballot_path, alert: 'Su votación no se ha podido descartar'
+        end
+      end
+    end
+
     private
 
     def load_ballot
