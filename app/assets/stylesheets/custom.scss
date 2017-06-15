@@ -239,6 +239,16 @@ table.ballot-paper tr.ballot-selected {
   }
 }
 
+.swap-on-hover {
+  .hide-on-over { display: block; }
+  .show-on-over { display: none; }
+}
+
+.swap-on-hover:hover {
+  .hide-on-over { display: none; }
+  .show-on-over { display: block; }
+}
+
 .ballot-investment-cost {
 
   white-space: nowrap;

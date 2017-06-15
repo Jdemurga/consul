@@ -2,6 +2,8 @@ es:
   budgets:
     ballot_confirmation_sms_body: 'Su papeleta  de votación ha sido confirmada en Participa Getafe con éxito'
     ballots:
+      banner:
+        not_logged_in: "Para poder votar debes %{sign_in} o %{sign_up}."
       show:
         title: Papeleta de votación
         amount_spent: Coste total
