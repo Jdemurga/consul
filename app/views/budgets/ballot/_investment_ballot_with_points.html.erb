@@ -22,7 +22,7 @@
     <% end %>
 
   </td>
-  <td class="text-right">
+  <td class="text-right ballot-investment-cost">
     <%= number_to_currency investment.price %>
   </td>
   <td class="text-right" style="width: 170px;">
@@ -33,9 +33,9 @@
           <% if @ballot.investments.include?(investment) %>
               <% line = @ballot.lines.where(investment_id: investment.id).first %>
               <% if (line.points == points ) %>
-                  <a href="#" class="button success"><%= points %></a>
+                  <a class="button success"><%= points %></a>
               <% else %>
-                  <a href="#" class="button secondary" disabled><%= points %></a>
+                  <a class="button secondary" disabled><%= points %></a>
               <% end %>
 
           <% else %>

@@ -18,6 +18,10 @@ class Budget
       "user_id: #{user.name}, group_id: #{group.name}, completed: #{completed?}, lines: #{lines_summary}"
     end
 
+    def partially_completed?
+      lines.any?
+    end
+
     def unconfirmed?
       confirmation.nil?
     end
@@ -27,8 +31,19 @@ class Budget
     end
 
     def confirm(current_user)
+
       @confirmation = Budget::Ballot::Confirmation.create(ballot: self, budget: budget, group: group, confirmed_by_user: current_user, confirmed_by_user_name: current_user.username, user: user, phone_number: user.confirmed_phone, ballot_summary: summary, confirmed_at: Time.now )
-      @confirmation.deliver_sms_confirmation()
+      if  @confirmation.phone_number
+
+        # Protect for SMS credit out. Rollback will be notified but process will be finished
+        begin
+          @confirmation.deliver_sms_confirmation()
+          @confirmation.update(sms_sent_at: Time.now)
+        rescue Exception => e
+          Rollbar.error(e)
+        end
+      end
+
     end
 
     def discard(user)
@@ -48,6 +63,10 @@ class Budget
 
     def not_started?
       lines.empty?
+    end
+
+    def uncompleted?
+      !completed!
     end
 
     def completed?

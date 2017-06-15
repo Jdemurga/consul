@@ -31,12 +31,8 @@ module Budgets
 
         @line.destroy
         load_investments
-        #@ballot.reset_geozone
-        if @ballot.lines.any?
-          redirect_to budget_ballot_path(@budget, group_id: @line.group, heading_id: @line.heading_id)
-        else
-          redirect_to budget_ballot_path(@budget)
-        end
+        
+        redirect_to budget_ballot_path(@budget, group_id: @line.group, heading_id: @line.heading_id)
       end
 
       private
