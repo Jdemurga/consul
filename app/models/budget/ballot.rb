@@ -21,7 +21,15 @@ class Budget
     end
 
     def completed?
-      headings.collect { |h| !completed_by_heading?(h) }.select() { |a| a }.empty?
+      if  group
+        group.headings.all? { |h| completed_by_heading?(h) }
+      end
+    end
+
+    def number_of_mandatory_lines
+      if  group
+        group.headings.inject(0) { |sum,h| number_of_mandatory_lines_to_complete(h) + sum }
+      end
     end
 
     def completed_by_heading?(heading)
