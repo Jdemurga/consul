@@ -42,6 +42,7 @@ class Budget
         rescue Exception => e
           Rollbar.error(e)
         end
+        true
       end
 
     end
