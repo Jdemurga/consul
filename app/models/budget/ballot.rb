@@ -30,9 +30,9 @@ class Budget
       !confirmation.nil?
     end
 
-    def confirm(current_user)
+    def confirm(current_user, user_performing = nil)
 
-      @confirmation = Budget::Ballot::Confirmation.create(ballot: self, budget: budget, group: group, confirmed_by_user: current_user, confirmed_by_user_name: current_user.username, user: user, phone_number: user.confirmed_phone, ballot_summary: summary, confirmed_at: Time.now )
+      @confirmation = Budget::Ballot::Confirmation.create(ballot: self, budget: budget, group: group, confirmed_by_user: current_user, confirmed_by_user_name: user_performing || current_user.username, user: user, phone_number: user.confirmed_phone, ballot_summary: summary, confirmed_at: Time.now )
       if  @confirmation.phone_number
 
         # Protect for SMS credit out. Rollback will be notified but process will be finished
@@ -47,10 +47,10 @@ class Budget
 
     end
 
-    def discard(user)
+    def discard(current_user, user_performing = nil)
       Budget::Ballot.transaction do |t|
         # soft destroy confirmation
-        confirmation.update!(discarted_by_user: user, discarted_by_user_name: user.email, discarted_at: Time.now)
+        confirmation.update!(discarted_by_user: current_user, discarted_by_user_name: user_performing || current_user.email, discarted_at: Time.now)
 
         # remove lines
         lines.destroy_all

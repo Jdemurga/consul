@@ -1,22 +1,16 @@
 <tr id="<%= dom_id(investment) %>_ballot_with_points" class="<%= 'ballot-selected' if @ballot.investments.include?(investment) %>">
-  <td class="text-center">
-    <strong><%= index %></strong>
-  </td>
-  <td class="text-center">
-    <strong><%= investment.id %></strong>
-  </td>
   <td>
 
-    <%= investment.title %> <br>
-    <small class="text-muted"><%= link_to investment.author.name, investment.author %></small>
+    <%= link_to investment.title, budget_investment_path(@budget, investment), target: 'blank' %> <br>
+    <small><strong><%= investment.id %></strong></small>
+    <span class="bullet">&nbsp;&bull;&nbsp;</span>
+    <small class="text-muted"><%= link_to investment.author.name, investment.author, target: 'blank' %></small>
     <span class="bullet">&nbsp;&bull;&nbsp;</span>
     <small class="text-muted"><%= investment.heading.name %></small>
     <% unless investment.location.blank? %>
         <span class="bullet">&nbsp;&bull;&nbsp;</span>
         <small class="text-muted"><%= investment.location %></small>
     <% end %>
-
-    <br>Coste: <%= number_to_currency investment.price %>
 
     <% if investment.has_unifications? %>
         <br>
@@ -28,7 +22,10 @@
     <% end %>
 
   </td>
-  <td class="text-right">
+  <td class="text-right ballot-investment-cost">
+    <%= number_to_currency investment.price %>
+  </td>
+  <td class="text-right" style="width: 170px;">
     <div class="button-group">
       <% not_available_points = @ballot.lines.where(heading: @heading).pluck(:points) %>
       <% Budget::Ballot::Line::POINTS.each do |points| %>
@@ -36,9 +33,9 @@
           <% if @ballot.investments.include?(investment) %>
               <% line = @ballot.lines.where(investment_id: investment.id).first %>
               <% if (line.points == points ) %>
-                  <a href="#" class="button success"><%= points %></a>
+                  <a class="button success"><%= points %></a>
               <% else %>
-                  <a href="#" class="button secondary" disabled><%= points %></a>
+                  <a class="button secondary" disabled><%= points %></a>
               <% end %>
 
           <% else %>
@@ -46,7 +43,8 @@
                   <a href="#" class="button secondary" disabled><%= points %></a>
               <% else %>
                   <%= link_to "#{points}",
-                              management_budget_ballot_lines_url(@budget, @ballot, investment_id: investment.id,
+                              management_budget_ballot_lines_url(investment_id: investment.id,
+                                                      budget_id: investment.budget_id, ballot_id: @ballot.id,
                                                       points: points,
                                                       investments_ids: []),
                               class: "button button-support small",
