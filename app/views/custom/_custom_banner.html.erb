@@ -8,44 +8,10 @@
             <span class=""><span class="lead">Iniciada fase de votación de propuestas</span><br/>del 19 de Junio (9.00h) de Junio hasta el 25 Junio.</span>
           </span>
 
-
         </div>
-        <div class="medium-4 small-12 column banner-right text-center">
-
-
-              <div class="notice">
-                <% if current_user %>
-                    <% if current_user.level_two_or_three_verified? %>
-                      <%= link_to budget_ballot_path(Budget.first), class: "button margin-top expanded" do %>
-                          VOTAR
-                      <% end %>
-                    <% else %>
-                        <div class="swap-on-hover">
-                          <a class="button expanded margin-top hide-on-over">
-                            VOTAR
-                          </a>
-
-                          <div class="callout warning margin-top show-on-over">
-                            Para acceder a la votación <%= link_to(t("budgets.investments.index.sidebar.verify_account"), verification_path) %>
-                          </div>
-                        </div>
-                    <% end %>
-                <% else %>
-                    <div class="swap-on-hover">
-                      <a class="button expanded margin-top hide-on-over">
-                        VOTAR
-                      </a>
-                      <div class="callout primary margin-top show-on-over">
-                        <%= t("budgets.ballots.banner.not_logged_in",
-                              sign_in: link_to(t("budgets.investments.index.sidebar.sign_in"), new_user_session_path),
-                              sign_up: link_to(t("budgets.investments.index.sidebar.sign_up"), new_user_registration_path)).html_safe %>
-                      </div>
-                    </div>
-                <% end %>
-              </div>
-
-
-
+        <div class="medium-4 small-12 column banner-right">
+             <%= render 'shared/access_ballot_button' %>
+             <%= link_to "Más información", page_path('fase_votacion_presupuestos_participativos'), class: "" %>
         </div>
       </div>
     </div>
