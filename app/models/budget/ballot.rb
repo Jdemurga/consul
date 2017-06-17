@@ -44,6 +44,11 @@ class Budget
       !notified?
     end
 
+    def build_confirmation_and_commit(current_user, user_performing = nil)
+      build_confirmation(current_user, user_performing)
+      confirm_without_code(current_user, user_performing)
+    end
+
     def build_confirmation(current_user, user_performing = nil)
       confirmation || Confirmation.build_ballot_confirmation(self, current_user, user_performing)
     end
