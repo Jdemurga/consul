@@ -63,7 +63,7 @@ module Abilities
         can [:confirm], Budget::Ballot,          budget: { phase: "balloting" }, "completed?" => true #, "confirmed?" => false #GET-125 #GET-125
         can [:commit, :resend_code], Budget::Ballot,          budget: { phase: "balloting" }, "notified?" => true #, "confirmed?" => false #GET-125 #GET-125
         can [:discard], Budget::Ballot,          budget: { phase: "balloting" }, "confirmed_or_notified?" => true #, "confirmed?" => true #GET-125
-        can [:create, :destroy], Budget::Ballot::Line, budget: { phase: "balloting" }, ballot: { "unconfirmed?" => true } #GET-125
+        can [:create, :destroy], Budget::Ballot::Line, budget: { phase: "balloting" }, ballot: { "unconfirmed?" => true, "not_notified?" => true } #GET-125
 
         can :create, DirectMessage
         can :show, DirectMessage, sender_id: user.id

@@ -28,6 +28,11 @@ class Budget
     def confirmed_or_notified?
       confirmed? || notified?
     end
+
+    def not_confirmed_or_notified?
+      confirmed_or_notified?
+    end
+
     def confirmed?
       confirmation.try :confirmed?
     end
