@@ -27,6 +27,8 @@
               <%= f.submit t("budgets.ballots.show.submit_button"), class: "button success expanded" %>
           <% end %>
         </div>
+        
+        <br>
         <small>
         <%= link_to resend_code_budget_ballot_url(), method: 'post', class: '', data: { confirm: t("budgets.ballots.show.alert_resend_sms") } do %>
             <%= t("budgets.ballots.show.resend_sms_code") %>
