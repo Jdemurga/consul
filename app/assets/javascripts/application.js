@@ -49,6 +49,7 @@
 //= require banners
 //= require social_share
 //= require custom
+//= require prevent_double_click
 
 var initialize_modules = function() {
   App.Comments.initialize();
@@ -60,6 +61,7 @@ var initialize_modules = function() {
   App.LocationChanger.initialize();
   App.CheckAllNone.initialize();
   App.PreventDoubleSubmission.initialize();
+  App.PreventDoubleClick.initialize();
   App.IeAlert.initialize();
   App.Annotatable.initialize();
   App.AdvancedSearch.initialize();
