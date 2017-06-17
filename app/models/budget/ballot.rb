@@ -12,6 +12,9 @@ class Budget
     has_many :headings, -> { uniq }, through: :lines
     has_one :confirmation
 
+    before_validation  :initialize_random_seed
+
+
     #GET-125
     def summary
       lines_summary = lines.collect { |line| "#{line.heading.name} #{line.points}" }
@@ -22,36 +25,50 @@ class Budget
       lines.any?
     end
 
-    def unconfirmed?
-      confirmation.nil?
+    def confirmed_or_notified?
+      confirmed? || notified?
     end
-
     def confirmed?
-      !confirmation.nil?
+      confirmation.try :confirmed?
     end
 
-    def confirm(current_user, user_performing = nil)
+    def notified?
+      confirmation.try :confirmation_code_sent?
+    end
 
-      @confirmation = Budget::Ballot::Confirmation.create(ballot: self, budget: budget, group: group, confirmed_by_user: current_user, confirmed_by_user_name: user_performing || current_user.username, user: user, phone_number: user.confirmed_phone, ballot_summary: summary, confirmed_at: Time.now )
-      if  @confirmation.phone_number
+    def unconfirmed?
+      !confirmed?
+    end
 
-        # Protect for SMS credit out. Rollback will be notified but process will be finished
-        begin
-          @confirmation.deliver_sms_confirmation()
-          @confirmation.update(sms_sent_at: Time.now)
-        rescue Exception => e
-          Rollbar.error(e)
-        end
-        true
-      end
+    def not_notified?
+      !notified?
+    end
 
+    def build_confirmation(current_user, user_performing = nil)
+      confirmation || Confirmation.build_ballot_confirmation(self, current_user, user_performing)
+    end
+
+    def build_confirmation_with_code(current_user, user_performing = nil)
+        confirmation_built = build_confirmation(current_user, user_performing)
+        confirmation_built.send_confirmation_code(current_user, user_performing)
+    end
+
+    def resend_confirmation_code(current_user, user_performing = nil)
+      confirmation.resend_confirmation_code current_user, user_performing
+    end
+
+    def confirm_without_code(current_user, user_performing = nil)
+      confirm(nil, current_user, user_performing)
+    end
+
+    def confirm(code, current_user, user_performing = nil)
+      confirmation.commit(code, current_user, user_performing)
     end
 
     def discard(current_user, user_performing = nil)
       Budget::Ballot.transaction do |t|
         # soft destroy confirmation
-        confirmation.update!(discarted_by_user: current_user, discarted_by_user_name: user_performing || current_user.email, discarted_at: Time.now)
-
+        confirmation.discard(current_user, user_performing)
         # remove lines
         lines.destroy_all
       end
@@ -173,6 +190,13 @@ class Budget
     def heading_for_group(group)
       self.headings.where(group: group).first
     end
+
+    private
+
+    def initialize_random_seed
+      self[:random_seed] ||= rand(99)/100.0
+    end
+
 
   end
 end

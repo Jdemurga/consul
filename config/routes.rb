@@ -83,6 +83,8 @@ Rails.application.routes.draw do
 
       member do
         post :confirm
+        post :resend_code
+        patch :commit
         delete :discard
       end
 

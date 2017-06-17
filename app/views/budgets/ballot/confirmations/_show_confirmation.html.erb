@@ -7,10 +7,43 @@
     <br>
     <br>
 <% else %>
-    <% if @ballot.completed? %>
+
+    <% if @ballot.notified? %>
+        <div data-alert class="ballot-alert ballot-secondary text-center">
+          <%= form_for @ballot.confirmation, as: "confirmation", url: commit_budget_ballot_url do |f| %>
+              <%= render "shared/errors", resource: @ballot.confirmation %>
+
+              <div class="small-12">
+
+                <%= f.label :provided_sms_confirmation_code,  t("budgets.ballots.show.validate_you_code"), class: "inline-block" %>
+                <br>
+                <br>
+                <span class="inline-block"> <%= t("budgets.ballots.show.note_sms_verification", phone_number: @ballot.confirmation.masked_phone_number).html_safe %></span>
+                <br>
+                <br>
+                <%= f.text_field :provided_sms_confirmation_code, label: false, placeholder: t("budgets.ballots.show.provided_sms_confirmation_code") %>
+              </div>
+
+              <%= f.submit t("budgets.ballots.show.submit_button"), class: "button success expanded" %>
+          <% end %>
+        </div>
+        <small>
+        <%= link_to resend_code_budget_ballot_url(), method: 'post', class: '', data: { confirm: t("budgets.ballots.show.alert_resend_sms") } do %>
+            <%= t("budgets.ballots.show.resend_sms_code") %>
+        <% end %>
+          <br>
+          <small><%= link_to t('budgets.ballots.show.discard_ballot'), discard_budget_ballot_url(), method: :delete, data: { confirm: t('budgets.ballots.show.confirm_discard_ballot') }%></small>
+        </small>
+        <br>
+        <br>
+
+    <% elsif @ballot.completed? %>
         <%= link_to confirm_budget_ballot_url(), method: 'post', class: 'button expanded success' do %>
             <%= t('budgets.ballots.show.confirm_ballot') %>
         <% end %>
+        <small class="text-muted">(*) Le será enviado un SMS con un código de seguridad para validar su votación al teléfono con el que validó su cuenta de usuario.</small>
+        <br>
+        <br>
     <% else %>
         <%= link_to '#ballot', class: 'button expanded secondary', disabled: 'disabled' do %>
             <%= t('budgets.ballots.show.complete_ballot_to_vote') %>
