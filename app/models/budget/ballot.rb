@@ -121,8 +121,12 @@ class Budget
     end
 
     def investment_points(investment)
-      line  = lines.where(investment_id: investment.id).first
+      line = investment_line(investment)
       line ? line.points : 0
+    end
+
+    def investment_line(investment)
+      lines.where(investment_id: investment.id).first
     end
 
     def sorted_investments(heading_id = nil)
@@ -136,6 +140,7 @@ class Budget
     end
 
     def add_investment(investment, points)
+      return true if investment_line(investment)
       lines.create!(investment: investment, points: points)
     end
 
