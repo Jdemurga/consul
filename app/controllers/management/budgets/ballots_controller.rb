@@ -19,7 +19,7 @@ class Management::Budgets::BallotsController < Management::BaseController
     authorize! :confirm, @ballot
 
     if @ballot.completed?
-      if @ballot.confirm(current_user, @current_manager.to_s )
+      if @ballot.build_confirmation_and_commit(current_user, @current_manager.to_s )
         redirect_to management_budget_ballot_path(@budget, @ballot)
       else
         redirect_to management_budget_ballot_path(@budget, @ballot), alert: 'Su votación no se ha podido confirmar'
