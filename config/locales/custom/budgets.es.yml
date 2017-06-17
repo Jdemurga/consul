@@ -1,6 +1,6 @@
 es:
   budgets:
-    ballot_confirmation_sms_body: 'Su papeleta  de votación ha sido confirmada en Participa Getafe con éxito'
+    ballot_confirmation_sms_body: 'Su código para completar presentar su votación es %{code}'
     ballots:
       banner:
         not_logged_in: "Para poder votar debes %{sign_in} o %{sign_up}."
@@ -10,6 +10,12 @@ es:
         remaining: "Te quedan <span>%{amount}</span> para invertir"
         remove: Quitar voto
         ballot_confirmed: 'Su votación ha sido confirmada el %{confirmed_at}'
+        note_sms_verification: 'Introduce el código de cuatro dígitos que hemos enviado al teléfono asociado a tu cuenta  (acabado en <i>%{phone_number}</i>) para hacer efectiva tu votación.'
+        validate_you_code: 'Verifica código de seguridad'
+        provided_sms_confirmation_code: 'Código verificación de cuatro dígitos'
+        resend_sms_code: 'Enviar otro código'
+        alert_resend_sms: 'Se generará un nuevo código y le será enviado por SMS. ¿Desea continuar?'
+        submit_button:  'COMPROBAR ĆODIGO'
         complete_ballot_to_vote: 'Complete su papeleta para votar'
         ballot_completed_message: 'Su papeleta de votación es válida, por favor haga click en  "VOTAR" para confirmar su voto.'
         ballot_not_completed_message: "Le quedan por marcar %{links} para poder enviar su votación"

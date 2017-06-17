@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615150213) do
+ActiveRecord::Schema.define(version: 20170616195118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,14 +86,21 @@ ActiveRecord::Schema.define(version: 20170615150213) do
     t.integer  "user_id"
     t.integer  "confirmed_by_user_id"
     t.datetime "confirmed_at"
-    t.string   "confirmed_by_user_name"
+    t.string   "confirmed_by_username"
     t.integer  "discarted_by_user_id"
     t.datetime "discarted_at"
-    t.string   "discarted_by_user_name"
+    t.string   "discarted_by_username"
     t.datetime "sms_sent_at"
     t.text     "ballot_summary"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "sms_confirmation_code"
+    t.datetime "sms_code_sent_at"
+    t.string   "sms_code_sent_by_username"
+    t.integer  "sms_code_sent_by_user_id"
+    t.text     "sms_code_sending_error"
+    t.string   "created_by_username"
+    t.integer  "created_by_user_id"
   end
 
   create_table "budget_ballot_lines", force: :cascade do |t|
@@ -113,9 +120,9 @@ ActiveRecord::Schema.define(version: 20170615150213) do
   create_table "budget_ballots", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "budget_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.float    "random_seed", default: 0.0
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.float    "random_seed"
   end
 
   create_table "budget_groups", force: :cascade do |t|

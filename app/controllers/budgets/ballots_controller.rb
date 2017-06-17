@@ -3,6 +3,7 @@ module Budgets
     before_action :authenticate_user!
     load_and_authorize_resource :budget
     before_action :load_ballot, :set_random_seed, :load_group, :load_heading, :load_investments
+    before_action :verify_lock, only: [:confirm, :commit, :resend_code]
 
     def show
       authorize! :show, @ballot
@@ -14,18 +15,51 @@ module Budgets
       authorize! :confirm, @ballot
 
       if @ballot.completed?
-        if @ballot.confirm(current_user)
-          redirect_to budget_ballot_path, info: 'Su votación ha quedado confirmada'
+        if @ballot.build_confirmation_with_code(current_user)
+          Lock.increase_tries(current_user)
+          redirect_to budget_ballot_path, notice: 'Se le ha enviado un código para confirmar su votación'
         else
-          redirect_to budget_ballot_path, alert: 'Su votación no se ha podido confirmar'
+          redirect_to budget_ballot_path, alert: 'No se ha podido enviar el  código de confirmación'
         end
+      end
+    end
+
+    def resend_code
+      authorize! :resend_code, @ballot
+
+      if @ballot.completed? && @ballot.notified? && @ballot.unconfirmed?
+        if @ballot.resend_confirmation_code(current_user)
+          Lock.increase_tries(current_user)
+          redirect_to budget_ballot_path, notice: 'Se le ha enviado un nuevo código'
+        else
+          redirect_to budget_ballot_path, alert: 'No se le pudo enviar el código de confirmación'
+        end
+      end
+    end
+
+    def commit
+      authorize! :commit, @ballot
+
+      provided_code = params[:confirmation] ? params[:confirmation][:provided_sms_confirmation_code]  : nil
+
+      unless provided_code.blank?
+        if @ballot.notified? && @ballot.unconfirmed?
+          Lock.increase_tries(current_user)
+          if @ballot.confirm(provided_code , current_user)
+            redirect_to budget_ballot_path, notice: 'Su votación se ha presentado correctamente'
+          else
+            redirect_to budget_ballot_path, alert: 'Código no válido'
+          end
+        end
+      else
+        redirect_to budget_ballot_path, alert: 'Debe proporcionar un código para validar su votación'
       end
     end
 
     def discard
       authorize! :discard, @ballot
 
-      if @ballot.confirmed?
+      if @ballot.confirmed_or_notified?
         if @ballot.discard(current_user)
           redirect_to budget_ballot_path, alert: 'Su votación ha sido descartada'
         else
@@ -35,6 +69,12 @@ module Budgets
     end
 
     private
+
+    def verify_lock
+      if current_user.locked?
+        redirect_to budget_ballot_path, alert: t('verification.alert.lock')
+      end
+    end
 
     def load_ballot
       query = Budget::Ballot.where(user: current_user, budget: @budget)
