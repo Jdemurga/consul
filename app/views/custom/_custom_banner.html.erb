@@ -1,4 +1,29 @@
-<% unless @budget ||  current_page?(page_path('proposal_revision_period'))%>
+<div class="banner">
+  <div class="row banner-inner">
+
+    <div class="medium-8 small-12 column banner-left">
+
+          <span class="message">
+            <span class=""><span class="lead">Fase de evaluación de propuestas</span><br/>de presupuestos participativos 2017 hasta el 12 Mayo.</span>
+          </span>
+
+
+    </div>
+    <div class="medium-4 small-12 column banner-right text-center">
+
+      <a class="button" href="/proposal_revision_period">
+
+        Más información
+
+      </a>
+      <a class="button" href="/budgets">
+        Ver propuestas
+      </a>
+    </div>
+
+  </div>
+</div>
+<% unless true || @budget ||  current_page?(page_path('proposal_revision_period'))%>
     <div class="banner">
       <div class="row banner-inner">
 
