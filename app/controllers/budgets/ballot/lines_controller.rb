@@ -2,12 +2,12 @@ module Budgets
   module Ballot
     class LinesController < ApplicationController
       before_action :authenticate_user!
-      #before_action :ensure_final_voting_allowed
+
       before_action :load_budget
       before_action :load_ballot
       before_action :load_tag_cloud
       before_action :load_categories
-
+      before_action :ensure_final_voting_allowed
       before_action :load_investments
 
       load_and_authorize_resource :budget
@@ -31,7 +31,7 @@ module Budgets
 
         @line.destroy
         load_investments
-        #@ballot.reset_geozone
+
         redirect_to budget_ballot_path(@budget, group_id: @line.group, heading_id: @line.heading_id)
       end
 

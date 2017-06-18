@@ -1,11 +1,29 @@
 es:
   budgets:
+    ballot_confirmation_sms_body: 'Su código para completar presentar su votación es %{code}'
     ballots:
+      banner:
+        not_logged_in: "Para poder votar debes %{sign_in} o %{sign_up}."
       show:
         title: Papeleta de votación
         amount_spent: Coste total
         remaining: "Te quedan <span>%{amount}</span> para invertir"
         remove: Quitar voto
+        ballot_confirmed: 'Su votación ha sido confirmada el %{confirmed_at}'
+        note_sms_verification: 'Introduce el código de cuatro dígitos que hemos enviado al teléfono asociado a tu cuenta  (acabado en <i>%{phone_number}</i>) para hacer efectiva tu votación.'
+        validate_you_code: 'Verifica código de seguridad'
+        provided_sms_confirmation_code: 'Código verificación de cuatro dígitos'
+        resend_sms_code: 'Enviar otro código'
+        alert_resend_sms: 'Se generará un nuevo código y le será enviado por SMS. ¿Desea continuar?'
+        submit_button:  'COMPROBAR ĆODIGO'
+        complete_ballot_to_vote: 'Complete su papeleta para votar'
+        ballot_completed_message: 'Ha seleccionado el número de propuestas necesario para poder votar. Haga click en  "VOTAR" y valide el código de seguridad para presentar su votación.'
+        ballot_notified_message: 'Valide su código para terminar la votación: Debe validar su el código de 4 números que se ha enviado al teléfono con el que confirmó su cuenta. Escríbalo en el cuadro de la derecha y haga click en "CONFIRMAR CÓDIGO".'
+        ballot_not_completed_message: "Le quedan por marcar %{links} para poder enviar su votación"
+        discard_ballot: 'Cambiar mi votación'
+        discard_ballot_user: 'Cambiar votación de este vecino'
+        confirm_ballot: 'VOTAR'
+        confirm_discard_ballot: 'Con esta acción retirará su voto y podrá cambiar las propuestas que apoya. Será necesario que vuelva a confirmar su papeleta. ¿Confirma que quiere retirar su votación y comenzar de nuevo?'
         voted_html:
           one: "Has votado <span>una</span> propuesta."
           other: "Has votado <span>%{count}</span> propuestas."
@@ -127,7 +145,7 @@ es:
           zero: Sin apoyos
         give_support: Apoyar
       header:
-        check_ballot: Revisar mis votos
+        check_ballot: Revisar mi votación
         different_heading_assigned_html: "Ya apoyaste propuestas de otra sección del presupuesto: %{heading_link}"
     progress_bar:
       available: "Disponible: "

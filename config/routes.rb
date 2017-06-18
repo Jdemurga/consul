@@ -80,6 +80,14 @@ Rails.application.routes.draw do
       member { post :vote }
     end
     resource :ballot, only: :show, controller: "budgets/ballots" do
+
+      member do
+        post :confirm
+        post :resend_code
+        patch :commit
+        delete :discard
+      end
+
       resources :lines, controller: "budgets/ballot/lines", only: [:create, :destroy]
     end
   end
@@ -320,6 +328,10 @@ Rails.application.routes.draw do
 
       resources :ballots, only: [:new, :show], controller: 'budgets/ballots' do
           resources :lines, controller: "budgets/ballots/lines", only: [:create, :destroy]
+          member do
+            post :confirm
+            delete :discard
+          end
       end
 
       resources :investments, only: [:index, :new, :create, :show], controller: 'budgets/investments' do

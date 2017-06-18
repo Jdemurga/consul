@@ -13,7 +13,7 @@ class Budget
       validates :ballot_id, :investment_id, :heading_id, :group_id, :budget_id, presence: true
 
       validate :check_selected
-      #validate :check_sufficient_funds
+      validate :check_ballot_is_not_confirmed
       validate :check_sufficient_points
       validate :check_valid_heading
       validates :points, presence: true, uniqueness: { scope: [:budget_id, :ballot_id, :heading_id] }, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 3}
@@ -29,6 +29,12 @@ class Budget
       def check_sufficient_points
         # TODO - Check points model
         #errors.add(:points, "points already added") if ballot.amount_available(investment.heading) < investment.price.to_i
+      end
+
+
+      #GET-125 Checks ballot is confirmed to disallow create/destroy
+      def check_ballot_is_not_confirmed
+        errors.add(:ballot, "ballot_confirmed") if ballot.confirmed?
       end
 
       def check_valid_heading

@@ -14,6 +14,31 @@ class Management::Budgets::BallotsController < Management::BaseController
     render template: "management/budgets/ballots/show"
   end
 
+  # GET-125
+  def confirm
+    authorize! :confirm, @ballot
+
+    if @ballot.completed?
+      if @ballot.build_confirmation_and_commit(current_user, @current_manager.to_s )
+        redirect_to management_budget_ballot_path(@budget, @ballot)
+      else
+        redirect_to management_budget_ballot_path(@budget, @ballot), alert: 'Su votación no se ha podido confirmar'
+      end
+    end
+  end
+
+  def discard
+    authorize! :discard, @ballot
+
+    if @ballot.confirmed?
+      if @ballot.discard(current_user, @current_manager.to_s )
+        redirect_to management_budget_ballot_path(@budget, @ballot), alert: 'Su votación ha sido descartada'
+      else
+        redirect_to management_budget_ballot_path(@budget, @ballot)
+      end
+    end
+  end
+
   private
 
   def load_ballot

@@ -1,8 +1,9 @@
 <li id="<%= dom_id(investment) %>_sidebar" class="ballot-selection-paper">
   <%= investment.title %>
+  <br>
   <span><%= @ballot.investment_points(investment) %> Puntos</span>
 
-  <% if @budget.balloting? %>
+  <% if @budget.balloting? && @ballot.not_notified? && @ballot.unconfirmed? %>
     <%= link_to budget_ballot_line_url(id: investment.id,
                                        investments_ids: investment_ids),
                 title: t('budgets.ballots.show.remove'),
@@ -13,3 +14,4 @@
     <% end %>
   <% end %>
 </li>
+

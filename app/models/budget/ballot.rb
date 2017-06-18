@@ -10,6 +10,79 @@ class Budget
     has_many :investments, through: :lines
     has_many :groups, -> { uniq }, through: :lines
     has_many :headings, -> { uniq }, through: :lines
+    has_one :confirmation
+
+    before_validation  :initialize_random_seed
+
+
+    #GET-125
+    def summary
+      lines_summary = lines.collect { |line| "#{line.heading.name} #{line.points}" }
+      "user_id: #{user.name}, group_id: #{group.name}, completed: #{completed?}, lines: #{lines_summary}"
+    end
+
+    def partially_completed?
+      lines.any?
+    end
+
+    def confirmed_or_notified?
+      confirmed? || notified?
+    end
+
+    def not_confirmed_or_notified?
+      confirmed_or_notified?
+    end
+
+    def confirmed?
+      confirmation.try :confirmed?
+    end
+
+    def notified?
+      confirmation.try :confirmation_code_sent?
+    end
+
+    def unconfirmed?
+      !confirmed?
+    end
+
+    def not_notified?
+      !notified?
+    end
+
+    def build_confirmation_and_commit(current_user, user_performing = nil)
+      build_confirmation(current_user, user_performing)
+      confirm_without_code(current_user, user_performing)
+    end
+
+    def build_confirmation(current_user, user_performing = nil)
+      confirmation || Confirmation.build_ballot_confirmation(self, current_user, user_performing)
+    end
+
+    def build_confirmation_with_code(current_user, user_performing = nil)
+        confirmation_built = build_confirmation(current_user, user_performing)
+        confirmation_built.send_confirmation_code(current_user, user_performing)
+    end
+
+    def resend_confirmation_code(current_user, user_performing = nil)
+      confirmation.resend_confirmation_code current_user, user_performing
+    end
+
+    def confirm_without_code(current_user, user_performing = nil)
+      confirm(nil, current_user, user_performing)
+    end
+
+    def confirm(code, current_user, user_performing = nil)
+      confirmation.commit(code, current_user, user_performing)
+    end
+
+    def discard(current_user, user_performing = nil)
+      Budget::Ballot.transaction do |t|
+        # soft destroy confirmation
+        confirmation.discard(current_user, user_performing)
+        # remove lines
+        lines.destroy_all
+      end
+    end
 
     #GET-107
     def group
@@ -20,8 +93,20 @@ class Budget
       lines.empty?
     end
 
+    def uncompleted?
+      !completed!
+    end
+
     def completed?
-      headings.collect { |h| !completed_by_heading?(h) }.select() { |a| a }.empty?
+      if  group
+        group.headings.all? { |h| completed_by_heading?(h) }
+      end
+    end
+
+    def number_of_mandatory_lines
+      if  group
+        group.headings.inject(0) { |sum,h| number_of_mandatory_lines_to_complete(h) + sum }
+      end
     end
 
     def completed_by_heading?(heading)
@@ -41,8 +126,12 @@ class Budget
     end
 
     def investment_points(investment)
-      line  = lines.where(investment_id: investment.id).first
+      line = investment_line(investment)
       line ? line.points : 0
+    end
+
+    def investment_line(investment)
+      lines.where(investment_id: investment.id).first
     end
 
     def sorted_investments(heading_id = nil)
@@ -56,6 +145,7 @@ class Budget
     end
 
     def add_investment(investment, points)
+      return true if investment_line(investment)
       lines.create!(investment: investment, points: points)
     end
 
@@ -115,6 +205,13 @@ class Budget
     def heading_for_group(group)
       self.headings.where(group: group).first
     end
+
+    private
+
+    def initialize_random_seed
+      self[:random_seed] ||= rand(99)/100.0
+    end
+
 
   end
 end

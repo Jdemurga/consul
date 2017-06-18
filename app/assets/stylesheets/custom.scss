@@ -195,11 +195,19 @@ h1.logo {
   h1 { color: $brand !important; }
 }
 
-/* Ballot colors */
-ul.ballot-list li:hover {
+li.ballot-selection-paper {
 
-  background-color: $brand;
+  background-color: #FFFFE0 !important;
+  font-size: 12px;
+  padding-right: 40px !important;
 }
+
+li.ballot-selection-paper:hover,
+li.ballot-selection-paper:hover * {
+  background-color: darken(#FFFFE0, 10%) !important;
+  color: #333 !important;
+}
+
 
 table.ballot-paper td,
 table.ballot-paper th {
@@ -223,13 +231,34 @@ table.ballot-paper tr.ballot-selected {
   padding: 7px 10px;
   margin-bottom: 25px;
   color: white;
+
   .icon {
-    font-size: 35px;
+    font-size: 15px;
     margin-right: 20px;
     padding-top: 10px;
   }
 }
 
+.swap-on-hover {
+  height: 60px !important;
+  .hide-on-over { display: block;  }
+  .show-on-over { display: none; }
+}
+
+.swap-on-hover:hover {
+
+  .hide-on-over { display: none; }
+  .show-on-over { display: block; }
+}
+
+.ballot-investment-cost {
+
+  white-space: nowrap;
+}
+
+.ballot-alert.no-margin-bottom {
+  margin-bottom: 0px;
+}
 
 .ballot-alert.ballot-secondary {
 
