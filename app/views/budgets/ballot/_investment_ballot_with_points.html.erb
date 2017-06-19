@@ -5,11 +5,7 @@
     <small><strong><%= investment.id %></strong></small>
     <span class="bullet">&nbsp;&bull;&nbsp;</span>
     <small class="text-muted">
-      <% if investment.author &&  investment.author.try(:id) %>
-          <%= investment.author.try(name) %>
-      <% else %>
-          <small>-</small>
-      <% end %>
+      
     </small>
     <span class="bullet">&nbsp;&bull;&nbsp;</span>
     <small class="text-muted"><%= investment.heading.name %></small>
