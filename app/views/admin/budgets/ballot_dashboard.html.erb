@@ -23,7 +23,6 @@
       <table>
         <thead>
           <th></th>
-          <th>Id</th>
           <th>Usuario</th>
           <th>Email</th>
           <th>Prop. sel.</th>
@@ -37,7 +36,6 @@
         <% @ballots.each_with_index do |ballot, index| %>
             <tr class="small">
               <td class="ballot-<%= ballot.id %>"><%= index + 1 %></td>
-              <td><%= ballot.id %></td>
               <td><%= ballot.user.erased_at ? 'Usuario dado de baja' : ballot.user.username %></td>
               <td><%= ballot.user.erased_at ? "Borrado a las: #{l(ballot.user.erased_at, format: :short)}, <br> Razón: #{ballot.user.erase_reason}".html_safe : ballot.user.email %></td>
               <td><%= ballot.lines.count %></td>
