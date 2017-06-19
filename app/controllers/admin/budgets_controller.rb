@@ -31,7 +31,7 @@ class Admin::BudgetsController < Admin::BaseController
 
   #GET-130
   def ballot_dashboard
-    @ballots = @budget.ballots.where.not(user_id: nil).order('created_at desc')
+    @ballots = @budget.ballots.where.not(user_id: nil).joins(:user).where('users.verified_at IS NOT NULL').order('created_at desc')
     @confirmations = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil)
   end
 
