@@ -459,9 +459,9 @@ es:
         summary:
           comment_votes: Votos en comentarios
           comments: Comentarios
-          debate_votes: Votos en debates
+          debate_votes: Likes en debates
           debates: Debates
-          proposal_votes: Votos en propuestas
+          proposal_votes: Likes en propuestas
           proposals: Propuestas
           spending_proposals: Propuestas (archivo ppt. 2016)
           unverified_users: Usuarios sin verificar
@@ -469,11 +469,11 @@ es:
           user_level_two: Usuarios de nivel dos
           users: Usuarios
           verified_users: Usuarios verificados
-          verified_users_who_didnt_vote_proposals: Usuarios verificados que no han votado propuestas
+          verified_users_who_didnt_vote_proposals: "Usuarios verificados que no han hecho 'me gusta' en propuestas"
           budgets_investments: Propuestas en %{proccess_name}
-          investments_count: Total Propuestas ppto. 2017
+          investments_count: Total Propuestas ppto. 2017-*
           visits: Visitas
-          votes: Votos
+          votes: 'Me gustas'
         spending_proposals_title: Propuestas de inversión
         visits_title: Visitas
         direct_messages: Mensajes directos
