@@ -1,6 +1,6 @@
 es:
   budgets:
-    ballot_confirmation_sms_body: 'Votación Presupuestos Participativos. Su código de seguridad para votación es: %{code}'
+    ballot_confirmation_sms_body: 'Votación Presupuestos Participativos Getafe. Su código de seguridad para votación es: %{code}'
     ballots:
       banner:
         not_logged_in: "Para poder votar debes %{sign_in} o %{sign_up}."
@@ -18,7 +18,7 @@ es:
         submit_button:  'COMPROBAR CÓDIGO'
         complete_ballot_to_vote: 'Complete su papeleta para votar'
         ballot_completed_message: 'Ha seleccionado el número de propuestas necesario para poder votar. Haga click en  "VOTAR" y valide el código de seguridad para presentar su votación.'
-        ballot_notified_message: 'Valide su código para terminar la votación: Debe validar su el código de 4 números que se ha enviado al teléfono con el que confirmó su cuenta. Escríbalo en el cuadro de la derecha y haga click en "CONFIRMAR CÓDIGO".'
+        ballot_notified_message: 'Valide su código para terminar la votación: Debe validar el código de 4 dígitos que se ha enviado al teléfono con el que confirmó su cuenta. Escríbalo en el cuadro de la derecha y haga click en "CONFIRMAR CÓDIGO".'
         ballot_not_completed_message: "Le quedan por marcar %{links} para poder enviar su votación"
         discard_ballot: 'Cambiar mi votación'
         discard_ballot_user: 'Cambiar votación de este vecino'
