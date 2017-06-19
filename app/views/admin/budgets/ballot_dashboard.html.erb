@@ -41,7 +41,7 @@
               <td><%= ballot.user.erased_at ? 'Usuario dado de baja' : ballot.user.username %></td>
               <td><%= ballot.user.erased_at ? "Borrado a las: #{l(ballot.user.erased_at, format: :short)}, <br> Razón: #{ballot.user.erase_reason}".html_safe : ballot.user.email %></td>
               <td><%= ballot.lines.count %></td>
-              <td class="text-center"><% if ballot.confirmation %><span class="icon-check"> <% end %></td>
+              <td class="text-center"><% if ballot.confirmation.try(:confirmed_at) %><span class="icon-check"> <% end %></td>
               <td><%= ballot.group.try :name %></td>
               <td><% if ballot.confirmation.try(:sms_confirmation_code) %> <span class="icon-check"> <% end %></td>
               <td><small><% if ballot.confirmation %><%= l ballot.confirmation.created_at, format: :short %><% end %></small></td>
