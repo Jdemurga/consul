@@ -1,6 +1,6 @@
 es:
   budgets:
-    ballot_confirmation_sms_body: 'Su código para completar presentar su votación es %{code}'
+    ballot_confirmation_sms_body: 'Votación Presupuestos Participativos. Su código de seguridad para votación es: %{code}'
     ballots:
       banner:
         not_logged_in: "Para poder votar debes %{sign_in} o %{sign_up}."
@@ -15,7 +15,7 @@ es:
         provided_sms_confirmation_code: 'Código verificación de cuatro dígitos'
         resend_sms_code: 'Enviar otro código'
         alert_resend_sms: 'Se generará un nuevo código y le será enviado por SMS. ¿Desea continuar?'
-        submit_button:  'COMPROBAR ĆODIGO'
+        submit_button:  'COMPROBAR CÓDIGO'
         complete_ballot_to_vote: 'Complete su papeleta para votar'
         ballot_completed_message: 'Ha seleccionado el número de propuestas necesario para poder votar. Haga click en  "VOTAR" y valide el código de seguridad para presentar su votación.'
         ballot_notified_message: 'Valide su código para terminar la votación: Debe validar su el código de 4 números que se ha enviado al teléfono con el que confirmó su cuenta. Escríbalo en el cuadro de la derecha y haga click en "CONFIRMAR CÓDIGO".'
