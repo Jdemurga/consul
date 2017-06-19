@@ -38,6 +38,8 @@
         </td>
         <td class="small">
           <%= link_to t("admin.budgets.index.budget_print_ballot_paper"), ballot_paper_admin_budget_path(budget) %>
+          <br>
+          <%= link_to t("admin.budgets.index.budget_dashboard_ballot_paper"), ballot_dashboard_admin_budget_path(budget) %>
         </td>
         <td class="small">
           <%= link_to t("admin.budgets.index.budget_investments"), admin_budget_budget_investments_path(budget_id: budget.id) %>

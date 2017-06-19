@@ -176,6 +176,7 @@ Rails.application.routes.draw do
       member do
         get :results
         get :ballot_paper
+        get :ballot_dashboard
       end
 
       resources :budget_groups do

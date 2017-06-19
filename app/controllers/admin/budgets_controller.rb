@@ -29,6 +29,12 @@ class Admin::BudgetsController < Admin::BaseController
     end
   end
 
+  #GET-130
+  def ballot_dashboard
+    @ballots = @budget.ballots.where.not(user_id: nil).order('created_at desc')
+    @confirmations = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil)
+  end
+
   #GET-112
   def ballot_paper
     if params[:group_id]

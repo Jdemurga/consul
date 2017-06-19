@@ -1,0 +1,55 @@
+<span class="not-print"><%= back_link_to admin_budgets_path %></span>
+
+<h2  class="not-print"><%= t("admin.budgets.ballot_dashboard.title", budget_name: @budget.name ) %></h2>
+<br  class="not-print">
+
+<div class="row stats-numbers">
+  <div class="column large-3 text-center">
+    <p class="featured">Papeletas</p>
+    <%= @ballots.count %>
+  </div>
+  <div class="column large-3 text-center">
+    <p class="featured">Papeletas Confirmadas</p>
+    <%= @confirmations.count %>
+  </div>
+  <div class="column large-3"></div>
+  <div class="column large-3"></div>
+</div>
+
+<main class="margin">
+
+  <div class="small-12 medium-12 column ">
+
+      <table>
+        <thead>
+          <th></th>
+          <th>Id</th>
+          <th>Usuario</th>
+          <th>Email</th>
+          <th>Prop. sel.</th>
+          <th>P. Confirmada</th>
+          <th>Barrio</th>
+          <th>SMS</th>
+          <th>Hora confirmación.</th>
+          <th>Código usuario audit.</th>
+        </thead>
+        <tbody>
+        <% @ballots.each_with_index do |ballot, index| %>
+            <tr class="small">
+              <td class="ballot-<%= ballot.id %>"><%= index + 1 %></td>
+              <td><%= ballot.id %></td>
+              <td><%= ballot.user.username %></td>
+              <td><%= ballot.user.email %></td>
+              <td><%= ballot.lines.count %></td>
+              <td class="text-center"><% if ballot.confirmation %><span class="icon-check"> <% end %></td>
+              <td><%= ballot.group.try :name %></td>
+              <td><% if ballot.confirmation.try(:sms_confirmation_code) %> <span class="icon-check"> <% end %></td>
+              <td><small><% if ballot.confirmation %><%= l ballot.confirmation.created_at, format: :short %><% end %></small></td>
+              <td><small><%= ballot.confirmation.try(:confirmed_by_username) %></small></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

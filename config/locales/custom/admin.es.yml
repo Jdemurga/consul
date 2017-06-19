@@ -66,6 +66,8 @@ es:
         ballot_lines_sum: Puntos
         ballot_lines_ratio: Media
         price: Coste propuesta
+      ballot_dashboard:
+        title: Dashboard votaciones
       ballot_paper:
         title: Impresión papeletas de voto
         title_with_geozone: Asamblea barrio %{geozone}
@@ -94,6 +96,7 @@ es:
         budget_results: Ver resultados
         budget_results_disabled: Resultados no accesibles
         budget_print_ballot_paper: Imprimir
+        budget_dashboard_ballot_paper: Estadísticas
       create:
         notice: ¡Nueva campaña de presupuestos participativos creada con éxito!
       update:

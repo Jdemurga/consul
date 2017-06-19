@@ -17,6 +17,9 @@ module Abilities
       #GET-113 IMPRIMIR PAPELETAS
       can :ballot_paper, Budget
 
+      #GET-130
+      can :ballot_dashboard, Budget
+
       can :restore, Comment
       cannot :restore, Comment, hidden_at: nil
 
