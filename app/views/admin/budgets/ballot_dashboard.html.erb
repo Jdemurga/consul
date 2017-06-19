@@ -44,7 +44,7 @@
               <td class="text-center"><% if ballot.confirmation.try(:confirmed_at) %><span class="icon-check"> <% end %></td>
               <td><%= ballot.group.try :name %></td>
               <td><% if ballot.confirmation.try(:sms_confirmation_code) %> <span class="icon-check"> <% end %></td>
-              <td><small><% if ballot.confirmation %><%= l ballot.confirmation.confirmed_at, format: :short %><% end %></small></td>
+              <td><small><% if ballot.confirmation.try(:confirmed_at) %><%= l ballot.confirmation.try(:confirmed_at), format: :short %><% end %></small></td>
               <td><small><%= ballot.confirmation.try(:confirmed_by_username) %></small></td>
             </tr>
         <% end %>
