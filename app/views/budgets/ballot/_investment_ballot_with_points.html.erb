@@ -4,7 +4,13 @@
     <%= link_to investment.title, budget_investment_path(@budget, investment), target: 'blank' %> <br>
     <small><strong><%= investment.id %></strong></small>
     <span class="bullet">&nbsp;&bull;&nbsp;</span>
-    <small class="text-muted"><%= link_to investment.author.name, investment.author, target: 'blank' %></small>
+    <small class="text-muted">
+      <% if investment.author %>
+          <%= link_to investment.author.name, investment.author, target: 'blank' %>
+      <% else %>
+          <small>-</small>
+      <% end %>
+    </small>
     <span class="bullet">&nbsp;&bull;&nbsp;</span>
     <small class="text-muted"><%= investment.heading.name %></small>
     <% unless investment.location.blank? %>
