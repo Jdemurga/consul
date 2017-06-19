@@ -5,7 +5,7 @@
     <small><strong><%= investment.id %></strong></small>
     <span class="bullet">&nbsp;&bull;&nbsp;</span>
     <small class="text-muted">
-      <% if investment.author %>
+      <% if investment.author &&  investment.author.try(:id) %>
           <%= link_to investment.author.name, investment.author, target: 'blank' %>
       <% else %>
           <small>-</small>
