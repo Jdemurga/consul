@@ -28,7 +28,7 @@
         </thead>
 
         <tbody>
-        <% heading.investments.selected.sort_by_ballots.each do |investment| %>
+        <% heading.investments.selected.each do |investment| %>
             <tr id="<%= dom_id(investment) %>"
                 class="spending_proposal success">
             <td>

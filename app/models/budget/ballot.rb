@@ -17,7 +17,7 @@ class Budget
 
     #GET-125
     def summary
-      lines_summary = lines.collect { |line| "#{line.heading.name} #{line.points}" }
+      lines_summary = lines.collect { |line| "#{line.investment.title} #{line.points}" }
       "user_id: #{user.name}, group_id: #{group.name}, completed: #{completed?}, lines: #{lines_summary}"
     end
 

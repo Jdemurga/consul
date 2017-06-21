@@ -21,7 +21,7 @@ class Budget
     scope :not_unified, -> { where(unified_with_id: nil) }
 
     #GET-112
-    scope :sort_by_ballots,  -> { joins("LEFT JOIN budget_ballot_lines ON budget_ballot_lines.investment_id = budget_investments.id" ,).reorder( 'sum(budget_ballot_lines.points) desc' ).group('budget_investments.id') }
+    scope :sort_by_ballots,  -> { joins("LEFT JOIN budget_ballot_lines ON budget_ballot_lines.investment_id = budget_investments.id").reorder( 'sum(budget_ballot_lines.points) desc' ).group('budget_investments.id') }
     scope :sort_by_title,  -> { reorder( :title ) }
 
     belongs_to :unified_with, class_name: 'Budget::Investment', foreign_key: :unified_with_id

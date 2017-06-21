@@ -1,0 +1,76 @@
+<div class="small-12 medium-12 column" id="results-container">
+
+  <% group.headings.each do |heading| %>
+      <h4 class="inline-block">
+        <%= heading.name %>
+      </h4>
+
+      <% points_by_investment = {} %>
+      <table id="budget-investments-results" class="table-for-mobile">
+        <thead>
+        <tr>
+          <th scope="col">
+            Usuario
+          </th>
+          <th scope="col">
+            DNI
+          </th>
+          <% heading.investments.selected.each do |investment| %>
+              <% points_by_investment[investment.id] = 0%>
+              <th scope="col" class="text-right">
+                <%= investment.id %>
+              </th>
+          <% end %>
+
+          <th scope="col" class="text-center">
+            Puntos
+          </th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <% @confirmations.each do |confirmation| %>
+            <% confirmation_points_count  = 0%>
+            <tr class="spending_proposal success">
+              <td>
+              <%= confirmation.user.try(:email) %>
+              </td>
+              <td>
+                <%= confirmation.user.try(:document_number) %>
+              </td>
+              <% heading.investments.selected.each do |investment| %>
+                  <% confirmation_for_investment = confirmation.ballot.lines.find_by_investment_id(investment.id) %>
+                  <% confirmation_points_count  += confirmation_for_investment.points if confirmation_for_investment %>
+                  <% points_by_investment[investment.id] += confirmation_for_investment.points if confirmation_for_investment %>
+                <td scope="col" class="text-center">
+                  <%= confirmation_for_investment.try(:points) %>
+                </td>
+              <% end %>
+              <td class="text-center">
+                <%= confirmation_points_count  %>
+              </td>
+            </tr>
+        <% end %>
+        <tfoot>
+          <tr>
+            <td>
+              Total puntos
+            </td>
+            <td>
+
+            </td>
+            <% heading.investments.selected.each do |investment| %>
+                <td class="text-center">
+                  <%= points_by_investment[investment.id] %>
+                </td>
+            <% end %>
+            <td class="text-center">
+
+            </td>
+          </tr>
+        </tfoot>
+        </tbody>
+      </table>
+  <% end %>
+</div>
