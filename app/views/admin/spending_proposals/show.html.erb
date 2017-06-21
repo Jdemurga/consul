@@ -31,6 +31,12 @@
   <% end %>
 </p>
 
+<p id="tags">
+  <strong><%= t("admin.spending_proposals.show.current_phase") %>:</strong>
+  <%= t("spending_proposals.results.spending_proposal_phases.#{@spending_proposal.phase}") %>
+</p>
+
+
 <p>
   <%= link_to t("admin.spending_proposals.show.edit_classification"),
                 edit_admin_spending_proposal_path(@spending_proposal,

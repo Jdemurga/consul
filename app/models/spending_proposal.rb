@@ -6,6 +6,15 @@ class SpendingProposal < ActiveRecord::Base
 
   acts_as_votable
 
+  #GET-131
+  PHASES = ['no_bidding',
+        'pre_bidding',
+        'bidding',
+        'in_progress',
+        'being_processed',
+        'almost_finished',
+        'finished']
+
   belongs_to :author, -> { with_hidden }, class_name: 'User', foreign_key: 'author_id'
   belongs_to :geozone
   belongs_to :administrator

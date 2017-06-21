@@ -374,6 +374,7 @@ es:
       show:
         assigned_admin: Administrador asignado
         assigned_valuators: Evaluadores asignados
+        current_phase: Fase actual
         back: Volver
         classification: Clasificación
         heading: Propuesta de inversión %{id}
@@ -386,6 +387,7 @@ es:
         dossier: Informe
         edit_dossier: Editar informe
         tags: Etiquetas
+        status: Estado
         undefined: Sin definir
       edit:
         classification: Clasificación
