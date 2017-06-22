@@ -36,16 +36,12 @@ class Admin::BudgetsController < Admin::BaseController
     @ballots = @budget.ballots.where.not(user_id: nil).joins(:user).where('users.verified_at IS NOT NULL').order('created_at desc')
 
     # Todas las confirmaciones
-    @confirmations = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil).joins(:user).where('users.verified_at IS NOT NULL')
-
+    @confirmations = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil).where.not(confirmed_at: nil)
 
     confirmations_ids = @confirmations.pluck(:ballot_id)
 
-    # Papeletas de usuarios correctos que no se correspondan con  confirmaciones
+    # Papeletas de usuarios correctos que no se correspondan con  confirmaciones que no están verificadas
     @ballots_uncompleted = @ballots.where.not(id: confirmations_ids )
-
-    # No descartadas | Que no están confirmadas
-    @confirmations_unverified = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil, confirmed_at: nil)
 
     # No descartadas | Que están confirmadas (TOTAL)
     @confirmations_verified = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil).where.not(confirmed_at: nil)
