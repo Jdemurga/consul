@@ -4,25 +4,40 @@
 <br  class="not-print">
 
 <div class="row stats-numbers">
-  <div class="column large-3 text-center">
-    <p class="featured">Papeletas</p>
-    <%= @ballots.count %>
+  <div class="column large-4 text-center">
+    <p class="featured">Total Papeletas <br> (incompletas, por verificar y verificadas)</p>
+    <h4><%= @ballots.count %></h4>
   </div>
-  <div class="column large-3 text-center">
-    <p class="featured">Papeletas con confirmación</p>
-    <%= @confirmations.count %>
+  <div class="column large-4 text-center">
+    <p class="featured">Papeletas incompletas <br /> (sin dar botón votar)</p>
+    <h4><%= @ballots_uncompleted.count %></h4>
   </div>
-  <div class="column large-3 text-center">
-    <p class="featured">Papeletas con confirmación verificada</p>
-    <%= @confirmations_verified.count %>
+  <div class="column large-4 text-center">
+    <p class="featured">Papeletas con SMS enviado <br /> (botón votar pero sin validar código)</p>
+    <h4><%= @confirmations_unverified.count %></h4>
   </div>
-  <div class="column large-3"></div>
-  <div class="column large-3"></div>
+</div>
+<div class="row stats-numbers margin">
+  <div class="column large-4 text-center">
+    <p class="featured">Papeletas <u>GESTOR</u> verificadas<br />(Gestor valida)</p>
+    <h4><%= @confirmations_verified_by_manager.count %></h4>
+  </div>
+  <div class="column large-4 text-center">
+    <p class="featured">Papeletas <u>ONLINE</u> verificadas<br /> (SMS validado)</p>
+    <h4><%= @confirmations_verified_by_sms.count %></h4>
+  </div>
+  <div class="column large-4 text-center">
+    <div class="success-box">
+      <p class="featured ">Total Papeletas verificadas<br /> (SMS validado + Gestor validado)</p>
+      <h4 class=""><strong><%= @confirmations_verified.count %></strong></h4>
+    </div>
+  </div>
+
 </div>
 
 <%	sms_confirmations_sent = 0  %>
 <%	confirmations_verified = 0  %>
-<main class="margin">
+<main class="margin row">
 
   <div class="small-12 medium-12 column ">
 

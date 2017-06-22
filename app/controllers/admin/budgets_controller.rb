@@ -31,9 +31,30 @@ class Admin::BudgetsController < Admin::BaseController
 
   #GET-130
   def ballot_dashboard
+
+    # Todas las papeletas de usuarios correctos
     @ballots = @budget.ballots.where.not(user_id: nil).joins(:user).where('users.verified_at IS NOT NULL').order('created_at desc')
-    @confirmations = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil)
+
+    # Todas las confirmaciones
+    @confirmations = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil).joins(:user).where('users.verified_at IS NOT NULL')
+
+
+    confirmations_ids = @confirmations.pluck(:ballot_id)
+
+    # Papeletas de usuarios correctos que no se correspondan con  confirmaciones
+    @ballots_uncompleted = @ballots.where.not(id: confirmations_ids )
+
+    # No descartadas | Que no están confirmadas
+    @confirmations_unverified = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil, confirmed_at: nil)
+
+    # No descartadas | Que están confirmadas (TOTAL)
     @confirmations_verified = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil).where.not(confirmed_at: nil)
+
+    # No descartadas | que NO tienen código SMS | Que están confirmadas
+    @confirmations_verified_by_manager = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil, sms_code_sent_at: nil).where.not(confirmed_at: nil)
+
+    # No descartadas | que tienen código SMS | Que están confirmadas
+    @confirmations_verified_by_sms = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil).where.not(sms_code_sent_at: nil).where.not(confirmed_at: nil)
   end
 
   #GET-112
