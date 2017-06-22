@@ -29,7 +29,7 @@ class Admin::BudgetsController < Admin::BaseController
     end
 
     @ballots = @budget.ballots.where.not(user_id: nil).joins(:user).where('users.verified_at IS NOT NULL').order('budget_ballots.created_at desc')
-    @confirmations = Budget::Ballot::Confirmation.where(budget_id: @budget.id, discarted_at: nil, ballot_id: @ballots).joins(:ballot).joins("LEFT JOIN budget_ballot_lines ON budget_ballots.id = budget_ballot_lines.ballot_id").where('budget_ballot_lines.group_id' => @group.id).uniq('budget_ballot_confirmations.id')
+    @confirmations = Budget::Ballot::Confirmation.where(budget_id: @budget.id, discarted_at: nil, ballot_id: @ballots).where.not(confirmed_at: nil).joins(:ballot).joins("LEFT JOIN budget_ballot_lines ON budget_ballots.id = budget_ballot_lines.ballot_id").where('budget_ballot_lines.group_id' => @group.id).uniq('budget_ballot_confirmations.id')
   end
 
   #GET-130
