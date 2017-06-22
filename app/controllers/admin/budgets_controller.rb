@@ -35,10 +35,13 @@ class Admin::BudgetsController < Admin::BaseController
     # Todas las papeletas de usuarios correctos
     @ballots = @budget.ballots.where.not(user_id: nil).joins(:user).where('users.verified_at IS NOT NULL').order('created_at desc')
 
-    # Todas las confirmaciones
-    @confirmations = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil).where.not(confirmed_at: nil)
+    # Todas las confirmaciones creadas (se le dió al SMS)
+    @confirmations = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil)
 
     confirmations_ids = @confirmations.pluck(:ballot_id)
+
+    # Todas las confirmaciones pendientes de confirmación (validar SMS)
+    @confirmations_sms_pending = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil).where(confirmed_at: nil)
 
     # Papeletas de usuarios correctos que no se correspondan con  confirmaciones que no están verificadas
     @ballots_uncompleted = @ballots.where.not(id: confirmations_ids )

@@ -9,10 +9,15 @@
     <h4><%= @ballots.count %></h4>
   </div>
   <div class="column large-4 text-center">
-    <p class="featured">Papeletas sin verificar <br /> &nbsp;</p>
+    <p class="featured">Papeletas sin verificar <br /> (No han dado al botón "VOTAR")</p>
     <h4><%= @ballots_uncompleted.count %></h4>
   </div>
-  <div class="column large-4 text-center"></div>
+  <div class="column large-4 text-center">
+
+    <p class="featured">Papeletas sin verificar <br /> (No han validado SMS)</p>
+    <h4><%= @confirmations_sms_pending.count %></h4>
+
+  </div>
 </div>
   <div class="row stats-numbers margin">
   <div class="column large-4 text-center">
