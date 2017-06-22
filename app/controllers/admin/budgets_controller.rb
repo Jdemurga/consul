@@ -33,6 +33,7 @@ class Admin::BudgetsController < Admin::BaseController
   def ballot_dashboard
     @ballots = @budget.ballots.where.not(user_id: nil).joins(:user).where('users.verified_at IS NOT NULL').order('created_at desc')
     @confirmations = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil)
+    @confirmations_verified = Budget::Ballot::Confirmation.where(budget: @budget, discarted_at: nil).where.not(confirmed_at: nil)
   end
 
   #GET-112
