@@ -62,7 +62,7 @@ es:
       results:
         title: Resultados de votación %{budget_name}
         spending_proposal: Propuesta
-        ballot_lines_count: Votos
+        ballot_lines_count: Presente Papeletas
         ballot_lines_sum: Puntos
         ballot_lines_ratio: Media
         price: Coste propuesta

@@ -1,22 +1,31 @@
-<div class="small-12 medium-12 column" id="results-container">
+<div class="small-12 medium-12 column" >
+
+
 
   <% group.headings.each do |heading| %>
+      <% heading_investments = heading.investments.selected.sort_by_confirmed_ballots %>
       <h4 class="inline-block">
         <%= heading.name %>
       </h4>
 
       <% points_by_investment = {} %>
+      <% confirmations_by_investment = {}  %>
       <table id="budget-investments-results" class="table-for-mobile">
         <thead>
         <tr>
+          <th>
+
+          </th>
           <th scope="col">
             Usuario
           </th>
-          <th scope="col">
+          <th>
             DNI
           </th>
-          <% heading.investments.selected.each do |investment| %>
+          <% heading_investments.each do |investment| %>
               <% points_by_investment[investment.id] = 0%>
+              <% confirmations_by_investment[investment.id] = 0%>
+
               <th scope="col" class="text-right">
                 <%= investment.id %>
               </th>
@@ -25,30 +34,51 @@
           <th scope="col" class="text-center">
             Puntos
           </th>
+          <th>
+            Usuario V.
+          </th>
+          <th>
+            Fecha V.
+          </th>
         </tr>
         </thead>
 
         <tbody>
 
-        <% @confirmations.each do |confirmation| %>
+        <% @confirmations.each_with_index do |confirmation, index| %>
             <% confirmation_points_count  = 0%>
             <tr class="spending_proposal success">
+              <td id="confirmation-<%= confirmation.id %>">
+                <%= index + 1 %>
+              </td>
               <td>
-              <%= confirmation.user.try(:email) %>
+                <%= confirmation.user.try(:email) %>
               </td>
               <td>
                 <%= confirmation.user.try(:document_number) %>
               </td>
-              <% heading.investments.selected.each do |investment| %>
-                  <% confirmation_for_investment = confirmation.ballot.lines.find_by_investment_id(investment.id) %>
-                  <% confirmation_points_count  += confirmation_for_investment.points if confirmation_for_investment %>
-                  <% points_by_investment[investment.id] += confirmation_for_investment.points if confirmation_for_investment %>
-                <td scope="col" class="text-center">
-                  <%= confirmation_for_investment.try(:points) %>
+              <% heading_investments.each do |investment| %>
+                  <% points = confirmation.ballot.points_for_investment(investment) %>
+                  <% unified_investment = confirmation.ballot.is_present_as_unified_in_ballot?(investment) %>
+                  <% confirmation_points_count  += points if points %>
+                  <% points_by_investment[investment.id] += points if points %>
+                  <% confirmations_by_investment[investment.id] += 1 if points %>
+                <td scope="col" class="text-center <%= unified_investment ? 'danger-bg' : '' %>">
+                  <span><%= points %>
+                    <% if unified_investment %>
+                        <small><i>(*<%= unified_investment.investment.id %>)</i></small>
+                    <% end %>
+                  </span>
                 </td>
               <% end %>
               <td class="text-center">
                 <%= confirmation_points_count  %>
+              </td>
+              <td>
+                <%= confirmation.confirmed_by_username %>
+              </td>
+              <td>
+                <%= l(confirmation.confirmed_at, format: 'dd/MM HH:mm') %>
               </td>
             </tr>
         <% end %>
@@ -57,18 +87,32 @@
             <td>
               Total puntos
             </td>
-            <td>
-
-            </td>
-            <% heading.investments.selected.each do |investment| %>
+            <td></td>
+            <td></td>
+            <% heading_investments.each do |investment| %>
                 <td class="text-center">
                   <%= points_by_investment[investment.id] %>
                 </td>
             <% end %>
-            <td class="text-center">
+            <td class="text-center" colspan="3">
 
             </td>
           </tr>
+        <tr>
+          <td>
+            Presente en papeletas
+          </td>
+          <td></td>
+          <td></td>
+          <% heading_investments.each do |investment| %>
+              <td class="text-center">
+                <%= confirmations_by_investment[investment.id] %>
+              </td>
+          <% end %>
+          <td class="text-center" colspan="3">
+
+          </td>
+        </tr>
         </tfoot>
         </tbody>
       </table>

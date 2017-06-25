@@ -1,8 +1,6 @@
 <%= back_link_to admin_budgets_path %>
-
-<h2><%= t("admin.budgets.results.title", budget_name: @budget.name ) %></h2>
 <div class="row margin-top">
-  <div class="small-12 medium-2 column">
+  <div class="small-12 medium-2 column not-print">
     <ul class="menu vertical no-margin-top no-padding-top">
       <li>
         <strong>
@@ -18,9 +16,20 @@
       <% end %>
     </ul>
   </div>
-  <div class="small-12 medium-10 column">
+
+  <div class="small-12 medium-10 column " id="budget-ballot-paper-container">
     <% if @group %>
-      <%= render 'results_table_with_confirmed_ballots', group: @group %>
+        <div class="not-print">
+          <a id="print_link" href="javascript:window.print();" class="button warning">
+            Imprimir detalles  y escrutinio de resultados para <%= @group.name %>
+          </a>
+        </div>
+
+        <h2> <%= @group.name %></h2>
+        <h3>Resultados</h3>
+        <%= render 'results_table', group: @group %>
+        <h3>Escrutinio de votación</h3>
+        <%= render 'results_table_with_confirmed_ballots', group: @group %>
     <% end %>
   </div>
 </div>

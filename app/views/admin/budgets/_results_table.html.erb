@@ -9,6 +9,9 @@
       <table id="budget-investments-results" class="table-for-mobile">
         <thead>
         <tr>
+          <th>
+            ID
+          </th>
           <th scope="col">
             <%= t("admin.budgets.results.spending_proposal") %>
           </th>
@@ -28,21 +31,24 @@
         </thead>
 
         <tbody>
-        <% heading.investments.selected.each do |investment| %>
+        <% heading.investments.selected.sort_by_confirmed_ballots.each do |investment| %>
             <tr id="<%= dom_id(investment) %>"
                 class="spending_proposal success">
+            <td>
+              <%= investment.id %>
+            </td>
             <td>
               <%= link_to investment.title,
                           budget_investment_path(@budget, investment) %>
             </td>
             <td class="text-right ballot-points">
-              <%= investment.ballot_lines_sum %>
+              <%= investment.confirmed_budget_ballot_lines_sum %>
             </td>
             <td class="text-right">
-              <%= investment.budget_ballot_lines.count %>
+              <%= investment.confirmed_budget_ballot_lines.count %>
             </td>
             <td class="text-right">
-              <%= investment.ballot_lines_ratio %>
+              <%= number_with_precision investment.ballot_lines_ratio %>
             </td>
             <td class="text-right">
               <%= format_price investment.price %>
