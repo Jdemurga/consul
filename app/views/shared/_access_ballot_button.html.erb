@@ -1,7 +1,7 @@
 <div class="notice">
   <% if current_user %>
       <% if current_user.level_two_or_three_verified? %>
-          <%= link_to budget_ballot_path(Budget.first), class: "button margin-top expanded" do %>
+          <%= link_to '#', class: "button margin-top expanded", disabled: 'disabled' do %>
               VOTAR
           <% end %>
       <% else %>
