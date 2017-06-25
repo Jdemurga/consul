@@ -30,11 +30,7 @@
           <%= t("budgets.phase.#{budget.phase}") %>
         </td>
         <td class="small">
-          <%  if budget.reviewing_ballots? %>
-            <%= link_to t("admin.budgets.index.budget_results"), results_admin_budget_path(budget) %>
-          <% else %>
               <%= t("admin.budgets.index.budget_results_disabled") %>
-          <% end %>
         </td>
         <td class="small">
           <%= link_to t("admin.budgets.index.budget_print_ballot_paper"), ballot_paper_admin_budget_path(budget) %>
