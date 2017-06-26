@@ -33,6 +33,7 @@ class Admin::BudgetsController < Admin::BaseController
                          .joins(:ballot)
                          .joins('LEFT JOIN budget_ballot_lines ON budget_ballots.id = budget_ballot_lines.ballot_id')
                          .uniq('budget_ballot_confirmations.id')
+
   end
 
   def public_results

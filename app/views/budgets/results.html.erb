@@ -1,0 +1,77 @@
+
+<div class="row margin-top">
+  <div class="small-12 medium-2 column not-print">
+    <br>
+    <ul class="menu vertical no-margin-top no-padding-top">
+      <li>
+        <strong>
+
+        </strong>
+      </li>
+
+      <% @budget.groups.each do |group| %>
+          <li class="<%= 'active' if group.eql?(@group) %> ">
+            <%= link_to group.name,
+                        results_budget_path(@budget, group_id: group.id) %>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="small-12 medium-10 column " id="budget-ballot-paper-container">
+        <h2>Resultados <%= @budget.name %></h2>
+
+        <h3>Estadísticas GETAFE</h3>
+        <table id="budget-investments-results" class="table-for-mobile">
+          <thead>
+          <tr>
+            <th>Total participantes</th>
+            <th scope="col" class="text-center">
+              Total de papeletas enviadas
+            </th>
+            <th scope="col" class="text-center">
+              Online
+            </th>
+            <th scope="col" class="text-center">
+              Presenciales
+            </th>
+            <th scope="col" class="text-center">
+              No validadas (nulos)
+            </th>
+            <th scope="col" class="text-center">
+              Válidos
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td scope="col" class="text-center">
+              <%= @ballots.count %>
+            </td>
+            <td scope="col" class="text-center">
+              <%= @all_confirmations_on_budget.count %>
+            </td>
+            <td scope="col" class="text-center">
+              <%= @all_confirmations_on_budget.online.count %>
+            </td>
+            <td scope="col" class="text-center">
+              <%= @all_confirmations_on_budget.by_manager.count %>
+            </td>
+            <td scope="col" class="text-center">
+              <%= @not_valid_confirmations_on_budget.count %>
+            </td>
+            <td scope="col" class="text-center ballot-points">
+              <%= @valid_confirmations_on_budget.count %>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <br>
+        <small>(*) <i><u>Un participante</u> es cualquier vecino que haya accedido a su papeleta aunque no haya click en "VOTAR".</i></small><br>
+
+        <br>
+        <h3>Estadísticas <%= @group.name %></h3>
+        <%= render 'results_table', group: @group %>
+  </div>
+</div>
