@@ -14,9 +14,28 @@ class Budget
 
     before_validation  :initialize_random_seed
 
+    #GET-135 will calculate points by investment in ballot, checking if is a unified investment
+    def points_for_investment(selected_investment)
+
+      unified_investment = is_present_as_unified_in_ballot?(selected_investment)
+      if unified_investment
+        unified_investment.points
+      else
+        matched_line = lines.find_by_investment_id(selected_investment.id)
+        matched_line.try(:points)
+      end
+    end
+
+    #GET-135
+    def is_present_as_unified_in_ballot?(selected_investment)
+      in_unified_investments_ids = budget.investments.unified.where(unified_with_id: selected_investment.id).pluck :id
+      lines.where(investment_id: in_unified_investments_ids ).first
+    end
+
 
     #GET-125
     def summary
+
       lines_summary = lines.collect { |line| "[#{line.investment.id}] #{line.investment.title} #{line.points}" }
       "user_id: #{user.name}, group_id: #{group.name}, completed: #{completed?}, lines: #{lines_summary}"
     end

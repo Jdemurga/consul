@@ -29,6 +29,8 @@ class Budget
       validate :only_one_confirmed_ballot_at_same_time
 
       scope :confirmed, -> { where(discarted_at: nil) }
+      scope :online, -> { where.not(confirmed_at: nil).where.not(sms_code_sent_at: nil) }
+      scope :by_manager, -> { where.not(confirmed_at: nil).where(sms_code_sent_at: nil) }
 
       def self.build_ballot_confirmation(ballot, current_user, user_performing = nil)
 

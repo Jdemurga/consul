@@ -27,6 +27,20 @@ class Admin::BudgetsController < Admin::BaseController
     else
       @group = @budget.groups.first if @budget.groups.any?
     end
+
+    @confirmations = Budget::Ballot::Confirmation.where(budget_id: @budget.id, discarted_at: nil, group_id: @group.id)
+                         .where.not(confirmed_at: nil)
+                         .joins(:ballot)
+                         .joins('LEFT JOIN budget_ballot_lines ON budget_ballots.id = budget_ballot_lines.ballot_id')
+                         .uniq('budget_ballot_confirmations.id')
+  end
+
+  def public_results
+    if params[:group_id]
+      @group = @budget.groups.find(params[:group_id])
+    else
+      @group = @budget.groups.first if @budget.groups.any?
+    end
   end
 
   #GET-130

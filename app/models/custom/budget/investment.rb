@@ -20,8 +20,16 @@ class Budget
     #GET-98
     scope :not_unified, -> { where(unified_with_id: nil) }
 
+    #GET-135
+    scope :unified, -> { where.not(unified_with_id: nil) }
+
     #GET-112
-    scope :sort_by_ballots,  -> { joins("LEFT JOIN budget_ballot_lines ON budget_ballot_lines.investment_id = budget_investments.id" ,).reorder( 'sum(budget_ballot_lines.points) desc' ).group('budget_investments.id') }
+    scope :sort_by_ballots,  -> { joins("LEFT JOIN budget_ballot_lines ON budget_ballot_lines.investment_id = budget_investments.id").reorder( 'sum(budget_ballot_lines.points) desc' ).group('budget_investments.id') }
+    scope :sort_by_confirmed_ballots,  -> {     joins("LEFT JOIN budget_ballot_lines ON budget_ballot_lines.investment_id = budget_investments.id")
+                                                .joins("LEFT JOIN budget_ballot_confirmations ON budget_ballot_lines.ballot_id = budget_ballot_confirmations.ballot_id")
+                                                .where('budget_ballot_confirmations.confirmed_at is not null')
+                                                .where('budget_ballot_confirmations.discarted_at is null')
+                                                .reorder( 'sum(budget_ballot_lines.points) desc, count(budget_ballot_lines.id) desc' ).group('budget_investments.id') }
     scope :sort_by_title,  -> { reorder( :title ) }
 
     belongs_to :unified_with, class_name: 'Budget::Investment', foreign_key: :unified_with_id
@@ -42,8 +50,23 @@ class Budget
       budget_ballot_lines.sum(:points)
     end
 
+    def confirmed_budget_ballot_lines_sum
+      confirmed_budget_ballot_lines.sum(:points)
+    end
+
+    def confirmed_budget_ballot_lines
+
+      ids = [investments_unified_to_me.pluck(:id), id].flatten
+      Budget::Ballot::Line.where(investment_id:  ids)
+          .joins("right join budget_ballot_confirmations ON budget_ballot_lines.ballot_id = budget_ballot_confirmations.ballot_id")
+          .joins("left join users ON budget_ballot_confirmations.user_id = users.id")
+          .where('budget_ballot_confirmations.confirmed_at is not null')
+          .where('budget_ballot_confirmations.discarted_at is null')
+          .uniq('budget_ballot_confirmations.id')
+    end
+
     def ballot_lines_ratio
-      budget_ballot_lines.count > 0 ? (1.0 * ballot_lines_sum) / budget_ballot_lines.count : 0
+      confirmed_budget_ballot_lines.count > 0 ? (1.0 * confirmed_budget_ballot_lines_sum) / confirmed_budget_ballot_lines.count : 0
     end
 
     def is_unified?
