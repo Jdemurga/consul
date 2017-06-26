@@ -3,8 +3,6 @@
   <%= render "shared/social_media_meta_tags_participatory_budget" %>
 <% end %>
 
-
-<% cache [locale_and_user_status(nil), @geozone] do %>
   <div class="expanded page-background-row spending-proposal-bg results no-margin-top">
     <div class="row">
       <div class="small-12 column padding text-center">
@@ -47,4 +45,3 @@
     <%= render 'results_table' %>
 
   </div>
-<% end %>
