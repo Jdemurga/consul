@@ -1,4 +1,4 @@
-<%= back_link_to admin_budgets_path %>
+
 <div class="row margin-top">
   <div class="small-12 medium-2 column not-print">
     <ul class="menu vertical no-margin-top no-padding-top">
@@ -26,6 +26,8 @@
         </div>
 
         <h2> <%= @group.name %></h2>
+
+        <%= render 'big_numbers_table', group: @group %>
         <h3>Resultados</h3>
         <%= render 'results_table', group: @group %>
         <h3>Escrutinio de votación</h3>

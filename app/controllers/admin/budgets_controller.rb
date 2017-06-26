@@ -31,7 +31,8 @@ class Admin::BudgetsController < Admin::BaseController
     @confirmations = Budget::Ballot::Confirmation.where(budget_id: @budget.id, discarted_at: nil, group_id: @group.id)
                          .where.not(confirmed_at: nil)
                          .joins(:ballot)
-                         .joins("LEFT JOIN budget_ballot_lines ON budget_ballots.id = budget_ballot_lines.ballot_id").uniq('budget_ballot_confirmations.id')
+                         .joins('LEFT JOIN budget_ballot_lines ON budget_ballots.id = budget_ballot_lines.ballot_id')
+                         .uniq('budget_ballot_confirmations.id')
   end
 
   #GET-130

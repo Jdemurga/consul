@@ -35,10 +35,10 @@
             Puntos
           </th>
           <th>
-            Usuario V.
+            Tipo
           </th>
           <th>
-            Fecha V.
+            Verificado
           </th>
         </tr>
         </thead>
@@ -75,10 +75,14 @@
                 <%= confirmation_points_count  %>
               </td>
               <td>
-                <%= confirmation.confirmed_by_username %>
+                <% if confirmation.sms_code_sent_at %>
+                  ONLINE
+                <% else %>
+                  PRESENCIAL
+                <% end %>
               </td>
               <td>
-                <%= l(confirmation.confirmed_at, format: 'dd/MM HH:mm') %>
+                <%= l(confirmation.confirmed_at, format: :short) %>
               </td>
             </tr>
         <% end %>
@@ -116,5 +120,11 @@
         </tfoot>
         </tbody>
       </table>
+      <span class="danger-bg">
+        <small><i>(* Las propuestas marcadas en rojo con asterisco y un número, significa que han sido sumadas desde un voto a una propuesta unificada y sacada de la papeleta)</i></small>
+      </span>
+      <br>
+      <br>
+      <br>
   <% end %>
 </div>
