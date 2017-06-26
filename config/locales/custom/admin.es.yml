@@ -93,7 +93,8 @@ es:
         table_edit_budget: Editar
         edit_groups: Editar grupos de partidas
         edit_budget: Editar presupuesto
-        budget_results: Ver resultados
+        budget_results: Resultados detallados y escrutinio
+        budget_results_public: Previsualización resultados públicos
         budget_results_disabled: Resultados no accesibles
         budget_print_ballot_paper: Imprimir
         budget_dashboard_ballot_paper: Estadísticas

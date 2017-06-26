@@ -175,6 +175,7 @@ Rails.application.routes.draw do
       #GET-112
       member do
         get :results
+        get :public_results
         get :ballot_paper
         get :ballot_dashboard
       end

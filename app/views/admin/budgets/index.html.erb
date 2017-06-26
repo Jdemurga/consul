@@ -31,7 +31,9 @@
         </td>
         <td class="small">
           <%  if budget.reviewing_ballots? %>
-            <%= link_to t("admin.budgets.index.budget_results"), results_admin_budget_path(budget) %>
+              <%= link_to t("admin.budgets.index.budget_results"), results_admin_budget_path(budget) %>
+              <br>
+              <%= link_to t("admin.budgets.index.budget_results_public"), public_results_admin_budget_path(budget) %>
           <% else %>
               <%= t("admin.budgets.index.budget_results_disabled") %>
           <% end %>

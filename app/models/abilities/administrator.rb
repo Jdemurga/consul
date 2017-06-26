@@ -14,6 +14,9 @@ module Abilities
       #GET-112 VER RESULTADOS
       can :results, Budget
 
+      #GET-136
+      can :public_results, Budget
+
       #GET-113 IMPRIMIR PAPELETAS
       can :ballot_paper, Budget
 

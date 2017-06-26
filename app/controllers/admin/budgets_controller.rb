@@ -35,6 +35,14 @@ class Admin::BudgetsController < Admin::BaseController
                          .uniq('budget_ballot_confirmations.id')
   end
 
+  def public_results
+    if params[:group_id]
+      @group = @budget.groups.find(params[:group_id])
+    else
+      @group = @budget.groups.first if @budget.groups.any?
+    end
+  end
+
   #GET-130
   def ballot_dashboard
     @ballots = @budget.ballots.where.not(user_id: nil).joins(:user).where('users.verified_at IS NOT NULL').order('created_at desc')
