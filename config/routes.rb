@@ -366,5 +366,11 @@ Rails.application.routes.draw do
   get 'informacion-detallada-participa-getage', to: 'pages#show', as: 'mode_information', id: 'more_information'
   get 'comisiones-de-barrio', to: 'pages#show', as: 'about_neighborhood_commissions', id: 'about_neighborhood_commissions'
 
+
+    get 'plan-municipal-accesibilidad-getafe',
+      to: 'pages#show',
+      as: 'plan-municipal-accesibilidad-getafe',
+      id: 'plan_municipal_de_la_accesibilidad_de_getafe'
+
   resources :pages, path: '/', only: [:show]
 end
