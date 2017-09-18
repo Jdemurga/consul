@@ -8,8 +8,25 @@
 
 <div class="row">
 
+
   <div class="small-12 medium-4 column">
-    <div class="panel panel-highlight margin" data-equalizer-watch="">
+    <div class="panel panel-highlight highlight margin" data-equalizer-watch="">
+
+      <div style="min-height: 419px;">
+        <h3>PLENO DE ESTADO DEL MUNICIPIO</h3>
+        <p class="info">
+          Próximamente celebraremos el Pleno del Estado del Municipio, el Gobierno Municipal hará balance de la gestión en estos dos años de legislatura y la oposición podrá hacer lo propio respecto a su papel en el Ayuntamiento de Getafe.
+        </p>
+        <p>
+          Queremos conocer las valoraciones, aportaciones e  ideas que puedas aportar para la celebración  del Pleno del Estado del Municipio.
+        </p>
+      </div>
+      <%= link_to "Ver proceso", page_path('participacion-consulta-pleno-del-estado-del-municipio'), class: "button see-more expanded" %>
+    </div>
+  </div>
+
+  <div class="small-12 medium-4 column">
+    <div class="panel panel-highlight highlight margin" data-equalizer-watch="">
 
       <div style="min-height: 419px;">
         <h3>PLAN MUNICIPAL DE LA ACCESIBILIDAD DE LA CIUDAD DE GETAFE</h3>
@@ -22,25 +39,16 @@
     </div>
   </div>
 
-
   <div class="small-12 medium-4 column ">
     <div class="panel panel-highlight margin" data-equalizer-watch="">
       <div style="min-height: 419px;">
-        <h3>Iniciada votación de propuestas Presupuestos Participativos 2017</h3>
-        <p class="info-date"><span class="icon-calendar"></span>&nbsp;Hasta el <strong>25 de junio 23:59h</strong></p>
+        <h3>Resultados Presupuestos Participativos 2017</h3>
+
         <p class="info">
-          Los vecinos y vecinas de Getafe empadronados en el municipio y mayores de 16 años, podrán votar desde el lunes 19 (09:00h) hasta el 25 de junio, las propuestas de Presupuestos Participativos 2017.
+          Publicados los resultados de la votación de Presupuestos Participativos 2017.
         </p>
       </div>
-      <%= link_to "Más información", page_path('fase_votacion_presupuestos_participativos'), class: "button see-more expanded" %>
-    </div>
-  </div>
-
-  <div class="smal-12 medium-4 column">
-    <div class="margin panel-image" data-equalizer-watch="">
-      <%= link_to page_path('citizen_assembly_2017') do %>
-          <%= image_tag('20170529_participacion_presupuestos.jpg', label: 'Votaciones Presupuestos Participativos Getafe 2017', title: 'Votaciones Presupuestos Participativos Getafe 2017') %>
-      <% end %>
+      <%= link_to "Ver resultados", results_budget_path(1), class: "button see-more expanded" %>
     </div>
   </div>
 

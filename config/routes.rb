@@ -367,10 +367,16 @@ Rails.application.routes.draw do
   get 'comisiones-de-barrio', to: 'pages#show', as: 'about_neighborhood_commissions', id: 'about_neighborhood_commissions'
 
 
-    get 'plan-municipal-accesibilidad-getafe',
+  get 'plan-municipal-accesibilidad-getafe',
       to: 'pages#show',
       as: 'plan-municipal-accesibilidad-getafe',
       id: 'plan_municipal_de_la_accesibilidad_de_getafe'
+
+  get 'participacion-consulta-pleno-del-estado-del-municipio',
+      to: 'pages#show',
+      as: 'participacion-consulta-pleno-del-estado-del-municipio',
+      id: 'participacion_consulta_pleno_del_estado_del_municipio'
+
 
   resources :pages, path: '/', only: [:show]
 end
