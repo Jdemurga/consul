@@ -377,6 +377,17 @@ Rails.application.routes.draw do
       as: 'participacion-consulta-pleno-del-estado-del-municipio',
       id: 'participacion_consulta_pleno_del_estado_del_municipio'
 
+  get 'reglamento-cesiones-locales-municipales',
+      to: 'pages#show',
+      as: 'reglamento-cesiones-locales-municipales',
+      id: 'reglamento_cesiones_locales_municipales'
+
+  get 'ordenanza-reguladora-adjudicacion-terrenos-municipales',
+      to: 'pages#show',
+      as: 'ordenanza-reguladora-adjudicacion-terrenos-municipales',
+      id: 'ordenanza_reguladora_adjudicacion_terrenos_municipales'
+
+
 
   resources :pages, path: '/', only: [:show]
 end
