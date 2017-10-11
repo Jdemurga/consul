@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170617132538) do
+ActiveRecord::Schema.define(version: 20171011222321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -842,33 +842,34 @@ ActiveRecord::Schema.define(version: 20170617132538) do
   add_index "sms_otps", ["phone_number"], name: "index_sms_otps_on_phone_number", using: :btree
 
   create_table "spending_proposals", force: :cascade do |t|
-    t.string   "title",                       limit: 255
+    t.string   "title",                          limit: 255
     t.text     "description"
     t.integer  "author_id"
     t.string   "external_url"
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
     t.integer  "geozone_id"
-    t.integer  "price",                       limit: 8
+    t.integer  "price",                          limit: 8
     t.boolean  "feasible"
     t.string   "association_name"
     t.text     "price_explanation"
     t.text     "feasible_explanation"
     t.text     "internal_comments"
-    t.boolean  "valuation_finished",                      default: false
+    t.boolean  "valuation_finished",                         default: false
     t.text     "explanations_log"
     t.integer  "administrator_id"
-    t.integer  "valuation_assignments_count",             default: 0
-    t.integer  "price_first_year",            limit: 8
+    t.integer  "valuation_assignments_count",                default: 0
+    t.integer  "price_first_year",               limit: 8
     t.string   "time_scope"
     t.datetime "unfeasible_email_sent_at"
-    t.integer  "cached_votes_up",                         default: 0
+    t.integer  "cached_votes_up",                            default: 0
     t.tsvector "tsv"
-    t.string   "responsible_name",            limit: 60
-    t.integer  "physical_votes",                          default: 0
+    t.string   "responsible_name",               limit: 60
+    t.integer  "physical_votes",                             default: 0
     t.string   "spending_type"
-    t.string   "phase",                                   default: "pre_bidding"
+    t.string   "phase",                                      default: "pre_bidding"
     t.string   "extra_info"
+    t.integer  "joined_to_spending_proposal_id"
   end
 
   add_index "spending_proposals", ["author_id"], name: "index_spending_proposals_on_author_id", using: :btree
