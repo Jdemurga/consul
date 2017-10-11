@@ -21,6 +21,8 @@ class SpendingProposal < ActiveRecord::Base
   has_many :valuation_assignments, dependent: :destroy
   has_many :valuators, through: :valuation_assignments
 
+  belongs_to :joined_to, class_name: 'SpendingProposal', foreign_key: 'joined_to_spending_proposal_id'
+
   validates :title, presence: true
   validates :author, presence: true
   validates :description, presence: true

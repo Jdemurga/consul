@@ -21,6 +21,13 @@
         <strong><%= @spending_proposal.id %></strong>
       </p>
 
+      <% if @spending_proposal.joined_to %>
+          <div data-alert="" class="callout alert">
+
+            Esta propuesta ha sido unificada en su ejecución con <%= link_to @spending_proposal.joined_to.title, @spending_proposal.joined_to %>
+          </div>
+      <% end %>
+
       <%= safe_html_with_links @spending_proposal.description.html_safe %>
 
       <% if @spending_proposal.external_url.present? %>
