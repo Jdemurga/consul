@@ -21,9 +21,13 @@ class Admin::StatsController < Admin::BaseController
     @user_ids_who_voted_proposals = ActsAsVotable::Vote.where(votable_type: 'Proposal').distinct.count(:voter_id)
     @user_ids_who_didnt_vote_proposals = @verified_users - @user_ids_who_voted_proposals
     @spending_proposals = SpendingProposal.count
-    budgets_ids = Budget.where.not(phase: 'finished').pluck(:id)
-    @budgets = budgets_ids.size
-    @investments = Budget::Investment.where(budget_id: budgets_ids).count
+
+    @budgets = Budget.count
+    @budgets_procceses = Budget.all
+    @investments = Budget::Investment.count
+    @investments_votes = Vote.where(votable_type: 'Budget::Investment').count
+    @groups = Budget::Group.all
+
   end
 
   def proposal_notifications

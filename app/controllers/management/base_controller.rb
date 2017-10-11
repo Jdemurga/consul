@@ -9,6 +9,7 @@ class Management::BaseController < ActionController::Base
   private
 
     def verify_manager
+      @current_manager = current_manager
       raise ActionController::RoutingError.new('Not Found') unless current_manager.present?
     end
 

@@ -1,4 +1,5 @@
 class ProposalsController < ApplicationController
+  include FeatureFlags #GET-53
   include CommentableActions
   include FlagActions
 
@@ -6,6 +7,8 @@ class ProposalsController < ApplicationController
   before_action :load_categories, only: [:index, :new, :create, :edit, :map, :summary]
   before_action :load_geozones, only: [:edit, :map, :summary]
   before_action :authenticate_user!, except: [:index, :show, :map, :summary]
+
+  feature_flag :proposals #GET-53 Disable proposals by default
 
   invisible_captcha only: [:create, :update], honeypot: :subtitle
 
@@ -40,7 +43,8 @@ class ProposalsController < ApplicationController
   end
 
   def vote
-    @proposal.register_vote(current_user, 'yes')
+    # GET-104 Supports to likes
+    @proposal.register_vote(current_user, params[:value] || 'yes')
     set_proposal_votes(@proposal)
   end
 
@@ -109,7 +113,8 @@ class ProposalsController < ApplicationController
     end
 
     def load_featured
-      @featured_proposals = Proposal.not_archived.sort_by_confidence_score.limit(3) if (!@advanced_search_terms && @search_terms.blank? && @tag_filter.blank? && params[:retired].blank?)
+      # GET-104
+      @featured_proposals = [] #Proposal.not_archived.sort_by_confidence_score.limit(3) if (!@advanced_search_terms && @search_terms.blank? && @tag_filter.blank? && params[:retired].blank?)
       if @featured_proposals.present?
         set_featured_proposal_votes(@featured_proposals)
         @resources = @resources.where('proposals.id NOT IN (?)', @featured_proposals.map(&:id))

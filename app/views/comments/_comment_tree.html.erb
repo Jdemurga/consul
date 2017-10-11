@@ -12,22 +12,19 @@
 
         <%= render 'shared/wide_order_selector', i18n_namespace: "comments" %>
 
-        <% if user_signed_in? %>
-          <% if comments_closed_for_commentable?(commentable) %>
+        <% if user_signed_in? && can?(:create, Comment) %>
+          <%= render 'comments/form', {commentable: commentable, parent_id: nil, toggeable: false} %>
+
+        <% elsif cannot?(:create, Comment) %>
             <br>
             <div data-alert class="callout primary">
-              <%= comments_closed_text(commentable) %>
+              <%= t("investments.show.validate_to_comment",
+                    verify: link_to(t("debates.show.verify"), verification_path)).html_safe %>
+
             </div>
-          <% elsif require_verified_resident_for_commentable?(commentable, current_user) %>
-            <br>
-            <div data-alert class="callout primary">
-              <%= t("comments.verified_only", verify_account: link_to(t("comments.verify_account"), verification_path )).html_safe %>
-            </div>
-          <% else %>
-            <%= render 'comments/form', {commentable: commentable, parent_id: nil, toggeable: false} %>
-          <% end %>
         <% else %>
           <br>
+
           <div data-alert class="callout primary">
             <%= t("debates.show.login_to_comment",
                 signin: link_to(t("votes.signin"), new_user_session_path),

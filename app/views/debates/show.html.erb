@@ -47,16 +47,23 @@
       </div>
 
       <aside class="small-12 medium-3 column">
-        <div class="sidebar-divider"></div>
-        <h2><%= t("votes.supports") %></h2>
-        <div id="<%= dom_id(@debate) %>_votes">
-          <%= render 'debates/votes', debate: @debate %>
-        </div>
-        <%= render partial: 'shared/social_share', locals: {
-          share_title: t("debates.show.share"),
-          title: @debate.title,
-          url: debate_url(@debate)
-        } %>
+        <% unless @debate.likes_disallowed? %>
+          <div class="sidebar-divider"></div>
+          <h2><%= t("votes.supports") %></h2>
+          <div id="<%= dom_id(@debate) %>_votes">
+            <%= render 'debates/votes', debate: @debate %>
+          </div>
+        <% end %>
+          <div class="sidebar-divider"></div>
+          <h2><%= t("debates.show.share") %></h2>
+          <div class="social-share-full">
+            <%= social_share_button_tag("#{@debate.title} #{setting['twitter_hashtag']}") %>
+            <% if browser.device.mobile? %>
+              <a href="whatsapp://send?text=<%= @debate.title %> <%= debate_url(@debate) %>" data-action="share/whatsapp/share">
+                <span class="icon-whatsapp whatsapp"></span>
+              </a>
+            <% end %>
+          </div>
       </aside>
     </div>
   </div>

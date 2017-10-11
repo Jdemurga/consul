@@ -45,6 +45,7 @@ es:
         tag_category_label: "Categorías"
         tags_placeholder: "Escribe las etiquetas que desees separadas por una coma (',')"
       index:
+        any_group: Todos los barrios
         title: Presupuestos participativos
         unfeasible: Propuestas de inversión no viables
         unfeasible_text: Las propuestas presentadas deben cumplir una serie de criterios (legalidad, concreción, ser competencia del Ayuntamiento, no superar el tope del presupuesto; %{definitions}) para ser declaradas viables y llegar hasta la fase de votación final. Todas las propuestas que no cumplen estos criterios son marcadas como inviables y publicadas en la siguiente lista, junto con su informe de inviabilidad.

@@ -14,7 +14,7 @@ class Management::UsersController < Management::BaseController
     if @user.save then
       render :show
     else
-      render :new
+      render :new, alert: @user.errors.inspect
     end
   end
 

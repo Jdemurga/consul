@@ -11,12 +11,12 @@ Rails.application.routes.draw do
                        confirmations: 'users/confirmations',
                        omniauth_callbacks: 'users/omniauth_callbacks'
                      }
-  devise_for :organizations, class_name: 'User',
-             controllers: {
-               registrations: 'organizations/registrations',
-               sessions: 'devise/sessions',
-             },
-             skip: [:omniauth_callbacks]
+  #devise_for :organizations, class_name: 'User',
+  #           controllers: {
+  #             registrations: 'organizations/registrations',
+  #             sessions: 'devise/sessions',
+  #           },
+  #           skip: [:omniauth_callbacks]
 
   devise_scope :organization do
     get 'organizations/sign_up/success', to: 'organizations/registrations#success'
@@ -35,6 +35,9 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get '/welcome', to: 'welcome#welcome'
   get '/cuentasegura', to: 'welcome#verification', as: :cuentasegura
+
+  # GET-67 Usernames can include dots and needs to be shown by username
+  get 'users/:id', to: 'users#show', constraints: { id: /[a-zA-Z1-9\.@]+/ }
 
   resources :debates do
     member do
@@ -76,11 +79,23 @@ Rails.application.routes.draw do
   end
 
   resources :budgets, only: [:show, :index] do
+    member do
+      get :results
+    end
+
     resources :groups, controller: "budgets/groups", only: [:show]
     resources :investments, controller: "budgets/investments", only: [:index, :new, :create, :show, :destroy] do
       member { post :vote }
     end
     resource :ballot, only: :show, controller: "budgets/ballots" do
+
+      member do
+        post :confirm
+        post :resend_code
+        patch :commit
+        delete :discard
+      end
+
       resources :lines, controller: "budgets/ballot/lines", only: [:create, :destroy]
     end
     resource :results, only: :show, controller: "budgets/results"
@@ -192,6 +207,15 @@ Rails.application.routes.draw do
     end
 
     resources :budgets do
+
+      #GET-112
+      member do
+        get :results
+        get :public_results
+        get :ballot_paper
+        get :ballot_dashboard
+      end
+
       resources :budget_groups do
         resources :budget_headings do
         end
@@ -322,6 +346,12 @@ Rails.application.routes.draw do
       put :hide, on: :member
       put :moderate, on: :collection
     end
+
+    #GET-57
+    resources :investments, only: :index do
+      put :hide, on: :member
+      put :moderate, on: :collection
+    end
   end
 
   namespace :valuation do
@@ -363,6 +393,8 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resources :proposals, only: [:index, :new, :create, :show] do
       post :vote, on: :member
+      post :vote_up, on: :member
+      post :vote_down, on: :member
       get :print, on: :collection
     end
 
@@ -376,7 +408,17 @@ Rails.application.routes.draw do
         get :create_investments
         get :support_investments
         get :print_investments
+        get :ballot_investments
       end
+
+      resources :ballots, only: [:new, :show], controller: 'budgets/ballots' do
+          resources :lines, controller: "budgets/ballots/lines", only: [:create, :destroy]
+          member do
+            post :confirm
+            delete :discard
+          end
+      end
+
       resources :investments, only: [:index, :new, :create, :show, :destroy], controller: 'budgets/investments' do
         post :vote, on: :member
         get :print, on: :collection
@@ -411,6 +453,40 @@ Rails.application.routes.draw do
   get 'more-information/participation/world', to: 'pages#show', id: 'more_info/participation/world',  as: 'participation_world'
 
   # static pages
-  get '/blog' => redirect("http://blog.consul/")
+  get '/blog' => redirect("http://getafe.es/")
+
+  # GET-24 Carga de resultados de 2016-06
+  get 'presupuestos-participativos-2016-resultados', to: 'spending_proposals#results', as: 'participatory_budget_results'
+
+  # GET-17
+  # GET-22
+  get 'presupuestos-participativos-2017', to: 'pages#show', id: 'participatory_budget/in_two_minutes', as: 'participatory_budget/in_two_minutes'
+  get 'participatory_budget', to: 'spending_proposals#welcome', as: 'participatory_budget'
+  get 'informacion-detallada-participa-getage', to: 'pages#show', as: 'mode_information', id: 'more_information'
+  get 'comisiones-de-barrio', to: 'pages#show', as: 'about_neighborhood_commissions', id: 'about_neighborhood_commissions'
+
+
+  get 'plan-municipal-accesibilidad-getafe',
+      to: 'pages#show',
+      as: 'plan-municipal-accesibilidad-getafe',
+      id: 'plan_municipal_de_la_accesibilidad_de_getafe'
+
+  get 'participacion-consulta-pleno-del-estado-del-municipio',
+      to: 'pages#show',
+      as: 'participacion-consulta-pleno-del-estado-del-municipio',
+      id: 'participacion_consulta_pleno_del_estado_del_municipio'
+
+  get 'reglamento-cesiones-locales-municipales',
+      to: 'pages#show',
+      as: 'reglamento-cesiones-locales-municipales',
+      id: 'reglamento_cesiones_locales_municipales'
+
+  get 'ordenanza-reguladora-adjudicacion-terrenos-municipales',
+      to: 'pages#show',
+      as: 'ordenanza-reguladora-adjudicacion-terrenos-municipales',
+      id: 'ordenanza_reguladora_adjudicacion_terrenos_municipales'
+
+
+
   resources :pages, path: '/', only: [:show]
 end

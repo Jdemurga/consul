@@ -12,6 +12,7 @@ module Budgets
     before_action -> { flash.now[:notice] = flash[:notice].html_safe if flash[:html_safe] && flash[:notice] }
     before_action :load_ballot, only: [:index, :show]
     before_action :load_heading, only: [:index, :show]
+    before_action :load_group, only: [:index, :show]
     before_action :set_random_seed, only: :index
     before_action :load_categories, only: [:index, :new, :create]
     before_action :set_default_budget_filter, only: :index
@@ -34,6 +35,12 @@ module Budgets
     end
 
     def new
+      if params[:group_id]
+        @group = @budget.groups.find(params[:group_id])
+        @heading = @group.headings.first
+      else
+        redirect_to @budget, notice: I18n.t('budgets.investments.new.should_select_a_geozone', budget_page_url: budget_path(@budget)).html_safe
+      end
     end
 
     def show
@@ -46,12 +53,15 @@ module Budgets
 
     def create
       @investment.author = current_user
+      @heading = @investment.heading
+      @group = @heading.group
 
       if @investment.save
         Mailer.budget_investment_created(@investment).deliver_later
         redirect_to budget_investment_path(@budget, @investment),
                     notice: t('flash.actions.create.budget_investment')
       else
+
         render :new
       end
     end
@@ -62,7 +72,7 @@ module Budgets
     end
 
     def vote
-      @investment.register_selection(current_user)
+      @investment.register_selection(current_user, params[:value]) #GET-62
       load_investment_votes(@investment)
       respond_to do |format|
         format.html { redirect_to budget_investments_path(heading_id: @investment.heading.id) }
@@ -87,7 +97,8 @@ module Budgets
       end
 
       def investment_params
-        params.require(:budget_investment).permit(:title, :description, :external_url, :heading_id, :tag_list, :organization_name, :location, :terms_of_service)
+        #GET-62 Permit uploads
+        params.require(:budget_investment).permit(:title, :description, :external_url, :heading_id, :tag_list, :organization_name, :location, :terms_of_service, :attachment, :attachment_cache)
       end
 
       def load_ballot
@@ -95,10 +106,20 @@ module Budgets
         @ballot = @budget.balloting? ? query.first_or_create : query.first_or_initialize
       end
 
+      def load_group
+        if params[:group_id].present?
+          @group = @budget.groups.find(params[:group_id])
+        end
+      end
+
       def load_heading
         if params[:heading_id].present?
           @heading = @budget.headings.find(params[:heading_id])
           @assigned_heading = @ballot.try(:heading_for_group, @heading.try(:group))
+          @group = @heading.group
+        else
+          # GET-107 - Default heading
+          @heading = @budget.headings.first
         end
       end
 

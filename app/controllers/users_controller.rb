@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   has_filters %w{proposals debates budget_investments comments}, only: :show
 
+  before_filter :find_by_username, :only => :show
+
   load_and_authorize_resource
   helper_method :author?
   helper_method :author_or_admin?
@@ -10,6 +12,13 @@ class UsersController < ApplicationController
   end
 
   private
+
+  #GET-65
+  def find_by_username
+    @user = User.find_by_param(params[:id])
+    raise ActiveRecord::RecordNotFound.new() unless @user #GET-67 User's profile only accessible by username
+  end
+
     def set_activity_counts
       @activity_counts = HashWithIndifferentAccess.new(
                           proposals: Proposal.where(author_id: @user.id).count,

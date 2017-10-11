@@ -1,28 +1,27 @@
-<ul class="no-bullet external-links">
-  <li>
-    <%= link_to t("layouts.header.external_link_transparency"),
-                setting['transparency_url'].presence || t("layouts.header.external_link_transparency_url"),
-                target: "_blank",
-                rel: "nofollow",
-                title: t("shared.go_to_page") + t("layouts.header.external_link_transparency") + t('shared.target_blank_html') %>
-  </li>
-  <li>
-    <%= link_to t("layouts.header.external_link_opendata"),
-                setting['opendata_url'].presence || t("layouts.header.external_link_opendata_url"),
-                target: "_blank",
-                rel: "nofollow",
-                title: t("shared.go_to_page") + t("layouts.header.external_link_opendata") + t('shared.target_blank_html') %>
-  </li>
+<div class="top-links hide-for-small-only">
+  <div class="row">
+    <%= render "shared/locale_switcher" %>
+    <ul class="no-bullet external-links">
 
-  <% if setting['blog_url'] %>
-    <li>
-      <%= link_to t("layouts.header.external_link_blog"),
-                  setting['blog_url'],
-                  target: "_blank",
-                  rel: "nofollow",
-                  title: t("shared.go_to_page") + t("layouts.header.external_link_blog") + t('shared.target_blank_html') %>
-    </li>
-  <% end %>
-
-  <%= raw content_block("top_links", I18n.locale) %>
-</ul>
+      <li class="inline-block">
+        <%= link_to t("layouts.header.previous_hearing"), page_path('public_hearings')    %> |
+      </li>
+      <li class="inline-block">
+        <%= link_to t("layouts.header.participatory_budgets_2016"), participatory_budget_results_path %> |
+      </li>
+      <li class="inline-block">
+        <%= link_to t("layouts.header.more_information"), page_path('more_information')  %> |
+      </li>
+      <li class="inline-block"><%= link_to t("layouts.header.external_link_transparency"), t("layouts.header.external_link_transparency_url"), target: 'blank' %>&nbsp;|</li>
+      <li class="inline-block"><%= link_to t("layouts.header.external_link_participatory"), t("layouts.header.external_link_participatory_url"), target: 'blank' %></li>
+      <% if setting['blog_url'] %>
+        <li class="inline-block">|&nbsp;
+          <%= link_to setting['blog_url'], title: t('shared.target_blank_html'), target: "_blank" do %>
+            <%= t("layouts.header.external_link_blog") %>
+          <% end %>
+        </li>
+      <% end %>
+      <%= raw content_block("top_links", I18n.locale) %>
+    </ul>
+  </div>
+</div>

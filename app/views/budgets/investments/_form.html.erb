@@ -1,10 +1,30 @@
-<%= form_for(@investment, url: form_url, method: :post) do |f| %>
+<%= form_for(@investment, url: form_url, multipart: true, method: :post) do |f| %>
   <%= render 'shared/errors', resource: @investment %>
 
   <div class="row">
-    <div class="small-12 medium-8 column">
-      <%= f.select :heading_id, budget_heading_select_options(@budget), {include_blank: true, } %>
+    <div class="small-12 column">
+      <div data-alert="" class="callout primary">
+        <%= link_to page_path('more_information', anchor: '2-1'), target: '_blank' do %>
+          <%= t('budgets.investments.new.more_information') %>
+        <% end %>
+      </div>
     </div>
+
+    <% if @group %>
+    <div class="small-12 medium-6  column">
+      <%= f.select :group_id, [[@group.name, @group.id]], {include_blank: false } %>
+    </div>
+    <% end %>
+
+    <% if @heading %>
+    <div class="small-12 medium-6 column">
+      <%= f.select :heading_id, @group.headings.collect { |h| [h.name, h.id] }, {include_blank: false } %>
+    </div>
+    <% else %>
+        <div class="small-12 medium-6 column">
+          <%= f.select :heading_id, budget_heading_select_options(@budget), {include_blank: true } %>
+        </div>
+    <% end %>
 
     <div class="small-12 column">
       <%= f.text_field :title, maxlength: SpendingProposal.title_max_length %>
@@ -17,10 +37,29 @@
     </div>
 
     <div class="small-12 column">
-      <%= f.text_field :external_url %>
+
+
+
+      <%= f.file_field :attachment, accept: ".pdf,.jpg,.gif,.png"  %>
+
+
+      <% if @investment.attachment? && @investment.errors[:attachment].empty? %>
+          <%= f.hidden_field :attachment_cache %>
+          <div class="callout primary">
+            <%= link_to(t('budgets.investments.new.attachment_already_uploaded'), @investment.attachment_url, {target: '_blank'}) if @investment && @investment.attachment? %>
+          </div>
+      <% end %>
+
+      <div class="callout info">
+        <%= t('budgets.investments.new.about_attachment_restrictitions').html_safe %>
+      </div>
+
+
+
     </div>
 
     <div class="small-12 column">
+      <br>
       <%= f.text_field :location %>
     </div>
 

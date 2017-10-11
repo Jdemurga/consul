@@ -109,15 +109,30 @@
           <p><%= t("account.show.user_permission_info") %></p>
 
           <ul>
-            <li><span class="icon-check"></span>&nbsp;<%= t("account.show.user_permission_debates") %></li>
-            <li><span class="icon-check"></span>&nbsp;<%= t("account.show.user_permission_proposal") %></li>
+
+            <li>
+              <% if current_user.level_two_or_three_verified? %>
+                  <span class="icon-check"></span>
+              <% else %>
+                  <span class="icon-x"></span>
+              <% end %>
+              <%= t("account.show.user_permission_debates") %>*
+            </li>
+            <li>
+              <% if current_user.level_two_or_three_verified? %>
+                  <span class="icon-check"></span>
+              <% else %>
+                  <span class="icon-x"></span>
+              <% end %>
+              <%= t("account.show.user_permission_proposal") %>*
+            </li>
             <li>
               <% if current_user.level_two_or_three_verified? %>
                 <span class="icon-check"></span>
               <% else %>
                 <span class="icon-x"></span>
               <% end %>
-              <%= t("account.show.user_permission_support_proposal") %>
+              <%= t("account.show.user_permission_support_proposal") %>*
             </li>
             <li>
               <% if current_user.level_three_verified? %>
@@ -126,6 +141,14 @@
                 <span class="icon-x"></span>
               <% end %>
               <%= t("account.show.user_permission_votes") %>
+            </li>
+            <li>
+              <% if current_user.level_three_verified? %>
+                  <span class="icon-check"></span>
+              <% else %>
+                  <span class="icon-x"></span>
+              <% end %>
+              <%= t("account.show.user_permission_neigh_commission") %>
             </li>
           </ul>
 
@@ -140,9 +163,12 @@
               <span class="verify-account">
                 <% if current_user.level_three_verified? %>
                   <p class="already-verified">
+
                     <span class="icon-check"></span>
                     <%= t("account.show.verified_account") %>
                   </p>
+                    <%= link_to t("account.show.change_neigh_comission"), edit_user_registration_path(tab: 'extra'), class: "button success" %>
+                    <div><span class="small">(*)<%= t("account.show.change_neigh_comission_hint") %></span></div>
                 <% elsif current_user.level_two_verified? %>
                   <%= link_to t("account.show.finish_verification"), verification_path, class: "button success" %>
                 <% else %>

@@ -70,9 +70,9 @@ es:
       reconsider_html: "Si consideras que el proyecto rechazado cumple los requisitos para mantenerlo como proyecto de gasto, podrás comunicarlo, en el plazo de 48 horas, al correo example@consul.es, indicando necesariamente para su tramitación el código %{code} como asunto del correo, correspondiente a tu proyecto."
       sincerely: "Atentamente"
       signatory: "DIRECCIÓN GENERAL DE PARTICIPACIÓN CIUDADANA"
-      sorry: "Sentimos las molestias ocasionadas y volvemos a darte las gracias por tu inestimable participación."
+      sorry: "Darte de nuevo las gracias por tu inestimable participación."
       subject: "Tu propuesta de inversión '%{code}' ha sido marcada como inviable"
-      unfeasible_html: "Desde el Ayuntamiento queremos agradecer tu participación en los <strong>Presupuestos Participativos</strong>. Lamentamos informarte de que tu proyecto <strong>'%{title}'</strong> quedará excluido de este proceso participativo por el siguiente motivo:"
+      unfeasible_html: "Desde el Ayuntamiento de Getafe queremos agradecer tu participación en los <strong>Presupuestos Participativos</strong>. Lamentamos informarte de que tu proyecto <strong>'%{title}'</strong> quedará excluido de este proceso participativo por el siguiente motivo:"
     budget_investment_selected:
       subject: "Tu propuesta de inversión '%{code}' ha sido seleccionada"
       hi: "Estimado/a usuario/a"
@@ -91,3 +91,4 @@ es:
       thanks: "Gracias de nuevo por tu participación."
       sincerely: "Atentamente"
       signatory: "DIRECCIÓN GENERAL DE PARTICIPACIÓN CIUDADANA"
+      unfeasible_html: "Desde el Ayuntamiento de Getafe queremos agradecer tu participación en los <strong>Presupuestos Participativos</strong>. Lamentamos informarte de que tu proyecto <strong>'%{title}'</strong> quedará excluido de este proceso participativo por el siguiente motivo:"

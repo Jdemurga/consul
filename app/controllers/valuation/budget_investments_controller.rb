@@ -22,11 +22,17 @@ class Valuation::BudgetInvestmentsController < Valuation::BaseController
   def valuate
     if valid_price_params? && @investment.update(valuation_params)
 
+      # GET-99
+      # Set the valuation status for each  user
+      @investment.update_own_validation_for_valuator(current_user.try(:valuator).try(:id))
+
+
       if @investment.unfeasible_email_pending?
         @investment.send_unfeasible_email
       end
 
       Activity.log(current_user, :valuate, @investment)
+
       redirect_to valuation_budget_budget_investment_path(@budget, @investment), notice: t('valuation.budget_investments.notice.valuate')
     else
       render action: :edit
@@ -41,6 +47,7 @@ class Valuation::BudgetInvestmentsController < Valuation::BaseController
 
     def load_investment
       @investment = @budget.investments.find params[:id]
+      @investment.mark_as_finished_own_valuation = @investment.is_mark_as_finished_own_valuation_for_valuator?(current_user.try(:valuator).try(:id))
     end
 
     def heading_filters
@@ -63,7 +70,7 @@ class Valuation::BudgetInvestmentsController < Valuation::BaseController
     end
 
     def valuation_params
-      params.require(:budget_investment).permit(:price, :price_first_year, :price_explanation, :feasibility, :unfeasibility_explanation, :duration, :valuation_finished, :internal_comments)
+      params.require(:budget_investment).permit(:price, :price_first_year, :price_explanation, :feasibility, :unfeasibility_explanation, :duration, :valuation_finished, :internal_comments, :mark_as_finished_own_valuation)
     end
 
     def restrict_access_to_assigned_items

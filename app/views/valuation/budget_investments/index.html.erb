@@ -26,6 +26,7 @@
       <th><%= t("valuation.budget_investments.index.table_id") %></th>
       <th><%= t("valuation.budget_investments.index.table_title") %></th>
       <th><%= t("valuation.budget_investments.index.table_heading_name") %></th>
+      <th class="text-center"><%= t("valuation.budget_investments.index.table_heading_valuation_status") %></th>
       <th><%= t("valuation.budget_investments.index.table_actions") %></th>
     </tr>
   </thead>
@@ -40,6 +41,14 @@
         </td>
         <td class="small">
           <%= investment.heading.name %>
+        </td>
+        <td class="small">
+
+          <% if investment.is_mark_as_finished_for_valuator?(current_user.try(:valuator).try(:id)) %>
+              <span class="label success"><%= t("admin.budget_investments.show.assigment_complete", finished_at: l(investment.is_mark_as_finished_for_valuator?(current_user.try(:valuator).try(:id)), format: :short)) %></span>
+          <% else %>
+              <span class="label warning"><%= t("admin.budget_investments.show.assigment_peding") %></span>
+          <% end %>
         </td>
         <td class="small">
           <%= link_to t("valuation.budget_investments.index.edit"),

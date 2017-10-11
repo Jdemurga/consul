@@ -6,6 +6,7 @@ class Management::BudgetsController < Management::BaseController
   before_action :only_verified_users, except: :print_investments
 
   def create_investments
+
     @budgets = Budget.accepting.order(created_at: :desc).page(params[:page])
 
     if current_manager_administrator?
@@ -19,6 +20,10 @@ class Management::BudgetsController < Management::BaseController
   end
 
   def print_investments
+    @budgets = Budget.current.order(created_at: :desc).page(params[:page])
+  end
+
+  def ballot_investments
     @budgets = Budget.current.order(created_at: :desc).page(params[:page])
   end
 

@@ -43,7 +43,18 @@ class Verification::Residence
   end
 
   def document_number_uniqueness
-    errors.add(:document_number, I18n.t('errors.messages.taken')) if User.active.where(document_number: document_number).any?
+
+    errors.add(:document_number, I18n.t('errors.messages.taken')) if User.where(document_number: valid_variants).any?
+  end
+
+  # WIll calculate all variants to avoid repeat
+  def valid_variants
+
+    if (@census_api_response.valid? && document_number_from_census && document_number_letter)
+      CensusApiCustom.new.get_document_number_variants(document_type, document_number_from_census + document_number_letter)
+    else
+      document_number
+    end
   end
 
   def store_failed_attempt
@@ -54,6 +65,15 @@ class Verification::Residence
       date_of_birth:   date_of_birth,
       postal_code:     postal_code
     })
+  end
+
+
+  def document_number_from_census
+    @census_api_response.document_number_from_census
+  end
+
+  def document_number_letter
+    @census_api_response.document_number_letter
   end
 
   def geozone
@@ -71,13 +91,12 @@ class Verification::Residence
   private
 
     def call_census_api
-      @census_api_response = CensusApi.new.call(document_type, document_number)
+      @census_api_response = CensusApiCustom.new.call(document_type, document_number)
     end
 
     def residency_valid?
-      @census_api_response.valid? &&
-        @census_api_response.postal_code == postal_code &&
-        @census_api_response.date_of_birth == date_of_birth
+        # GET-44 Customer requirements about residence check
+        @census_api_response.valid? && @census_api_response.date_of_birth == date_of_birth
     end
 
     def clean_document_number

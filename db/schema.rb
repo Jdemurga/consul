@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519084239) do
+ActiveRecord::Schema.define(version: 20170617132538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "unaccent"
   enable_extension "pg_trgm"
+  enable_extension "unaccent"
 
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
@@ -78,6 +78,31 @@ ActiveRecord::Schema.define(version: 20170519084239) do
 
   add_index "banners", ["hidden_at"], name: "index_banners_on_hidden_at", using: :btree
 
+  create_table "budget_ballot_confirmations", force: :cascade do |t|
+    t.string   "phone_number"
+    t.integer  "group_id"
+    t.integer  "ballot_id"
+    t.integer  "budget_id"
+    t.integer  "user_id"
+    t.integer  "confirmed_by_user_id"
+    t.datetime "confirmed_at"
+    t.string   "confirmed_by_username"
+    t.integer  "discarted_by_user_id"
+    t.datetime "discarted_at"
+    t.string   "discarted_by_username"
+    t.datetime "sms_sent_at"
+    t.text     "ballot_summary"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "sms_confirmation_code"
+    t.datetime "sms_code_sent_at"
+    t.string   "sms_code_sent_by_username"
+    t.integer  "sms_code_sent_by_user_id"
+    t.text     "sms_code_sending_error"
+    t.string   "created_by_username"
+    t.integer  "created_by_user_id"
+  end
+
   create_table "budget_ballot_lines", force: :cascade do |t|
     t.integer  "ballot_id"
     t.integer  "investment_id"
@@ -86,6 +111,7 @@ ActiveRecord::Schema.define(version: 20170519084239) do
     t.integer  "budget_id"
     t.integer  "group_id"
     t.integer  "heading_id"
+    t.integer  "points"
   end
 
   add_index "budget_ballot_lines", ["ballot_id", "investment_id"], name: "index_budget_ballot_lines_on_ballot_id_and_investment_id", unique: true, using: :btree
@@ -95,13 +121,15 @@ ActiveRecord::Schema.define(version: 20170519084239) do
   create_table "budget_ballots", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "budget_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.float    "random_seed"
   end
 
   create_table "budget_groups", force: :cascade do |t|
     t.integer "budget_id"
-    t.string  "name",      limit: 50
+    t.string  "name",       limit: 50
+    t.integer "geozone_id"
   end
 
   add_index "budget_groups", ["budget_id"], name: "index_budget_groups_on_budget_id", using: :btree
@@ -145,6 +173,14 @@ ActiveRecord::Schema.define(version: 20170519084239) do
     t.string   "location"
     t.string   "organization_name"
     t.datetime "unfeasible_email_sent_at"
+    t.string   "attachment"
+    t.boolean  "attachment_verified"
+    t.string   "attachment_verified_by"
+    t.datetime "ignored_flag_at"
+    t.integer  "flags_count",                           default: 0
+    t.integer  "unified_with_id"
+    t.string   "unification_reason"
+    t.text     "unification_explanation"
     t.integer  "ballot_lines_count",                    default: 0
     t.integer  "previous_heading_id"
     t.boolean  "winner",                                default: false
@@ -154,6 +190,7 @@ ActiveRecord::Schema.define(version: 20170519084239) do
   add_index "budget_investments", ["author_id"], name: "index_budget_investments_on_author_id", using: :btree
   add_index "budget_investments", ["heading_id"], name: "index_budget_investments_on_heading_id", using: :btree
   add_index "budget_investments", ["tsv"], name: "index_budget_investments_on_tsv", using: :gin
+  add_index "budget_investments", ["unified_with_id"], name: "index_budget_investments_on_unified_with_id", using: :btree
 
   create_table "budget_reclassified_votes", force: :cascade do |t|
     t.integer  "user_id"
@@ -166,8 +203,9 @@ ActiveRecord::Schema.define(version: 20170519084239) do
   create_table "budget_valuator_assignments", force: :cascade do |t|
     t.integer  "valuator_id"
     t.integer  "investment_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.datetime "finished_by_user_at"
   end
 
   add_index "budget_valuator_assignments", ["investment_id"], name: "index_budget_valuator_assignments_on_investment_id", using: :btree
@@ -223,19 +261,30 @@ ActiveRecord::Schema.define(version: 20170519084239) do
   add_index "comments", ["hidden_at"], name: "index_comments_on_hidden_at", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
+  create_table "commissions", force: :cascade do |t|
+    t.integer  "geozone_id"
+    t.string   "name"
+    t.string   "place"
+    t.string   "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "commissions", ["geozone_id"], name: "index_commissions_on_geozone_id", using: :btree
+
   create_table "debates", force: :cascade do |t|
     t.string   "title",                        limit: 80
     t.text     "description"
     t.integer  "author_id"
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
     t.string   "visit_id"
     t.datetime "hidden_at"
     t.integer  "flags_count",                             default: 0
+    t.datetime "ignored_flag_at"
     t.integer  "cached_votes_total",                      default: 0
     t.integer  "cached_votes_up",                         default: 0
     t.integer  "cached_votes_down",                       default: 0
-    t.datetime "ignored_flag_at"
     t.integer  "comments_count",                          default: 0
     t.datetime "confirmed_hide_at"
     t.integer  "cached_anonymous_votes_total",            default: 0
@@ -245,6 +294,7 @@ ActiveRecord::Schema.define(version: 20170519084239) do
     t.integer  "geozone_id"
     t.tsvector "tsv"
     t.datetime "featured_at"
+    t.boolean  "likes_disallowed",                        default: false
   end
 
   add_index "debates", ["author_id", "hidden_at"], name: "index_debates_on_author_id_and_hidden_at", using: :btree
@@ -254,7 +304,6 @@ ActiveRecord::Schema.define(version: 20170519084239) do
   add_index "debates", ["cached_votes_total"], name: "index_debates_on_cached_votes_total", using: :btree
   add_index "debates", ["cached_votes_up"], name: "index_debates_on_cached_votes_up", using: :btree
   add_index "debates", ["confidence_score"], name: "index_debates_on_confidence_score", using: :btree
-  add_index "debates", ["description"], name: "index_debates_on_description", using: :btree
   add_index "debates", ["geozone_id"], name: "index_debates_on_geozone_id", using: :btree
   add_index "debates", ["hidden_at"], name: "index_debates_on_hidden_at", using: :btree
   add_index "debates", ["hot_score"], name: "index_debates_on_hot_score", using: :btree
@@ -715,7 +764,6 @@ ActiveRecord::Schema.define(version: 20170519084239) do
   add_index "proposals", ["author_id"], name: "index_proposals_on_author_id", using: :btree
   add_index "proposals", ["cached_votes_up"], name: "index_proposals_on_cached_votes_up", using: :btree
   add_index "proposals", ["confidence_score"], name: "index_proposals_on_confidence_score", using: :btree
-  add_index "proposals", ["description"], name: "index_proposals_on_description", using: :btree
   add_index "proposals", ["geozone_id"], name: "index_proposals_on_geozone_id", using: :btree
   add_index "proposals", ["hidden_at"], name: "index_proposals_on_hidden_at", using: :btree
   add_index "proposals", ["hot_score"], name: "index_proposals_on_hot_score", using: :btree
@@ -784,13 +832,22 @@ ActiveRecord::Schema.define(version: 20170519084239) do
     t.datetime "updated_at",                           null: false
   end
 
+  create_table "sms_otps", force: :cascade do |t|
+    t.string   "phone_number",      null: false
+    t.string   "confirmation_code", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "sms_otps", ["phone_number"], name: "index_sms_otps_on_phone_number", using: :btree
+
   create_table "spending_proposals", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",                       limit: 255
     t.text     "description"
     t.integer  "author_id"
     t.string   "external_url"
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.integer  "geozone_id"
     t.integer  "price",                       limit: 8
     t.boolean  "feasible"
@@ -798,17 +855,20 @@ ActiveRecord::Schema.define(version: 20170519084239) do
     t.text     "price_explanation"
     t.text     "feasible_explanation"
     t.text     "internal_comments"
-    t.boolean  "valuation_finished",                     default: false
+    t.boolean  "valuation_finished",                      default: false
     t.text     "explanations_log"
     t.integer  "administrator_id"
-    t.integer  "valuation_assignments_count",            default: 0
+    t.integer  "valuation_assignments_count",             default: 0
     t.integer  "price_first_year",            limit: 8
     t.string   "time_scope"
     t.datetime "unfeasible_email_sent_at"
-    t.integer  "cached_votes_up",                        default: 0
+    t.integer  "cached_votes_up",                         default: 0
     t.tsvector "tsv"
     t.string   "responsible_name",            limit: 60
-    t.integer  "physical_votes",                         default: 0
+    t.integer  "physical_votes",                          default: 0
+    t.string   "spending_type"
+    t.string   "phase",                                   default: "pre_bidding"
+    t.string   "extra_info"
   end
 
   add_index "spending_proposals", ["author_id"], name: "index_spending_proposals_on_author_id", using: :btree
@@ -923,12 +983,14 @@ ActiveRecord::Schema.define(version: 20170519084239) do
     t.boolean  "email_digest",                              default: true
     t.boolean  "email_on_direct_message",                   default: true
     t.boolean  "official_position_badge",                   default: false
-    t.datetime "password_changed_at",                       default: '2016-11-23 10:59:20', null: false
+    t.datetime "password_changed_at",                       default: '2016-12-30 01:08:21', null: false
+    t.integer  "commission_id"
     t.boolean  "created_from_signature",                    default: false
     t.integer  "failed_email_digests_count",                default: 0
     t.text     "former_users_data_log",                     default: ""
   end
 
+  add_index "users", ["commission_id"], name: "index_users_on_commission_id", using: :btree
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["geozone_id"], name: "index_users_on_geozone_id", using: :btree
@@ -1017,6 +1079,7 @@ ActiveRecord::Schema.define(version: 20170519084239) do
   add_foreign_key "administrators", "users"
   add_foreign_key "annotations", "legacy_legislations"
   add_foreign_key "annotations", "users"
+  add_foreign_key "commissions", "geozones"
   add_foreign_key "failed_census_calls", "poll_officers"
   add_foreign_key "failed_census_calls", "users"
   add_foreign_key "flags", "users"
@@ -1048,6 +1111,7 @@ ActiveRecord::Schema.define(version: 20170519084239) do
   add_foreign_key "poll_voters", "polls"
   add_foreign_key "poll_white_results", "poll_booth_assignments", column: "booth_assignment_id"
   add_foreign_key "poll_white_results", "poll_officer_assignments", column: "officer_assignment_id"
+  add_foreign_key "users", "commissions"
   add_foreign_key "users", "geozones"
   add_foreign_key "valuators", "users"
 end

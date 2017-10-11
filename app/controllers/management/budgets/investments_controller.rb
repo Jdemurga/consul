@@ -41,7 +41,7 @@ class Management::Budgets::InvestmentsController < Management::BaseController
   end
 
   def print
-    @investments = @investments.apply_filters_and_search(@budget, params).order(cached_votes_up: :desc).for_render.limit(15)
+    @investments = @investments.apply_filters_and_search(@budget, params).order(created_at: :asc).for_render
     load_investment_votes(@investments)
   end
 
@@ -52,7 +52,7 @@ class Management::Budgets::InvestmentsController < Management::BaseController
     end
 
     def investment_params
-      params.require(:budget_investment).permit(:title, :description, :external_url, :heading_id, :tag_list, :organization_name, :location)
+      params.require(:budget_investment).permit(:title, :description, :heading_id, :attachment, :attachment_cache, :external_url, :tag_list, :organization_name, :location)
     end
 
     def only_verified_users

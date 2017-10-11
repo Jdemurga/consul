@@ -1,0 +1,20 @@
+es:
+  account:
+    show:
+      change_commission: 'Establecer mi comisión de barrio'
+  activerecord:
+    attributes:
+      user:
+        commission: "Comisión de barrio"
+
+  devise_views:
+    users:
+      registrations:
+        edit:
+          commission_label: 'Comisión de barrio a la que suscribirse'
+          commission_hint: 'NOTA IMPORTANTE: ¡Atención! Una vez que seleccione una comisión de barrio, esta no podrá ser cambiada'
+          no_commission_selected: 'Sin asignar a comisión de barrio'
+          extra_data: 'Comisiones de barrio'
+          account_data: 'Datos de acceso'
+  errors:
+    commission_can_not_be_updated_twice: 'no puede ser establecida por segunda vez'

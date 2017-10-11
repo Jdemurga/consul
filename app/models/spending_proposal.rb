@@ -6,6 +6,15 @@ class SpendingProposal < ActiveRecord::Base
 
   acts_as_votable
 
+  #GET-131
+  PHASES = ['no_bidding',
+        'pre_bidding',
+        'bidding',
+        'in_progress',
+        'being_processed',
+        'almost_finished',
+        'finished']
+
   belongs_to :author, -> { with_hidden }, class_name: 'User', foreign_key: 'author_id'
   belongs_to :geozone
   belongs_to :administrator
@@ -30,6 +39,9 @@ class SpendingProposal < ActiveRecord::Base
   scope :unfeasible,             -> { where(feasible: false) }
   scope :not_unfeasible,         -> { where("feasible IS ? OR feasible = ?", nil, true) }
   scope :with_supports,          -> { where('cached_votes_up > 0') }
+
+  scope :programs,               -> { where(spending_type: 'program') }
+  scope :investments,            -> { where(spending_type: 'investment') }
 
   scope :by_admin,    -> (admin)    { where(administrator_id: admin.presence) }
   scope :by_tag,      -> (tag_name) { tagged_with(tag_name) }

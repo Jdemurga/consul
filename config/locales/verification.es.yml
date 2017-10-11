@@ -87,7 +87,7 @@ es:
         submit_button: Enviar
         title: SMS de confirmación
       update:
-        error: Código de confirmación incorrecto
+        error: Código de confirmación incorrecto, por favor solicite un código nuevo
         flash:
           level_three:
             success: Código correcto. Tu cuenta ya está verificada

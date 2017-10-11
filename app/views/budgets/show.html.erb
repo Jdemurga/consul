@@ -1,24 +1,19 @@
-<% content_for :canonical do %>
-  <%= render "shared/canonical", href: budget_url(@budget, filter: @current_filter) %>
-<% end %>
-
-<div class="expanded budget no-margin-top">
-  <div class="row" data-equalizer data-equalizer-on="medium">
+<div class="expanded budget-header-bg no-margin-top">
+  <div class="row" data-equalizer>
     <div class="small-12 medium-9 column padding" data-equalizer-watch>
       <%= back_link_to budgets_path %>
 
       <h1><%= @budget.name %></h1>
-
       <%= safe_html_with_links @budget.description %>
     </div>
-    <div class="small-12 medium-3 column info padding" data-equalizer-watch>
+    <div class="small-12 medium-3 column inner-info info padding" data-equalizer-watch>
       <p>
         <strong><%= t('budgets.show.phase') %></strong>
       </p>
       <h2><%= t("budgets.phase.#{@budget.phase}") %></h2>
 
       <% if @budget.accepting? %>
-        <% if current_user %>
+        <% if @heading && current_user %>
           <% if current_user.level_two_or_three_verified? %>
             <%= link_to t("budgets.investments.index.sidebar.create"), new_budget_investment_path(@budget), class: "button margin-top expanded" %>
           <% else %>
@@ -45,61 +40,50 @@
   </div>
 </div>
 
-<div class="row margin">
-  <div class="small-12 medium-9 column">
-    <% if @current_filter == "unfeasible" %>
-      <h3 class="margin-bottom"><%= t("budgets.show.unfeasible_title") %></h3>
-    <% elsif @current_filter == "unselected" %>
-      <h3 class="margin-bottom"><%= t("budgets.show.unselected_title") %></h3>
-    <% end %>
-    <table class="table-fixed">
-      <thead>
-        <th><%= t('budgets.show.group') %></th>
-      </thead>
-      <tbody>
-        <% @budget.groups.each do |group| %>
-          <tr>
-            <td>
-              <% if group.headings.count == 1 %>
-                <%= link_to group.name,
-                            budget_investments_path(@budget,
-                              heading_id: group.headings.first.id,
-                              filter: @current_filter),
-                            data: { no_turbolink: true } %>
-              <% else %>
-                <%= link_to group.name,
-                            budget_group_path(@budget, group,
-                              filter: @current_filter) %>
-              <% end %>
-              <br>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+<div class="row margin-top">
+  <div class="small-12 column margin">
+
   </div>
+
+  <div class="small-12 medium-9 column margin-top">
+    <h2><%= t("budgets.investments.index.map_title") %></h2>
+    <h5><%= t('budgets.investments.index.map_see_all_proposals',
+              link: link_to(t("budgets.investments.index.map_see_all_proposals_link"), budget_investments_path(@budget) )
+            ).html_safe %>
+    </h5>
+    <div class="text-center">
+      <%= image_tag('map.jpg', id: 'map', usemap: '#html_map', class: 'margin-top', alt: 'Barrios de Getafe') %>
+      <map name="html_map" id="html_map">
+        <% @budget.groups.each do |geozone| %>
+            <area shape="poly"
+                  coords="<%= geozone.geozone.html_map_coordinates %>"
+                  href="<%= budget_investments_path(@budget, group_id: geozone.id) %>"
+                  title="<%= geozone.name %>"
+                  alt="<%= geozone.name %>">
+        <% end %>
+      </map>
+    </div>
+  </div>
+
+  <div class="small-12 medium-3 column margin">
+    <div class="sidebar-divider"></div>
+    <h2 class="sidebar-title"><%= t("budgets.investments.index.sidebar.information") %></h2>
+    <br>
+    <ul id="geozones" class="no-bullet">
+      <li><%= link_to 'El proceso en dos minutos', page_path('participatory_budget/in_two_minutes') %></li>
+      <li><%= link_to 'Información detallada', page_path('more_information', anchor: '4') %></li>
+    </ul>
+
+    <div class="sidebar-divider"></div>
+    <h2 class="sidebar-title">Barrios</h2>
+    <br>
+    <ul id="geozones" class="no-bullet">
+      <li><%= link_to 'Todos los barrios', budget_investments_path(@budget) %></li>
+      <% @budget.groups.each do |group| %>
+          <li><%= link_to group.name, budget_investments_path(@budget, group_id: group.id), class: ("active" if group.id == params[:group]) %></li>
+      <% end %>
+    </ul>
+  </div>
+
+
 </div>
-
-<% if @budget.balloting_or_later? %>
-  <% unless @current_filter == "unfeasible" %>
-    <div class="row">
-      <div class="small-12 column">
-        <small>
-          <%= link_to t("budgets.show.unfeasible"),
-                      budget_path(@budget, filter: "unfeasible") %>
-        </small>
-      </div>
-    </div>
-  <% end %>
-
-  <% unless @current_filter == "unselected" %>
-    <div class="row">
-      <div class="small-12 column">
-        <small>
-          <%= link_to t("budgets.show.unselected"),
-                      budget_path(@budget, filter: "unselected") %>
-        </small>
-      </div>
-    </div>
-  <% end %>
-<% end %>

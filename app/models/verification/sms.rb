@@ -8,7 +8,12 @@ class Verification::Sms
   validate :uniqness_phone
 
   def uniqness_phone
-    errors.add(:phone, :taken) if User.where(confirmed_phone: phone).any?
+
+    errors.add(:phone, :taken) if User.where(confirmed_phone: normalized_phone).any?
+  end
+
+  def normalized_phone
+    normalized = PhonyRails.normalize_number(phone.gsub('+',''), default_country_code: 'ES',  strict: true)
   end
 
   def save
@@ -19,15 +24,20 @@ class Verification::Sms
   end
 
   def update_user_phone_information
-    user.update(unconfirmed_phone: phone, sms_confirmation_code: generate_confirmation_code)
+    pin = generate_confirmation_code
+    user.update(unconfirmed_phone: normalized_phone, sms_confirmation_code: pin)
+
+    # Security
+    # One time pin by normalized phone
+    SmsOtp.create_or_update(normalized_phone, pin)
   end
 
   def send_sms
-    SMSApi.new.sms_deliver(user.unconfirmed_phone, user.sms_confirmation_code)
+    SMSApiCustom.new.sms_deliver(user.unconfirmed_phone, user.sms_confirmation_code)
   end
 
   def verified?
-    user.sms_confirmation_code == confirmation_code
+    (user.sms_confirmation_code == confirmation_code) && SmsOtp.is_confirmed?(user.unconfirmed_phone, confirmation_code)
   end
 
   private

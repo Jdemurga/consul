@@ -5,6 +5,24 @@ module Abilities
     def initialize(user)
       self.merge Abilities::Moderation.new(user)
 
+
+      # GET-106 DEBATES SIN LIKES
+      can :create, Debate
+      can :suggest, Debate
+
+
+      #GET-112 VER RESULTADOS
+      can :results, Budget
+
+      #GET-136
+      can :public_results, Budget
+
+      #GET-113 IMPRIMIR PAPELETAS
+      can :ballot_paper, Budget
+
+      #GET-130
+      can :ballot_dashboard, Budget
+
       can :restore, Comment
       cannot :restore, Comment, hidden_at: nil
 
@@ -48,6 +66,8 @@ module Abilities
       can [:read, :create, :update, :destroy], Budget::Heading
       can [:hide, :update, :toggle_selection], Budget::Investment
       can :valuate, Budget::Investment
+      can :mark_feasibility, Budget::Investment
+      can :finish_valuation, Budget::Investment
       can :create, Budget::ValuatorAssignment
 
       can [:search, :edit, :update, :create, :index, :destroy], Banner

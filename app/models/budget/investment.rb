@@ -21,6 +21,7 @@ class Budget
     has_many :valuators, through: :valuator_assignments
     has_many :comments, as: :commentable
 
+
     validates :title, presence: true
     validates :author, presence: true
     validates :description, presence: true
@@ -240,6 +241,7 @@ class Budget
       investments = all
       investments = investments.send(current_filter)            if current_filter.present?
       investments = investments.by_heading(params[:heading_id]) if params[:heading_id].present?
+      investments = investments.by_group(params[:group_id]) if params[:group_id].present?
       investments = investments.search(params[:search])         if params[:search].present?
       investments
     end
