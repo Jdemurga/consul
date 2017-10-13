@@ -30,6 +30,7 @@ class Admin::BudgetInvestmentsController < Admin::BaseController
   end
 
   def update
+    load_not_unified_investments
     set_valuation_tags
     if @investment.update(budget_investment_params)
       redirect_to admin_budget_budget_investment_path(@budget, @investment, Budget::Investment.filter_params(params)),
@@ -63,12 +64,19 @@ class Admin::BudgetInvestmentsController < Admin::BaseController
 
     def budget_investment_params
       params.require(:budget_investment)
-            .permit(budget_investment_unification_params + [:title, :description, :external_url, :heading_id, :administrator_id, :valuation_tag_list, valuator_ids: []])
+            .permit(budget_investment_unification_params + budget_investment_project_params + [:title, :description, :external_url, :heading_id, :administrator_id, :valuation_tag_list, valuator_ids: []])
     end
 
 
     def budget_investment_unification_params
       [:unified_with_id, :unification_reason, :unification_explanation]
+    end
+
+    def budget_investment_project_params
+      [:project_content,
+          :project_phase,
+          attachments_attributes: [:file, :title, :_destroy, :id]
+      ]
     end
 
     def load_budget

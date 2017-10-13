@@ -38,7 +38,15 @@ class Budget
     #GET-112
     has_many :budget_ballot_lines, :class_name => 'Budget::Ballot::Line'
 
+    has_many :attachments, as: :attachable
+    accepts_nested_attributes_for :attachments,  :reject_if => :all_blank, :allow_destroy => true
+
     attr_accessor :mark_as_finished_own_valuation
+
+
+    def has_project?
+      project_phase.present? && project_content.present?
+    end
 
     #GET-98
     def has_unifications?

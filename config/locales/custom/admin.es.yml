@@ -66,6 +66,7 @@ es:
         ballot_lines_sum: Puntos
         ballot_lines_ratio: Media
         price: Coste propuesta
+        project: Estado
       ballot_dashboard:
         title: Dashboard votaciones
       ballot_paper:
@@ -181,6 +182,12 @@ es:
         undefined: Sin definir
         assigment_peding: Pendiente
         assigment_complete: Completo %{finished_at}
+        project_phase: Estado de licitación/proyecto
+        project_content: Texto sobre el estado del proyecto proyecto
+        project_gallery: Galería de adjuntos
+        project_title: Página de estado del proyecto
+        project: Proyecto/Licitación
+        edit_project: Editar sección de proyecto/licitación
       edit:
         classification: Clasificación
         assigned_valuators: Evaluadores
@@ -190,6 +197,17 @@ es:
         tags_placeholder: "Escribe las etiquetas que desees separadas por comas (,)"
         undefined: Sin definir
         unification: "Unificación de propuestas"
+        project: "Estado de Proyecto/Licitación"
+        project_title: "Título del proyecto"
+        project_title_placeholder: "Descripción del proyecto"
+        project_phase_placeholder: "Estado de la licitación"
+        project_content: "Texto libre sobre el estado del proyecto"
+        project_content_placeholder: "Explicación detallada de los trabajos y noticias de las obras/actividades"
+        project_attachments: "Adjuntos de página de proyecto, fotografías o documentos"
+        project_attachments_add: "Nuevo adjunto"
+        project_attachment_title: "Descripción del adjunto"
+        project_attachment_file: "Fichero PDF/Imagen"
+        project_phase: "Estado de la licitación"
         unification_explanation: "Explicación detallada sobre unificación/retirada"
         unification_reason: "Explicación breve sobre unificación/retirada"
         unified_with: "Propuesta a la cual se agrega/unifica/se retira en favor de"

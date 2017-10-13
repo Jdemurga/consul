@@ -866,3 +866,17 @@ span.hint {
 
   font-weight: bolder;
 }
+
+.card-section.gallery-item {
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0px;
+  margin-bottom: 10px;
+  box-shadow: 1px 4px 5px #777;
+}
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

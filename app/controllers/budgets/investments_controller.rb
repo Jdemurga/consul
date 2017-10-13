@@ -27,6 +27,9 @@ module Budgets
 
     respond_to :html, :js
 
+    def project
+    end
+
     def index
       @investments = @investments.apply_filters_and_search(@budget, params, @current_filter).send("sort_by_#{@current_order}").page(params[:page]).per(10).for_render
       @investment_ids = @investments.pluck(:id)
@@ -98,7 +101,10 @@ module Budgets
 
       def investment_params
         #GET-62 Permit uploads
-        params.require(:budget_investment).permit(:title, :description, :external_url, :heading_id, :tag_list, :organization_name, :location, :terms_of_service, :attachment, :attachment_cache)
+        params.require(:budget_investment).permit(:title, :description, :external_url, :heading_id,
+                                                  :tag_list, :organization_name, :location,
+                                                  :terms_of_service, :attachment,
+                                                  :attachment_cache)
       end
 
       def load_ballot

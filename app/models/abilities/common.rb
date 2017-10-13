@@ -60,6 +60,7 @@ module Abilities
         can :create, Budget::Investment,               budget: { phase: "accepting" }
         can :vote,   Budget::Investment,               budget: { phase: "accepting" } #GET-65
 
+
         can [:show, :create], Budget::Ballot,          budget: { phase: "balloting" }
         can [:confirm], Budget::Ballot,          budget: { phase: "balloting" }, "completed?" => true #, "confirmed?" => false #GET-125 #GET-125
         can [:commit, :resend_code], Budget::Ballot,          budget: { phase: "balloting" }, "notified?" => true #, "confirmed?" => false #GET-125 #GET-125
@@ -82,6 +83,7 @@ module Abilities
 
       can :create, Annotation
       can [:update, :destroy], Annotation, user_id: user.id
+      can :project,   Budget::Investment,               budget: { phase: "finished" } #GET-XX
     end
   end
 end

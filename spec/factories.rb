@@ -1,4 +1,7 @@
 FactoryGirl.define do
+  factory :attachment do
+    
+  end
   factory :budget_ballot_confirmation, class: 'Budget::Ballot::Confirmation' do
     phone_number "MyString"
     sms_sent_at "2017-06-15 11:15:13"

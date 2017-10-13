@@ -64,3 +64,14 @@
   <%= link_to t("admin.budget_investments.show.edit_dossier"), edit_valuation_budget_budget_investment_path(@budget, @investment) %>
 </p>
 
+<hr>
+
+<h2><%= t("admin.budget_investments.show.project") %></h2>
+
+<%= render 'custom/written_about_project' %>
+
+<p>
+  <%= link_to t("admin.budget_investments.show.edit_project"),
+              edit_admin_budget_budget_investment_path(@budget, @investment,
+                                                       {anchor: 'project'}.merge(Budget::Investment.filter_params(params))) %>
+</p>

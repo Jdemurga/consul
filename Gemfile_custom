@@ -9,6 +9,7 @@ gem 'puma', '3.6.2'
 gem 'carrierwave', '~> 1.0'
 gem 'file_validators'
 gem 'phony_rails'
+gem 'mini_magick'
 
 group :development do
   gem 'guard-livereload', '~> 2.5', require: false

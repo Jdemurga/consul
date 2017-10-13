@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171011222321) do
+ActiveRecord::Schema.define(version: 20171012212155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,15 @@ ActiveRecord::Schema.define(version: 20171011222321) do
 
   add_index "annotations", ["legacy_legislation_id"], name: "index_annotations_on_legacy_legislation_id", using: :btree
   add_index "annotations", ["user_id"], name: "index_annotations_on_user_id", using: :btree
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer  "attachable_id",   null: false
+    t.string   "attachable_type", null: false
+    t.string   "file",            null: false
+    t.string   "title"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "banners", force: :cascade do |t|
     t.string   "title",           limit: 80
@@ -184,6 +193,8 @@ ActiveRecord::Schema.define(version: 20171011222321) do
     t.integer  "ballot_lines_count",                    default: 0
     t.integer  "previous_heading_id"
     t.boolean  "winner",                                default: false
+    t.text     "project_content"
+    t.string   "project_phase"
   end
 
   add_index "budget_investments", ["administrator_id"], name: "index_budget_investments_on_administrator_id", using: :btree

@@ -27,6 +27,8 @@
     </div>
   </div>
 
+    <br>
+
   <h2 id="classification"><%= t("admin.budget_investments.edit.classification") %></h2>
 
   <div class="row">
@@ -62,6 +64,7 @@
   </div>
 
     <%= render 'custom/budget_investments_unification_form', f:f %>
+    <%= render 'custom/budget_investments_project_form', f:f %>
 
   <p class="clear">
     <%= f.submit(class: "button", value: t("admin.budget_investments.edit.submit_button")) %>
