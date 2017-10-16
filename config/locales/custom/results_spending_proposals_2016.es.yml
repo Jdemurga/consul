@@ -28,6 +28,9 @@ es:
       show_all_link: Mostrar todas
       price: Coste aproximado
       project: Estado
+      gallery: Galería
+      see_gallery: Ver adjuntos
+      gallery_empty: Sin adjuntos
       amount_available: Presupuesto disponible
       incompatible: Incompatibles
       accepted: "Propuesta de inversión aceptada: "

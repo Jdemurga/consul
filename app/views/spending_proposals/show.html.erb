@@ -36,6 +36,21 @@
         </div>
       <% end %>
 
+      <% if @spending_proposal.attachments.any? %>
+          <br>
+          <div class="">
+            <%= link_to t("spending_proposals.show.see_gallery"), project_spending_proposal_path(@spending_proposal) %>
+          </div>
+      <% end %>
+
+      <% if @spending_proposal.project_content %>
+          <br>
+          <h3> <%= t("admin.budget_investments.show.project_subtitle") %></h3>
+          <br>
+          <strong><%= @spending_proposal.project_phase%></strong>
+          <br>
+          <%= raw @spending_proposal.project_content %>
+      <% end %>
     </div>
 
     <aside class="small-12 medium-3 column">

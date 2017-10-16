@@ -186,7 +186,10 @@ es:
         project_content: Texto sobre el estado del proyecto proyecto
         project_gallery: Galería de adjuntos
         project_title: Página de estado del proyecto
+        project_gallery: Galería y adjuntos del proyecto
         project: Proyecto/Licitación
+        project_subtitle: Estado del proyecto/Licitación
+        see_gallery: Ver galería de adjuntos
         edit_project: Editar sección de proyecto/licitación
       edit:
         classification: Clasificación

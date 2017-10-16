@@ -5,6 +5,7 @@
   <th><%= t("spending_proposals.results.spending_proposal") %></th>
   <th><%= t("spending_proposals.results.current_phase") %></th>
   <th class="text-right"><%= t("spending_proposals.results.price") %></th>
+  <th class="text-center"><%= t("spending_proposals.results.gallery") %></th>
   </thead>
   <tbody>
 
@@ -28,21 +29,23 @@
           <%= link_to spending_proposal.title, spending_proposal_path(spending_proposal) %>
         </td>
         <td style="width: 200px;" class="phase <%= spending_proposal.phase %>">
-          <% if spending_proposal.has_project? %>
-              <% if spending_proposal.project_phase.present? %>
-                  <%= link_to spending_proposal.project_phase, project_spending_proposal_path(spending_proposal) %>
-              <% else %>
-                  <%= link_to t("spending_proposals.results.spending_proposal_phases.#{spending_proposal.phase}"), project_spending_proposal_path(spending_proposal) %>
-              <% end %>
+          <% if spending_proposal.project_phase.present? %>
+              <%= spending_proposal.project_phase %>
           <% else %>
               <%= t("spending_proposals.results.spending_proposal_phases.#{spending_proposal.phase}") %>
-              <% if spending_proposal.extra_info %>
-                  <small>(<%= spending_proposal.extra_info %>)</small>
-              <% end %>
           <% end %>
         </td>
         <td class="text-right" style="width:100px">
           <%= format_price spending_proposal.price %>
+        </td>
+        <td class="text-center">
+          <small>
+            <% if spending_proposal.attachments.any? %>
+            <%= link_to t("spending_proposals.results.see_gallery"), project_spending_proposal_path(spending_proposal) %>
+            <% else %>
+                <span class="text-muted"><%= t("spending_proposals.results.gallery_empty") %></span>
+            <% end %>
+          </small>
         </td>
       </tr>
   <% end %>

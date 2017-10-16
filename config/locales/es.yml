@@ -580,6 +580,9 @@ es:
     show:
       author_deleted: Usuario eliminado
       code: 'Código de la propuesta:'
+      see_gallery: Ver galería de adjuntos
+      see_proposal: Información de propuesta
+      not_attachments_yet: No hay adjuntos
       share: Compartir
     wrong_price_format: Solo puede incluir caracteres numéricos
     spending_proposal:
