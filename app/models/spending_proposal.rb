@@ -51,7 +51,14 @@ class SpendingProposal < ActiveRecord::Base
 
   scope :for_render,             -> { includes(:geozone) }
 
+  has_many :attachments, as: :attachable
+  accepts_nested_attributes_for :attachments,  :reject_if => :all_blank, :allow_destroy => true
+
   before_validation :set_responsible_name
+
+  def has_project?
+    project_phase.present? && project_content.present?
+  end
 
   def description
     super.try :html_safe

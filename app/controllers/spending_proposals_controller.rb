@@ -12,6 +12,9 @@ class SpendingProposalsController < ApplicationController
 
   respond_to :html, :js
 
+  def project
+  end
+
   def index
     @spending_proposals = apply_filters_and_search(SpendingProposal).page(params[:page]).for_render
     set_spending_proposal_votes(@spending_proposals)

@@ -68,7 +68,7 @@
 
 <h2><%= t("admin.budget_investments.show.project") %></h2>
 
-<%= render 'custom/written_about_project' %>
+<%= render 'custom/written_about_project', investment: @investment %>
 
 <p>
   <%= link_to t("admin.budget_investments.show.edit_project"),

@@ -71,10 +71,10 @@
     </div>
   </div>
 
-  <p class="clear">
+    <%= render 'custom/budget_investments_project_form', f:f %>
+
+
+    <p class="clear">
     <%= f.submit(class: "button", value: t("admin.spending_proposals.edit.submit_button")) %>
   </p>
 <% end %>
-
-<hr>
-<%= render 'valuation/spending_proposals/written_by_valuators' %>

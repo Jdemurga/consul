@@ -38,8 +38,15 @@ class Admin::SpendingProposalsController < Admin::BaseController
 
   private
 
+  def budget_investment_project_params
+    [:project_content,
+     :project_phase,
+     attachments_attributes: [:file, :title, :_destroy, :id]
+    ]
+  end
+
     def spending_proposal_params
-      params.require(:spending_proposal).permit(:title, :description, :external_url, :geozone_id, :association_name, :administrator_id, :tag_list, :phase, valuator_ids: [])
+      params.require(:spending_proposal).permit(budget_investment_project_params + [:title, :description, :external_url, :geozone_id, :association_name, :administrator_id, :tag_list, :phase, valuator_ids: []])
     end
 
     def load_admins

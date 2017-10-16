@@ -95,11 +95,11 @@
             <td class="text-right">
               <%= format_price investment.price %>
             </td>
-              <td class="text-center">
-                <% if investment.has_project? %>
-                  <%= link_to investment.project_phase, project_budget_investment_path(@budget, investment) %>
-                <% end %>
-              </td>
+            <td class="text-center">
+              <% if investment.has_project? %>
+                <%= link_to investment.project_phase, project_budget_investment_path(@budget, investment) %>
+              <% end %>
+            </td>
             </tr>
         <% end %>
         </tbody>

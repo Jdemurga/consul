@@ -2,8 +2,8 @@
   <strong>
     <%= t("admin.budget_investments.show.project_phase") %>:
   </strong>
-  <% if @investment.project_phase.present? %>
-      <%= @investment.project_phase %>
+  <% if investment.project_phase.present? %>
+      <%= investment.project_phase %>
   <% else %>
       <%= t("admin.budget_investments.show.undefined") %>
   <% end %>
@@ -15,8 +15,8 @@
   </strong>
   <blockquote>
     <div class="">
-      <% if @investment.project_content.present? %>
-          <%= @investment.project_content.html_safe %>
+      <% if investment.project_content.present? %>
+          <%= investment.project_content.html_safe %>
       <% else %>
           <%= t("admin.budget_investments.show.undefined") %>
       <% end %>
@@ -29,7 +29,7 @@
     <%= t("admin.budget_investments.show.project_gallery") %>:
   </strong>
   <div class="row small-up-4 medium-up-4">
-    <%- @investment.attachments.each do |attachment| %>
+    <%- investment.attachments.each do |attachment| %>
 
           <div class="card column">
               <%= link_to attachment.file.url(:thumb), target: 'blank', title: attachment.title do %>

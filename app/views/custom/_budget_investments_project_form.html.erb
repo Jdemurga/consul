@@ -21,7 +21,7 @@
   <div class="small-12 column">
 
     <%= f.fields_for :attachments do |attachment| %>
-      <%= render 'attachment_fields', f: attachment %>
+      <%= render 'admin/shared/attachment_fields', f: attachment %>
     <% end %>
     <br>
 

@@ -48,8 +48,14 @@
 <h2><%= t("admin.spending_proposals.show.dossier") %></h2>
 
 <%= render 'valuation/spending_proposals/written_by_valuators' %>
-
 <p>
   <%= link_to t("admin.spending_proposals.show.edit_dossier"), edit_valuation_spending_proposal_path(@spending_proposal) %>
 </p>
 
+<hr>
+<h2><%= t("admin.budget_investments.show.project") %></h2>
+<%= render 'custom/written_about_project', investment: @spending_proposal %>
+
+<%= link_to t("admin.spending_proposals.show.edit"),
+            edit_admin_spending_proposal_path(@spending_proposal,
+                                              SpendingProposal.filter_params(params)) %>

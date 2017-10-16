@@ -84,6 +84,7 @@ module Abilities
       can :create, Annotation
       can [:update, :destroy], Annotation, user_id: user.id
       can :project,   Budget::Investment,               budget: { phase: "finished" } #GET-XX
+      can :project,   SpendingProposal
     end
   end
 end

@@ -27,6 +27,7 @@ es:
       hide_discarded_link: Ocultar descartadas
       show_all_link: Mostrar todas
       price: Coste aproximado
+      project: Estado
       amount_available: Presupuesto disponible
       incompatible: Incompatibles
       accepted: "Propuesta de inversión aceptada: "

@@ -105,6 +105,7 @@ Rails.application.routes.draw do
   scope '/participatory_budget' do
     resources :spending_proposals, only: [:index, :new, :create, :show, :destroy], path: 'investment_projects' do
       post :vote, on: :member
+      member { get :project }
     end
   end
 
