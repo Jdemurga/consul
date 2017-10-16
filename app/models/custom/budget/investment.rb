@@ -45,7 +45,7 @@ class Budget
 
 
     def has_project?
-      project_phase.present? && project_content.present?
+      attachments.any? || project_phase.present? || project_content.present?
     end
 
     #GET-98

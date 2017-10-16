@@ -97,7 +97,11 @@
             </td>
             <td class="text-center">
               <% if investment.has_project? %>
-                <%= link_to investment.project_phase, project_budget_investment_path(@budget, investment) %>
+                  <% if investment.project_phase.present? %>
+                      <%= link_to investment.project_phase, project_budget_investment_path(@budget, investment) %>
+                  <% else %>
+                      <%= link_to t("admin.budgets.results.project"), project_budget_investment_path(@budget, investment) %>
+                  <% end %>
               <% end %>
             </td>
             </tr>
