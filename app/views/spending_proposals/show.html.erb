@@ -43,7 +43,7 @@
           </div>
       <% end %>
 
-      <% if @spending_proposal.project_content %>
+      <% if @spending_proposal.project_content.present? %>
           <br>
           <h3> <%= t("admin.budget_investments.show.project_subtitle") %></h3>
           <br>
