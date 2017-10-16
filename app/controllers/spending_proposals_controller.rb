@@ -1,7 +1,7 @@
 class SpendingProposalsController < ApplicationController
   include FeatureFlags
 
-  before_action :authenticate_user!, except: [:index, :show, :results]
+  before_action :authenticate_user!, except: [:index, :show, :results, :project]
   before_action -> { flash.now[:notice] = flash[:notice].html_safe if flash[:html_safe] && flash[:notice] }
 
   load_and_authorize_resource
