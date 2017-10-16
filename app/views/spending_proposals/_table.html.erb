@@ -29,7 +29,11 @@
         </td>
         <td style="width: 200px;" class="phase <%= spending_proposal.phase %>">
           <% if spending_proposal.has_project? %>
-              <%= link_to spending_proposal.project_phase, project_spending_proposal_path(spending_proposal) %>
+              <% if spending_proposal.project_phase.present? %>
+                  <%= link_to spending_proposal.project_phase, project_spending_proposal_path(spending_proposal) %>
+              <% else %>
+                  <%= link_to t("spending_proposals.results.spending_proposal_phases.#{spending_proposal.phase}"), project_spending_proposal_path(spending_proposal) %>
+              <% end %>
           <% else %>
               <%= t("spending_proposals.results.spending_proposal_phases.#{spending_proposal.phase}") %>
               <% if spending_proposal.extra_info %>

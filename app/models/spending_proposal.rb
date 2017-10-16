@@ -57,7 +57,7 @@ class SpendingProposal < ActiveRecord::Base
   before_validation :set_responsible_name
 
   def has_project?
-    project_phase.present? && project_content.present?
+    attachments.any? || project_phase.present? || project_content.present?
   end
 
   def description
