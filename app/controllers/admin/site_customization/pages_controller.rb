@@ -38,7 +38,12 @@ class Admin::SiteCustomization::PagesController < Admin::SiteCustomization::Base
         :content,
         :more_info_flag,
         :print_content_flag,
-        :status
+        :status,
+        :show_in_cover_flag,
+        :highlight_in_cover_flag,
+        :cover_position,
+        :date_information,
+        :process_url
       )
     end
 end

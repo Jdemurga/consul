@@ -14,11 +14,12 @@
       <th><%= t("admin.site_customization.pages.page.created_at") %></th>
       <th><%= t("admin.site_customization.pages.page.updated_at") %></th>
       <th><%= t("admin.site_customization.pages.page.status") %></th>
+      <th>Caja en portada</th>
       <th colspan="2"><%= t("admin.actions.actions") %></th>
     </tr>
   </thead>
   <tbody>
-  <% @pages.each do |page| %>
+  <% @pages.order_by_position.each do |page| %>
     <tr id="<%= dom_id(page) %>">
       <td>
         <%= link_to page.title, edit_admin_site_customization_page_path(page) %>
@@ -26,6 +27,12 @@
       <td><%= I18n.l page.created_at, format: :short %></td>
       <td><%= I18n.l page.created_at, format: :short %></td>
       <td><%= t("admin.site_customization.pages.page.status_#{page.status}") %></td>
+      <td>
+        <%  if page.show_in_cover_flag %>
+            <span class="icon-banner"></span>
+            <%= page.cover_position %>
+        <% end %>
+      </td>
       <td class="small">
         <span class="icon-eye"></span>
         <% if page.status == "published" %>

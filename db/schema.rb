@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016074255) do
+ActiveRecord::Schema.define(version: 20171031061935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -832,15 +832,20 @@ ActiveRecord::Schema.define(version: 20171016074255) do
   add_index "site_customization_images", ["name"], name: "index_site_customization_images_on_name", unique: true, using: :btree
 
   create_table "site_customization_pages", force: :cascade do |t|
-    t.string   "slug",                                 null: false
-    t.string   "title",                                null: false
+    t.string   "slug",                                      null: false
+    t.string   "title",                                     null: false
     t.string   "subtitle"
     t.text     "content"
     t.boolean  "more_info_flag"
     t.boolean  "print_content_flag"
-    t.string   "status",             default: "draft"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.string   "status",                  default: "draft"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.boolean  "show_in_cover_flag",      default: false
+    t.boolean  "highlight_in_cover_flag", default: false
+    t.integer  "cover_position"
+    t.string   "process_url"
+    t.string   "date_information"
   end
 
   create_table "sms_otps", force: :cascade do |t|

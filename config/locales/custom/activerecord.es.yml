@@ -41,6 +41,12 @@ es:
         one: "Propuesta"
         other: "Propuestas"
     attributes:
+      site_customization/page:
+        show_in_cover_flag: Mostrar como bloque en la portada
+        highlight_in_cover_flag: Descatacar como bloque portada (amarillo)
+        cover_position: Posición en la portada
+        date_information:  Información  de fechas (calendario)
+        process_url: Enlace al proceso anunciado (URL)
       budget:
         name: "Nombre"
         description_accepting: "Descripción durante la fase de aceptación"
