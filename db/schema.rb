@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102182506) do
+ActiveRecord::Schema.define(version: 20171106074937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -847,6 +847,7 @@ ActiveRecord::Schema.define(version: 20171102182506) do
     t.integer  "cover_position"
     t.string   "process_url"
     t.string   "date_information"
+    t.boolean  "show_as_poster_flag",     default: false
   end
 
   create_table "sms_otps", force: :cascade do |t|

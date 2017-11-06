@@ -7,6 +7,10 @@
     <h2><%= @custom_page.subtitle %></h2>
 
     <%= raw @custom_page.content %>
+
+    <% if @custom_page.attachments.any? %>
+      <%= render 'custom/attachments/attachments', attachments: @custom_page.attachments %>
+    <% end %>
   </div>
 
   <div class="small-12 medium-3 column">

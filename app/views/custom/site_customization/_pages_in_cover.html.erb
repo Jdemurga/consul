@@ -8,22 +8,10 @@
 
 <div class="row">
   <%- @pages_in_cover.each_with_index do |page, index| %>
-
-  <div class="small-12 medium-4 columns column end" >
-    <div class="panel  margin <%= 'panel-highlight highlight' if page.highlight_in_cover_flag %> <%= 'panel-image' if page.featured_image? %>" data-equalizer-watch="" style='<%= "background-image: url(#{page.featured_image.file.url(:cover)})" if page.featured_image? %>'>
-
-      <div style="min-height: 419px;">
-        <h3><%= page.title %></h3>
-        <% if page.date_information %>
-             <p class="info-date"><span class="icon-calendar"></span>&nbsp;<strong><%= page.date_information %></strong></p>
-        <% end %>
-
-        <p class="info">
-          <%= page.subtitle %>
-        </p>
-      </div>
-      <%= link_to 'Más información', page_path(page.slug), class: "button see-more expanded" %>
-    </div>
-  </div>
+      <% if page.featured_image? && page.poster? %>
+          <%= render 'custom/site_customization/cover_poster', page: page %>
+      <% else %>
+          <%= render 'custom/site_customization/cover_box', page: page %>
+      <% end %>
   <% end %>
 </div>

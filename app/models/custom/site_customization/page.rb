@@ -20,6 +20,10 @@ class SiteCustomization::Page
     !featured_image.nil?
   end
 
+  def poster?
+    show_as_poster_flag
+  end
+
   def url
     "/#{slug}"
   end

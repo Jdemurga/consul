@@ -44,6 +44,7 @@ class Admin::SiteCustomization::PagesController < Admin::SiteCustomization::Base
         :cover_position,
         :date_information,
         :process_url,
+        :show_as_poster_flag,
         attachments_attributes: [:file, :title,:featured_image_flag, :_destroy, :id]
       )
     end
