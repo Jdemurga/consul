@@ -1,5 +1,5 @@
 <div class="small-12 medium-4 columns column end" >
-  <div class="panel  margin <%= 'panel-highlight highlight' if page.highlight_in_cover_flag %> <%= 'panel-image' if page.featured_image? %>" data-equalizer-watch="" style='<%= "background-image: url(#{page.featured_image.file.url(:cover)})" if page.featured_image? %>'>
+  <div class="panel  margin <%= 'panel-highlight highlight' if page.highlight_in_cover_flag %>">
 
     <div style="min-height: 419px;">
       <h3><%= page.title %></h3>
