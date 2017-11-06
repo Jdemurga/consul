@@ -1,6 +1,6 @@
 <div class="small-12 medium-4 columns column end" >
   <%= link_to page_path(page.slug), title: page.title do %>
-    <div class="panel  panel-highlight margin <%= 'panel-image' if page.featured_image? %>" data-equalizer-watch="" style='<%= "background-image: url(#{page.featured_image.file.url(:cover)})" if page.featured_image? %>'>
+    <div class="panel  panel-highlight margin <%= 'panel-image' if page.featured_image? %>" data-equalizer-watch="" style='<%= "background-image: url(#{page.featured_image.file.cover})" if page.featured_image? %>'>
       <div style="min-height: 529px;">
 
       </div>

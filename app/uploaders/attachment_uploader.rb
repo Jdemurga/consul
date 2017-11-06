@@ -47,7 +47,12 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   end
 
   version :cover do
+    process convert: 'png'
     process efficient_conversion: [450, 450]
+
+    def full_filename (for_file)
+      "cover.png"
+    end
   end
 
 
