@@ -43,7 +43,8 @@ class Admin::SiteCustomization::PagesController < Admin::SiteCustomization::Base
         :highlight_in_cover_flag,
         :cover_position,
         :date_information,
-        :process_url
+        :process_url,
+        attachments_attributes: [:file, :title,:featured_image_flag, :_destroy, :id]
       )
     end
 end

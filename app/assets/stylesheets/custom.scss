@@ -48,6 +48,8 @@ body, html {
 
   padding: 0px;
   box-shadow: 1px 4px 5px #777;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .panel-highlight.panel {
 
@@ -879,4 +881,9 @@ span.hint {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+.subnavigation-menu {
+
+  font-size: 80%;
 }

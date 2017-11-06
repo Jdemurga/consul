@@ -9,6 +9,17 @@ class SiteCustomization::Page
   scope :order_by_position, -> { order('cover_position asc')}
   scope :with_show_in_cover_flag, -> { where(status: 'published', show_in_cover_flag: true).order('cover_position ASC') }
 
+  has_many :attachments, as: :attachable
+  accepts_nested_attributes_for :attachments,  :reject_if => :all_blank, :allow_destroy => true
+
+  def featured_image
+    attachments.where(featured_image_flag: true).take
+  end
+
+  def featured_image?
+    !featured_image.nil?
+  end
+
   def url
     "/#{slug}"
   end

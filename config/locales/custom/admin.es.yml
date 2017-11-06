@@ -1,6 +1,10 @@
 ---
 es:
   admin:
+    site_customization:
+      pages:
+        form:
+          attachments: 'Adjuntos'
     actions:
       confirm: "¿Estás seguro?"
       confirm_hide: Confirmar

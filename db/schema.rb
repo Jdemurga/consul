@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171031061935) do
+ActiveRecord::Schema.define(version: 20171102182506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,12 +64,13 @@ ActiveRecord::Schema.define(version: 20171031061935) do
   add_index "annotations", ["user_id"], name: "index_annotations_on_user_id", using: :btree
 
   create_table "attachments", force: :cascade do |t|
-    t.integer  "attachable_id",   null: false
-    t.string   "attachable_type", null: false
-    t.string   "file",            null: false
+    t.integer  "attachable_id",                       null: false
+    t.string   "attachable_type",                     null: false
+    t.string   "file",                                null: false
     t.string   "title"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.boolean  "featured_image_flag", default: false
   end
 
   create_table "banners", force: :cascade do |t|

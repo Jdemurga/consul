@@ -16,6 +16,7 @@
         <div class="small-8 column">
           <%= f.label :title, t("admin.budget_investments.edit.project_attachment_title") %>
           <%= f.text_field :title, label: false %>
+          <%= f.check_box :featured_image_flag %>
         </div>
         <div class="small-4 column">
           <% if f.object.file? %>
