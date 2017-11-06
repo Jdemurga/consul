@@ -14,7 +14,7 @@
   </div>
 
   <div class="small-12 medium-3 column">
-    <% if @custom_page.process_url %>
+    <% unless @custom_page.process_url.blank? %>
       <%= link_to('Ir al proceso', @custom_page.process_url, class: 'button expanded primary') %>
     <% end %>
     <%= render '/shared/print' if @custom_page.print_content_flag %>
