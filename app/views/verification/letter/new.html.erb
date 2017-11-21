@@ -20,10 +20,7 @@
 
     <div class="small-12 medium-4 column">
 
-      <%= link_to account_path, class: "back" do %>
-        <span class="icon-angle-left float-left"></span>
-        <%= t("verification.back") %>
-      <% end %>
+      <%= back_link_to account_path, t("verification.back") %>
 
       <h1><%= t("verification.letter.new.title") %></h1>
 
@@ -50,7 +47,7 @@
       <ul>
         <li>
           <%= t("verification.letter.new.office",
-          office: link_to(t("verification.letter.new.offices"), t("verification.letter.new.offices_url"),
+          office: link_to(t("verification.letter.new.offices"), setting['verification_offices_url'],
           target: "blank")).html_safe %>
         </li>
         <li>

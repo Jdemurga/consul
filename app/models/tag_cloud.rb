@@ -2,7 +2,7 @@ class TagCloud
 
   attr_accessor :resource_model, :scope
 
-  def initialize(resource_model, scope=nil)
+  def initialize(resource_model, scope = nil)
     @resource_model = resource_model
     @scope = scope
   end
@@ -32,7 +32,7 @@ class TagCloud
   end
 
   def table_name
-    resource_model.to_s.downcase.pluralize
+    resource_model.to_s.downcase.pluralize.gsub("::", "/")
   end
 
 end

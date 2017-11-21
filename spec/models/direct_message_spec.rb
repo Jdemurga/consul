@@ -4,10 +4,6 @@ describe DirectMessage do
 
   let(:direct_message) { build(:direct_message) }
 
-  before(:each) do
-    Setting[:direct_message_max_per_day] = 3
-  end
-
   it "should be valid" do
     expect(direct_message).to be_valid
   end
@@ -33,41 +29,57 @@ describe DirectMessage do
   end
 
   describe "maximum number of direct messages per day" do
+    context "when set" do
+      before(:each) do
+        Setting[:direct_message_max_per_day] = 3
+      end
 
-    it "should not be valid if above maximum" do
-      sender = create(:user)
-      direct_message1 = create(:direct_message, sender: sender)
-      direct_message2 = create(:direct_message, sender: sender)
-      direct_message3 = create(:direct_message, sender: sender)
+      it "should not be valid if above maximum" do
+        sender = create(:user)
+        direct_message1 = create(:direct_message, sender: sender)
+        direct_message2 = create(:direct_message, sender: sender)
+        direct_message3 = create(:direct_message, sender: sender)
 
-      direct_message4 = build(:direct_message, sender: sender)
-      expect(direct_message4).to_not be_valid
+        direct_message4 = build(:direct_message, sender: sender)
+        expect(direct_message4).to_not be_valid
+      end
+
+      it "should be valid if below maximum" do
+        sender = create(:user)
+        direct_message1 = create(:direct_message, sender: sender)
+        direct_message2 = create(:direct_message, sender: sender)
+
+        direct_message3 = build(:direct_message)
+        expect(direct_message).to be_valid
+      end
+
+      it "should be valid if no direct_messages sent" do
+        direct_message = build(:direct_message)
+
+        expect(direct_message).to be_valid
+      end
     end
 
-    it "should be valid if below maximum" do
-      sender = create(:user)
-      direct_message1 = create(:direct_message, sender: sender)
-      direct_message2 = create(:direct_message, sender: sender)
+    context "when unset" do
+      before(:each) do
+        Setting[:direct_message_max_per_day] = nil
+      end
 
-      direct_message3 = build(:direct_message)
-      expect(direct_message).to be_valid
+      it "should be valid" do
+        direct_message = build(:direct_message)
+
+        expect(direct_message).to be_valid
+      end
     end
-
-    it "should be valid if no direct_messages sent" do
-      direct_message = build(:direct_message)
-
-      expect(direct_message).to be_valid
-    end
-
   end
 
   describe "scopes" do
 
     describe "today" do
       it "should return direct messages created today" do
-        direct_message1 = create(:direct_message, created_at: Time.zone.now.beginning_of_day + 3.hours)
-        direct_message2 = create(:direct_message, created_at: Time.zone.now)
-        direct_message3 = create(:direct_message, created_at: Time.zone.now.end_of_day)
+        direct_message1 = create(:direct_message, created_at: Time.now.utc.beginning_of_day + 3.hours)
+        direct_message2 = create(:direct_message, created_at: Time.now.utc)
+        direct_message3 = create(:direct_message, created_at: Time.now.utc.end_of_day)
 
         expect(DirectMessage.today.count).to eq 3
       end

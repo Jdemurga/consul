@@ -6,6 +6,10 @@ module Sanitizable
     before_validation :sanitize_tag_list
   end
 
+  def description
+    super.try :html_safe
+  end
+
   protected
 
     def sanitize_description
@@ -13,7 +17,7 @@ module Sanitizable
     end
 
     def sanitize_tag_list
-      self.tag_list = TagSanitizer.new.sanitize_tag_list(self.tag_list) if self.class.taggable?
+      self.tag_list = TagSanitizer.new.sanitize_tag_list(tag_list) if self.class.taggable?
     end
 
 end

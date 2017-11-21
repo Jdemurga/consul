@@ -4,7 +4,7 @@ class Management::DocumentVerificationsController < Management::BaseController
   before_action :set_document, only: :check
 
   def index
-    @document_verification = Verification::Management::Document.new()
+    @document_verification = Verification::Management::Document.new
   end
 
   def check
@@ -43,7 +43,8 @@ class Management::DocumentVerificationsController < Management::BaseController
     end
 
     def clean_document_number
-      params[:document_verification][:document_number] = params[:document_verification][:document_number].gsub(/[^a-z0-9]+/i, "").upcase unless params[:document_verification][:document_number].blank?
+      return if params[:document_verification][:document_number].blank?
+      params[:document_verification][:document_number] = params[:document_verification][:document_number].gsub(/[^a-z0-9]+/i, "").upcase
     end
 
 end

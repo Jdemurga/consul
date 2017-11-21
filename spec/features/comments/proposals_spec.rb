@@ -2,7 +2,7 @@ require 'rails_helper'
 include ActionView::Helpers::DateHelper
 
 feature 'Commenting proposals' do
-  let(:user)   { create :user }
+  let(:user) { create :user }
   let(:proposal) { create :proposal }
 
   scenario 'Index' do
@@ -31,8 +31,11 @@ feature 'Commenting proposals' do
     expect(page).to have_content parent_comment.body
     expect(page).to have_content first_child.body
     expect(page).to have_content second_child.body
-
     expect(page).to have_link "Go back to #{proposal.title}", href: proposal_path(proposal)
+
+    expect(page).to have_selector("ul#comment_#{parent_comment.id}>li", count: 2)
+    expect(page).to have_selector("ul#comment_#{first_child.id}>li", count: 1)
+    expect(page).to have_selector("ul#comment_#{second_child.id}>li", count: 1)
   end
 
   scenario 'Collapsable comments', :js do
@@ -62,9 +65,12 @@ feature 'Commenting proposals' do
   end
 
   scenario 'Comment order' do
-    c1 = create(:comment, :with_confidence_score, commentable: proposal, cached_votes_up: 100, cached_votes_total: 120, created_at: Time.current - 2)
-    c2 = create(:comment, :with_confidence_score, commentable: proposal, cached_votes_up: 10, cached_votes_total: 12, created_at: Time.current - 1)
-    c3 = create(:comment, :with_confidence_score, commentable: proposal, cached_votes_up: 1, cached_votes_total: 2, created_at: Time.current)
+    c1 = create(:comment, :with_confidence_score, commentable: proposal, cached_votes_up: 100,
+                                                  cached_votes_total: 120, created_at: Time.current - 2)
+    c2 = create(:comment, :with_confidence_score, commentable: proposal, cached_votes_up: 10,
+                                                  cached_votes_total: 12, created_at: Time.current - 1)
+    c3 = create(:comment, :with_confidence_score, commentable: proposal, cached_votes_up: 1,
+                                                  cached_votes_total: 2, created_at: Time.current)
 
     visit proposal_path(proposal, order: :most_voted)
 
@@ -118,7 +124,8 @@ feature 'Commenting proposals' do
   end
 
   scenario 'Sanitizes comment body for security' do
-    create :comment, commentable: proposal, body: "<script>alert('hola')</script> <a href=\"javascript:alert('sorpresa!')\">click me<a/> http://www.url.com"
+    create :comment, commentable: proposal,
+                     body: "<script>alert('hola')</script> <a href=\"javascript:alert('sorpresa!')\">click me<a/> http://www.url.com"
 
     visit proposal_path(proposal)
 
@@ -395,7 +402,7 @@ feature 'Commenting proposals' do
     end
 
     scenario "can not comment as a moderator" do
-      admin  = create(:administrator)
+      admin = create(:administrator)
 
       login_as(admin.user)
       visit proposal_path(proposal)

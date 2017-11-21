@@ -10,7 +10,7 @@ class Verification::Management::Document
   delegate :username, :email, to: :user, allow_nil: true
 
   def user
-    @user = User.by_document(document_type, document_number).first
+    @user = User.active.by_document(document_type, document_number).first
   end
 
   def user?
@@ -18,21 +18,21 @@ class Verification::Management::Document
   end
 
   def in_census?
-    response = CensusApi.new.call(document_type, document_number)
+    response = CensusCaller.new.call(document_type, document_number)
     response.valid? && valid_age?(response)
   end
 
   def valid_age?(response)
-    if under_sixteen?(response)
+    if under_age?(response)
       errors.add(:age, true)
-      return false
+      false
     else
-      return true
+      true
     end
   end
 
-  def under_sixteen?(response)
-    16.years.ago.beginning_of_day < response.date_of_birth.beginning_of_day
+  def under_age?(response)
+    response.date_of_birth.blank? || Age.in_years(response.date_of_birth) < User.minimum_required_age
   end
 
   def verified?

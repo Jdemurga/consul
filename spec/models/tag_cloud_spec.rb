@@ -22,6 +22,15 @@ describe TagCloud do
       expect(tag_names(tag_cloud)).to contain_exactly('world hunger')
     end
 
+    it "returns budget investment tags" do
+      create(:budget_investment, tag_list: 'participation')
+      create(:debate, tag_list: 'world hunger')
+
+      tag_cloud = TagCloud.new(Budget::Investment)
+
+      expect(tag_names(tag_cloud)).to contain_exactly('participation')
+    end
+
     it "returns tags from last week" do
       create(:proposal, tag_list: 'participation', created_at: 1.day.ago)
       create(:proposal, tag_list: 'corruption',    created_at: 2.weeks.ago)
@@ -32,8 +41,8 @@ describe TagCloud do
     end
 
     it "does not return category tags" do
-      create(:tag, kind: 'category', name: 'Education')
-      create(:tag, kind: 'category', name: 'Participation')
+      create(:tag, :category, name: 'Education')
+      create(:tag, :category, name: 'Participation')
 
       create(:proposal, tag_list: 'education, parks')
       create(:proposal, tag_list: 'participation, water')
@@ -56,8 +65,8 @@ describe TagCloud do
     end
 
     it "returns tags scoped by category" do
-      create(:tag, kind: 'category', name: 'Education')
-      create(:tag, kind: 'category', name: 'Participation')
+      create(:tag, :category, name: 'Education')
+      create(:tag, :category, name: 'Participation')
 
       create(:proposal, tag_list: 'education, parks')
       create(:proposal, tag_list: 'participation, water')

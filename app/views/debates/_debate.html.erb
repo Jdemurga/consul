@@ -5,8 +5,6 @@
 
         <div class="small-12 medium-9 column">
           <div class="debate-content">
-            <span class="label-debate float-left"><%= t("debates.debate.debate") %></span>
-            <span class="icon-debates"></span>
             <h3><%= link_to debate.title, debate %></h3>
             <p class="debate-info">
               <span class="icon-comments"></span>&nbsp;
@@ -41,7 +39,7 @@
 
             </p>
             <div class="debate-description">
-              <%= link_to debate.description, debate %>
+              <%= debate.description %>
               <div class="truncate"></div>
             </div>
             <%= render "shared/tags", taggable: debate, limit: 5 %>

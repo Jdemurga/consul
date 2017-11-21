@@ -16,9 +16,9 @@ feature 'Proposals' do
 
       within(".account-info") do
         expect(page).to have_content "Identified as"
-        expect(page).to have_content "#{user.username}"
-        expect(page).to have_content "#{user.email}"
-        expect(page).to have_content "#{user.document_number}"
+        expect(page).to have_content user.username.to_s
+        expect(page).to have_content user.email.to_s
+        expect(page).to have_content user.document_number.to_s
       end
 
       fill_in 'proposal_title', with: 'Help refugees'
@@ -26,7 +26,7 @@ feature 'Proposals' do
       fill_in 'proposal_summary', with: 'In summary, what we want is...'
       fill_in 'proposal_description', with: 'This is very important because...'
       fill_in 'proposal_external_url', with: 'http://rescue.org/refugees'
-      fill_in 'proposal_video_url', with: 'http://youtube.com'
+      fill_in 'proposal_video_url', with: 'https://www.youtube.com/watch?v=yRYFKcMa_Ek'
       check 'proposal_terms_of_service'
 
       click_button 'Create proposal'
@@ -38,7 +38,7 @@ feature 'Proposals' do
       expect(page).to have_content 'In summary, what we want is...'
       expect(page).to have_content 'This is very important because...'
       expect(page).to have_content 'http://rescue.org/refugees'
-      expect(page).to have_content 'http://youtube.com'
+      expect(page).to have_content 'https://www.youtube.com/watch?v=yRYFKcMa_Ek'
       expect(page).to have_content user.name
       expect(page).to have_content I18n.l(Proposal.last.created_at.to_date)
 
@@ -97,12 +97,12 @@ feature 'Proposals' do
 
     expect(current_path).to eq(management_proposals_path)
 
-    within("#proposals") do
+    within(".proposals-list") do
       expect(page).to have_css('.proposal', count: 1)
       expect(page).to have_content(proposal1.title)
+      expect(page).to have_content(proposal1.summary)
       expect(page).to_not have_content(proposal2.title)
       expect(page).to have_css("a[href='#{management_proposal_path(proposal1)}']", text: proposal1.title)
-      expect(page).to have_css("a[href='#{management_proposal_path(proposal1)}']", text: proposal1.summary)
     end
   end
 
@@ -119,17 +119,17 @@ feature 'Proposals' do
 
     within(".account-info") do
       expect(page).to have_content "Identified as"
-      expect(page).to have_content "#{user.username}"
-      expect(page).to have_content "#{user.email}"
-      expect(page).to have_content "#{user.document_number}"
+      expect(page).to have_content user.username.to_s
+      expect(page).to have_content user.email.to_s
+      expect(page).to have_content user.document_number.to_s
     end
 
-    within("#proposals") do
+    within(".proposals-list") do
       expect(page).to have_css('.proposal', count: 2)
       expect(page).to have_css("a[href='#{management_proposal_path(proposal1)}']", text: proposal1.title)
-      expect(page).to have_css("a[href='#{management_proposal_path(proposal1)}']", text: proposal1.summary)
+      expect(page).to have_content(proposal1.summary)
       expect(page).to have_css("a[href='#{management_proposal_path(proposal2)}']", text: proposal2.title)
-      expect(page).to have_css("a[href='#{management_proposal_path(proposal2)}']", text: proposal2.summary)
+      expect(page).to have_content(proposal2.summary)
     end
   end
 
@@ -143,7 +143,7 @@ feature 'Proposals' do
 
       click_link "Support proposals"
 
-      within("#proposals") do
+      within(".proposals-list") do
         find('.in-favor a').click
 
         expect(page).to have_content "1 support"
@@ -160,7 +160,7 @@ feature 'Proposals' do
 
       click_link "Support proposals"
 
-      within("#proposals") do
+      within(".proposals-list") do
         click_link proposal.title
       end
 
@@ -205,7 +205,7 @@ feature 'Proposals' do
 
       expect(page).to have_selector('.js-order-selector[data-order="confidence_score"]')
 
-      within '#proposals' do
+      within(".proposals-list") do
         expect('Best proposal').to appear_before('Medium proposal')
         expect('Medium proposal').to appear_before('Worst proposal')
       end
@@ -217,7 +217,7 @@ feature 'Proposals' do
       expect(current_url).to include('order=created_at')
       expect(current_url).to include('page=1')
 
-      within '#proposals' do
+      within(".proposals-list") do
         expect('Medium proposal').to appear_before('Best proposal')
         expect('Best proposal').to appear_before('Worst proposal')
       end

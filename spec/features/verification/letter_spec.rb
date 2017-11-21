@@ -11,7 +11,8 @@ feature 'Verify Letter' do
 
     click_link "Send me a letter with the code"
 
-    expect(page).to have_content "Thank you for requesting your maximum security code (only required for the final votes). In a few days we will send it to the address featuring in the data we have on file."
+    expect(page).to have_content "Thank you for requesting your maximum security code (only required for the final votes). In a few days"\
+                                 " we will send it to the address featuring in the data we have on file."
 
     user.reload
 
@@ -20,6 +21,7 @@ feature 'Verify Letter' do
   end
 
   scenario 'Go to office instead of send letter' do
+    Setting["verification_offices_url"] = "http://offices.consul"
     user = create(:user, residence_verified_at: Time.current,
                          confirmed_phone:       "611111111")
 

@@ -78,7 +78,7 @@ describe EmailDigest do
       email_digest.deliver
 
       email = open_last_email
-      expect(email).to have_subject("Proposal notifications in Consul")
+      expect(email).to have_subject("Proposal notifications in CONSUL")
     end
 
     it "does not deliver email if no notifications pending" do
@@ -120,6 +120,19 @@ describe EmailDigest do
       expect(notification1.emailed_at).to be
       expect(notification2.emailed_at).to be
       expect(notification3.emailed_at).to_not be
+    end
+
+    it "resets the failed_email_digests_count flag" do
+      user1 = create(:user, failed_email_digests_count: 0)
+      user2 = create(:user, failed_email_digests_count: 3)
+
+      email_digest_1 = EmailDigest.new(user1)
+      email_digest_2 = EmailDigest.new(user2)
+      email_digest_1.mark_as_emailed
+      email_digest_2.mark_as_emailed
+
+      expect(user1.failed_email_digests_count).to eq(0)
+      expect(user2.failed_email_digests_count).to eq(0)
     end
 
   end

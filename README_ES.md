@@ -1,7 +1,6 @@
-![Logotipo de Consul]
-(https://raw.githubusercontent.com/consul/consul/master/public/consul_logo.png)
+![Logotipo de CONSUL](https://raw.githubusercontent.com/consul/consul/master/public/consul_logo.png)
 
-# Consul
+# CONSUL
 
 Aplicación de Participación Ciudadana y Gobierno Abierto
 
@@ -9,23 +8,26 @@ Aplicación de Participación Ciudadana y Gobierno Abierto
 [![Code Climate](https://codeclimate.com/github/consul/consul/badges/gpa.svg)](https://codeclimate.com/github/consul/consul)
 [![Dependency Status](https://gemnasium.com/consul/consul.svg)](https://gemnasium.com/consul/consul)
 [![Coverage Status](https://coveralls.io/repos/github/consul/consul/badge.svg?branch=master)](https://coveralls.io/github/consul/consul?branch=master)
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/consul/localized.svg)](https://crowdin.com/project/consul)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
 
-Este es el repositorio de código abierto de la Aplicación de Participación Ciudadana Consul, creada originariamente por el Ayuntamiento de Madrid.
+[![Accessibility conformance](https://img.shields.io/badge/accessibility-WAI:AA-green.svg)](https://www.w3.org/WAI/eval/Overview)
+[![A11y issues checked with Rocket Validator](https://rocketvalidator.com/badges/checked_with_rocket_validator.svg?url=https://rocketvalidator.com)](https://rocketvalidator.com/opensource)
+
+[![Join the chat at https://gitter.im/consul/consul](https://badges.gitter.im/consul/consul.svg)](https://gitter.im/consul/consul?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/consul/consul/issues?q=is%3Aissue+is%3Aopen+label%3APRs-welcome)
+
+Este es el repositorio de código abierto de la Aplicación de Participación Ciudadana CONSUL, creada originariamente por el Ayuntamiento de Madrid.
 
 ## Estado del proyecto
 
-El desarrollo de esta aplicación comenzó el [15 de Julio de 2015](https://github.com/consul/consul/commit/8db36308379accd44b5de4f680a54c41a0cc6fc6) y el código fue puesto en producción el día 7 de Septiembre de 2015 en [decide.madrid.es](https://decide.madrid.es). Desde entonces se le añaden mejoras y funcionalidades constantemente. Las funcionalidades actuales se pueden consultar en la [documentación](https://github.com/consul/consul/tree/master/doc) y las siguientes funcionaliades en la lista de [tareas por hacer](https://github.com/consul/consul/issues).
-
-## Tecnología
-
-El backend de esta aplicación se desarrolla con el lenguaje de programación [Ruby](https://www.ruby-lang.org/) sobre el *framework* [Ruby on Rails](http://rubyonrails.org/).
-Las herramientas utilizadas para el frontend no están cerradas aún. Los estilos de la página usan [SCSS](http://sass-lang.com/) sobre [Foundation](http://foundation.zurb.com/)
+El desarrollo de esta aplicación comenzó el [15 de Julio de 2015](https://github.com/consul/consul/commit/8db36308379accd44b5de4f680a54c41a0cc6fc6) y el código fue puesto en producción el día 7 de Septiembre de 2015 en [decide.madrid.es](https://decide.madrid.es). Desde entonces se le añaden mejoras y funcionalidades constantemente. Las funcionalidades actuales se pueden consultar en [características](http://www.decide.es/es/) o en la [documentación](https://github.com/consul/consul/tree/master/doc) y las siguientes funcionaliades en la lista de [tareas por hacer](https://github.com/consul/consul/issues). Para conocer el estado actual de las próximas caracteristicas, vaya a [Roadmap](https://github.com/consul/consul/projects/6)
 
 ## Configuración para desarrollo y tests
 
-**NOTA**: para unas instrucciones más detalladas consulta la [documentación](https://github.com/consul/consul/tree/master/doc/es/dev_test_setup.md)
+**NOTA**: para unas instrucciones más detalladas consulta la [documentación](https://github.com/consul/docs/tree/master/es/getting_started/prerequisites)
 
-Prerequisitos: tener instalado git, Ruby 2.3.2, la gema `bundler`, ghostscript y PostgreSQL (9.4 o superior).
+Prerequisitos: tener instalado git, Ruby 2.3.2, la gema `bundler` y PostgreSQL (9.4 o superior).
 
 ```
 
@@ -34,17 +36,19 @@ cd consul
 bundle install
 cp config/database.yml.example config/database.yml
 cp config/secrets.yml.example config/secrets.yml
-bin/rake db:setup
+bin/rake db:create
+bin/rake db:migrate
 bin/rake db:dev_seed
 RAILS_ENV=test rake db:setup
 ```
 
 Para ejecutar la aplicación en local:
+
 ```
 bin/rails s
 ```
 
-Prerequisitos para los tests: tener instalado PhantomJS >= 1.9.8
+Prerequisitos para los tests: tener instalado PhantomJS >= 2.1.1
 
 Para ejecutar los tests:
 
@@ -62,15 +66,9 @@ Pero para ciertas acciones, como apoyar, necesitarás un usuario verificado, el 
  **user:** verified@consul.dev
  **pass:** 12345678
 
-### Customización
+## Documentación
 
-Ver fichero [CUSTOMIZE_ES.md](CUSTOMIZE_ES.md)
-
-### OAuth
-
-Para probar los servicios de autenticación mediante proveedores externos OAuth — en este momento Twitter, Facebook y Google —, necesitas crear una "aplicación" en cada una de las plataformas soportadas y configurar la *key* y el *secret* proporcionados en tu *secrets.yml*
-
-En el caso de Google, comprueba que las APIs *Contacts API* y *Google+ API* están habilitadas para la aplicación.
+Por favor visita la documentación que está siendo completada en https://consul_docs.gitbooks.io/docs/content/ para conocer más sobre este proyecto, como comenzar tu propio fork, instalarlo, customizarlo y usarlo como administrador/mantenedor. Puedes colaborar en ella en https://github.com/consul/docs
 
 ## Licencia
 

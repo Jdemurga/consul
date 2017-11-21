@@ -26,17 +26,15 @@
         <ul class="menu simple margin-top">
           <% @valid_filters.each do |filter| %>
             <% if @activity_counts[filter] > 0 %>
-              <% if authorized_for_filter?(filter) %>
-                <% if @current_filter == filter %>
-                  <li class="active">
-                    <%= t("users.show.filters.#{filter}", count: @activity_counts[filter]) %>
-                  </li>
-                <% else %>
-                  <li>
-                    <%= link_to t("users.show.filters.#{filter}", count: @activity_counts[filter]),
-                                current_path_with_query_params(filter: filter, page: 1) %>
-                  </li>
-                <% end %>
+              <% if @current_filter == filter %>
+                <li class="active">
+                  <h2><%= t("users.show.filters.#{filter}", count: @activity_counts[filter]) %></h2>
+                </li>
+              <% else %>
+                <li>
+                  <%= link_to t("users.show.filters.#{filter}", count: @activity_counts[filter]),
+                              current_path_with_query_params(filter: filter, page: 1) %>
+                </li>
               <% end %>
             <% end %>
           <% end %>
@@ -45,8 +43,12 @@
 
         <%= render "activity_page" %>
       <% else %>
-        <p><%= t('users.show.private_activity') %></p>
+        <div class="callout warning margin">
+          <%= t('users.show.private_activity') %>
+        </div>
       <% end %>
+
+      <%= render 'interests', user: @user if valid_interests_access? %>
 
     </div>
   </div>

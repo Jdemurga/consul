@@ -5,6 +5,8 @@ App.Comments =
     this.update_comments_count()
 
   add_reply: (parent_id, response_html) ->
+    if $("##{parent_id} .comment-children").length == 0
+      $("##{parent_id}").append("<li><ul id='#{parent_id}_children' class='no-bullet comment-children'></ul></li>")
     $("##{parent_id} .comment-children:first").prepend($(response_html))
     this.update_comments_count()
 
@@ -52,5 +54,6 @@ App.Comments =
         children_container_id = "#{$(this).data().id}_children"
         $("##{children_container_id}").toggle('slow')
         App.Comments.toggle_arrow(children_container_id)
+        $(this).children('.js-child-toggle').toggle()
         false
       )
