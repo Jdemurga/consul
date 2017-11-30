@@ -2,6 +2,10 @@
 
 <%= render 'legislation/processes/header', process: @process, header: :full %>
 
+<% if @process.attachments.any? %>
+  <%= render 'custom/attachments/attachments', attachments: @process.attachments %>
+<% end %>
+
 <%= render 'key_dates', process: @process, phase: :debate %>
 
 <div class="row">

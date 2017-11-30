@@ -154,6 +154,23 @@
   </div>
 
   <div class="row">
+    <div class="small-12 column">
+      <h3><%= t("admin.site_customization.pages.form.attachments") %></h3>
+
+      <%= f.fields_for :attachments do |attachment| %>
+        <%= render 'admin/shared/attachment_fields', f: attachment %>
+      <% end %>
+      <br>
+
+      <div class="text-right">
+        <%= link_to_add_association f, :attachments, class: 'button success small'  do %>
+          <%= t("admin.budget_investments.edit.project_attachments_add") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="small-12 medium-4 column">
       <%= f.label :title %>
     </div>

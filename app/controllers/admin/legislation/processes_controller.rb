@@ -48,7 +48,8 @@ class Admin::Legislation::ProcessesController < Admin::Legislation::BaseControll
         :draft_publication_date,
         :allegations_start_date,
         :allegations_end_date,
-        :final_publication_date
+        :final_publication_date,
+        attachments_attributes: [:file, :title,:featured_image_flag, :_destroy, :id]
       )
     end
 end
