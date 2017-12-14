@@ -9,7 +9,7 @@ namespace :census do
       census_api_response = CensusApiCustom.new.call(user.document_type, user.document_number)
       unless census_api_response.valid?
 
-        Mailer.email_removed_from_census(user, user.email, document_type).deliver_later
+        Mailer.email_removed_from_census(user, user.email, user.document_type).deliver_later
         user.downgrade_verification_level
       end
 

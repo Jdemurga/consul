@@ -16,5 +16,11 @@ es:
           no_commission_selected: 'Sin asignar a comisión de barrio'
           extra_data: 'Comisiones de barrio'
           account_data: 'Datos de acceso'
+    organizations:
+      registrations:
+        new:
+          responsible_document_number_note: 'Para poder registrar un colectivo es necesario que se provea el DNI/NIE/Pasaporte de la persona que lo representa'
+          responsible_document_number_label: DNI/NIE/Pasaporte
+
   errors:
     commission_can_not_be_updated_twice: 'no puede ser establecida por segunda vez'

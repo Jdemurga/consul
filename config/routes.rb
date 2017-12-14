@@ -11,12 +11,12 @@ Rails.application.routes.draw do
                        confirmations: 'users/confirmations',
                        omniauth_callbacks: 'users/omniauth_callbacks'
                      }
-  #devise_for :organizations, class_name: 'User',
-  #           controllers: {
-  #             registrations: 'organizations/registrations',
-  #             sessions: 'devise/sessions',
-  #           },
-  #           skip: [:omniauth_callbacks]
+  devise_for :organizations, class_name: 'User',
+             controllers: {
+               registrations: 'organizations/registrations',
+               sessions: 'devise/sessions',
+             },
+             skip: [:omniauth_callbacks]
 
   devise_scope :organization do
     get 'organizations/sign_up/success', to: 'organizations/registrations#success'
@@ -463,6 +463,7 @@ Rails.application.routes.draw do
   # GET-17
   # GET-22
   get 'presupuestos-participativos-2017', to: 'pages#show', id: 'participatory_budget/in_two_minutes', as: 'participatory_budget/in_two_minutes'
+  get 'normativa-presupuestos-participativos-2018', to: 'pages#show', id: 'normativa_presupuestos_participativos_2018', as: 'normativa-presupuestos-participativos-2018'
   get 'participatory_budget', to: 'spending_proposals#welcome', as: 'participatory_budget'
   get 'informacion-detallada-participa-getage', to: 'pages#show', as: 'mode_information', id: 'more_information'
   get 'comisiones-de-barrio', to: 'pages#show', as: 'about_neighborhood_commissions', id: 'about_neighborhood_commissions'

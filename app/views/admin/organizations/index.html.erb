@@ -26,6 +26,8 @@
     <td><p><%= organization.email %></p></td>
     <td><p><%= organization.phone_number %></p></td>
     <td><p><%= organization.responsible_name %></p></td>
+        <td><p><%= organization.responsible_document_number %></p></td>
+
     <% if organization.verified? %>
       <td class="verified text-center">
         <span class="icon-check"></span>
