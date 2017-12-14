@@ -103,7 +103,7 @@ class CensusApiCustom
         rescue RestClient::NotFound => ex
           nil
         rescue Exception => ex
-          # Notify to support
+          puts ex.inspect
           nil
         end
       else

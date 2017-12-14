@@ -1,4 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
+
   before_action :add_inline_attachment!
   helper :settings
   default from: "#{Setting['mailer_from_name']  || Setting['org_name']} <#{Setting['mailer_from_address']}>"

@@ -4,6 +4,12 @@ class User
 
   before_validation :normalize_email
 
+  def downgrade_verification_level
+    update_column(:verified_at, nil)
+    update_column(:residence_verified_at, nil)
+    update_column(:census_removed_at, Time.current)
+  end
+
   def normalize_email
     return unless self.email
     if self.email.include?('+') && self.email.include?('@')
