@@ -11,7 +11,7 @@
 </div>
 
 <div class="row">
-  <%- @budgets.each_with_index do |budget, index| %>
+  <%- @budgets.reverse.each_with_index do |budget, index| %>
       <div class="small-12 medium-4 columns column end">
         <div class="panel margin" data-equalizer-watch="">
 
@@ -22,9 +22,12 @@
           </div>
           <% if budget.finished? %>
             <%= link_to 'Ver resultados', results_budget_path(budget), class: "button see-more expanded" %>
+            <% else %>
+            <br>
+            <br>
           <% end %>
           <br>
-          <%= link_to 'Ver propuestas', budget, class: "button primary expanded" %>
+          <%= link_to t("budgets.phase.#{budget.phase}") , budget, class: "button primary expanded" %>
         </div>
       </div>
   <% end %>
