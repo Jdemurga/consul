@@ -37,9 +37,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   def efficient_conversion(width, height)
     manipulate! do |img|
       img.format("png") do |c|
-        c.fuzz        "3%"
-        c.resize      "#{width}x#{height}>"
-        c.resize      "#{width}x#{height}<"
+        c.resize      "x#{height}>"
       end
       img
     end
@@ -47,7 +45,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
 
   version :cover do
     process convert: 'png'
-    process efficient_conversion: [450, 450]
+    process efficient_conversion: [450, 850]
 
     def full_filename (for_file)
       "cover.png"
