@@ -9,6 +9,7 @@
       <strong>
         <%= @page.errors.count %>
         <%= t("admin.site_customization.pages.errors.form.error", count: @page.errors.count) %>
+        <%= @page.errors.inspect %>
       </strong>
     </div>
   <% end %>
