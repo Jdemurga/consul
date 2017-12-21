@@ -7,6 +7,8 @@ class Organization < ActiveRecord::Base
   validates :responsible_name, presence: true
   validate  :validate_responsible_name_length
 
+  before_save :generate_username
+
   delegate :email, :phone_number, to: :user
 
   scope :pending, -> { where(verified_at: nil, rejected_at: nil) }
@@ -59,4 +61,10 @@ class Organization < ActiveRecord::Base
       validator.validate(self)
     end
 
+  def generate_username
+    username  = "#{name.parameterize}-#{user.id}"
+    return if username == user.username
+    user.username = username
+    user.save!
+  end
 end
