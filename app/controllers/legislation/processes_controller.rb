@@ -58,6 +58,9 @@ class Legislation::ProcessesController < Legislation::BaseController
   def final_version_publication
     phase :final_version_publication
 
+    render :results
+    return
+
     if @process.show_phase?(@phase)
       if final_version = @process.final_draft_version
         redirect_to legislation_process_draft_version_path(@process, final_version)
