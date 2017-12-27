@@ -12,6 +12,8 @@ class Legislation::ProcessesController < Legislation::BaseController
       redirect_to legislation_process_draft_version_path(@process, draft_version)
     elsif @process.active_phase?(:debate)
       redirect_to legislation_process_debate_path(@process)
+    elsif @process.active_phase?(:final_version_publication)
+      redirect_to legislation_process_final_version_publication_path(@process)
     else
       redirect_to legislation_process_allegations_path(@process)
     end

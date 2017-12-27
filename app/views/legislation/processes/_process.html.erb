@@ -24,9 +24,17 @@
   </div>
 
   <div class="column row small-collapse medium-uncollapse legislation-calendar">
+    <% if process.debate_start_date && process.debate_end_date %>
     <div class="small-6 medium-3 column">
         <h5><%= t('legislation.processes.shared.debate_dates') %></h5>
         <p><%= format_date(process.debate_start_date) %> - <%= format_date(process.debate_end_date) %></p>
     </div>
+    <% end %>
+    <% if process.final_publication_date %>
+      <div class="small-6 medium-3 column">
+        <h5><%= t('legislation.processes.shared.final_publication_date') %></h5>
+        <p><%= format_date(process.final_publication_date) %></p>
+      </div>
+    <% end %>
   </div>
 </div>
