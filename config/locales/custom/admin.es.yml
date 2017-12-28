@@ -68,6 +68,7 @@ es:
         spending_proposal: Propuesta
         ballot_lines_count: Presente Papeletas
         ballot_lines_sum: Puntos
+        phase: Fase actual
         ballot_lines_ratio: Media
         price: Coste propuesta
         project: Estado

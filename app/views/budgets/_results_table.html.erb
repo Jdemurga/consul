@@ -57,14 +57,15 @@
           <th>
             ID
           </th>
+          <th></th>
           <th scope="col">
             <%= t("admin.budgets.results.spending_proposal") %>
           </th>
-          <th scope="col" class="text-right">
-            <%= t("admin.budgets.results.ballot_lines_sum") %>
+          <th scope="col" class="text-left">
+            <%= t("admin.budgets.results.phase") %>
           </th>
           <th scope="col" class="text-right">
-            Fase
+            <%= t("admin.budgets.results.ballot_lines_sum") %>
           </th>
           <th scope="col" class="text-right">
             <%= t("admin.budgets.results.price") %>
@@ -83,26 +84,35 @@
               <%= investment.id %>
             </td>
             <td>
+              <% if investment.winner? %>
+              <span class="icon-check">
+                <span class="sr-only">
+                  <%= t("budgets.results.accepted") %>
+                </span>
+              </span>
+              <% end %>
+            </td>
+            <td>
               <%= link_to investment.title,
                           budget_investment_path(@budget, investment) %>
             </td>
+            <td class="text-left">
+              <small><%= investment.project_phase %></small>
+            </td>
             <td class="text-right ballot-points">
               <%= investment.confirmed_budget_ballot_lines_sum %>
-            </td>
-            <td class="center">
-              -
             </td>
             <td class="text-right">
               <%= format_price investment.price %>
             </td>
             <td class="text-center">
-              <% if investment.has_project? %>
-                  <% if investment.project_phase.present? %>
-                      <%= link_to investment.project_phase, project_budget_investment_path(@budget, investment) %>
-                  <% else %>
-                      <%= link_to t("admin.budgets.results.project"), project_budget_investment_path(@budget, investment) %>
-                  <% end %>
-              <% end %>
+
+              <small>
+
+                <% if investment.attachments.any? %>
+                  <%= link_to t("spending_proposals.results.see_gallery"), project_budget_investment_path(@budget, investment) %>
+                <% end %>
+              </small>
             </td>
             </tr>
         <% end %>

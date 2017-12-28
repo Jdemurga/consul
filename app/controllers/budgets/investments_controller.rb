@@ -4,7 +4,7 @@ module Budgets
     include CommentableActions
     include FlagActions
 
-    before_action :authenticate_user!, except: [:index, :show]
+    before_action :authenticate_user!, except: [:index, :show, :project]
 
     load_and_authorize_resource :budget
     load_and_authorize_resource :investment, through: :budget, class: "Budget::Investment"
@@ -27,8 +27,7 @@ module Budgets
 
     respond_to :html, :js
 
-    def project
-    end
+    def project; end
 
     def index
       @investments = @investments.apply_filters_and_search(@budget, params, @current_filter).send("sort_by_#{@current_order}").page(params[:page]).per(10).for_render
