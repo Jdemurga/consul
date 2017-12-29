@@ -26,6 +26,7 @@
     <div class="row small-up-2 medium-up-4">
       <%- @investment.attachments.each do |attachment| %>
 
+        <div class="columns small-12 medium-6 large-4">
           <div class="card column">
             <%= link_to attachment.file_url, target: 'blank', title: attachment.title do %>
                 <% if attachment.document? %>
@@ -46,7 +47,9 @@
               </p>
             </div>
           </div>
+        </div>
       <% end %>
+      <div class="columns small-12"></div>
     </div>
   </div>
 </div>
