@@ -21,16 +21,16 @@ es:
       validate_to_comment: 'Es necesario %{verify} para poder opinar en las propuestas del proceso  '
   account:
     show:
-      user_permission_neigh_commission: Inscribirse en la comisión de tu barrio
-      change_neigh_comission: Inscribirme en la comisión de mi barrio
+      user_permission_neigh_commission: Inscribirse en la comisión de tu barrio**
+      change_neigh_comission: Inscribirme en la comisión de mi barrio**
       change_neigh_comission_hint: Puedes formar parte de la comisión de presupuestos participativos de tu barrio
-      user_permission_debates: Opinar sobre consultas ciudadanas
+      user_permission_debates: Opinar sobre consultas ciudadanas*
       user_permission_info: Con tu cuenta ya puedes...
-      user_permission_proposal: Crear nuevas propuestas de Presupuestos Participativos
-      user_permission_support_proposal: Dar a "me gusta" en las propuesta de Presupuestos Participativos
+      user_permission_proposal: Crear nuevas propuestas de Presupuestos Participativos**
+      user_permission_support_proposal: Dar a "me gusta" en las propuesta de Presupuestos Participativos*
       user_permission_title: Participación
       user_permission_verify: Para poder realizar todas las acciones verifica tu cuenta.
-      user_permission_verify_info: "* Sólo usuarios empadronados."
+      user_permission_verify_info: "* Sólo usuarios empadronados. / ** Usuarios empadronados y organizaciones validadas"
       user_permission_votes: Votar propuestas de Presupuestos Participativos*
 
   geozones:
