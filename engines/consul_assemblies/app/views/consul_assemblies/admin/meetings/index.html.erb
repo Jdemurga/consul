@@ -8,12 +8,14 @@
 <table class="cms_meeting_list">
   <thead>
     <tr>
-      <th>Asamblea</th>
-      <th>Asunto</th>
-      <th>Fin propuestas</th>
-      <th>Fecha</th>
+      <th><%= t('.assambly') %></th>
+      <th><%= t('.title') %></th>
+      <th><%= t('.date') %></th>
+      <th><%= t('.end_of_proposals') %></th>
+      <th><%= t('.status') %></th>
+      <th><%= t('.proposals') %></th>
       <th></th>
-      <th colspan="2"><%= t("admin.actions.actions") %></th>
+      <th colspan="2" class="text-center"><%= t("admin.actions.actions") %></th>
     </tr>
   </thead>
   <tbody>
@@ -22,18 +24,18 @@
       <td>
         <%= meeting.assembly.name %>
       </td>
-      <td><%= I18n.l meeting.scheduled_at, format: :short %></td>
-      <td><%= I18n.l meeting.close_accepting_proposals_at, format: :short %></td>
-      <td><%= t("admin.site_customization.meetings.meeting.status_#{meeting.status}") %></td>
       <td>
         <%= link_to meeting.title, edit_admin_meeting_path(meeting) %>
       </td>
+      <td><%= I18n.l meeting.scheduled_at, format: :short %></td>
+      <td><%= I18n.l meeting.close_accepting_proposals_at, format: :short %></td>
+      <td><%= t(".#{meeting.status}") %></td>
       <td class="small">
-        <%= meeting.status  %>
+        <%= link_to t('.see_proposals'), admin_proposals_path(meeting_id: meeting.id)%>
       </td>
+      <td></td>
       <td class="small delete">
-        <span class="icon-x"></span>
-        <%= link_to t("admin.site_customization.meetings.index.delete"), admin_meeting_path(meeting), method: :delete, class: "delete" %>
+        <%= link_to t(".delete"), admin_meeting_path(meeting), method: :delete, class: "button hollow alert expanded", data: { confirm: "¿Está seguro de querer eliminar esta reunión?" } %>
       </td>
     </tr>
   <% end %>

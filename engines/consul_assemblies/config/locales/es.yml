@@ -11,3 +11,25 @@ es:
   layouts:
     header:
       assemblies: Asambleas
+  consul_assemblies:
+    admin:
+      meetings:
+        index:
+          assambly: 'Asamblea'
+          closed: 'Cerrado'
+          date: 'Fecha'
+          delete: 'Eliminar'
+          end_of_proposals: 'Fin de propuestas'
+          open: 'Abierto'
+          proposals: 'Propuestas'
+          see_proposals: 'Ver propuestas'
+          status: 'Estado'
+          subject: 'Asunto'
+          title: 'Título'
+      proposals:
+        index:
+          accepted: 'Aceptado'
+          date: 'Fecha'
+          meeting: 'Reunión'
+          proposal: 'Propuesta'
+          title: 'Título'

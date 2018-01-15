@@ -1,0 +1,38 @@
+<%= form_for [:admin, @proposal], html: {class: "edit_proposal", data: {watch_changes: true}} do |f| %>
+
+  <% if @proposal.errors.any? %>
+    <div id="error_explanation" data-alert class="callout alert" data-closable>
+      <button class="close-button" aria-label="<%= t("application.close") %>" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <strong>
+        <%= @proposal.errors.count %>
+        <%= t("admin.site_customization.meetings.errors.form.error", count: @proposal.errors.count) %>
+        <!-- <%= @meeting.errors.inspect %> -->
+      </strong>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="small-12 column">
+      <hr>
+
+      <%= f.hidden_field :meeting_id%>
+      <%= f.label :title %>
+      <%= f.text_field :title, label: false, size: 80, maxlength: 80 %>
+      <%= f.label :accepted %>
+      <%= f.check_box :accepted, default: 0,  label: false, size: 80, maxlength: 80 %>
+      <div class="ckeditor margin-top">
+        <%= f.label :description %>
+        <%= f.cktext_area :description, label: false, cols: 80, rows: 10, ckeditor: { language: I18n.locale } %>
+      </div>
+
+      <div class="small-12 medium-6 large-4">
+        <%= f.submit class: "button success expanded" %>
+      </div>
+    </div>
+  </div>
+
+
+<% end %>

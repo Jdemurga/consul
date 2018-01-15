@@ -31,7 +31,7 @@ module ConsulAssemblies
       @meeting = ConsulAssemblies::Meeting.find(params[:id])
       @meeting.destroy
 
-      redirect_to :index
+      redirect_to admin_meetings_path
     end
 
     def update

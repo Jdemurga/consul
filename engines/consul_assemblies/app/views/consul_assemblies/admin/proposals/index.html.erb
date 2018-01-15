@@ -1,0 +1,35 @@
+<% provide :title do %>
+  Admin - <%= t("admin.menu.site_customization.meetings") %>
+<% end %>
+
+<%= link_to t("admin.assemblies.meetings.index.create"), new_admin_proposal_path(meeting_id: params[:meeting_id]), class: "button float-right" %>
+<h2 class="inline-block"><%= t("admin.site_customization.meetings.index.title") %></h2>
+
+<table class="cms_proposal_list">
+  <thead>
+    <tr>
+      <th><%= t('.meeting') %></th>
+      <th><%= t('.proposal') %></th>
+      <th><%= t('.date') %></th>
+      <th><%= t('.accepted') %></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @proposals.each do |proposal| %>
+    <tr id="<%= dom_id(proposal) %>">
+      <td><%= link_to proposal.meeting.try(:title), edit_admin_proposal_path(proposal) %></td>
+      <td><%= proposal.title %></td>
+      <td><%= proposal.created_at %></td>
+      <td>
+        <% if proposal.accepted == true %>
+          &#x2714;
+        <% else %>
+          &#x2718;
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @proposals %>
