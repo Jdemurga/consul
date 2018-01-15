@@ -79,6 +79,10 @@ module Abilities
         can :create, Comment,  parent_id: nil
       end
 
+      if user.verified_organization?
+        can :create, Budget::Investment, budget: { phase: "accepting" }
+      end
+
       can [:create, :show], ProposalNotification, proposal: { author_id: user.id }
 
       can :create, Annotation
