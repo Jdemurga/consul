@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171214070748) do
+ActiveRecord::Schema.define(version: 20180111093330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -283,6 +283,48 @@ ActiveRecord::Schema.define(version: 20171214070748) do
   end
 
   add_index "commissions", ["geozone_id"], name: "index_commissions_on_geozone_id", using: :btree
+
+  create_table "consul_assemblies_assemblies", force: :cascade do |t|
+    t.string   "name",                null: false
+    t.string   "general_description"
+    t.string   "scope_description"
+    t.integer  "geozone_id",          null: false
+    t.string   "about_venue"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "consul_assemblies_assemblies", ["geozone_id"], name: "index_consul_assemblies_assemblies_on_geozone_id", using: :btree
+
+  create_table "consul_assemblies_meetings", force: :cascade do |t|
+    t.string   "title",                                    null: false
+    t.string   "description"
+    t.string   "summary"
+    t.string   "status",                                   null: false
+    t.string   "about_venue"
+    t.integer  "assembly_id",                              null: false
+    t.integer  "followers_count",              default: 0
+    t.integer  "comments_count",               default: 0
+    t.datetime "close_accepting_proposals_at"
+    t.datetime "scheduled_at"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "consul_assemblies_meetings", ["assembly_id"], name: "index_consul_assemblies_meetings_on_assembly_id", using: :btree
+
+  create_table "consul_assemblies_proposals", force: :cascade do |t|
+    t.integer  "meeting_id",       null: false
+    t.string   "title",            null: false
+    t.text     "description"
+    t.integer  "user_id"
+    t.boolean  "accepted"
+    t.boolean  "terms_of_service"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "consul_assemblies_proposals", ["meeting_id"], name: "index_consul_assemblies_proposals_on_meeting_id", using: :btree
 
   create_table "debates", force: :cascade do |t|
     t.string   "title",                        limit: 80
