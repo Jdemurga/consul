@@ -116,15 +116,15 @@
               <% else %>
                   <span class="icon-x"></span>
               <% end %>
-              <%= t("account.show.user_permission_debates") %>*
+              <%= t("account.show.user_permission_debates") %>
             </li>
             <li>
-              <% if current_user.level_two_or_three_verified? %>
+              <% if can?(:create, Budget::Investment) %>
                   <span class="icon-check"></span>
               <% else %>
                   <span class="icon-x"></span>
               <% end %>
-              <%= t("account.show.user_permission_proposal") %>*
+              <%= t("account.show.user_permission_proposal") %>
             </li>
             <li>
               <% if current_user.level_two_or_three_verified? %>
@@ -132,7 +132,7 @@
               <% else %>
                 <span class="icon-x"></span>
               <% end %>
-              <%= t("account.show.user_permission_support_proposal") %>*
+              <%= t("account.show.user_permission_support_proposal") %>
             </li>
             <li>
               <% if current_user.level_three_verified? %>
@@ -143,7 +143,7 @@
               <%= t("account.show.user_permission_votes") %>
             </li>
             <li>
-              <% if current_user.level_three_verified? %>
+              <% if current_user.level_three_verified? || current_user.verified_organization? %>
                   <span class="icon-check"></span>
               <% else %>
                   <span class="icon-x"></span>
