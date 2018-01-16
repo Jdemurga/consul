@@ -54,6 +54,8 @@ es:
           meetings: 'Reuniones'
           new_meeting: 'Nueva reunión'
           title_h2: 'NUEVA REUNIÓN'
+      menu:
+        meetings: 'Reuniones'
       proposals:
         edit:
           edit_proposal: 'Editar propuesta'
