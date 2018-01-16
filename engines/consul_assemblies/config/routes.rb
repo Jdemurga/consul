@@ -8,8 +8,10 @@ ConsulAssemblies::Engine.routes.draw do
 
   namespace :admin do
 
+    resources :assemblies
     resources :meetings
     resources :proposals
+
   end
 
 end

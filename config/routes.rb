@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get '/sandbox/*template' => 'sandbox#show'
   end
 
-  mount ConsulAssemblies::Engine => '/asambleas', as: 'assemblies'
+  mount ConsulAssemblies::Engine => '/assemblies', as: 'assemblies'
 
   devise_for :users, controllers: {
                        registrations: 'users/registrations',

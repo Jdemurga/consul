@@ -45,8 +45,11 @@
           <span class="icon-budget"></span>
           <strong><%= t("admin.menu.assemblies") %></strong>
         </a>
-        <ul <%= "class=is-active" if controller_name == "assemblies" %>>
+        <ul <%= "class=is-active" if controller_name == "assemblies" || controller_name == "meetings"%>>
           <li <%= "class=active" if controller_name == "assemblies" %>>
+            <%= link_to t(".assemblies"), assemblies.admin_assemblies_path %>
+          </li>
+          <li <%= "class=active" if controller_name == "meetings" %>>
             <%= link_to t(".meetings"), assemblies.admin_meetings_path %>
           </li>
         </ul>
