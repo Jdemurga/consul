@@ -111,7 +111,7 @@
           <ul>
 
             <li>
-              <% if current_user.level_two_or_three_verified? %>
+              <% if current_user.level_two_or_three_verified?  || current_user.verified_organization? %>
                   <span class="icon-check"></span>
               <% else %>
                   <span class="icon-x"></span>
@@ -149,6 +149,14 @@
                   <span class="icon-x"></span>
               <% end %>
               <%= t("account.show.user_permission_neigh_commission") %>
+            </li>
+            <li>
+              <% if current_user.level_three_verified? || current_user.verified_organization? %>
+                <span class="icon-check"></span>
+              <% else %>
+                <span class="icon-x"></span>
+              <% end %>
+              <%= t("account.show.user_permission_proposal") %>
             </li>
           </ul>
 
