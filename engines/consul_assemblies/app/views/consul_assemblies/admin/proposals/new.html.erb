@@ -1,12 +1,12 @@
 <% provide :title do %>
-  Admin - <%= t("admin.menu.assemblies.meetings") %> - <%= t("admin.assemblies.meetings.new.title") %>
+  Admin - <%= t(".proposals") %> - <%= t(".new_proposal") %>
 <% end %>
 
 <%= back_link_to admin_proposals_path %>
 
 <div class="row">
   <div class="small-12 column">
-    <h2><%= t("admin.assemblies.meetings.new.title") %></h2>
+    <h2><%= t(".title_h2") %></h2>
     <%= render 'form', meeting_id: params[:meeting_id] %>
   </div>
 </div>

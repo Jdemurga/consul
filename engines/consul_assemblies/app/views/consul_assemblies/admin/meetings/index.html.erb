@@ -1,9 +1,9 @@
 <% provide :title do %>
-  Admin - <%= t("admin.menu.site_customization.meetings") %>
+  Admin - <%= t(".meetings") %>
 <% end %>
 
-<%= link_to t("admin.assemblies.meetings.index.create"), new_admin_meeting_path, class: "button float-right" %>
-<h2 class="inline-block"><%= t("admin.site_customization.meetings.index.title") %></h2>
+<%= link_to t(".create"), new_admin_meeting_path, class: "button float-right" %>
+<h2 class="inline-block"><%= t(".title_h2") %></h2>
 
 <table class="cms_meeting_list">
   <thead>
@@ -15,7 +15,7 @@
       <th><%= t('.status') %></th>
       <th><%= t('.proposals') %></th>
       <th></th>
-      <th colspan="2" class="text-center"><%= t("admin.actions.actions") %></th>
+      <th colspan="2" class="text-center"><%= t(".actions") %></th>
     </tr>
   </thead>
   <tbody>
@@ -35,7 +35,7 @@
       </td>
       <td></td>
       <td class="small delete">
-        <%= link_to t(".delete"), admin_meeting_path(meeting), method: :delete, class: "button hollow alert expanded", data: { confirm: "¿Está seguro de querer eliminar esta reunión?" } %>
+        <%= link_to t(".delete"), admin_meeting_path(meeting), method: :delete, class: "button hollow alert expanded", data: { confirm: t('.confirm') } %>
       </td>
     </tr>
   <% end %>

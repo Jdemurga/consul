@@ -40,6 +40,13 @@ module ConsulAssemblies
       end
     end
 
+    def destroy
+      @proposal = ConsulAssemblies::Proposal.find(params[:id])
+      @proposal.destroy
+
+      redirect_to admin_proposals_path
+    end
+
     private
 
     def load_meeting

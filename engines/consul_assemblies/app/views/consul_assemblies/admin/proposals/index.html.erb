@@ -1,9 +1,9 @@
 <% provide :title do %>
-  Admin - <%= t("admin.menu.site_customization.meetings") %>
+  Admin - <%= t(".proposals") %>
 <% end %>
 
-<%= link_to t("admin.assemblies.meetings.index.create"), new_admin_proposal_path(meeting_id: params[:meeting_id]), class: "button float-right" %>
-<h2 class="inline-block"><%= t("admin.site_customization.meetings.index.title") %></h2>
+<%= link_to t(".create"), new_admin_proposal_path(meeting_id: params[:meeting_id]), class: "button float-right" %>
+<h2 class="inline-block"><%= t(".title_h2") %></h2>
 
 <table class="cms_proposal_list">
   <thead>
@@ -12,6 +12,7 @@
       <th><%= t('.proposal') %></th>
       <th><%= t('.date') %></th>
       <th><%= t('.accepted') %></th>
+      <th colspan="2" class="text-center"><%= t(".actions") %></th>
     </tr>
   </thead>
   <tbody>
@@ -19,13 +20,16 @@
     <tr id="<%= dom_id(proposal) %>">
       <td><%= link_to proposal.meeting.try(:title), edit_admin_proposal_path(proposal) %></td>
       <td><%= proposal.title %></td>
-      <td><%= proposal.created_at %></td>
+      <td><%= I18n.l proposal.created_at, format: :short %></td>
       <td>
         <% if proposal.accepted == true %>
           &#x2714;
         <% else %>
           &#x2718;
         <% end %>
+      </td>
+      <td class="small delete">
+        <%= link_to t(".delete"), admin_proposal_path(proposal), method: :delete, class: "button hollow alert expanded", data: { confirm: t('.confirm') } %>
       </td>
     </tr>
   <% end %>

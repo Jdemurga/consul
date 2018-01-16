@@ -3,7 +3,7 @@ module ConsulAssemblies
 
     def assemblies_statuses_select_options
       ConsulAssemblies::Meeting::VALID_STATUSES.map do |status|
-        [status, status]
+        [t('.'+status), status]
       end
     end
     def assemblies_select_options(assemblies)

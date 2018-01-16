@@ -1,0 +1,27 @@
+es:
+  activerecord:
+    models:
+      consul_assemblies/assembly: 'Asamblea'
+      consul_assemblies/meeting: 'Reunión'
+      consul_assemblies/proposal: 'Propuesta'
+    attributes:
+      consul_assemblies/assembly:
+        general_description: 'Descripción general'
+        scope_description: 'Alcance de descripción'
+        about_venue: 'Lugar de encuentro'
+      consul_assemblies/meeting:
+        title: 'Título'
+        description: 'Descripción'
+        summary: 'Sumario'
+        status: 'Estado'
+        about_venue: 'Lugar de encuentro'
+        followers_count: 'Número de seguidores'
+        comments_count: 'Número de comentarios'
+        close_accepting_proposals_at: 'Periodo de aceptacion de propuestas terminado'
+        schedule_at: 'Programado para fecha:'
+      consul_assemblies/proposal:
+        title: 'Título'
+        description: 'Descripción'
+        user_id: 'Usuario'
+        accepted: 'Aceptado'
+        terms_of_service: 'Términos del servicio'

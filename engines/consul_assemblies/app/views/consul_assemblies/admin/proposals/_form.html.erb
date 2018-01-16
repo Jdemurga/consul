@@ -19,17 +19,17 @@
       <hr>
 
       <%= f.hidden_field :meeting_id%>
-      <%= f.label :title %>
+      <%= f.label :title, t('.title') %>
       <%= f.text_field :title, label: false, size: 80, maxlength: 80 %>
-      <%= f.label :accepted %>
+      <%= f.label :accepted, t('.accepted') %>
       <%= f.check_box :accepted, default: 0,  label: false, size: 80, maxlength: 80 %>
       <div class="ckeditor margin-top">
-        <%= f.label :description %>
+        <%= f.label :description, t('.description') %>
         <%= f.cktext_area :description, label: false, cols: 80, rows: 10, ckeditor: { language: I18n.locale } %>
       </div>
 
       <div class="small-12 medium-6 large-4">
-        <%= f.submit class: "button success expanded" %>
+        <%= f.submit  t('.save'), class: "button success expanded"%>
       </div>
     </div>
   </div>

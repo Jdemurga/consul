@@ -16,7 +16,7 @@
 
   <div class="row">
     <div class="small-12 column">
-      <h3><%= t("admin.site_customization.meetings.form.attachments") %></h3>
+      <h3><%= t(".attachments") %></h3>
       <%= f.fields_for :attachments do |attachment| %>
           <%= render '/admin/shared/attachment_fields', f: attachment %>
       <% end %>
@@ -24,7 +24,7 @@
 
       <div class="text-right">
         <%= link_to_add_association f, :attachments, class: 'button success small'  do %>
-            <%= t("admin.budget_investments.edit.project_attachments_add") %>
+            <%= t(".new_attachment") %>
         <% end %>
       </div>
     </div>
@@ -32,36 +32,36 @@
   <div class="row">
     <div class="small-12 column">
       <hr>
+      <%= f.label :assembly_id, t(".assambly") %>
+      <%= f.select :assembly_id, assemblies_select_options(@assemblies), label: false %>
 
-      <%= f.select :assembly_id, assemblies_select_options(@assemblies) %>
+      <%= f.label :status, t(".status") %>
+      <%= f.select :status, assemblies_statuses_select_options(), label: false %>
 
-
-      <%= f.select :status, assemblies_statuses_select_options() %>
-
-      <%= f.label :scheduled_at %>
+      <%= f.label :scheduled_at, t(".scheduled_at") %>
       <div>
-        <%= datetime_select :meeting, :scheduled_at, {}, {:class => "datetime-select"}  %>
+        <%= datetime_select :meeting, :scheduled_at, {}, {:class => "datetime-select"} %>
       </div>
 
 
-      <%= f.label :close_accepting_proposals_at %>
+      <%= f.label :close_accepting_proposals_at, t(".close_accepting_proposals_at") %>
       <%= datetime_select :meeting, :close_accepting_proposals_at, {}, {:class => "datetime-select"}  %>
 
 
-      <%= f.label :title %>
+      <%= f.label :title, t(".title") %>
       <%= f.text_field :title, label: false, size: 80, maxlength: 80 %>
-      <%= f.label :about_venue %>
+      <%= f.label :about_venue, t(".about_venue") %>
       <%= f.text_field :about_venue, label: false, size: 80, maxlength: 80 %>
-      <%= f.label :summary %>
+      <%= f.label :summary, t(".summary") %>
       <%= f.text_area :summary, label: false, maxlength: 250 %>
 
       <div class="ckeditor margin-top">
-        <%= f.label :description %>
+        <%= f.label :description, t(".description") %>
         <%= f.cktext_area :description, label: false, cols: 80, rows: 10, ckeditor: { language: I18n.locale } %>
       </div>
 
       <div class="small-12 medium-6 large-4">
-        <%= f.submit class: "button success expanded" %>
+        <%= f.submit t('.save'), class: "button success expanded" %>
       </div>
     </div>
   </div>

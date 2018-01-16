@@ -8,28 +8,75 @@ es:
   admin:
     menu:
       assemblies: Asambleas
+
   layouts:
     header:
       assemblies: Asambleas
   consul_assemblies:
     admin:
       meetings:
+        edit:
+          edit_meeting: 'Editar reunión'
+          meetings: 'Reuniones'
+          title_h2: 'EDITAR REUNIÓN'
+        form:
+          about_venue: 'Lugar de encuentro'
+          assambly: 'Asamblea'
+          attachments: 'Adjuntos'
+          close_accepting_proposals_at: 'Periodo de aceptacion de propuestas'
+          closed: 'Cerrado'
+          description: 'Descripción'
+          new_attachment: 'Nuevo adjunto'
+          open: 'Abierto'
+          save: 'Guardar'
+          scheduled_at: 'Programado para:'
+          status: 'Estado'
+          summary: 'Sumario'
+          title: 'Título'
         index:
+          actions: 'Acciones'
           assambly: 'Asamblea'
           closed: 'Cerrado'
+          confirm: '¿Está seguro de querer eliminar esta reunión?'
+          create: 'Crear reunión'
           date: 'Fecha'
           delete: 'Eliminar'
           end_of_proposals: 'Fin de propuestas'
+          meetings: 'Reuniones'
           open: 'Abierto'
           proposals: 'Propuestas'
           see_proposals: 'Ver propuestas'
           status: 'Estado'
           subject: 'Asunto'
           title: 'Título'
+          title_h2: 'REUNIONES'
+        new:
+          meetings: 'Reuniones'
+          new_meeting: 'Nueva reunión'
+          title_h2: 'NUEVA REUNIÓN'
       proposals:
+        edit:
+          edit_proposal: 'Editar propuesta'
+          proposals: 'Propuestas'
+          title_h2: 'EDITAR PROPUESTA'
+        form:
+          accepted: 'Aceptado'
+          description: 'Descripción'
+          save: 'Guardar'
+          title: 'Título'
         index:
           accepted: 'Aceptado'
+          actions: 'Acciones'
+          confirm: '¿Está seguro de querer eliminar esta propuesta?'
+          create: 'Crear propuesta'
           date: 'Fecha'
+          delete: 'Eliminar'
           meeting: 'Reunión'
           proposal: 'Propuesta'
+          proposals: 'Propuestas'
           title: 'Título'
+          title_h2: 'PROPUESTAS'
+        new:
+          new_proposal: 'Nueva propuesta'
+          proposals: 'Propuestas'
+          title_h2: 'NUEVA PROPUESTA'
