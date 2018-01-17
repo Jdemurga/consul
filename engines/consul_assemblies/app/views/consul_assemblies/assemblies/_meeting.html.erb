@@ -1,3 +1,4 @@
+<% if meeting.try(:published_at) >= Time.now%>
 <div id="<%= dom_id(meeting) %>" class="legislation clear">
   <div class="column row legislation-text">
     <div class="small-12 medium-8 column">
@@ -21,35 +22,36 @@
 
 
       <p class="text-center">
-        <%= link_to 'Suscribirme', url_for(), class: "button hollow expanded" %>
+        <%= link_to t('.subscribe'), url_for(), class: "button hollow expanded" %>
       </p>
       <% if meeting.accepting_proposals? %>
       <p class="text-center">
-        <%= link_to 'Enviar propuesta', url_for(), class: "button success hollow expanded" %>
+        <%= link_to t('.send_proposal'), url_for(), class: "button success hollow expanded" %>
       </p>
       <% end %>
       <% if meeting.held? %>
-        <%= link_to 'Acta disponible', url_for(), class: "button hollow expanded" %>
+        <%= link_to t('.act_available'), url_for(), class: "button hollow expanded" %>
       <% end %>
     </div>
   </div>
   <div class="column row">
     <div class="small-12 column legislation-calendar-info">
-      <p>Datos clave sobre la celebración de la asamblea</p>
+      <p><%= t('.data') %></p>
     </div>
   </div>
   <div class="column row small-collapse medium-uncollapse legislation-calendar">
     <div class="small-6 medium-4 column">
-      <h5>Cuándo</h5>
+      <h5><%= t('.when') %></h5>
       <p><%=l meeting.scheduled_at, format: :short %></p>
     </div>
     <div class="small-6 medium-4 column">
-      <h5>Dónde</h5>
+      <h5><%= t('.where') %></h5>
       <p><%= meeting.about_venue %></p>
     </div>
     <div class="small-6 medium-4 column">
-      <h5>Cierre orden del día</h5>
+      <h5><%= t('.close') %></h5>
       <p><%= format_date(meeting.close_accepting_proposals_at) %></p>
     </div>
   </div>
 </div>
+<% end %>

@@ -31,9 +31,9 @@
       <td><%= I18n.l meeting.close_accepting_proposals_at, format: :short %></td>
       <td><%= t(".#{meeting.status}") %></td>
       <td class="small">
-        <%= link_to t('.see_proposals'), admin_proposals_path(meeting_id: meeting.id)%>
+        <%= link_to t('.attachment'), meeting.attachment_url, target: :blank%>
       </td>
-      <td></td>
+      <td><%= link_to t('.see_proposals'), admin_proposals_path(meeting_id: meeting.id)%></td>
       <td class="small delete">
         <%= link_to t(".delete"), admin_meeting_path(meeting), method: :delete, class: "button hollow alert expanded", data: { confirm: t('.confirm') } %>
       </td>

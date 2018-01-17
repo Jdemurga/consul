@@ -1,4 +1,4 @@
-<% provide :title do %><%= t('assemblies.index.title') %><% end %>
+<% provide :title do %><%= t('.title') %><% end %>
 <% content_for :header_addon do %>
   <%= render "shared/search_form",
              search_path: assemblies_path(page: 1),

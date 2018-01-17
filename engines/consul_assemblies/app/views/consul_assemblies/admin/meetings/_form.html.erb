@@ -37,7 +37,10 @@
 
       <%= f.label :status, t(".status") %>
       <%= f.select :status, assemblies_statuses_select_options(), label: false %>
-
+      <%= f.label :published_at, t(".published_at") %>
+      <div>
+        <%= datetime_select :meeting, :published_at, {}, {:class => "datetime-select"} %>
+      </div>
       <%= f.label :scheduled_at, t(".scheduled_at") %>
       <div>
         <%= datetime_select :meeting, :scheduled_at, {}, {:class => "datetime-select"} %>
@@ -59,7 +62,8 @@
         <%= f.label :description, t(".description") %>
         <%= f.cktext_area :description, label: false, cols: 80, rows: 10, ckeditor: { language: I18n.locale } %>
       </div>
-
+      <%= f.label :attachment, t(".attachment") %>
+      <%= f.file_field :attachment,label: false %>
       <div class="small-12 medium-6 large-4">
         <%= f.submit t('.save'), class: "button success expanded" %>
       </div>

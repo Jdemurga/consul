@@ -5,8 +5,8 @@ module ConsulAssemblies
 
     #load_and_authorize_resource :page, class: "ConsulAssemblies::Meeting"
 
-    before_action :load_meetings, only: [:index]
-    before_action :load_assemblies, only: [:create, :new, :edit]
+    before_action :load_assembly, only: [:index]
+    before_action :load_assemblies, only: [:create, :new, :edit, :update]
 
 
     def new
@@ -45,12 +45,15 @@ module ConsulAssemblies
     end
 
 
-    def index; end
+    def index
+       @meetings = @assembly ? @assembly.meetings : ConsulAssemblies::Meeting
+       @meetings = @meetings.order(scheduled_at: 'desc').page(params[:page] || 1)
+    end
 
     private
 
-    def load_meetings
-      @meetings = ConsulAssemblies::Meeting.order(scheduled_at: 'desc').page(params[:page] || 1)
+    def load_assembly
+      @assembly = ConsulAssemblies::Assembly.find(params[:assembly_id]) if params[:assembly_id]
     end
 
     def load_assemblies
@@ -67,6 +70,8 @@ module ConsulAssemblies
         :scheduled_at,
         :close_accepting_proposals_at,
         :about_venue,
+        :published_at,
+        :attachment,
         attachments_attributes: [:file, :title,:featured_image_flag, :_destroy, :id]
       )
     end

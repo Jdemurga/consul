@@ -4,6 +4,7 @@ module ConsulAssemblies
   class Admin::AssembliesController < Admin::AdminController
     skip_authorization_check
     before_action :load_assemblies, only: [:index]
+    before_action :load_geozones, only: [:create, :new, :edit, :update]
 
     def new
       @assembly = ConsulAssemblies::Assembly.new()
@@ -21,11 +22,35 @@ module ConsulAssemblies
       end
     end
 
+    def update
+      @assembly = ConsulAssemblies::Assembly.find(params[:id])
+      if @assembly.update(assembly_params)
+        redirect_to admin_assemblies_path, notice: t('admin.site_customization.pages.create.notice')
+      else
+        flash.now[:error] = t('admin.site_customization.pages.create.error')
+        render :new
+      end
+    end
+
+    def destroy
+      @assembly = ConsulAssemblies::Assembly.find(params[:id])
+      @assembly.destroy
+
+      redirect_to admin_assemblies_path
+    end
+
+    def edit
+      @assembly = ConsulAssemblies::Assembly.find(params[:id])
+    end
 
     private
 
     def load_assemblies
       @assemblies = ConsulAssemblies::Assembly.order(:name).page(params[:page] || 1)
+    end
+
+    def load_geozones
+      @geozones = Geozone.order(:name)
     end
 
     def assembly_params

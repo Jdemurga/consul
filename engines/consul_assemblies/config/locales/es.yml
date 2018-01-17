@@ -13,7 +13,45 @@ es:
     header:
       assemblies: Asambleas
   consul_assemblies:
+    assemblies:
+      index:
+        title: 'Getafe - Asambleas de barrio'
+      meeting:
+        act_available: 'Acta disponible'
+        close: 'Cierre orden del día'
+        data: 'Datos clave sobre la celebración de la asamblea'
+        send_proposal: 'Enviar propuesta'
+        subscribe: 'Subscribirme'
+        when: 'Cuándo'
+        where: 'Dónde'
     admin:
+      assemblies:
+        edit:
+          edit_assembly: 'Editar asamblea'
+          assemblies: 'Asambleas'
+          title_h2: 'EDITAR ASAMBLEA'
+        form:
+          about_venue: 'Lugar de encuentro'
+          general_description: 'Descripción general'
+          geozone: 'Geozona'
+          name: 'Nombre'
+          scope_description: 'Alcance de descripción'
+          save: 'Guardar'
+        index:
+          actions: 'Acciones'
+          assemblies: 'Asambleas'
+          assembly: 'Asamblea'
+          create: 'Crear asamblea'
+          date: 'Fecha'
+          delete: 'Eliminar'
+          meetings: 'Reuniones'
+          see_meetings: 'Ver reuniones'
+          title_h2: 'ASAMBLEAS'
+
+        new:
+          new_assembly: 'Nueva asamblea'
+          assemblies: 'Asambleas'
+          title_h2: 'NUEVA ASAMBLEA'
       meetings:
         edit:
           edit_meeting: 'Editar reunión'
@@ -28,6 +66,7 @@ es:
           description: 'Descripción'
           new_attachment: 'Nuevo adjunto'
           open: 'Abierto'
+          published_at: 'Fecha de publicación'
           save: 'Guardar'
           scheduled_at: 'Programado para:'
           status: 'Estado'
@@ -56,6 +95,7 @@ es:
           title_h2: 'NUEVA REUNIÓN'
       menu:
         meetings: 'Reuniones'
+        assemblies: 'Asambleas'
       proposals:
         edit:
           edit_proposal: 'Editar propuesta'

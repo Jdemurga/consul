@@ -11,17 +11,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180110173615) do
+ActiveRecord::Schema.define(version: 20180117153244) do
 
   create_table "consul_assemblies_assemblies", force: :cascade do |t|
     t.string   "name",                null: false
     t.string   "general_description"
     t.string   "scope_description"
     t.integer  "geozone_id",          null: false
+    t.string   "about_venue"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
 
   add_index "consul_assemblies_assemblies", ["geozone_id"], name: "index_consul_assemblies_assemblies_on_geozone_id"
+
+  create_table "consul_assemblies_meetings", force: :cascade do |t|
+    t.string   "title",                                    null: false
+    t.string   "description"
+    t.string   "summary"
+    t.string   "status",                                   null: false
+    t.string   "about_venue"
+    t.integer  "assembly_id",                              null: false
+    t.integer  "followers_count",              default: 0
+    t.integer  "comments_count",               default: 0
+    t.datetime "close_accepting_proposals_at"
+    t.datetime "scheduled_at"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.datetime "published_at"
+    t.string   "attachment"
+    t.string   "attachment_url"
+  end
+
+  add_index "consul_assemblies_meetings", ["assembly_id"], name: "index_consul_assemblies_meetings_on_assembly_id"
+
+  create_table "consul_assemblies_proposals", force: :cascade do |t|
+    t.integer  "meeting_id",       null: false
+    t.string   "title",            null: false
+    t.text     "description"
+    t.integer  "user_id"
+    t.boolean  "accepted"
+    t.boolean  "terms_of_service"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "consul_assemblies_proposals", ["meeting_id"], name: "index_consul_assemblies_proposals_on_meeting_id"
 
 end
