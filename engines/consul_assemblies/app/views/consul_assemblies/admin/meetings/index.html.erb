@@ -35,6 +35,7 @@
       </td>
       <td><%= link_to t('.see_proposals'), admin_proposals_path(meeting_id: meeting.id)%></td>
       <td class="small delete">
+        <%= link_to t(".generate_act"), act_admin_meeting_path(meeting), class: "button hollow alert expanded", target: :blank%>
         <%= link_to t(".delete"), admin_meeting_path(meeting), method: :delete, class: "button hollow alert expanded", data: { confirm: t('.confirm') } %>
       </td>
     </tr>

@@ -2,6 +2,7 @@ module ConsulAssemblies
   class Meeting < ActiveRecord::Base
     include Flaggable
     include Taggable
+    include Sanitizable
 
 
     VALID_STATUSES = %w{open closed}

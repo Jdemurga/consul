@@ -9,6 +9,10 @@ module ConsulAssemblies
     before_action :load_assemblies, only: [:create, :new, :edit, :update]
 
 
+    def act
+      @meeting = ConsulAssemblies::Meeting.find(params[:id])
+    end
+
     def new
       @meeting = ConsulAssemblies::Meeting.new()
     end
