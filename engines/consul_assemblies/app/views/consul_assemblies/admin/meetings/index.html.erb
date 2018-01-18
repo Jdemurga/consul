@@ -31,7 +31,7 @@
       <td><%= I18n.l meeting.close_accepting_proposals_at, format: :short %></td>
       <td><%= t(".#{meeting.status}") %></td>
       <td class="small">
-        <%= link_to t('.attachment'), meeting.attachment_url, target: :blank%>
+        <%= link_to t('.see_act'), meeting.attachment_url, target: :blank %>
       </td>
       <td><%= link_to t('.see_proposals'), admin_proposals_path(meeting_id: meeting.id)%></td>
       <td class="small delete">

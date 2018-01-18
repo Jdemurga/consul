@@ -24,6 +24,9 @@
       <p class="text-center">
         <%= link_to t('.subscribe'), url_for(), class: "button hollow expanded" %>
       </p>
+      <p class="text-center">
+        <%= link_to t('.see_act'), meeting.attachment_url, class: "button hollow expanded",  target: :blank %>
+      </p>
       <% if meeting.accepting_proposals? %>
       <p class="text-center">
         <%= link_to t('.send_proposal'), url_for(), class: "button success hollow expanded" %>
