@@ -1,0 +1,22 @@
+<td style="padding-bottom: 20px; padding-left: 10px;">
+  <h1 style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;">
+
+  </h1>
+
+  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
+    Buenos días,<br />
+    El Ayuntamiento de Getafe <a href="https://www.getafe.es/ayuntamiento-getafe-abre-una-nueva-edicion-del-programa-presupuestos-participativos/" target="_blank">abre una nueva edición del programa de Presupuestos Participativos</a>.<br/>
+    Desde el 15 de enero y hasta el 30 de marzo, todos los vecinos y vecinas de Getafe podréis crear propuestas para uno o varios barrios, en una nueva edición del programa de Presupuestos Participativos del Ayuntamiento de Getafe. Haz tu propuesta en <a href="https://participa.getafe.es/budgets/2">participa.getafe.es</a>. “Decide que ciudad quieres”. Las votaciones serán del 21 al 31 de mayo.<br />
+    Recibe un cordial saludo.<br />
+
+    <br>
+    <br>
+    <a href="https://participa.getafe.es/budgets/2">Participa Getafe</a>
+  </p>
+
+  <% if @has_file %>
+    <%= link_to root_url, target: '_blank', title: setting['org_name'] do %>
+      <%= image_tag(attachments['newsletter_image'].url,  style: "border: 0; display: block; width: auto;", alt: setting['org_name']) %>
+    <% end %>
+  <% end %>
+</td>

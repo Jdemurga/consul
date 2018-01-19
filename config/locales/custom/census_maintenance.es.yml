@@ -8,3 +8,5 @@ es:
       instructions_html: Este es un correo autogenerado por %{site_link} para informarte de que tu cuenta de usuario en %{site_link} <i>"%{username}"</i> (vinculada a este correo electrónico) ha pasado de <b>verificado</b> a <b>no verificado</b> debido a que el %{document_type} vinculado a la tu cuenta ya no figura en el censo de %{place_name}.
       instructions_2_html: Debido  a esto tu cuenta de usuario no podrá participar a los procesos reservados únicamente a los vecinos presentes en el censo. Para volver a participar en %{site_link} será necesario revalidar tu cuenta el portal tras comprobar que estás de nuevo en el censo de %{place_name}.
       thanks: "Recuerda que siempre podrás contactar con nosotros si necesitas ayuda. Gracias por utilizar %{site_link}."
+    email_newsletter:
+      subject: "%{site_name} - %{subject}"

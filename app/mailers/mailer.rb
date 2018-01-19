@@ -5,6 +5,28 @@ class Mailer < ApplicationMailer
   helper :users
 
 
+  def email_newsletter(user, recipient, subject, template, file_path)
+
+    @user = user
+    @recipient = recipient
+    @has_file = file_path
+
+    add_inline_attachment('newsletter_image', file_path) if file_path
+
+    with_user(user) do
+      mail(to: @recipient,
+           subject: t('mailers.email_newsletter.subject',
+                      site_name: Setting['org_name'],
+                      subject: subject),
+           template_name: template
+      )
+    end
+  end
+
+  def add_inline_attachment(file_name, file_path)
+    attachments.inline[file_name] = File.read(Rails.root.join(file_path))
+  end
+
   def email_removed_from_census(user, recipient, document_type)
     @user = user
     @recipient = recipient
