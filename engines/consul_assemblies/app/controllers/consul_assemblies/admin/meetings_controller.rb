@@ -14,7 +14,7 @@ module ConsulAssemblies
     end
 
     def new
-      @meeting = ConsulAssemblies::Meeting.new()
+      @meeting = ConsulAssemblies::Meeting.new(assembly_id: params[:assembly_id])
     end
 
     def edit
@@ -24,7 +24,7 @@ module ConsulAssemblies
     def create
       @meeting = ConsulAssemblies::Meeting.new(meeting_params)
       if @meeting.save
-        redirect_to admin_meetings_path, notice: t('admin.site_customization.pages.create.notice')
+        redirect_to admin_meetings_path(assembly_id: @meeting.assembly_id), notice: t('.meeting_created')
       else
         flash.now[:error] = t('admin.site_customization.pages.create.error')
         render :new
@@ -35,13 +35,13 @@ module ConsulAssemblies
       @meeting = ConsulAssemblies::Meeting.find(params[:id])
       @meeting.destroy
 
-      redirect_to admin_meetings_path
+      redirect_to admin_meetings_path(assembly_id: @meeting.assembly_id), notice: t('.meeting_destroyed')
     end
 
     def update
       @meeting = ConsulAssemblies::Meeting.find(params[:id])
       if @meeting.update(meeting_params)
-        redirect_to admin_meetings_path, notice: t('admin.site_customization.pages.create.notice')
+        redirect_to admin_meetings_path(assembly_id: @meeting.assembly_id), notice: t('.meeting_updated')
       else
         flash.now[:error] = t('admin.site_customization.pages.create.error')
         render :new

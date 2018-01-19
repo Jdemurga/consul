@@ -15,7 +15,7 @@ module ConsulAssemblies
     def create
       @assembly = ConsulAssemblies::Assembly.new(assembly_params)
       if @assembly.save
-        redirect_to admin_assemblies_path, notice: t('admin.site_customization.pages.create.notice')
+        redirect_to admin_assemblies_path, notice: t('.assembly_created')
       else
         flash.now[:error] = t('admin.site_customization.pages.create.error')
         render :new
@@ -25,7 +25,7 @@ module ConsulAssemblies
     def update
       @assembly = ConsulAssemblies::Assembly.find(params[:id])
       if @assembly.update(assembly_params)
-        redirect_to admin_assemblies_path, notice: t('admin.site_customization.pages.create.notice')
+        redirect_to admin_assemblies_path, notice: t('.assembly_updated')
       else
         flash.now[:error] = t('admin.site_customization.pages.create.error')
         render :new
@@ -36,7 +36,7 @@ module ConsulAssemblies
       @assembly = ConsulAssemblies::Assembly.find(params[:id])
       @assembly.destroy
 
-      redirect_to admin_assemblies_path
+      redirect_to admin_assemblies_path, notice: t('.assembly_destroyed')
     end
 
     def edit

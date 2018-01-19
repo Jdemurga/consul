@@ -27,6 +27,10 @@ es:
         where: 'Dónde'
     admin:
       assemblies:
+        create:
+          assembly_created: 'Asamblea creada correctamente'
+        destroy:
+          assembly_destroyed: 'Asamblea eliminada correctamente'
         edit:
           edit_assembly: 'Editar asamblea'
           assemblies: 'Asambleas'
@@ -42,18 +46,30 @@ es:
           actions: 'Acciones'
           assemblies: 'Asambleas'
           assembly: 'Asamblea'
+          confirm: '¿Está seguro de querer eliminar esta asamblea?'
           create: 'Crear asamblea'
           date: 'Fecha'
           delete: 'Eliminar'
           meetings: 'Reuniones'
           see_meetings: 'Ver reuniones'
           title_h2: 'ASAMBLEAS'
-
         new:
           new_assembly: 'Nueva asamblea'
           assemblies: 'Asambleas'
           title_h2: 'NUEVA ASAMBLEA'
+        update:
+          assembly_updated: 'Asamblea actualizada correctamente'
       meetings:
+        act:
+          act_celebrated: "Acta celebrada en la fecha"
+          at: 'en %{about_venue}'
+          meeting_act: 'Acta de reunión: '
+          order_day: 'Orden del día'
+          print_act: 'Imprimir acta'
+        create:
+          meeting_created: 'Reunión creada correctamente'
+        destroy:
+          meeting_destroyed: 'Reunión eliminada correctamente'
         edit:
           edit_meeting: 'Editar reunión'
           meetings: 'Reuniones'
@@ -82,6 +98,7 @@ es:
           date: 'Fecha'
           delete: 'Eliminar'
           end_of_proposals: 'Fin de propuestas'
+          generate_act: 'Generar acta'
           meetings: 'Reuniones'
           open: 'Abierto'
           proposals: 'Propuestas'
@@ -95,17 +112,27 @@ es:
           meetings: 'Reuniones'
           new_meeting: 'Nueva reunión'
           title_h2: 'NUEVA REUNIÓN'
+        update:
+          meeting_updated: 'Reunión actualizada correctamente'
       menu:
         meetings: 'Reuniones'
         assemblies: 'Asambleas'
       proposals:
+        create:
+          proposal_created: 'Propuesta creada correctamente'
+        destroy:
+          proposal_destroyed: 'Propuesta eliminada correctamente'
         edit:
           edit_proposal: 'Editar propuesta'
           proposals: 'Propuestas'
           title_h2: 'EDITAR PROPUESTA'
         form:
           accepted: 'Aceptado'
+          attachments: 'Adjuntos'
+          conclusion: 'Conclusión'
           description: 'Descripción'
+          is_previous_meeting_acceptance: 'Es propuesta de aceptación de actas'
+          new_attachment: 'Nuevo adjunto'
           save: 'Guardar'
           title: 'Título'
         index:
@@ -124,3 +151,5 @@ es:
           new_proposal: 'Nueva propuesta'
           proposals: 'Propuestas'
           title_h2: 'NUEVA PROPUESTA'
+        update:
+          proposal_updated: 'Propuesta actualizada correctamente'

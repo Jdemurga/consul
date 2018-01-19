@@ -18,8 +18,8 @@
         <span class="icon-eye"></span>
         <strong><%= t("admin.menu.title_moderated_content") %></strong>
       </a>
-      <ul <%= "class=is-active" if menu_moderated_content? %>>
-        <li <%= "class=active" if controller_name == "proposals" %>>
+      <ul> <!-- <%= "class=active" if controller_name == "proposals" %> -->
+        <li > <!-- <%= "class=active" if controller_name == "proposals" %> -->
           <%= link_to t("admin.menu.hidden_proposals"), main_app.admin_proposals_path %>
         </li>
 
@@ -45,12 +45,9 @@
           <span class="icon-budget"></span>
           <strong><%= t("admin.menu.assemblies") %></strong>
         </a>
-        <ul <%= "class=is-active" if controller_name == "assemblies" || controller_name == "meetings"%>>
+        <ul <%= "class=is-active" if controller_name == "assemblies" || controller_name == "meetings" || controller_name == "proposals"%>>
           <li <%= "class=active" if controller_name == "assemblies" %>>
             <%= link_to t(".assemblies"), assemblies.admin_assemblies_path %>
-          </li>
-          <li <%= "class=active" if controller_name == "meetings" %>>
-            <%= link_to t(".meetings"), assemblies.admin_meetings_path %>
           </li>
         </ul>
       </li>

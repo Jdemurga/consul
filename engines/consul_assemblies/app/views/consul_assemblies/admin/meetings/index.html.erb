@@ -2,7 +2,7 @@
   Admin - <%= t(".meetings") %>
 <% end %>
 
-<%= link_to t(".create"), new_admin_meeting_path, class: "button float-right" %>
+<%= link_to t(".create"), new_admin_meeting_path(assembly_id: params[:assembly_id]), class: "button float-right" %>
 <h2 class="inline-block"><%= t(".title_h2") %></h2>
 
 <table class="cms_meeting_list">
