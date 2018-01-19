@@ -16,7 +16,7 @@
 
   <% if @has_file %>
     <%= link_to root_url, target: '_blank', title: setting['org_name'] do %>
-      <%= image_tag(attachments['newsletter_image'].url,  style: "border: 0; display: block; width: auto;", alt: setting['org_name']) %>
+      <%= image_tag(attachments[@file_basename].url,  style: "border: 0; display: block; width: auto;", alt: setting['org_name']) %>
     <% end %>
   <% end %>
 </td>

@@ -11,7 +11,8 @@ class Mailer < ApplicationMailer
     @recipient = recipient
     @has_file = file_path
 
-    add_inline_attachment('newsletter_image', file_path) if file_path
+    @file_basename = File.basename(file_path) if file_path
+    add_inline_attachment(@file_basename, file_path) if file_path
 
     with_user(user) do
       mail(to: @recipient,
