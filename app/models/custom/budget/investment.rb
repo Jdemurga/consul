@@ -17,6 +17,10 @@ class Budget
     scope :sort_by_created_at_desc, -> { order('created_at desc') }
     scope :pending_flag_review, -> { where(ignored_flag_at: nil, hidden_at: nil) }
     scope :with_ignored_flag, -> { where.not(ignored_flag_at: nil).where(hidden_at: nil) }
+
+
+    scope :winners, -> { where(winner: true).where(hidden_at: nil) }
+
     #GET-98
     scope :not_unified, -> { where(unified_with_id: nil) }
 
@@ -31,6 +35,7 @@ class Budget
                                                 .where('budget_ballot_confirmations.discarted_at is null')
                                                 .reorder( 'sum(budget_ballot_lines.points) desc, count(budget_ballot_lines.id) desc' ).group('budget_investments.id') }
     scope :sort_by_title,  -> { reorder( :title ) }
+
 
     belongs_to :unified_with, class_name: 'Budget::Investment', foreign_key: :unified_with_id
     has_many :investments_unified_to_me, class_name: 'Budget::Investment', foreign_key: :unified_with_id

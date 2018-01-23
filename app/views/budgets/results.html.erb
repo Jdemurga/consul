@@ -3,12 +3,10 @@
   <div class="small-12 medium-2 column not-print">
     <br>
     <ul class="menu vertical no-margin-top no-padding-top">
-      <li>
-        <strong>
-
-        </strong>
+      <li class="<%= 'active' unless @group %> ">
+          <%= link_to 'Todos los barrios',
+                      results_budget_path(@budget) %>
       </li>
-
       <% @budget.groups.each do |group| %>
           <li class="<%= 'active' if group.eql?(@group) %> ">
             <%= link_to group.name,
@@ -70,8 +68,22 @@
         <br>
         <small>(*) <i><u>Un participante</u> es cualquier vecino que haya accedido a su papeleta aunque no haya hecho click en "VOTAR".</i></small><br>
 
-        <br>
-        <h3>Estadísticas <%= @group.name %></h3>
-        <%= render 'results_table', group: @group %>
+          <br>
+        <% if @group %>
+          <h3>Estadísticas <%= @group.name %></h3>
+          <%= render 'results_table', group: @group %>
+        <% else %>
+
+          <h2 class="inline-block">
+            Propuestas ganadoras todos los barrios
+          </h2>
+          <%- @headings_by_name.each_pair do |heading_group, headings_ids| %>
+            <br>
+            <h4><%= heading_group %></h4>
+            <%= render 'budgets/results/results_proposals_table', budget: @budget, investments: @budget.investments.winners.where(heading_id:  headings_ids) %>
+          <% end %>
+        <% end %>
+    <br>
+    <br>
   </div>
 </div>
