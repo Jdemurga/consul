@@ -14,6 +14,7 @@ module ConsulAssemblies
     scope :accepted, -> { where(accepted: true) }
     scope :declined, -> { where(accepted: false) }
     scope :pending, -> { where(accepted: nil) }
+    scope :to_approve, -> { where(is_previous_meeting_acceptance: true) }
 
     def conclusion
       super.try :html_safe

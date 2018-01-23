@@ -1,26 +1,24 @@
 <% if meeting.try(:published_at) >= Time.now%>
-<div id="<%= dom_id(meeting) %>" class="legislation clear">
+<div id="<%= dom_id(meeting) %>" class="legislation clear investment-project-show">
   <div class="column row legislation-text">
     <div class="small-12 medium-8 column">
       <div class="legislation-text">
         <h3><%= link_to meeting.title, meeting %></h3>
       </div>
-
-      <p>
+      <div class="investment-project-info">
+        <%= meeting.assembly.name %>
+        <span class="bullet">&nbsp;&bull;&nbsp;</span>
         <%= render 'consul_assemblies/meetings/status', meeting: meeting %>
-      </p>
-
+        <% if meeting.proposals.any? && meeting.proposals.to_approve.any?%>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <%= meeting.proposals.to_approve.count %> <%= t('.acts_pending') %>
+        <% end %>
+      </div>
       <div class="">
         <%= markdown(meeting.summary.present? ? meeting.summary : first_paragraph(meeting.description)) %>
       </div>
-
-
     </div>
-
     <div class="small-12 medium-4 column">
-
-
-
       <p class="text-center">
         <%= link_to t('.subscribe'), url_for(), class: "button hollow expanded" %>
       </p>

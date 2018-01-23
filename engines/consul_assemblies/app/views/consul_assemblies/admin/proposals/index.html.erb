@@ -1,6 +1,12 @@
 <% provide :title do %>
   Admin - <%= t(".proposals") %>
 <% end %>
+<% if @proposals.any?%>
+  <%= back_link_to admin_meetings_path(assembly_id: @proposals.first.meeting.assembly.id) %>
+<% else %>
+  <%= back_link_to nil %>
+<% end %>
+<br>
 
 <%= link_to t(".create"), new_admin_proposal_path(meeting_id: params[:meeting_id]), class: "button float-right" %>
 <h2 class="inline-block"><%= t(".title_h2") %></h2>

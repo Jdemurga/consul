@@ -18,6 +18,7 @@ es:
         title: 'Getafe - Asambleas de barrio'
       meeting:
         act_available: 'Acta disponible'
+        acts_pending: ' actas pendientes de aprobar'
         close: 'Cierre orden del día'
         data: 'Datos clave sobre la celebración de la asamblea'
         see_act: 'Ver acta'
@@ -25,6 +26,18 @@ es:
         subscribe: 'Subscribirme'
         when: 'Cuándo'
         where: 'Dónde'
+    meetings:
+      show:
+        accepted: 'Aceptadas'
+        acts_to_approve: 'Actas a aprobar'
+        not_accepted: 'No hay propuestas de puntos de orden del día aceptadas'
+        not_orders: 'Aún no hay puntos en el orden del día definidos'
+        not_pending: 'No hay propuestas de puntos de orden del día pendientes'
+        not_refused: 'No hay propuestas de puntos de orden del día rechazadas'
+        nothing_to_approve: 'No hay actas para aprobar'
+        order_of_the_day: 'Orden del día'
+        pending: 'Pendientes'
+        refused: 'Rechazadas'
     admin:
       assemblies:
         create:
