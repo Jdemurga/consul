@@ -19,6 +19,8 @@
       <hr>
       <%= f.label :geozone_id, t(".geozone") %>
       <%= f.select :geozone_id, geozones_select_options(@geozones), label: false %>
+      <%= f.label :assembly_type_id, t(".assembly_type") %>
+      <%= f.select :assembly_type_id, assembly_types_select_options(@assembly_types), label: false %>
       <%= f.label :name, t('.name') %>
       <%= f.text_field :name, label: false, size: 80, maxlength: 80 %>
       <%= f.label :about_venue, t('.about_venue') %>

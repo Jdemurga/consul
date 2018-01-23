@@ -31,7 +31,8 @@ module ConsulAssemblies
     private
 
     def load_active_assemblies
-      @assemblies = ConsulAssemblies::Assembly.all
+      @assemblies = ConsulAssemblies::Assembly.order(:name)
+      @assemblies = ConsulAssemblies::Assembly.where(assembly_type_id: params[:assembly_type_id]) if params[:assembly_type_id]
     end
 
     def load_assembly

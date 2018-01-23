@@ -4,7 +4,7 @@ module ConsulAssemblies
   class Admin::AssembliesController < Admin::AdminController
     skip_authorization_check
     before_action :load_assemblies, only: [:index]
-    before_action :load_geozones, only: [:create, :new, :edit, :update]
+    before_action :load_geozones, :load_assembly_types, only: [:create, :new, :edit, :update]
 
     def new
       @assembly = ConsulAssemblies::Assembly.new()
@@ -49,6 +49,10 @@ module ConsulAssemblies
       @assemblies = ConsulAssemblies::Assembly.order(:name).page(params[:page] || 1)
     end
 
+    def load_assembly_types
+      @assembly_types = ConsulAssemblies::AssemblyType.order(:name)
+    end
+
     def load_geozones
       @geozones = Geozone.order(:name)
     end
@@ -61,7 +65,8 @@ module ConsulAssemblies
         :geozone_id,
         :about_venue,
         :created_at,
-        :updated_at
+        :updated_at,
+        :assembly_type_id
       )
     end
 

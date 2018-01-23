@@ -49,6 +49,9 @@
           <li <%= "class=active" if controller_name == "assemblies" %>>
             <%= link_to t(".assemblies"), assemblies.admin_assemblies_path %>
           </li>
+          <li <%= "class=active" if controller_name == "assembly_types" %>>
+            <%= link_to t(".assembly_types"), assemblies.admin_assembly_types_path %>
+          </li>
         </ul>
       </li>
     <% end %>

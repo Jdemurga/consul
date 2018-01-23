@@ -6,6 +6,9 @@
         <h3><%= link_to meeting.title, meeting %></h3>
       </div>
       <div class="investment-project-info">
+        <span class="icon-comments"></span>&nbsp;
+        <%= link_to t("proposals.proposal.comments", count: meeting.comments_count), namespaced_meeting_path(meeting, anchor: "comments") %>
+        <span class="bullet">&nbsp;&bull;&nbsp;</span>
         <%= meeting.assembly.name %>
         <span class="bullet">&nbsp;&bull;&nbsp;</span>
         <%= render 'consul_assemblies/meetings/status', meeting: meeting %>

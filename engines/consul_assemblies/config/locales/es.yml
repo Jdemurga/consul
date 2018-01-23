@@ -16,6 +16,7 @@ es:
     assemblies:
       index:
         title: 'Getafe - Asambleas de barrio'
+        no_assemblies: 'No hay asambleas activas'
       meeting:
         act_available: 'Acta disponible'
         acts_pending: ' actas pendientes de aprobar'
@@ -47,9 +48,10 @@ es:
         edit:
           edit_assembly: 'Editar asamblea'
           assemblies: 'Asambleas'
-          title_h2: 'EDITAR ASAMBLEA'
+          title_h2: 'Editar asamblea'
         form:
           about_venue: 'Lugar de encuentro'
+          assembly_type: 'Tipo de asamblea'
           general_description: 'Descripción general'
           geozone: 'Geozona'
           name: 'Nombre'
@@ -65,13 +67,40 @@ es:
           delete: 'Eliminar'
           meetings: 'Reuniones'
           see_meetings: 'Ver reuniones'
-          title_h2: 'ASAMBLEAS'
+          title_h2: 'Asambleas'
         new:
           new_assembly: 'Nueva asamblea'
           assemblies: 'Asambleas'
-          title_h2: 'NUEVA ASAMBLEA'
+          title_h2: 'Nueva asamblea'
         update:
           assembly_updated: 'Asamblea actualizada correctamente'
+      assembly_types:
+        create:
+          assembly_type_created: 'Tipo de asamblea creada correctamente'
+        destroy:
+          assembly_type_destroyed: 'Tipo de asamblea eliminado correctamente'
+        edit:
+          assembly_types: 'Tipos de asamblea'
+          edit_assembly_type: 'Editar tipo de asamblea'
+          title_h2: 'Editar tipo de asamblea'
+        form:
+          description: 'Descripción'
+          name: 'Nombre'
+          save: 'Guardar'
+        index:
+          actions: 'Acciones'
+          assembly_type: 'Tipo de asamblea'
+          assembly_types: 'Tipos de asamblea'
+          create: 'Crear tipo de asamblea'
+          date: 'Fecha'
+          delete: 'Eliminar'
+          title_h2: 'Tipos de asamblea'
+        new:
+          assembly_types: 'Tipos de asamblea'
+          new_assembly_type: 'Nuevo tipo de asamblea'
+          title_h2: 'Nuevo tipo de asamblea'
+        update:
+          assembly_type_updated: 'Tipo de asamblea actualizada correctamente'
       meetings:
         act:
           act_celebrated: "Acta celebrada en la fecha"
@@ -86,7 +115,7 @@ es:
         edit:
           edit_meeting: 'Editar reunión'
           meetings: 'Reuniones'
-          title_h2: 'EDITAR REUNIÓN'
+          title_h2: 'Editar reunión'
         form:
           about_venue: 'Lugar de encuentro'
           assambly: 'Asamblea'
@@ -120,16 +149,17 @@ es:
           status: 'Estado'
           subject: 'Asunto'
           title: 'Título'
-          title_h2: 'REUNIONES'
+          title_h2: 'Reuniones'
         new:
           meetings: 'Reuniones'
           new_meeting: 'Nueva reunión'
-          title_h2: 'NUEVA REUNIÓN'
+          title_h2: 'Nueva reunión'
         update:
           meeting_updated: 'Reunión actualizada correctamente'
       menu:
         meetings: 'Reuniones'
         assemblies: 'Asambleas'
+        assembly_types: 'Tipos de asamblea'
       proposals:
         create:
           proposal_created: 'Propuesta creada correctamente'
@@ -138,7 +168,7 @@ es:
         edit:
           edit_proposal: 'Editar propuesta'
           proposals: 'Propuestas'
-          title_h2: 'EDITAR PROPUESTA'
+          title_h2: 'Editar propuesta'
         form:
           accepted: 'Aceptado'
           attachments: 'Adjuntos'
@@ -159,10 +189,10 @@ es:
           proposal: 'Propuesta'
           proposals: 'Propuestas'
           title: 'Título'
-          title_h2: 'PROPUESTAS'
+          title_h2: 'Propuestas'
         new:
           new_proposal: 'Nueva propuesta'
           proposals: 'Propuestas'
-          title_h2: 'NUEVA PROPUESTA'
+          title_h2: 'Nueva propuesta'
         update:
           proposal_updated: 'Propuesta actualizada correctamente'

@@ -8,6 +8,7 @@ ConsulAssemblies::Engine.routes.draw do
 
   namespace :admin do
 
+    resources :assembly_types
     resources :assemblies
     resources :meetings do
       get 'act', on: :member

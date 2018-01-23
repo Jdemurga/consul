@@ -7,7 +7,7 @@ module ConsulAssemblies
 
     skip_authorization_check
 
-
+    def index; end
 
     def new
       @proposal = ConsulAssemblies::Proposal.new(meeting_id: params[:meeting_id])
