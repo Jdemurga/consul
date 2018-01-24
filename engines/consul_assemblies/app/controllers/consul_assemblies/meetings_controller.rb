@@ -5,7 +5,6 @@ module ConsulAssemblies
     include CommentableActions
     skip_authorization_check
 
-
     helper_method :resource_model, :resource_name
     respond_to :html, :js
 
@@ -19,6 +18,7 @@ module ConsulAssemblies
 
     end
 
+
     private
 
     def resource_model
@@ -28,5 +28,7 @@ module ConsulAssemblies
     def resource_name
       'meeting'
     end
+
+
   end
 end

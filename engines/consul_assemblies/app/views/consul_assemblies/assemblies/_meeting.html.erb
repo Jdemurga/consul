@@ -23,14 +23,16 @@
     </div>
     <div class="small-12 medium-4 column">
       <p class="text-center">
-        <%= link_to t('.subscribe'), url_for(), class: "button hollow expanded" %>
+        <span id="<%= meeting.id %>"><%= render 'follows/follow_button', follow: find_or_build_follow(current_user, meeting)%></span>
       </p>
       <p class="text-center">
-        <%= link_to t('.see_act'), meeting.attachment_url, class: "button hollow expanded",  target: :blank %>
+        <% unless meeting.attachment_url.nil? %>
+          <%= link_to t('.see_act'), meeting.attachment_url, class: "button hollow expanded",  target: :blank %>
+        <% end %>
       </p>
       <% if meeting.accepting_proposals? %>
       <p class="text-center">
-        <%= link_to t('.send_proposal'), url_for(), class: "button success hollow expanded" %>
+        <%= link_to t('.send_proposal'), new_proposal_path(meeting_id: meeting.id), class: "button success hollow expanded" %>
       </p>
       <% end %>
       <% if meeting.held? %>

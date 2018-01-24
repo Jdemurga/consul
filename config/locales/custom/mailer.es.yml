@@ -1,0 +1,6 @@
+es:
+  mailers:
+    meeting:
+      hi: 'Hola'
+      notification: 'Le informamos de que ha habido un cambio en la reunión %{meeting}, para ver dichos cambios haga click en el siguiente link:'
+      title:  'Cambios en una reunión que sigue'

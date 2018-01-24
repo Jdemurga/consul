@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117153244) do
+ActiveRecord::Schema.define(version: 20180124093530) do
 
   create_table "consul_assemblies_assemblies", force: :cascade do |t|
     t.string   "name",                null: false
@@ -21,9 +21,18 @@ ActiveRecord::Schema.define(version: 20180117153244) do
     t.string   "about_venue"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "assembly_type_id"
   end
 
   add_index "consul_assemblies_assemblies", ["geozone_id"], name: "index_consul_assemblies_assemblies_on_geozone_id"
+
+  create_table "consul_assemblies_assembly_types", force: :cascade do |t|
+    t.string   "name",             null: false
+    t.string   "description"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "assembly_type_id"
+  end
 
   create_table "consul_assemblies_meetings", force: :cascade do |t|
     t.string   "title",                                    null: false
@@ -41,19 +50,22 @@ ActiveRecord::Schema.define(version: 20180117153244) do
     t.datetime "published_at"
     t.string   "attachment"
     t.string   "attachment_url"
+    t.integer  "user_id"
   end
 
   add_index "consul_assemblies_meetings", ["assembly_id"], name: "index_consul_assemblies_meetings_on_assembly_id"
 
   create_table "consul_assemblies_proposals", force: :cascade do |t|
-    t.integer  "meeting_id",       null: false
-    t.string   "title",            null: false
+    t.integer  "meeting_id",                     null: false
+    t.string   "title",                          null: false
     t.text     "description"
     t.integer  "user_id"
     t.boolean  "accepted"
     t.boolean  "terms_of_service"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "conclusion"
+    t.boolean  "is_previous_meeting_acceptance"
   end
 
   add_index "consul_assemblies_proposals", ["meeting_id"], name: "index_consul_assemblies_proposals_on_meeting_id"

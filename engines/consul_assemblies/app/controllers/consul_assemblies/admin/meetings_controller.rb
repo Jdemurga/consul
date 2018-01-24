@@ -7,6 +7,7 @@ module ConsulAssemblies
 
     before_action :load_assembly, only: [:index]
     before_action :load_assemblies, only: [:create, :new, :edit, :update]
+     
 
 
     def act
@@ -14,7 +15,7 @@ module ConsulAssemblies
     end
 
     def new
-      @meeting = ConsulAssemblies::Meeting.new(assembly_id: params[:assembly_id])
+      @meeting = ConsulAssemblies::Meeting.new(assembly_id: params[:assembly_id], user_id: params[:user_id])
     end
 
     def edit
@@ -76,6 +77,8 @@ module ConsulAssemblies
         :about_venue,
         :published_at,
         :attachment,
+        :comments_count,
+        :user_id,
         attachments_attributes: [:file, :title,:featured_image_flag, :_destroy, :id]
       )
     end

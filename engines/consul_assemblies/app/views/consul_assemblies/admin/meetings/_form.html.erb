@@ -32,9 +32,8 @@
   <div class="row">
     <div class="small-12 column">
       <hr>
-      <!-- <%= f.label :assembly_id, t(".assambly") %> -->
-      <!-- <%= f.select :assembly_id, assemblies_select_options(@assemblies), label: false %> -->
       <%= f.hidden_field :assembly_id%>
+      <%= f.hidden_field :user_id%>
       <%= f.label :status, t(".status") %>
       <%= f.select :status, assemblies_statuses_select_options(), label: false %>
       <%= f.label :published_at, t(".published_at") %>

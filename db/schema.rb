@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180111093330) do
+ActiveRecord::Schema.define(version: 20180124094846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_trgm"
   enable_extension "unaccent"
+  enable_extension "pg_trgm"
 
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
@@ -292,9 +292,17 @@ ActiveRecord::Schema.define(version: 20180111093330) do
     t.string   "about_venue"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "assembly_type_id"
   end
 
   add_index "consul_assemblies_assemblies", ["geozone_id"], name: "index_consul_assemblies_assemblies_on_geozone_id", using: :btree
+
+  create_table "consul_assemblies_assembly_types", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "consul_assemblies_meetings", force: :cascade do |t|
     t.string   "title",                                    null: false
@@ -309,19 +317,25 @@ ActiveRecord::Schema.define(version: 20180111093330) do
     t.datetime "scheduled_at"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.datetime "published_at"
+    t.string   "attachment"
+    t.string   "attachment_url"
+    t.integer  "user_id"
   end
 
   add_index "consul_assemblies_meetings", ["assembly_id"], name: "index_consul_assemblies_meetings_on_assembly_id", using: :btree
 
   create_table "consul_assemblies_proposals", force: :cascade do |t|
-    t.integer  "meeting_id",       null: false
-    t.string   "title",            null: false
+    t.integer  "meeting_id",                     null: false
+    t.string   "title",                          null: false
     t.text     "description"
     t.integer  "user_id"
     t.boolean  "accepted"
     t.boolean  "terms_of_service"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "conclusion"
+    t.boolean  "is_previous_meeting_acceptance"
   end
 
   add_index "consul_assemblies_proposals", ["meeting_id"], name: "index_consul_assemblies_proposals_on_meeting_id", using: :btree
@@ -415,6 +429,18 @@ ActiveRecord::Schema.define(version: 20180111093330) do
   add_index "flags", ["flaggable_type", "flaggable_id"], name: "index_flags_on_flaggable_type_and_flaggable_id", using: :btree
   add_index "flags", ["user_id", "flaggable_type", "flaggable_id"], name: "access_inappropiate_flags", using: :btree
   add_index "flags", ["user_id"], name: "index_flags_on_user_id", using: :btree
+
+  create_table "follows", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "followable_id"
+    t.string   "followable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "follows", ["followable_type", "followable_id"], name: "index_follows_on_followable_type_and_followable_id", using: :btree
+  add_index "follows", ["user_id", "followable_type", "followable_id"], name: "access_follows", using: :btree
+  add_index "follows", ["user_id"], name: "index_follows_on_user_id", using: :btree
 
   create_table "geozones", force: :cascade do |t|
     t.string   "name"
@@ -1047,9 +1073,9 @@ ActiveRecord::Schema.define(version: 20180111093330) do
     t.boolean  "email_digest",                              default: true
     t.boolean  "email_on_direct_message",                   default: true
     t.boolean  "official_position_badge",                   default: false
-    t.datetime "password_changed_at",                       default: '2016-12-30 01:08:21', null: false
-    t.integer  "commission_id"
+    t.datetime "password_changed_at",                       default: '2018-01-15 09:35:14', null: false
     t.boolean  "created_from_signature",                    default: false
+    t.integer  "commission_id"
     t.integer  "failed_email_digests_count",                default: 0
     t.text     "former_users_data_log",                     default: ""
     t.datetime "census_removed_at"
@@ -1148,6 +1174,7 @@ ActiveRecord::Schema.define(version: 20180111093330) do
   add_foreign_key "failed_census_calls", "poll_officers"
   add_foreign_key "failed_census_calls", "users"
   add_foreign_key "flags", "users"
+  add_foreign_key "follows", "users"
   add_foreign_key "geozones_polls", "geozones"
   add_foreign_key "geozones_polls", "polls"
   add_foreign_key "identities", "users"

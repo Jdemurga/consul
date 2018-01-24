@@ -1,4 +1,6 @@
 es:
+  shared:
+    follow_entity: 'Seguir reunión'
   assemblies:
     index:
       section_header:

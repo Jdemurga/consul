@@ -121,6 +121,12 @@ class Mailer < ApplicationMailer
     end
   end
 
+  def send_mail_to_followers(meeting, follower)
+    @follower = follower
+    @meeting = meeting
+    mail(to: @follower.email, subject: t('.meeting_follower_mail'))
+  end
+
   private
 
   def with_user(user, &block)

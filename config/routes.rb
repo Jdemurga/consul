@@ -493,6 +493,6 @@ Rails.application.routes.draw do
       id: 'ordenanza_reguladora_adjudicacion_terrenos_municipales'
 
 
-
+  resources :follows
   resources :pages, path: '/', only: [:show]
 end

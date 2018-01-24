@@ -5,7 +5,7 @@
 <%= back_link_to admin_assemblies_path %>
 <br>
 
-<%= link_to t(".create"), new_admin_meeting_path(assembly_id: params[:assembly_id]), class: "button float-right" %>
+<%= link_to t(".create"), new_admin_meeting_path(assembly_id: params[:assembly_id], user_id: current_user.id), class: "button float-right" %>
 <h2 class="inline-block"><%= t(".title_h2") %></h2>
 
 <table class="cms_meeting_list">
