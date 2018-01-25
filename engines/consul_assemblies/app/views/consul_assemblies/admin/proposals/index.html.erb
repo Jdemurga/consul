@@ -1,0 +1,46 @@
+<% provide :title do %>
+  Admin - <%= t(".proposals") %>
+<% end %>
+<% if @proposals.any?%>
+  <%= back_link_to admin_meetings_path(assembly_id: @proposals.first.meeting.assembly.id) %>
+<% else %>
+  <%= back_link_to nil %>
+<% end %>
+<br>
+
+<%= link_to t(".create"), new_admin_proposal_path(meeting_id: params[:meeting_id]), class: "button float-right" %>
+<h2 class="inline-block"><%= t(".title_h2") %></h2>
+
+<table class="cms_proposal_list">
+  <thead>
+    <tr>
+      <th><%= t('.meeting') %></th>
+      <th><%= t('.proposal') %></th>
+      <th><%= t('.date') %></th>
+      <th><%= t('.accepted') %></th>
+      <th colspan="2" class="text-center"><%= t(".actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @proposals.each do |proposal| %>
+    <tr id="<%= dom_id(proposal) %>">
+      <td><%= link_to proposal.meeting.try(:title), edit_admin_meeting_path(proposal.meeting) %></td>
+      <td><%= proposal.title %></td>
+      <td><%= I18n.l proposal.created_at, format: :short %></td>
+      <td>
+        <% if proposal.accepted == true %>
+          &#x2714;
+        <% else %>
+          &#x2718;
+        <% end %>
+      </td>
+      <td class="small delete">
+        <%= link_to t(".editar"), edit_admin_proposal_path(proposal), class: "button primary expanded" %>
+        <%= link_to t(".delete"), admin_proposal_path(proposal), method: :delete, class: "button hollow alert expanded", data: { confirm: t('.confirm') } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @proposals %>

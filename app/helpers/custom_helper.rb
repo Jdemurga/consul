@@ -23,4 +23,7 @@ module CustomHelper
     end
   end
 
+  def assembly_types_for_menu
+    ConsulAssemblies::AssemblyType.order(:name)
+  end
 end

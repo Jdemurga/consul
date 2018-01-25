@@ -61,6 +61,7 @@
 //= require tree_navigator
 //= require custom
 //= require prevent_double_click
+//= require followable
 
 var initialize_modules = function() {
   App.Comments.initialize();

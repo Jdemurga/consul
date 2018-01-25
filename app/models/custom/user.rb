@@ -2,6 +2,8 @@ require_dependency Rails.root.join('app', 'models', 'user').to_s
 
 class User
 
+  has_many :meetings
+
   before_validation :normalize_email
 
   def downgrade_verification_level

@@ -36,6 +36,21 @@
       </ul>
     </li>
 
+    <% if feature?(:assemblies) %>
+      <li class="section-title">
+        <a href="#">
+          <span class="icon-budget"></span>
+          <strong><%= t("admin.menu.assemblies") %></strong>
+        </a>
+        <ul <%= "class=is-active" if controller_name == "assemblies" %>>
+          <li <%= "class=active" if controller_name == "assemblies" %>>
+            <%= link_to t("admin.menu.assemblies"), assemblies.admin_assemblies_path %>
+          </li>
+        </ul>
+      </li>
+    <% end %>
+
+
     <% if feature?(:spending_proposals) %>
       <li class="section-title">
         <a href="#">
@@ -49,6 +64,8 @@
         </ul>
       </li>
     <% end %>
+
+
 
 
     <% if feature?(:polls) %>
