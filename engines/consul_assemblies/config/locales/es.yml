@@ -39,7 +39,7 @@ es:
         where: 'Dónde'
     meetings:
       show:
-        accepted: 'Aceptadas'
+        proposals_accepted: 'Propuestas aceptadas'
         acts_to_approve: 'Actas a aprobar'
         not_accepted: 'No hay propuestas de puntos de orden del día aceptadas'
         not_orders: 'Aún no hay puntos en el orden del día definidos'
@@ -47,8 +47,8 @@ es:
         not_refused: 'No hay propuestas de puntos de orden del día rechazadas'
         nothing_to_approve: 'No hay actas para aprobar'
         order_of_the_day: 'Puntos de orden del día'
-        pending: 'Pendientes'
-        refused: 'Rechazadas'
+        proposals_pending: 'Propuestas pendientes'
+        proposals_refused: 'Propuestas rechazadas'
     admin:
       assemblies:
         create:

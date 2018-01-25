@@ -7,7 +7,7 @@ module ConsulAssemblies
 
     before_action :load_assembly, only: [:index]
     before_action :load_assemblies, only: [:create, :new, :edit, :update]
-     
+
 
 
     def act
@@ -15,7 +15,7 @@ module ConsulAssemblies
     end
 
     def new
-      @meeting = ConsulAssemblies::Meeting.new(assembly_id: params[:assembly_id], user_id: params[:user_id])
+      @meeting = ConsulAssemblies::Meeting.new(assembly_id: params[:assembly_id], user: current_user)
     end
 
     def edit
@@ -23,7 +23,7 @@ module ConsulAssemblies
     end
 
     def create
-      @meeting = ConsulAssemblies::Meeting.new(meeting_params)
+      @meeting = ConsulAssemblies::Meeting.new(meeting_params.merge(user: current_user))
       if @meeting.save
         redirect_to admin_meetings_path(assembly_id: @meeting.assembly_id), notice: t('.meeting_created')
       else
@@ -78,7 +78,6 @@ module ConsulAssemblies
         :published_at,
         :attachment,
         :comments_count,
-        :user_id,
         attachments_attributes: [:file, :title,:featured_image_flag, :_destroy, :id]
       )
     end

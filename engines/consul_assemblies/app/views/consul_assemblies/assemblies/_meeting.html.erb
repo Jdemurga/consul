@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="small-12 medium-4 column">
-      <% if @current_user %>
+      <% if can?(:create, Follow) ||  can?(:destroy, Follow) %>
       <p class="text-center">
         <span id="<%= meeting.id %>"><%= render 'follows/follow_button', follow: find_or_build_follow(current_user, meeting)%></span>
       </p>
@@ -31,10 +31,12 @@
           <%= link_to t('.see_act'), meeting.attachment_url, class: "button hollow expanded",  target: :blank %>
         <% end %>
       </p>
-      <% if meeting.accepting_proposals? %>
-      <p class="text-center">
-        <%= link_to t('.send_proposal'), new_proposal_path(meeting_id: meeting.id), class: "button success hollow expanded" %>
-      </p>
+      <% if can?(:create, ConsulAssemblies::Proposal) %>
+        <% if meeting.accepting_proposals? %>
+          <p class="text-center">
+            <%= link_to t('.send_proposal'), new_proposal_path(meeting_id: meeting.id), class: "button success hollow expanded" %>
+          </p>
+        <% end %>
       <% end %>
     </div>
   </div>

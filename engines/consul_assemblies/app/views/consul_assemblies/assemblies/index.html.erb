@@ -92,20 +92,34 @@
 
 
   </div>
-  <div class="row">
-    <div class="small-3 column"></div>
-    <div class="small-9 column">
-      <% unless @search_terms || @advanced_search_terms || @tag_filter %>
-        <div id="section_help" class="margin" data-magellan-target="section_help">
-          <p class="lead">
-            <strong>¿Qué son las asambleas de barrio de Participa Getafe?</strong>
-          </p>
-          <p>Participa Getafe habilita un mecanismo de asambleas para todos los vecinos de Getafe. Desde aquí podrás consultar las próximas asambleas  y enviar puntos del día para incluir en agenda. Además podrás seguir las asambleas y su desarrollo.</p>
-          <p>Para el Ayuntamiento de Getafe las asambleas son fundamentales. Vertebran el desarrollo de los procesos participativos, como los presupuestos.</p>
-          <p><strong>Asistir a una asamblea</strong></p>
-          <p>Puedes asitir a cualquier asamblea que veas aquí anunciada y participar.</p>
+  <% unless @assembly_type.nil?%>
+    <% unless @assembly_type.description.blank?%>
+      <div class="row">
+        <div class="small-3 column"></div>
+        <div class="small-9 column">
+          <div id="section_help" class="margin" data-magellan-target="section_help">
+            <p class="lead">
+              <strong>¿Qué son las asambleas <%= @assembly_type.name %>?</strong>
+            </p>
+            <p><%= @assembly_type.description %></p>
+          </div>
         </div>
-      <% end %>
-    </div>
-  </div>
+      </div>
+    <% end %>
+  <% end %>
+  <% unless @assembly.nil? %>
+    <% unless @assembly.general_description.blank? %>
+      <div class="row">
+        <div class="small-3 column"></div>
+        <div class="small-9 column">
+          <div id="section_help" class="margin" data-magellan-target="section_help">
+            <p class="lead">
+              <strong>¿Qué es <%= @assembly.name %>?</strong>
+            </p>
+            <p><%= @assembly.general_description %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 </main>

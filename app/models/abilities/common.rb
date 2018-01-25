@@ -8,9 +8,6 @@ module Abilities
       can [:read, :update], User, id: user.id
 
       can :read, Debate
-      can :update, Debate do |debate|
-        debate.editable_by?(user)
-      end
       cannot :update, Debate # GET-53
 
       can :read, Proposal
@@ -84,6 +81,8 @@ module Abilities
       can :create, Annotation
 
       can [:update, :destroy], Annotation, user_id: user.id
+
+      # GET- 
       can :destroy, Follow, user_id: user.id
       can :create, Follow, user_id: user.id
     end

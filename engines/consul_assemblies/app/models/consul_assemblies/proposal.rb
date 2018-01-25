@@ -8,6 +8,7 @@ module ConsulAssemblies
     before_validation :sanitize_conclusion
 
     validates :title, presence: true
+    validates :meeting, presence: true
 
     accepts_nested_attributes_for :attachments,  :reject_if => :all_blank, :allow_destroy => true
 

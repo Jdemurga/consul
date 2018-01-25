@@ -3,18 +3,15 @@ require_dependency "consul_assemblies/application_controller"
 module ConsulAssemblies
   class ProposalsController < ApplicationController
 
+    before_action :authenticate_user!, except: [:index, :show]
     before_filter :load_meeting, only: [:new]
-
-    skip_authorization_check
+    load_and_authorize_resource :proposal, through: :meeting, class: "ConsulAssemblies::Meeting"
 
     def index; end
 
-    def new
-      @proposal = ConsulAssemblies::Proposal.new(meeting_id: params[:meeting_id])
-    end
-
     def create
-      @proposal = ConsulAssemblies::Proposal.new(proposal_params)
+
+      @proposal = ConsulAssemblies::Proposal.new(proposal_params.merge({ user: current_user }))
       if @proposal.save
         redirect_to @proposal.meeting
       else
@@ -34,6 +31,7 @@ module ConsulAssemblies
         :assembly_id
       )
     end
+
     def load_meeting
       @meeting =  ConsulAssemblies::Meeting.find(params[:meeting_id])
     end
