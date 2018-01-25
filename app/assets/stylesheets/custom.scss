@@ -922,3 +922,34 @@ select.datetime-select {
 
   width: auto !important;
 }
+
+.subnavigation {
+
+  ul.menu li a {
+
+    padding: 0.7em 0;
+    font-size: 90%;
+  }
+
+  a.subnavigation-submenu-link {
+
+    padding-right: 1.1rem !important;
+  }
+
+  ul.menu.subnavigation-submenu-item {
+
+    padding: 0px !important;
+    margin: 0 !important;
+
+    li {
+
+      margin: 0px !important;
+      padding: 0px !important;
+
+      a {
+
+        padding-left: 10px !important;
+      }
+    }
+  }
+}

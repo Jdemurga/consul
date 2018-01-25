@@ -1,6 +1,14 @@
 es:
   shared:
-    follow_entity: 'Seguir reunión'
+    followable:
+      consulassemblies_meeting:
+        create:
+          notice_html: 'Está siguiendo las actualizaciones de esta asamblea'
+        destroy:
+          notice_html: 'Ha dejado de seguir las actualizaciones de esta asamblea'
+    follow_entity: 'Seguir'
+    unfollow_entity: 'Dejar de seguir'
+    following: 'Siguiendo actualizaciones'
   assemblies:
     index:
       section_header:
@@ -13,7 +21,7 @@ es:
 
   layouts:
     header:
-      assemblies: Asambleas
+      assemblies: Espacios de Participación
   consul_assemblies:
     assemblies:
       index:
@@ -38,7 +46,7 @@ es:
         not_pending: 'No hay propuestas de puntos de orden del día pendientes'
         not_refused: 'No hay propuestas de puntos de orden del día rechazadas'
         nothing_to_approve: 'No hay actas para aprobar'
-        order_of_the_day: 'Orden del día'
+        order_of_the_day: 'Puntos de orden del día'
         pending: 'Pendientes'
         refused: 'Rechazadas'
     admin:
@@ -119,6 +127,7 @@ es:
           meetings: 'Reuniones'
           title_h2: 'Editar reunión'
         form:
+          attachment: 'Acta definitiva aprobada'
           about_venue: 'Lugar de encuentro'
           assambly: 'Asamblea'
           attachments: 'Adjuntos'

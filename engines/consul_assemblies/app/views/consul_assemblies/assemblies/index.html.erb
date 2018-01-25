@@ -34,7 +34,15 @@
       </div>
     </div>
   <% else %>
-    <%= render "shared/section_header", i18n_namespace: "assemblies.index.section_header", image: "assemblies" %>
+    <div class="help-header no-margin-top margin-bottom">
+      <div class="row">
+        <div class="small-12 column" data-magellan>
+          <%= image_tag "help/help_icon_assemblies.png", alt: t("assemblies.index.section_header.icon_alt"), class: "align-top" %>
+          <h1 class="inline-block"><%= @assembly_type ?  @assembly_type.name : t("assemblies.index.section_header..title") %></h1>
+          <%= link_to t("assemblies.index.section_header.help"), "#section_help", class: "float-right" %>
+        </div>
+      </div>
+    </div>
   <% end %>
 
   <div class="row">
@@ -43,8 +51,8 @@
         <ul class="menu vertical no-margin-top no-padding-top">
           <% if @assemblies.any? %>
             <% @assemblies.each do |assembly| %>
-              <li class="<%= 'active' if @assembly == assembly %>">
-                <%= link_to assembly.name, assembly_path(assembly)  %>
+              <li class="small <%= 'active' if @assembly == assembly %>">
+                <%= link_to assembly.name, assemblies_path(assembly_id: assembly, assembly_type_id: assembly.assembly_type_id)  %>
               </li>
             <% end %>
             <% else %>
@@ -60,7 +68,6 @@
         <%= render "shared/banner" %>
       <% end %>
 
-<!--      <%= render 'shared/filter_subnav', i18n_namespace: "assemblies.index" %> -->
 
       <div id="assemblies-list">
 
@@ -68,9 +75,13 @@
           <% if @meetings.any? %>
             <%= render partial: 'meeting', collection: @meetings %>
           <% else %>
-            <p>
-              No hay asambleas programadas para <%= @assembly.name %>
-            </p>
+            <% if @assembly %>
+              <p class="text-muted text-center">
+                <br>
+                <br>
+                No hay asambleas de <u><%= @assembly.name %></u>  programadas
+              </p>
+            <% end %>
           <% end %>
         <% else %>
           <%= t("assemblies.index.empty") %>

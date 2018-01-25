@@ -9,7 +9,7 @@
       <strong>
         <%= @meeting.errors.count %>
         <%= t("admin.site_customization.meetings.errors.form.error", count: @meeting.errors.count) %>
-        <!-- <%= @meeting.errors.inspect %> -->
+         <%= @meeting.errors.inspect %>
       </strong>
     </div>
   <% end %>

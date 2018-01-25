@@ -19,17 +19,14 @@
     <li>
       <%= link_to t("layouts.header.previous_hearing"), "https://transparencia.getafe.es/portalGetafe/transparencia/se_contenedor2.jsp?seccion=s_fdes_d4_v2.jsp&codbusqueda=207&language=es&codResi=1&codMenuPN=107&codMenuSN=117&codMenuTN=297&codMenu=318", target: '_blank' %>
     </li>
-    <li>
-      <a href="#item1">Espacios para la ciudadanía</a>
-      <ul class="menu" style="top:46%">
-        <% assembly_types_for_menu.each do |assembly_type| %>
-          <li><%= link_to assembly_type.name, assemblies_path(assembly_type_id: assembly_type.id), class: 'subnavigation-a-width'%></li>
-        <% end %>
-      </ul>
-    </li>
-    <% if feature?(:budgets) %>
+    <% if feature?(:assemblies) %>
       <li>
-        <%= link_to t("layouts.header.assemblies"), assemblies.assemblies_path, accesskey: "p"  %>
+        <a class="subnavigation-submenu-link"><%= t("layouts.header.assemblies") %></a>
+        <ul class="menu subnavigation-submenu-item" style="top:42px">
+          <% assembly_types_for_menu.each do |assembly_type| %>
+            <li><%= link_to assembly_type.name, assemblies.assemblies_path(assembly_type_id: assembly_type.id), class: 'subnavigation-a-width'%></li>
+          <% end %>
+        </ul>
       </li>
     <% end %>
   </ul>

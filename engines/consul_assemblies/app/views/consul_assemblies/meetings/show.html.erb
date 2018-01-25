@@ -19,94 +19,100 @@
 
       <%= safe_html_with_links @meeting.description.html_safe %>
 
-      <hr>
-
-
-
-  <ul class="tabs" data-tab role="tablist">
-    <li class="tabs-title is-active"><a href="#panel1" role="presentation" aria-selected="true" aria-controls="panel1">Tab 1</a></li>
-    <li class="tabs-title"><a href="#panel2" role="presentation" aria-selected="false" aria-controls="panel2">Tab 2</a></li>
-    <li class="tabs-title"><a href="#panel3" role="presentation" aria-selected="false" aria-controls="panel3">Tab 3</a></li>
-    <li class="tabs-title"><a href="#panel4" role="presentation" aria-selected="false" aria-controls="panel4">Tab 4</a></li>
-  </ul>
-  <div class="tabs-content">
-    <div class="tabs-panel is-active" role="tabpanel" aria-hidden="false" id="panel1">
-      <h2>First panel content goes here...</h2>
-    </div>
-    <div class="tabs-panel" role="tabpanel" aria-hidden="true" id="panel2">
-      <h2>Second panel content goes here...</h2>
-    </div>
-    <div class="tabs-panel" role="tabpanel" aria-hidden="true" id="panel3">
-      <h2>Third panel content goes here...</h2>
-    </div>
-    <div class="tabs-panel" role="tabpanel" aria-hidden="true" id="panel4">
-      <h2>Fourth panel content goes here...</h2>
-    </div>
-  </div>
+      <br>
+      <br>
 
       <div class="row">
         <div class="small-12 column">
           <h3><%= t('.order_of_the_day') %></h3>
         </div>
 
+        <div class="small-12 column">
+          <ul class="tabs" data-tab role="tablist">
+            <li class="tabs-title is-active">
+              <%= link_to meeting_path(@meeting, proposals_type: 'drafts'), "aria-selected" => "#{params[:proposals_type] == 'drafts'}" do %>
+                <%= t('.acts_to_approve') %>
+              <% end %>
+            </li>
+            <li class="tabs-title">
+              <%= link_to meeting_path(@meeting, proposals_type: 'accepted'), "aria-selected" => "#{params[:proposals_type] == 'accepted'}" do %>
+                <%= t('.accepted') %>
+              <% end %>
+            </li>
+            <li class="tabs-title">
+              <%= link_to meeting_path(@meeting, proposals_type: 'declined'), "aria-selected" => "#{params[:proposals_type] == 'declined'}" do %>
+                <%= t('.pending') %>
+              <% end %>
+            </li>
+            <li class="tabs-title">
+              <%= link_to meeting_path(@meeting, proposals_type: 'pending'), "aria-selected" => "#{params[:proposals_type] == 'pending'}" do %>
+                <%= t('.refused') %>
+              <% end %>
+            </li>
+          </ul>
+
+
+
         <% if @meeting.proposals.any? %>
 
-          <div class="medium-4 column">
-            <h5><%= t('.acts_to_approve') %></h5>
-            <% if @meeting.proposals.to_approve.any? %>
-              <ul>
-              <% @meeting.proposals.to_approve.each do |proposal| %>
-                <li><%= proposal.title %></li>
-              <% end %>
-            <% else %>
-              <%= t('.nothing_to_approve') %>
-            </ul>
-            <% end %>
-
-          </div>
-          <div class="medium-4 column">
-            <h5><%= t('.accepted') %></h5>
-            <ul>
-              <% if @meeting.proposals.accepted.any? %>
-                <% @meeting.proposals.accepted.each do  |proposal| %>
-                  <li>
-                    </small><%= proposal.title %></small>
-                  </li>
-                <% end %>
+              <% if params[:proposals_type] == 'accepted' %>
+              <div class="medium-12 column">
+                <ul>
+                  <% if @meeting.proposals.accepted.any? %>
+                    <% @meeting.proposals.accepted.each do  |proposal| %>
+                      <li>
+                        </small><%= proposal.title %></small>
+                      </li>
+                    <% end %>
+                  <% else %>
+                    <small class="text-muted"><%= t('.not_accepted') %></small>
+                  <% end %>
+                </ul>
+              </div>
+              <% elsif params[:proposals_type] == 'declined' %>
+              <div class="medium-12 column">
+                <ul>
+                  <% if @meeting.proposals.pending.any? %>
+                    <% @meeting.proposals.pending.each do  |proposal| %>
+                      <li>
+                        <small><%= proposal.title %></small>
+                      </li>
+                    <% end %>
+                  <% else %>
+                    <small class="text-muted"><%= t('.not_pending') %></small>
+                  <% end %>
+                </ul>
+              </div>
+              <% elsif params[:proposals_type] == 'pending'%>
+              <div class="medium-12 column">
+                <ul>
+                  <% if @meeting.proposals.declined.any? %>
+                    <% @meeting.proposals.declined.each do  |proposal| %>
+                      <li>
+                        <small><%= proposal.title %></small>
+                      </li>
+                    <% end %>
+                  <% else %>
+                    <small class="text-muted"><%= t('.not_refused') %></small>
+                  <% end %>
+                </ul>
+              </div>
               <% else %>
-                <small class="text-muted"><%= t('.not_accepted') %></small>
-              <% end %>
-            </ul>
-          </div>
 
-          <div class="medium-4 column">
-            <h5><%= t('.pending') %></h5>
-            <ul>
-              <% if @meeting.proposals.pending.any? %>
-                <% @meeting.proposals.pending.each do  |proposal| %>
-                  <li>
-                    <small><%= proposal.title %></small>
-                  </li>
-                <% end %>
-              <% else %>
-                <small class="text-muted"><%= t('.not_pending') %></small>
+                <div class="medium-12 column">
+
+                  <% if @meeting.proposals.to_approve.any? %>
+                    <ul>
+                      <% @meeting.proposals.to_approve.each do |proposal| %>
+                        <li><%= proposal.title %></li>
+                      <% end %>
+                    </ul>
+                  <% else %>
+                    <%= t('.nothing_to_approve') %>
+                  <% end %>
+                </div>
               <% end %>
-            </ul>
-          </div>
-          <div class="medium-4 column">
-          <h5><%= t('.refused') %></h5>
-          <ul>
-            <% if @meeting.proposals.declined.any? %>
-              <% @meeting.proposals.declined.each do  |proposal| %>
-                <li>
-                  <small><%= proposal.title %></small>
-                </li>
-              <% end %>
-            <% else %>
-              <small class="text-muted"><%= t('.not_refused') %></small>
-            <% end %>
-          </ul>
-          </div>
+
 
         <% else %>
         <p class="text-muted">
@@ -116,8 +122,14 @@
           <% end %>
         </p>
         <% end %>
+
       </div>
+      </div>
+
+
+      <%= render "attachments", meeting: @meeting %>
       <%= render "comments" %>
+
 
     </div>
 
@@ -126,6 +138,9 @@
       <% if @meeting.accepting_proposals? %>
       <%= link_to 'Proponer punto orden del día', new_proposal_path(meeting_id: @meeting), class: 'button  expanded' %>
       <% end %>
+      
+
+      <span id="<%= @meeting.id %>"><%= render 'follows/follow_button', follow: find_or_build_follow(current_user, @meeting)%></span>
 
       <%= render partial: 'shared/social_share', locals: {
         share_title: t("meetings.show.share"),

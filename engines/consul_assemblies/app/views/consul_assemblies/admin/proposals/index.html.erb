@@ -24,7 +24,7 @@
   <tbody>
   <% @proposals.each do |proposal| %>
     <tr id="<%= dom_id(proposal) %>">
-      <td><%= link_to proposal.meeting.try(:title), edit_admin_proposal_path(proposal) %></td>
+      <td><%= link_to proposal.meeting.try(:title), edit_admin_meeting_path(proposal.meeting) %></td>
       <td><%= proposal.title %></td>
       <td><%= I18n.l proposal.created_at, format: :short %></td>
       <td>
@@ -35,6 +35,7 @@
         <% end %>
       </td>
       <td class="small delete">
+        <%= link_to t(".editar"), edit_admin_proposal_path(proposal), class: "button primary expanded" %>
         <%= link_to t(".delete"), admin_proposal_path(proposal), method: :delete, class: "button hollow alert expanded", data: { confirm: t('.confirm') } %>
       </td>
     </tr>

@@ -12,7 +12,7 @@ module ConsulAssemblies
     accepts_nested_attributes_for :attachments,  :reject_if => :all_blank, :allow_destroy => true
 
     scope :accepted, -> { where(accepted: true) }
-    scope :declined, -> { where(accepted: false) }
+    scope :declined, -> { where(accepted: false).where(is_previous_meeting_acceptance: false) }
     scope :pending, -> { where(accepted: nil) }
     scope :to_approve, -> { where(is_previous_meeting_acceptance: true) }
 
