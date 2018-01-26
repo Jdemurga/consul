@@ -115,6 +115,7 @@ es:
         act:
           act_celebrated: "Acta celebrada en la fecha"
           at: 'en %{about_venue}'
+          act_draft: 'Borrador de acta'
           meeting_act: 'Acta de reunión: '
           order_day: 'Orden del día'
           print_act: 'Imprimir acta'

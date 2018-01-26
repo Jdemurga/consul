@@ -217,7 +217,7 @@ body.admin {
   border-right: 1px solid $border;
 
   @include breakpoint(medium) {
-    min-height: rem-calc(1100);
+   min-height: rem-calc(1100);
   }
 
   ul {

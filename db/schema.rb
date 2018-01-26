@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180124094846) do
+ActiveRecord::Schema.define(version: 20180126093514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_trgm"
   enable_extension "unaccent"
+  enable_extension "pg_trgm"
 
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
@@ -336,6 +336,7 @@ ActiveRecord::Schema.define(version: 20180124094846) do
     t.datetime "updated_at",                     null: false
     t.string   "conclusion"
     t.boolean  "is_previous_meeting_acceptance"
+    t.integer  "position"
   end
 
   add_index "consul_assemblies_proposals", ["meeting_id"], name: "index_consul_assemblies_proposals_on_meeting_id", using: :btree
@@ -1073,9 +1074,9 @@ ActiveRecord::Schema.define(version: 20180124094846) do
     t.boolean  "email_digest",                              default: true
     t.boolean  "email_on_direct_message",                   default: true
     t.boolean  "official_position_badge",                   default: false
-    t.datetime "password_changed_at",                       default: '2016-12-30 01:08:21', null: false
-    t.integer  "commission_id"
+    t.datetime "password_changed_at",                       default: '2018-01-15 09:35:14', null: false
     t.boolean  "created_from_signature",                    default: false
+    t.integer  "commission_id"
     t.integer  "failed_email_digests_count",                default: 0
     t.text     "former_users_data_log",                     default: ""
     t.datetime "census_removed_at"
