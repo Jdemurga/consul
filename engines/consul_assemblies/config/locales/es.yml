@@ -1,0 +1,210 @@
+es:
+  shared:
+    followable:
+      consulassemblies_meeting:
+        create:
+          notice_html: 'Está siguiendo las actualizaciones de esta asamblea'
+        destroy:
+          notice_html: 'Ha dejado de seguir las actualizaciones de esta asamblea'
+    follow_entity: 'Seguir'
+    unfollow_entity: 'Dejar de seguir'
+    following: 'Siguiendo actualizaciones'
+  assemblies:
+    index:
+      section_header:
+        icon_alt: 'Asambleas de barrio'
+        title: 'Asambleas de barrio'
+
+  admin:
+    menu:
+      assemblies: Asambleas
+
+  layouts:
+    header:
+      assemblies: Espacios de Participación
+  consul_assemblies:
+    assemblies:
+      index:
+        title: 'Getafe - Asambleas de barrio'
+        no_assemblies: 'Aún no hay espacios de participación publicados'
+      meeting:
+        act_available: 'Acta disponible'
+        acts_pending: ' actas pendientes de aprobar'
+        close: 'Cierre orden del día'
+        data: 'Datos clave sobre la celebración de la asamblea'
+        see_act: 'Ver acta'
+        send_proposal: 'Enviar propuesta'
+        subscribe: 'Subscribirme'
+        when: 'Cuándo'
+        where: 'Dónde'
+    meetings:
+      show:
+        proposals_accepted: 'Propuestas aceptadas'
+        acts_to_approve: 'Actas a aprobar'
+        not_accepted: 'No hay propuestas de puntos de orden del día aceptadas'
+        not_orders: 'Aún no hay puntos en el orden del día definidos'
+        not_pending: 'No hay propuestas de puntos de orden del día pendientes'
+        not_refused: 'No hay propuestas de puntos de orden del día rechazadas'
+        nothing_to_approve: 'No hay actas para aprobar'
+        order_of_the_day: 'Puntos de orden del día'
+        proposals_pending: 'Propuestas pendientes'
+        proposals_refused: 'Propuestas rechazadas'
+    admin:
+      assemblies:
+        create:
+          assembly_created: 'Asamblea creada correctamente'
+        destroy:
+          assembly_destroyed: 'Asamblea eliminada correctamente'
+        edit:
+          edit_assembly: 'Editar asamblea'
+          assemblies: 'Asambleas'
+          title_h2: 'Editar asamblea'
+        form:
+          about_venue: 'Lugar de encuentro'
+          assembly_type: 'Tipo de asamblea'
+          general_description: 'Descripción general'
+          geozone: 'Geozona'
+          name: 'Nombre'
+          scope_description: 'Alcance de descripción'
+          save: 'Guardar'
+        index:
+          actions: 'Acciones'
+          assemblies: 'Asambleas'
+          assembly: 'Asamblea'
+          confirm: '¿Está seguro de querer eliminar esta asamblea?'
+          create: 'Crear asamblea'
+          date: 'Fecha'
+          delete: 'Eliminar'
+          meetings: 'Reuniones'
+          see_meetings: 'Ver reuniones'
+          title_h2: 'Asambleas'
+        new:
+          new_assembly: 'Nueva asamblea'
+          assemblies: 'Asambleas'
+          title_h2: 'Nueva asamblea'
+        update:
+          assembly_updated: 'Asamblea actualizada correctamente'
+      assembly_types:
+        create:
+          assembly_type_created: 'Tipo de asamblea creada correctamente'
+        destroy:
+          assembly_type_destroyed: 'Tipo de asamblea eliminado correctamente'
+        edit:
+          assembly_types: 'Tipos de asamblea'
+          edit_assembly_type: 'Editar tipo de asamblea'
+          title_h2: 'Editar tipo de asamblea'
+        form:
+          description: 'Descripción'
+          name: 'Nombre'
+          save: 'Guardar'
+        index:
+          actions: 'Acciones'
+          assembly_type: 'Tipo de asamblea'
+          assembly_types: 'Tipos de asamblea'
+          create: 'Crear tipo de asamblea'
+          date: 'Fecha'
+          delete: 'Eliminar'
+          title_h2: 'Tipos de asamblea'
+        new:
+          assembly_types: 'Tipos de asamblea'
+          new_assembly_type: 'Nuevo tipo de asamblea'
+          title_h2: 'Nuevo tipo de asamblea'
+        update:
+          assembly_type_updated: 'Tipo de asamblea actualizada correctamente'
+      meetings:
+        act:
+          act_celebrated: "Acta celebrada en la fecha"
+          at: 'en %{about_venue}'
+          act_draft: 'Borrador de acta'
+          meeting_act: 'Acta de reunión: '
+          order_day: 'Orden del día'
+          print_act: 'Imprimir acta'
+        create:
+          meeting_created: 'Reunión creada correctamente'
+        destroy:
+          meeting_destroyed: 'Reunión eliminada correctamente'
+        edit:
+          edit_meeting: 'Editar reunión'
+          meetings: 'Reuniones'
+          title_h2: 'Editar reunión'
+        form:
+          attachment: 'Acta definitiva aprobada'
+          about_venue: 'Lugar de encuentro'
+          assambly: 'Asamblea'
+          attachments: 'Adjuntos'
+          close_accepting_proposals_at: 'Periodo de aceptacion de propuestas'
+          closed: 'Cerrado'
+          description: 'Descripción'
+          new_attachment: 'Nuevo adjunto'
+          open: 'Abierto'
+          published_at: 'Fecha de publicación'
+          save: 'Guardar'
+          scheduled_at: 'Programado para:'
+          status: 'Estado'
+          summary: 'Sumario'
+          title: 'Título'
+        index:
+          actions: 'Acciones'
+          assambly: 'Asamblea'
+          closed: 'Cerrado'
+          confirm: '¿Está seguro de querer eliminar esta reunión?'
+          create: 'Crear reunión'
+          date: 'Fecha'
+          delete: 'Eliminar'
+          end_of_proposals: 'Fin de propuestas'
+          generate_act: 'Generar acta'
+          meetings: 'Reuniones'
+          open: 'Abierto'
+          proposals: 'Propuestas'
+          see_act: 'Ver acta'
+          see_proposals: 'Ver propuestas'
+          status: 'Estado'
+          subject: 'Asunto'
+          title: 'Título'
+          title_h2: 'Reuniones'
+        new:
+          meetings: 'Reuniones'
+          new_meeting: 'Nueva reunión'
+          title_h2: 'Nueva reunión'
+        update:
+          meeting_updated: 'Reunión actualizada correctamente'
+      menu:
+        meetings: 'Reuniones'
+        assemblies: 'Asambleas'
+        assembly_types: 'Tipos de asamblea'
+      proposals:
+        create:
+          proposal_created: 'Propuesta creada correctamente'
+        destroy:
+          proposal_destroyed: 'Propuesta eliminada correctamente'
+        edit:
+          edit_proposal: 'Editar propuesta'
+          proposals: 'Propuestas'
+          title_h2: 'Editar propuesta'
+        form:
+          accepted: 'Aceptado'
+          attachments: 'Adjuntos'
+          conclusion: 'Conclusión'
+          description: 'Descripción'
+          is_previous_meeting_acceptance: 'Es propuesta de aceptación de actas'
+          new_attachment: 'Nuevo adjunto'
+          save: 'Guardar'
+          title: 'Título'
+        index:
+          accepted: 'Aceptado'
+          actions: 'Acciones'
+          confirm: '¿Está seguro de querer eliminar esta propuesta?'
+          create: 'Crear propuesta'
+          date: 'Fecha'
+          delete: 'Eliminar'
+          meeting: 'Reunión'
+          proposal: 'Propuesta'
+          proposals: 'Propuestas'
+          title: 'Título'
+          title_h2: 'Propuestas'
+        new:
+          new_proposal: 'Nueva propuesta'
+          proposals: 'Propuestas'
+          title_h2: 'Nueva propuesta'
+        update:
+          proposal_updated: 'Propuesta actualizada correctamente'

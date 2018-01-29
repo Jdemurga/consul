@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     get '/sandbox/*template' => 'sandbox#show'
   end
 
+  mount ConsulAssemblies::Engine => '/assemblies', as: 'assemblies'
+
   devise_for :users, controllers: {
                        registrations: 'users/registrations',
                        sessions: 'users/sessions',
@@ -491,6 +493,6 @@ Rails.application.routes.draw do
       id: 'ordenanza_reguladora_adjudicacion_terrenos_municipales'
 
 
-
+  resources :follows
   resources :pages, path: '/', only: [:show]
 end

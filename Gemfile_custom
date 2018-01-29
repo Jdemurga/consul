@@ -11,6 +11,7 @@ gem 'file_validators'
 gem 'phony_rails'
 gem 'mini_magick'
 gem "validate_url"
+gem 'acts_as_list'
 
 group :development do
   gem 'guard-livereload', '~> 2.5', require: false
