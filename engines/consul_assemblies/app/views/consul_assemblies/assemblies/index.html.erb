@@ -9,31 +9,7 @@
 <% end %>
 
 <main>
-  <% if @search_terms || @advanced_search_terms || @tag_filter || params[:retired].present? %>
-    <div class="highlight no-margin-top padding margin-bottom">
-      <div class="row">
-        <div class="small-12 column">
-          <% if @search_terms || @advanced_search_terms %>
-            <h2><%= t("shared.search_results") %></h2>
-            <p>
-              <%= page_entries_info @assemblies %>
-              <% if !@advanced_search_terms %>
-                <%= t("assemblies.index.search_results_html", count: @assemblies.size, search_term: @search_terms) %>
-              <% end %>
-            <p>
-          <% elsif @tag_filter %>
-            <h2><%= t("shared.search_results") %></h2>
-            <p>
-              <%= page_entries_info @assemblies %>
-              <%= t("assemblies.index.filter_topic", count: @assemblies.size, topic: @tag_filter) %>
-            </p>
-          <% elsif params[:retired].present? %>
-            <h2><%= t("assemblies.index.retired_assemblies") %></h2>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  <% else %>
+
     <div class="help-header no-margin-top margin-bottom">
       <div class="row">
         <div class="small-12 column" data-magellan>
@@ -43,7 +19,6 @@
         </div>
       </div>
     </div>
-  <% end %>
 
   <div class="row">
     <div class="small-12 medium-3 column">
@@ -56,7 +31,7 @@
               </li>
             <% end %>
             <% else %>
-              <p><%= t(".no_assemblies") %></p>
+              <p class="text-muted"><%= t(".no_assemblies") %></p>
             <% end %>
         </ul>
       </aside>
@@ -99,9 +74,9 @@
         <div class="small-9 column">
           <div id="section_help" class="margin" data-magellan-target="section_help">
             <p class="lead">
-              <strong>¿Qué son las asambleas <%= @assembly_type.name %>?</strong>
+              <strong>Espacios de participación: <%= @assembly_type.name %></strong>
             </p>
-            <p><%= @assembly_type.description %></p>
+            <p><%= @assembly_type.description.html_safe %></p>
           </div>
         </div>
       </div>
@@ -114,9 +89,9 @@
         <div class="small-9 column">
           <div id="section_help" class="margin" data-magellan-target="section_help">
             <p class="lead">
-              <strong>¿Qué es <%= @assembly.name %>?</strong>
+              <strong><%= @assembly.name %></strong>
             </p>
-            <p><%= @assembly.general_description %></p>
+            <p><%= @assembly.general_description.html_safe %></p>
           </div>
         </div>
       </div>

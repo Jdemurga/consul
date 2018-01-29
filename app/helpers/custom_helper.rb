@@ -24,6 +24,6 @@ module CustomHelper
   end
 
   def assembly_types_for_menu
-    ConsulAssemblies::AssemblyType.order(:name)
+    ConsulAssemblies::AssemblyType.order(:name).where(id: ConsulAssemblies::Assembly.pluck(:assembly_type_id))
   end
 end
