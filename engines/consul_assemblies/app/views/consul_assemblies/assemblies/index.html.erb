@@ -13,88 +13,70 @@
     <div class="help-header no-margin-top margin-bottom">
       <div class="row">
         <div class="small-12 column" data-magellan>
-          <%= image_tag "help/help_icon_assemblies.png", alt: t("assemblies.index.section_header.icon_alt"), class: "align-top" %>
-          <h1 class="inline-block"><%= @assembly_type ?  @assembly_type.name : t("assemblies.index.section_header..title") %></h1>
           <%= link_to t("assemblies.index.section_header.help"), "#section_help", class: "float-right" %>
+          <h1 class="inline-block"><%= @assembly_type ?  @assembly_type.name : t("assemblies.index.section_header..title") %></h1>
+          <h5>Espacios de participación</h5>
         </div>
       </div>
     </div>
+
 
   <div class="row">
-    <div class="small-12 medium-3 column">
-      <aside class="margin-bottom">
-        <ul class="menu vertical no-margin-top no-padding-top">
-          <% if @assemblies.any? %>
-            <% @assemblies.each do |assembly| %>
-              <li class="small <%= 'active' if @assembly == assembly %>">
-                <%= link_to assembly.name, assemblies_path(assembly_id: assembly, assembly_type_id: assembly.assembly_type_id)  %>
-              </li>
-            <% end %>
-            <% else %>
-              <p class="text-muted"><%= t(".no_assemblies") %></p>
-            <% end %>
-        </ul>
-      </aside>
-    </div>
+    <% if @assemblies.any? %>
+      <div class="small-12 medium-3 column">
+        <aside class="margin-bottom">
+          <ul class="menu vertical no-margin-top no-padding-top">
+            <% if @assemblies.any? %>
+              <% @assemblies.each do |assembly| %>
+                <li class="small <%= 'active' if @assembly == assembly %>">
+                  <%= link_to assembly.name, assemblies_path(assembly_id: assembly, assembly_type_id: assembly.assembly_type_id)  %>
+                </li>
+              <% end %>
+              <% else %>
+                <p class="text-muted"><%= t(".no_assemblies") %></p>
+              <% end %>
+          </ul>
+        </aside>
+      </div>
 
-    <div id="assemblies" class="assemblies-list small-12 medium-9 column">
+      <div id="assemblies" class="assemblies-list small-12 medium-9 column">
 
-      <% if has_banners? %>
-        <%= render "shared/banner" %>
-      <% end %>
-
-
-      <div id="assemblies-list">
-
-        <% if @meetings %>
-          <% if @meetings.any? %>
-            <%= render partial: 'meeting', collection: @meetings %>
-          <% else %>
-            <% if @assembly %>
-              <p class="text-muted text-center">
-                <br>
-                <br>
-                No hay asambleas de <u><%= @assembly.name %></u>  programadas
-              </p>
-            <% end %>
-          <% end %>
-        <% else %>
-          <%= t("assemblies.index.empty") %>
+        <% if has_banners? %>
+          <%= render "shared/banner" %>
         <% end %>
 
+
+        <div id="assemblies-list">
+
+          <% if @meetings %>
+            <% if @meetings.any? %>
+              <%= render partial: 'meeting', collection: @meetings %>
+            <% else %>
+              <% if @assembly %>
+                <div class="callout primary margin-top">
+                  No hay asambleas de <u><%= @assembly.name %></u>  programadas
+                </div>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= t("assemblies.index.empty") %>
+          <% end %>
+
+          <%= render 'about_assemblies' %>
+        </div>
       </div>
-    </div>
+    <% else %>
+      <div class="small-12 column">
+        <div class="callout primary margin-top">
+          <p class=""><%= t(".no_assemblies") %></p>
+        </div>
+      </div>
 
+      <div class="smal-12 column">
+        <%= render 'about_assemblies' %>
+      </div>
 
+    <% end %>
   </div>
-  <% unless @assembly_type.nil?%>
-    <% unless @assembly_type.description.blank?%>
-      <div class="row">
-        <div class="small-3 column"></div>
-        <div class="small-9 column">
-          <div id="section_help" class="margin" data-magellan-target="section_help">
-            <p class="lead">
-              <strong>Espacios de participación: <%= @assembly_type.name %></strong>
-            </p>
-            <p><%= @assembly_type.description.html_safe %></p>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
-  <% unless @assembly.nil? %>
-    <% unless @assembly.general_description.blank? %>
-      <div class="row">
-        <div class="small-3 column"></div>
-        <div class="small-9 column">
-          <div id="section_help" class="margin" data-magellan-target="section_help">
-            <p class="lead">
-              <strong><%= @assembly.name %></strong>
-            </p>
-            <p><%= @assembly.general_description.html_safe %></p>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
+
 </main>
