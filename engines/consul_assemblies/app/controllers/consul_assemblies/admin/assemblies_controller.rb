@@ -2,7 +2,8 @@ require_dependency "consul_assemblies/application_controller"
 
 module ConsulAssemblies
   class Admin::AssembliesController < Admin::AdminController
-    skip_authorization_check
+
+    before_action :authenticate_user!
     before_action :load_assemblies, only: [:index]
     before_action :load_geozones, :load_assembly_types, only: [:create, :new, :edit, :update]
 
