@@ -56,10 +56,20 @@
                 <div class="callout primary margin-top">
                   No hay asambleas de <u><%= @assembly.name %></u>  programadas
                 </div>
+                <% else %>
+                <div class="small-12 column">
+                  <div class="callout primary margin-top">
+                    <p class=""><%= t(".no_assemblies") %></p>
+                  </div>
+                </div>
               <% end %>
             <% end %>
           <% else %>
-            <%= t("assemblies.index.empty") %>
+            <div class="small-12 column">
+              <div class="callout primary margin-top">
+                <p class=""><%= t(".no_assemblies") %></p>
+              </div>
+            </div>
           <% end %>
 
           <%= render 'about_assemblies' %>
