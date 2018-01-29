@@ -3,8 +3,8 @@ require_dependency "consul_assemblies/application_controller"
 module ConsulAssemblies
   class Admin::MeetingsController < Admin::AdminController
 
-    #load_and_authorize_resource :page, class: "ConsulAssemblies::Meeting"
 
+    before_action :authenticate_user!
     before_action :load_assembly, only: [:index]
     before_action :load_assemblies, only: [:create, :new, :edit, :update]
 

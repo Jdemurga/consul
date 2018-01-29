@@ -3,9 +3,9 @@ require_dependency "consul_assemblies/application_controller"
 module ConsulAssemblies
   class Admin::ProposalsController < Admin::AdminController
 
+    before_action :authenticate_user!
     before_action :load_meeting, only: [:index]
 
-    skip_authorization_check
 
     def index
       @proposals = @meeting ? @meeting.proposals : ConsulAssemblies::Proposal

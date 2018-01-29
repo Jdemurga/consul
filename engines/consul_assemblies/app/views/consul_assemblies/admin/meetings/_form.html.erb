@@ -9,7 +9,6 @@
       <strong>
         <%= @meeting.errors.count %>
         <%= t("admin.site_customization.meetings.errors.form.error", count: @meeting.errors.count) %>
-         <%= @meeting.errors.inspect %>
       </strong>
     </div>
   <% end %>
@@ -34,8 +33,6 @@
       <hr>
       <%= f.hidden_field :assembly_id%>
       <%= f.hidden_field :user_id%>
-      <%= f.label :status, t(".status") %>
-      <%= f.select :status, assemblies_statuses_select_options(), label: false %>
       <%= f.label :published_at, t(".published_at") %>
       <div>
         <%= datetime_select :meeting, :published_at, {}, {:class => "datetime-select"} %>
