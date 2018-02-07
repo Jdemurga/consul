@@ -3,13 +3,13 @@ require_dependency "consul_assemblies/application_controller"
 module ConsulAssemblies
   class Admin::ProposalsController < Admin::AdminController
 
+    before_action :authenticate_user!
     before_action :load_meeting, only: [:index]
 
-    skip_authorization_check
 
     def index
       @proposals = @meeting ? @meeting.proposals : ConsulAssemblies::Proposal
-      @proposals = @proposals.order(created_at: 'desc').page(params[:page] || 1)
+      @proposals = @proposals.order(position: 'asc').page(params[:page] || 1)
     end
 
     def new
@@ -47,6 +47,17 @@ module ConsulAssemblies
       redirect_to admin_proposals_path(meeting_id: @proposal.meeting_id), notice: t('.proposal_destroyed')
     end
 
+    def up
+      @proposal = ConsulAssemblies::Proposal.find(params[:id])
+      @proposal.move_higher
+      redirect_to admin_proposals_path(meeting_id: @proposal.meeting_id)
+    end
+
+    def down
+      @proposal = ConsulAssemblies::Proposal.find(params[:id])
+      @proposal.move_lower
+      redirect_to admin_proposals_path(meeting_id: @proposal.meeting_id)
+    end
 
     private
 
@@ -66,6 +77,7 @@ module ConsulAssemblies
         :updated_at,
         :conclusion,
         :is_previous_meeting_acceptance,
+        :position,
         attachments_attributes: [:file, :title,:featured_image_flag, :_destroy, :id]
       )
     end

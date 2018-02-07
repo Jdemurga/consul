@@ -36,17 +36,17 @@
             </li>
             <li class="tabs-title">
               <%= link_to meeting_path(@meeting, proposals_type: 'accepted'), "aria-selected" => "#{params[:proposals_type] == 'accepted'}" do %>
-                <%= t('.accepted') %>
+                <%= t('.proposals_accepted') %>
               <% end %>
             </li>
             <li class="tabs-title">
               <%= link_to meeting_path(@meeting, proposals_type: 'declined'), "aria-selected" => "#{params[:proposals_type] == 'declined'}" do %>
-                <%= t('.pending') %>
+                <%= t('.proposals_pending') %>
               <% end %>
             </li>
             <li class="tabs-title">
               <%= link_to meeting_path(@meeting, proposals_type: 'pending'), "aria-selected" => "#{params[:proposals_type] == 'pending'}" do %>
-                <%= t('.refused') %>
+                <%= t('.proposals_refused') %>
               <% end %>
             </li>
           </ul>
@@ -138,7 +138,7 @@
       <% if @meeting.accepting_proposals? %>
       <%= link_to 'Proponer punto orden del día', new_proposal_path(meeting_id: @meeting), class: 'button  expanded' %>
       <% end %>
-      
+
 
       <span id="<%= @meeting.id %>"><%= render 'follows/follow_button', follow: find_or_build_follow(current_user, @meeting)%></span>
 

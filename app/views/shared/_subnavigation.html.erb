@@ -19,7 +19,7 @@
     <li>
       <%= link_to t("layouts.header.previous_hearing"), "https://transparencia.getafe.es/portalGetafe/transparencia/se_contenedor2.jsp?seccion=s_fdes_d4_v2.jsp&codbusqueda=207&language=es&codResi=1&codMenuPN=107&codMenuSN=117&codMenuTN=297&codMenu=318", target: '_blank' %>
     </li>
-    <% if feature?(:assemblies) %>
+    <% if feature?(:assemblies) && assembly_types_for_menu.any? %>
       <li>
         <a class="subnavigation-submenu-link"><%= t("layouts.header.assemblies") %></a>
         <ul class="menu subnavigation-submenu-item" style="top:42px">

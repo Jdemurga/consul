@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180124093530) do
+ActiveRecord::Schema.define(version: 20180126092530) do
 
   create_table "consul_assemblies_assemblies", force: :cascade do |t|
     t.string   "name",                null: false
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20180124093530) do
     t.datetime "updated_at",                     null: false
     t.string   "conclusion"
     t.boolean  "is_previous_meeting_acceptance"
+    t.integer  "position"
   end
 
   add_index "consul_assemblies_proposals", ["meeting_id"], name: "index_consul_assemblies_proposals_on_meeting_id"

@@ -20,12 +20,15 @@ module ConsulAssemblies
     validate :published_at_must_be_before_scheduled_at
     validates :assembly, presence: true, associated: true
     validates :description, presence: true
+    validates :user, presence: true
 
     mount_uploader :attachment, AttachmentUploader
 
 
     accepts_nested_attributes_for :attachments,  :reject_if => :all_blank, :allow_destroy => true
 
+    scope :published, -> { where('published_at <= ?', Time.current)}
+    scope :without_held, -> { where('scheduled_at >= ?', Time.current)}
     scope :order_by_scheduled_at,  -> { order(scheduled_at: 'desc') }
     scope :with_hidden,  -> { order(scheduled_at: 'desc') }
 

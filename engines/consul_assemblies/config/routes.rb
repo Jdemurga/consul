@@ -13,7 +13,10 @@ ConsulAssemblies::Engine.routes.draw do
     resources :meetings do
       get 'act', on: :member
     end
-    resources :proposals
+    resources :proposals do
+      get 'up', on: :member
+      get 'down', on: :member
+    end
 
   end
 

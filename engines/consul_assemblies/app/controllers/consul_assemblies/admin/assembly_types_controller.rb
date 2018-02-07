@@ -3,7 +3,7 @@ require_dependency "consul_assemblies/application_controller"
 module ConsulAssemblies
   class Admin::AssemblyTypesController < Admin::AdminController
 
-    skip_authorization_check
+    before_action :authenticate_user!
     before_action :load_assembly_types, only: [:index]
 
     def new

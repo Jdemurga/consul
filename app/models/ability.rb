@@ -15,6 +15,7 @@ class Ability
         self.merge Abilities::Moderator.new(user)
       else
         self.merge Abilities::Common.new(user)
+        self.merge ConsulAssemblies::Abilities::Common.new(user)
       end
     else
       self.merge Abilities::Everyone.new(user)

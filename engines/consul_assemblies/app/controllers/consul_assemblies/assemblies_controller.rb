@@ -6,7 +6,7 @@ module ConsulAssemblies
     include FlagActions
 
 
-    before_action :authenticate_user!, except: [:index, :show, :map, :summary]
+    before_action :authenticate_user!, except: [:index, :show]
     before_action :load_assembly_type, only: [:index, :show]
     before_action :load_active_assemblies, only: [:show, :index]
     before_action :load_assembly, only: [:show, :index]
@@ -41,7 +41,8 @@ module ConsulAssemblies
     end
 
     def load_meetings
-      @meetings = ConsulAssemblies::Meeting.where(assembly_id: @assemblies).order(scheduled_at: 'desc')
+      @meetings = ConsulAssemblies::Meeting.published.where(assembly_id: @assemblies).order(scheduled_at: 'asc')
+      @meetings = @meetings.without_held unless params[:include_held]
       @meetings = @meetings.where(assembly_id: @assembly) if @assembly
     end
   end

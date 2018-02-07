@@ -26,7 +26,7 @@ es:
     assemblies:
       index:
         title: 'Getafe - Asambleas de barrio'
-        no_assemblies: 'No hay asambleas activas'
+        no_assemblies: 'Aún no hay espacios de participación publicados'
       meeting:
         act_available: 'Acta disponible'
         acts_pending: ' actas pendientes de aprobar'
@@ -39,7 +39,7 @@ es:
         where: 'Dónde'
     meetings:
       show:
-        accepted: 'Aceptadas'
+        proposals_accepted: 'Propuestas aceptadas'
         acts_to_approve: 'Actas a aprobar'
         not_accepted: 'No hay propuestas de puntos de orden del día aceptadas'
         not_orders: 'Aún no hay puntos en el orden del día definidos'
@@ -47,8 +47,8 @@ es:
         not_refused: 'No hay propuestas de puntos de orden del día rechazadas'
         nothing_to_approve: 'No hay actas para aprobar'
         order_of_the_day: 'Puntos de orden del día'
-        pending: 'Pendientes'
-        refused: 'Rechazadas'
+        proposals_pending: 'Propuestas pendientes'
+        proposals_refused: 'Propuestas rechazadas'
     admin:
       assemblies:
         create:
@@ -115,6 +115,7 @@ es:
         act:
           act_celebrated: "Acta celebrada en la fecha"
           at: 'en %{about_venue}'
+          act_draft: 'Borrador de acta'
           meeting_act: 'Acta de reunión: '
           order_day: 'Orden del día'
           print_act: 'Imprimir acta'
@@ -131,17 +132,17 @@ es:
           about_venue: 'Lugar de encuentro'
           assambly: 'Asamblea'
           attachments: 'Adjuntos'
-          close_accepting_proposals_at: 'Periodo de aceptacion de propuestas'
+          close_accepting_proposals_at: 'Fecha cierre de aceptación de propuestas de puntos del día'
           closed: 'Cerrado'
-          description: 'Descripción'
+          description: 'Descripción detallada'
           new_attachment: 'Nuevo adjunto'
           open: 'Abierto'
           published_at: 'Fecha de publicación'
           save: 'Guardar'
-          scheduled_at: 'Programado para:'
+          scheduled_at: 'Fecha de celebración'
           status: 'Estado'
-          summary: 'Sumario'
-          title: 'Título'
+          summary: 'Resumen breve de la finalidad/temática de la reunión'
+          title: 'Título descriptivo de la reunión'
         index:
           actions: 'Acciones'
           assambly: 'Asamblea'
