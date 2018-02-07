@@ -1,8 +1,8 @@
 class AttachmentUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
-  include CarrierWave::RMagick
-  #include CarrierWave::MiniMagick
+  #include CarrierWave::RMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -36,7 +36,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
 
   def efficient_conversion(width, height)
     manipulate! do |img|
-      img.format("png") do |c|
+      img.format('png') do |c|
         c.resize      "x#{height}>"
       end
       img
@@ -71,7 +71,6 @@ class AttachmentUploader < CarrierWave::Uploader::Base
 
 
   def has_gallery?(file)
-    return false if model.responds_to?(:no_attachment_versions)
-    true
+    !model.respond_to?(:no_attachment_versions)
   end
 end
