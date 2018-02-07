@@ -71,6 +71,7 @@ gem 'paperclip'
 gem 'rails-assets-markdown-it', source: 'https://rails-assets.org'
 
 gem 'cocoon'
+gem 'rmagick'
 
 gem 'consul_assemblies', path: 'engines/consul_assemblies'
 

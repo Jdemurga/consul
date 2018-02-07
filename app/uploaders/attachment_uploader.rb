@@ -30,7 +30,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb do
+  version :thumb, if: :has_gallery? do
      process resize_to_fit: [400, 400]
   end
 
@@ -43,7 +43,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
     end
   end
 
-  version :cover do
+  version :cover, if: :has_gallery? do
     process convert: 'png'
     process efficient_conversion: [450, 850]
 
@@ -70,4 +70,8 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   end
 
 
+  def has_gallery?(file)
+    return false if model.responds_to?(:no_attachment_versions)
+    true
+  end
 end

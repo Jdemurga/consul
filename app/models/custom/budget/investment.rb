@@ -46,7 +46,7 @@ class Budget
     has_many :attachments, as: :attachable
     accepts_nested_attributes_for :attachments,  :reject_if => :all_blank, :allow_destroy => true
 
-    attr_accessor :mark_as_finished_own_valuation
+    attr_accessor :mark_as_finished_own_valuation, :no_attachment_versions
 
 
     def has_project?
