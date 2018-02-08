@@ -68,7 +68,7 @@ en:
         new_link: Create new budget
         filter: Filter
         filters:
-          current: Open
+          open: Open
           finished: Finished
         budget_investments: See budget investments
         table_name: Name
@@ -84,6 +84,17 @@ en:
         notice: Participatory budget updated successfully
       edit:
         title: Edit Participatory budget
+        delete: Delete budget
+        phase: Phase
+        dates: Dates
+        enabled: Enabled
+        actions: Actions
+        edit_phase: Edit phase
+        active: Active
+        blank_dates: Dates are blank
+      destroy:
+        success_notice: Budget deleted successfully
+        unable_notice: You cannot destroy a Budget that has associated investments
       new:
         title: New participatory budget
       show:
@@ -98,31 +109,60 @@ en:
         heading: Heading name
         add_heading: Add heading
         amount: Amount
-        population: Population
+        population: "Population (optional)"
+        population_help_text: "This data is used exclusively to calculate the participation statistics"
         save_heading: Save heading
         no_heading: This group has no assigned heading.
         table_heading: Heading
         table_amount: Amount
         table_population: Population
+        population_info: "Budget Heading population field is used for Statistic purposes at the end of the Budget to show for each Heading that represents an area with population what percentage voted. The field is optional so you can leave it empty if it doesn't apply."
       winners:
         calculate: Calculate Winner Investments
         calculated: Winners being calculated, it may take a minute.
+    budget_phases:
+      edit:
+        start_date: Start date
+        end_date: End date
+        summary: Summary
+        summary_help_text: This text will inform the user about the phase. To show it even if the phase is not active, select the checkbox below
+        description: Description
+        description_help_text: This text will appear in the header when the phase is active
+        enabled: Phase enabled
+        enabled_help_text: This phase will be public in the budget's phases timeline, as well as active for any other purpose
+        save_changes: Save changes
     budget_investments:
       index:
         heading_filter_all: All headings
         administrator_filter_all: All administrators
         valuator_filter_all: All valuators
         tags_filter_all: All tags
+        advanced_filters: Advanced filters
+        placeholder: Search projects
+        sort_by:
+          placeholder: Sort by
+          id: ID
+          title: Title
+          supports: Supports
         filters:
-          valuation_open: Open
-          without_admin: Without assigned admin
-          managed: Managed
-          valuating: Under valuation
-          valuation_finished: Valuation finished
-          valuation_finished_feasible: Val. fin. Feasible
-          selected: Selected
-          winners: Winners
           all: All
+          without_admin: Without assigned admin
+          without_valuator: Without assigned valuator
+          under_valuation: Under valuation
+          valuation_finished: Valuation finished
+          feasible: Feasible
+          selected: Selected
+          undecided: Undecided
+          unfeasible: Unfeasible
+          max_per_heading: Max. supports per heading
+          winners: Winners
+          one_filter_html: "Current applied filters: <b><em>%{filter}</em></b>"
+          two_filters_html: "Current applied filters: <b><em>%{filter}, %{advanced_filters}</em></b>"
+        buttons:
+          search: Search
+          filter: Filter
+        download_current_selection: "Download current selection"
+        no_budget_investments: "There are no investment projects."
         title: Investment projects
         assigned_admin: Assigned administrator
         no_admin_assigned: No admin assigned
@@ -133,6 +173,7 @@ en:
           undecided: "Undecided"
         selected: "Selected"
         select: "Select"
+        download_current_selection: "Download current selection"
         table_id: "ID"
         table_title: "Title"
         table_supports: "Supports"
@@ -141,12 +182,12 @@ en:
         table_geozone: "Scope of operation"
         table_feasibility: "Feasibility"
         table_valuation_finished: "Val. Fin."
-        table_selection: "Selection"
+        table_selection: "Selected"
         table_incompatible: "Incompatible"
       show:
         assigned_admin: Assigned administrator
         assigned_valuators: Assigned valuators
-        classification: Clasification
+        classification: Classification
         info: "%{budget_name} - Group: %{group_name} - Investment project %{id}"
         edit: Edit
         edit_classification: Edit classification
@@ -174,7 +215,7 @@ en:
           "true": "Yes"
           "false": "No"
       edit:
-        classification: Clasification
+        classification: Classification
         compatibility: Compatibility
         mark_as_incompatible: Mark as incompatible
         selection: Selection
@@ -192,11 +233,16 @@ en:
         table_id: "ID"
         table_title: "Title"
         table_description: "Description"
+        table_publication_date: "Publication date"
         table_actions: "Actions"
         delete: "Delete milestone"
         no_milestones: "Don't have defined milestones"
+        image: "Image"
+        show_image: "Show image"
+        documents: "Documents"
       new:
         creating: Create milestone
+        date: Date
       edit:
         title: Edit milestone
       create:
@@ -483,6 +529,7 @@ en:
       valuator:
         description_placeholder: 'Description (optional)'
         add: Add to valuators
+        delete: Delete
       search:
         title: 'Valuators: User search'
       summary:
@@ -557,6 +604,8 @@ en:
           assign: Assign booth
           unassign: Unassign booth
     poll_booth_assignments:
+      alert:
+        shifts: "There are shifts associated to this booth. If you remove the booth assignment, the shifts will be also deleted. Continue?"
       flash:
         destroy: "Booth not assigned anymore"
         create: "Booth assigned"
@@ -846,7 +895,7 @@ en:
         assigned_admin: Assigned administrator
         assigned_valuators: Assigned valuators
         back: Back
-        classification: Clasification
+        classification: Classification
         heading: "Investment project %{id}"
         edit: Edit
         edit_classification: Edit classification
@@ -859,7 +908,7 @@ en:
         tags: Tags
         undefined: Undefined
       edit:
-        classification: Clasification
+        classification: Classification
         assigned_valuators: Valuators
         submit_button: Update
         tags: Tags
@@ -954,6 +1003,7 @@ en:
         direct_messages: Direct messages
         proposal_notifications: Proposal notifications
         incomplete_verifications: Incomplete verifications
+        polls: Polls
       direct_messages:
         title: Direct messages
         total: Total
@@ -962,6 +1012,17 @@ en:
         title: Proposal notifications
         total: Total
         proposals_with_notifications: Proposals with notifications
+      polls:
+        title: Poll Stats
+        all: Polls
+        web_participants: Web participants
+        total_participants: Total Participants
+        poll_questions: "Questions from poll: %{poll}"
+        table:
+          poll_name: Poll
+          question_name: Question
+          origin_web: Web participants
+          origin_total: Total participants
     tags:
       create: Create topic
       destroy: Destroy topic
