@@ -81,7 +81,8 @@ module ConsulAssemblies
         :published_at,
         :attachment,
         :comments_count,
-        attachments_attributes: [:file, :title,:featured_image_flag, :_destroy, :id]
+        attachments_attributes: [:file, :title,:featured_image_flag, :_destroy, :id],
+        previous_meeting_acceptance_proposals_attributes: [:attachment, :title, :_destroy, :id]
       )
     end
   end

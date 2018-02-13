@@ -13,6 +13,7 @@ module ConsulAssemblies
     belongs_to :user
     has_many :attachments, as: :attachable
     has_many :proposals
+    has_many :previous_meeting_acceptance_proposals, class_name: 'ConsulAssemblies::Proposal', foreign_key: :meeting_id
     has_many :comments, as: :commentable
 
     after_save :notify_to_followers
@@ -27,6 +28,7 @@ module ConsulAssemblies
 
 
     accepts_nested_attributes_for :attachments,  :reject_if => :all_blank, :allow_destroy => true
+    accepts_nested_attributes_for :previous_meeting_acceptance_proposals,  :reject_if => :all_blank, :allow_destroy => true
 
     scope :published, -> { where('published_at <= ?', Time.current)}
     scope :without_held, -> { where('scheduled_at >= ?', Time.current)}

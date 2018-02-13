@@ -13,24 +13,11 @@
     </div>
   <% end %>
 
-  <div class="row">
-    <div class="small-12 column">
-      <h3><%= t(".attachments") %></h3>
-      <%= f.fields_for :attachments do |attachment| %>
-          <%= render '/admin/shared/attachment_fields', f: attachment %>
-      <% end %>
-      <br>
 
-      <div class="text-right">
-        <%= link_to_add_association f, :attachments, class: 'button success small'  do %>
-            <%= t(".new_attachment") %>
-        <% end %>
-      </div>
-    </div>
-  </div>
   <div class="row">
     <div class="small-12 column">
-      <hr>
+
+
       <%= f.select :assembly_id, assemblies_select_options(@assemblies) %>
       <%= f.hidden_field :user_id%>
       <%= f.label :published_at, t(".published_at") %>
@@ -58,11 +45,56 @@
         <%= f.label :description, t(".description") %>
         <%= f.cktext_area :description, label: false, cols: 80, rows: 10, ckeditor: { language: I18n.locale } %>
       </div>
+
       <%= f.label :attachment, t(".attachment") %>
-      <%= f.file_field :attachment,label: false %>
-      <div class="small-12 medium-6 large-4">
-        <%= f.submit t('.save'), class: "button success expanded" %>
+      <%= f.file_field :attachment,label: false, hint: t('.about_attachment') %>
+
+      <div class="small-12 medium-12 large-12 text-right">
+        <%= f.submit t('.save'), class: "button success" %>
       </div>
+
+      <div class="row">
+
+        <div class="small-12 column">
+          <hr>
+        </div>
+
+        <div class="small-12 column">
+          <h5><%= t(".attachments") %></h5>
+          <%= f.fields_for :attachments do |attachment| %>
+            <%= render '/admin/shared/attachment_fields', f: attachment %>
+          <% end %>
+          <br>
+
+          <div class="text-left">
+            <br>
+            <%= link_to_add_association f, :attachments, class: 'button default small'  do %>
+              <%= t(".new_attachment") %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="small-12 column">
+          <hr>
+        </div>
+
+        <div class="small-12 column well-large">
+          <h5><%= t(".acceptance_proposal") %></h5>
+          <%= f.fields_for :previous_meeting_acceptance_proposals do |acceptance_proposal| %>
+            <%= render 'consul_assemblies/admin/meetings/previous_meeting_acceptance_proposal_fields', f: acceptance_proposal %>
+          <% end %>
+
+          <div class="text-left">
+            <br>
+            <%= link_to_add_association f, :previous_meeting_acceptance_proposals, class: 'button default small'  do %>
+              <%= t(".new_acceptance_proposal") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+
+
     </div>
   </div>
 

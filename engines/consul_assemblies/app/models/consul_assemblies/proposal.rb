@@ -10,12 +10,15 @@ module ConsulAssemblies
     validates :title, presence: true
     validates :meeting, presence: true
 
+    mount_uploader :attachment, AttachmentUploader
+
     accepts_nested_attributes_for :attachments,  :reject_if => :all_blank, :allow_destroy => true
 
     scope :accepted, -> { where(accepted: true) }
     scope :declined, -> { where(accepted: false).where(is_previous_meeting_acceptance: false) }
     scope :pending, -> { where(accepted: nil) }
     scope :to_approve, -> { where(is_previous_meeting_acceptance: true) }
+
     acts_as_list scope: :meeting
 
     def conclusion
@@ -28,6 +31,10 @@ module ConsulAssemblies
 
     def archived?
       false
+    end
+
+    def no_attachment_versions
+      true
     end
   end
 end

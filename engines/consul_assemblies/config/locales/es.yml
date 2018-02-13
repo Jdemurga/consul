@@ -112,6 +112,8 @@ es:
         update:
           assembly_type_updated: 'Tipo de asamblea actualizada correctamente'
       meetings:
+        previous_meeting_acceptance_proposal_fields:
+          about_previous_meeting: 'Nombre y fecha de la asamblea a la que pertenece el acta a aprobar'
         act:
           act_celebrated: "Acta celebrada en la fecha"
           at: 'en %{about_venue}'
@@ -131,7 +133,10 @@ es:
           attachment: 'Acta definitiva aprobada'
           about_venue: 'Lugar de encuentro'
           assambly: 'Asamblea'
-          attachments: 'Adjuntos'
+          attachments: 'Galería de Adjuntos'
+          acceptance_proposal: 'Borradores de actas a aprobar'
+          new_acceptance_proposal: 'Nueva propuesta de aceptación de acta'
+          about_attachment: 'Sólo adjuntar documento debe ser el acta definitiva aprobada de la presente reunión'
           close_accepting_proposals_at: 'Fecha cierre de aceptación de propuestas de puntos del día'
           closed: 'Cerrado'
           description: 'Descripción detallada'
