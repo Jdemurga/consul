@@ -20,6 +20,7 @@ module ConsulAssemblies
     validate :published_at_must_be_before_scheduled_at
     validates :assembly, presence: true, associated: true
     validates :description, presence: true
+    validates :title, presence: true
     validates :user, presence: true
 
     mount_uploader :attachment, AttachmentUploader

@@ -5,7 +5,7 @@ module ConsulAssemblies
 
 
     before_action :authenticate_user!
-    before_action :load_assembly, only: [:index]
+    before_action :load_assembly, only: [:index, :new]
     before_action :load_assemblies, only: [:create, :new, :edit, :update]
 
 
@@ -15,7 +15,11 @@ module ConsulAssemblies
     end
 
     def new
-      @meeting = ConsulAssemblies::Meeting.new(assembly_id: params[:assembly_id], user: current_user)
+
+      new_parameters = {assembly_id: params[:assembly_id], user: current_user}
+      about_venue = @assembly.try(:about_venue)
+      new_parameters = new_parameters.merge({about_venue: about_venue}) if about_venue.present?
+      @meeting = ConsulAssemblies::Meeting.new(new_parameters)
     end
 
     def edit
@@ -71,7 +75,6 @@ module ConsulAssemblies
         :summary,
         :description,
         :assembly_id,
-        :status,
         :scheduled_at,
         :close_accepting_proposals_at,
         :about_venue,

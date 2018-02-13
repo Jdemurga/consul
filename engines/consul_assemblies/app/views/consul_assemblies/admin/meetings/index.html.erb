@@ -15,7 +15,6 @@
       <th><%= t('.title') %></th>
       <th><%= t('.date') %></th>
       <th><%= t('.end_of_proposals') %></th>
-      <th><%= t('.status') %></th>
       <th><%= t('.proposals') %></th>
       <th></th>
       <th colspan="2" class="text-center"><%= t(".actions") %></th>
@@ -32,7 +31,6 @@
       </td>
       <td><%= I18n.l meeting.scheduled_at, format: :short %></td>
       <td><%= I18n.l meeting.close_accepting_proposals_at, format: :short %></td>
-      <td><%= t(".#{meeting.status}") %></td>
       <td class="small">
         <%= link_to t('.see_act'), meeting.attachment_url, target: :blank %>
       </td>
