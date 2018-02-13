@@ -8,7 +8,7 @@ module ConsulAssemblies
     before_validation :sanitize_conclusion
 
     validates :title, presence: true
-    validates :meeting, presence: true
+    validates :meeting, associated: true
 
     mount_uploader :attachment, AttachmentUploader
 
@@ -18,6 +18,7 @@ module ConsulAssemblies
     scope :declined, -> { where(accepted: false).where(is_previous_meeting_acceptance: false) }
     scope :pending, -> { where(accepted: nil) }
     scope :to_approve, -> { where(is_previous_meeting_acceptance: true) }
+    scope :not_previous, -> { where.not(is_previous_meeting_acceptance: true) }
 
     acts_as_list scope: :meeting
 

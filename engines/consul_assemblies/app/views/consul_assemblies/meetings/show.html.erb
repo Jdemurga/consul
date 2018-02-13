@@ -57,23 +57,23 @@
 
               <% if params[:proposals_type] == 'accepted' %>
               <div class="medium-12 column">
-                <ul>
-                  <% if @meeting.proposals.accepted.any? %>
-                    <% @meeting.proposals.accepted.each do  |proposal| %>
+                <ol>
+                  <% if @meeting.proposals.not_previous.accepted.any? %>
+                    <% @meeting.proposals.not_previous.accepted.each do  |proposal| %>
                       <li>
-                        </small><%= proposal.title %></small>
+                          </small><%= proposal.title %></small>
                       </li>
                     <% end %>
                   <% else %>
                     <small class="text-muted"><%= t('.not_accepted') %></small>
                   <% end %>
-                </ul>
+                </ol>
               </div>
               <% elsif params[:proposals_type] == 'declined' %>
               <div class="medium-12 column">
-                <ul>
-                  <% if @meeting.proposals.pending.any? %>
-                    <% @meeting.proposals.pending.each do  |proposal| %>
+                <ol>
+                  <% if @meeting.proposals.not_previous.pending.any? %>
+                    <% @meeting.proposals.not_previous.pending.each do  |proposal| %>
                       <li>
                         <small><%= proposal.title %></small>
                       </li>
@@ -81,13 +81,13 @@
                   <% else %>
                     <small class="text-muted"><%= t('.not_pending') %></small>
                   <% end %>
-                </ul>
+                </ol>
               </div>
               <% elsif params[:proposals_type] == 'pending'%>
               <div class="medium-12 column">
-                <ul>
-                  <% if @meeting.proposals.declined.any? %>
-                    <% @meeting.proposals.declined.each do  |proposal| %>
+                <ol>
+                  <% if @meeting.proposals.not_previous.declined.any? %>
+                    <% @meeting.proposals.not_previous.declined.each do  |proposal| %>
                       <li>
                         <small><%= proposal.title %></small>
                       </li>
@@ -95,18 +95,24 @@
                   <% else %>
                     <small class="text-muted"><%= t('.not_refused') %></small>
                   <% end %>
-                </ul>
+                </ol>
               </div>
               <% else %>
 
                 <div class="medium-12 column">
 
                   <% if @meeting.proposals.to_approve.any? %>
-                    <ul>
+                    <ol>
                       <% @meeting.proposals.to_approve.each do |proposal| %>
-                        <li><%= proposal.title %></li>
+                        <li>
+                        <% if proposal.attachment? %>
+                          </small><%= link_to proposal.title, proposal.attachment_url, target: :blank %></small>
+                        <% else %>
+                          </small><%= proposal.title %></small>
+                        <% end %>
+                        </li>
                       <% end %>
-                    </ul>
+                    </ol>
                   <% else %>
                     <%= t('.nothing_to_approve') %>
                   <% end %>
@@ -127,7 +133,10 @@
       </div>
 
 
-      <%= render "attachments", meeting: @meeting %>
+      <div class="row">
+        <%= render "attachments", meeting: @meeting %>
+      </div>
+
       <%= render "comments" %>
 
 

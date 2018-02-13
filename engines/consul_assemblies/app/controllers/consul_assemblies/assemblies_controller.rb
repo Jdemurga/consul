@@ -41,7 +41,8 @@ module ConsulAssemblies
     end
 
     def load_meetings
-      @meetings = ConsulAssemblies::Meeting.published.where(assembly_id: @assemblies).order(scheduled_at: 'asc')
+      @meetings = ConsulAssemblies::Meeting.published.order(scheduled_at: 'asc')
+      @meetings = @meetings.where(assembly_id: @assemblies) if @assemblies
       @meetings = @meetings.without_held unless params[:include_held]
       @meetings = @meetings.where(assembly_id: @assembly) if @assembly
     end

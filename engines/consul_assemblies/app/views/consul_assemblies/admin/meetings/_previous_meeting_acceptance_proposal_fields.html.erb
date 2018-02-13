@@ -19,9 +19,10 @@
         <%= f.text_field :title, label: false, size: 80, maxlength: 80, placeholder: t('.about_previous_meeting') %>
       </div>
 
-      <div class="small-4 column">
+      <div class="small-4 column text-center">
         <% if f.object.attachment? %>
-          <%= link_to f.object.attachment.filename, f.object.attachment.url, target: '_blank' %>
+          <%= f.hidden_field :attachment_cache %>
+          <%= link_to 'Ver adjunto de borrador de acta propuesto', f.object.attachment.url, target: '_blank' %>
         <% else %>
           <%= f.file_field :attachment, accept: ".pdf", label: false  %>
         <% end %>
@@ -30,7 +31,7 @@
 
 
       <br>
-      <%= f.hidden_field :is_previous_meeting_acceptance, default: 1,  label: false, size: 80, maxlength: 80 %>
+      <%= f.hidden_field :is_previous_meeting_acceptance, value: 1, default: 1,  label: false, size: 80, maxlength: 80 %>
     </div>
   </div>
 </div>

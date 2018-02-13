@@ -13,7 +13,7 @@ module ConsulAssemblies
     belongs_to :user
     has_many :attachments, as: :attachable
     has_many :proposals
-    has_many :previous_meeting_acceptance_proposals, class_name: 'ConsulAssemblies::Proposal', foreign_key: :meeting_id
+    has_many :previous_meeting_acceptance_proposals,  -> { where is_previous_meeting_acceptance: true }, class_name: 'ConsulAssemblies::Proposal', foreign_key: :meeting_id
     has_many :comments, as: :commentable
 
     after_save :notify_to_followers

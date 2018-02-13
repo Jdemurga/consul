@@ -21,6 +21,7 @@
         <div class="small-4 column">
           <% if f.object.file? %>
             <%= image_tag(f.object.file.url(:cover))  %>
+            <%= f.hidden_field :file_cache %>
           <% else %>
             <%= f.label :file, t("admin.budget_investments.edit.project_attachment_file") %>
             <%= f.file_field :file, accept: ".pdf,.jpg,.gif,.png", label: false  %>
