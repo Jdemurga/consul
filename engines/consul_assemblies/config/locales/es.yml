@@ -157,6 +157,8 @@ es:
           date: 'Fecha'
           delete: 'Eliminar'
           end_of_proposals: 'Fin de propuestas'
+          preview: 'Vista previa'
+          public_view: 'Vista pública'
           generate_act: 'Generar acta'
           meetings: 'Reuniones'
           open: 'Abierto'

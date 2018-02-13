@@ -43,6 +43,10 @@ module ConsulAssemblies
       user
     end
 
+    def unpublished?
+      Time.current < published_at
+    end
+
     def author_id
       user_id
     end

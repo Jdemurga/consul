@@ -10,7 +10,9 @@ module ConsulAssemblies
 
     def show
       @current_order = :newest
-      @meeting = ConsulAssemblies::Meeting.find(params[:id])
+      scope = ConsulAssemblies::Meeting
+      scope = scope.published unless @current_user && (@current_user.administrator?)
+      @meeting = scope.find(params[:id])
       super
     end
 

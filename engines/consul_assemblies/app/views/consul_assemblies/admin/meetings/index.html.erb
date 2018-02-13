@@ -35,7 +35,9 @@
         <%= link_to t('.see_act'), meeting.attachment_url, target: :blank %>
       </td>
       <td><%= link_to t('.see_proposals'), admin_proposals_path(meeting_id: meeting.id)%></td>
-      <td class="small delete">
+      <td class="small">
+
+        <%= link_to ( meeting.unpublished?? t(".preview") : t(".public_view")), meeting_path(meeting), target: 'blank', class: "button success  expanded" %>
         <%= link_to t(".generate_act"), act_admin_meeting_path(meeting), class: "button hollow alert expanded", target: :blank%>
         <%= link_to t(".delete"), admin_meeting_path(meeting), method: :delete, class: "button hollow alert expanded", data: { confirm: t('.confirm') } %>
       </td>

@@ -1,6 +1,17 @@
 <% provide :title do %><%= @meeting.title %><% end %>
 
 <section class="investment-project-show">
+  <% if @meeting.unpublished? %>
+    <div class="row">
+      <div class="small-12 ">
+      <div class="callout secondary column">
+        <strong>VISTA PREVIA DE ADMINISTRADOR</strong>
+        <br>
+        Esta reunión <u>no es pública</u>, será publicada en <u><%= distance_of_time_in_words_to_now(@meeting.published_at) %></u>
+      </div>
+      </div>
+    </div>
+  <% end %>
   <div id="<%= dom_id(@meeting) %>" class="row">
     <div class="small-12 medium-9 column">
 
