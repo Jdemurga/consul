@@ -23,7 +23,8 @@ module ConsulAssemblies
     end
 
     def index
-      @meetings = ConsulAssemblies::Meeting.order(scheduled_at: 'desc')
+      @meetings = ConsulAssemblies::Meeting.published.order(scheduled_at: 'desc')
+
       @q = @meetings.ransack(params[:q])
       @meetings = @q.result.page(params[:page])
     end
