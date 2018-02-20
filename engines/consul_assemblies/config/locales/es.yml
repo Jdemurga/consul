@@ -6,6 +6,7 @@ es:
           notice_html: 'Está siguiendo las actualizaciones de esta asamblea'
         destroy:
           notice_html: 'Ha dejado de seguir las actualizaciones de esta asamblea'
+
     follow_entity: 'Seguir'
     unfollow_entity: 'Dejar de seguir'
     following: 'Siguiendo actualizaciones'
@@ -14,6 +15,7 @@ es:
       section_header:
         icon_alt: 'Asambleas de barrio'
         title: 'Asambleas de barrio'
+
 
   admin:
     menu:
@@ -27,6 +29,8 @@ es:
       index:
         title: 'Getafe - Asambleas de barrio'
         no_assemblies: 'Aún no hay espacios de participación publicados'
+        upcoming_assemblies: 'Próximas asambleas'
+        historic_assemblies: 'Histórico de todas las asambleas'
       meeting:
         act_available: 'Acta disponible'
         acts_pending: ' actas pendientes de aprobar'
@@ -38,8 +42,14 @@ es:
         when: 'Cuándo'
         where: 'Dónde'
     meetings:
+      search_form:
+        search_by_name_or_description: Buscar título o descripción
+      index:
+        upcoming_assemblies: 'Próximas asambleas'
+        historic_assemblies: 'Histórico de todas las asambleas'
+        see_act: 'Acta'
       show:
-        proposals_accepted: 'Propuestas aceptadas'
+        proposals_accepted: 'Aceptados'
         acts_to_approve: 'Actas a aprobar'
         not_accepted: 'No hay propuestas de puntos de orden del día aceptadas'
         not_orders: 'Aún no hay puntos en el orden del día definidos'
@@ -47,8 +57,11 @@ es:
         not_refused: 'No hay propuestas de puntos de orden del día rechazadas'
         nothing_to_approve: 'No hay actas para aprobar'
         order_of_the_day: 'Puntos de orden del día'
-        proposals_pending: 'Propuestas pendientes'
-        proposals_refused: 'Propuestas rechazadas'
+        proposals_pending: 'Pendientes'
+        proposals_refused: 'Rechazados'
+        proposals: 'Propuestas de puntos de orden del día'
+      attachments:
+        attachments_gallery: 'Galería de adjuntos'
     admin:
       assemblies:
         create:
@@ -117,10 +130,16 @@ es:
         act:
           act_celebrated: "Acta celebrada en la fecha"
           at: 'en %{about_venue}'
-          act_draft: 'Borrador de acta'
+          act_draft: 'Borrador de acta generado por Participa Getafe'
           meeting_act: 'Acta de reunión: '
           order_day: 'Orden del día'
+          order_day_index: 'Índice'
           print_act: 'Imprimir acta'
+          attendants: 'Asistentes'
+
+        proposal_inline:
+          no_conclusion: '(Para este punto no se ha escrito el apartado "conclusión" para este punto del orden del día)'
+          proposed_by: 'Punto propuesto por %{proposal_origin}'
         create:
           meeting_created: 'Reunión creada correctamente'
         destroy:
@@ -130,6 +149,7 @@ es:
           meetings: 'Reuniones'
           title_h2: 'Editar reunión'
         form:
+          attendants_text: 'Texto sobre asistentes (se incluye  al final del borrador acta generado)'
           attachment: 'Acta definitiva aprobada'
           about_venue: 'Lugar de encuentro'
           assambly: 'Asamblea'
@@ -138,6 +158,7 @@ es:
           new_acceptance_proposal: 'Nueva propuesta de aceptación de acta'
           about_attachment: 'Sólo adjuntar documento debe ser el acta definitiva aprobada de la presente reunión'
           close_accepting_proposals_at: 'Fecha cierre de aceptación de propuestas de puntos del día'
+          see_current_attachment: 'Descargar el acta actual adjunta y publicada'
           closed: 'Cerrado'
           description: 'Descripción detallada'
           new_attachment: 'Nuevo adjunto'
@@ -191,14 +212,16 @@ es:
         form:
           accepted: 'Aceptado'
           attachments: 'Adjuntos'
-          conclusion: 'Conclusión'
+          conclusion: 'Conclusión acordada en la reunión sobre este punto'
           description: 'Descripción'
           is_previous_meeting_acceptance: 'Es propuesta de aceptación de actas'
           new_attachment: 'Nuevo adjunto'
           save: 'Guardar'
           title: 'Título'
         index:
-          accepted: 'Aceptado'
+          is_previous_acceptance: 'Es propuesta de acta'
+          attachments: 'Adjuntos'
+          accepted: 'Aceptado orden día'
           actions: 'Acciones'
           confirm: '¿Está seguro de querer eliminar esta propuesta?'
           create: 'Crear propuesta'
@@ -206,6 +229,7 @@ es:
           delete: 'Eliminar'
           meeting: 'Reunión'
           proposal: 'Propuesta'
+          origin: 'Propuesto por'
           proposals: 'Propuestas'
           title: 'Título'
           title_h2: 'Propuestas'

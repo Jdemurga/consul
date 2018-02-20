@@ -34,6 +34,7 @@ module ConsulAssemblies
     scope :without_held, -> { where('scheduled_at >= ?', Time.current)}
     scope :order_by_scheduled_at,  -> { order(scheduled_at: 'desc') }
     scope :with_hidden,  -> { order(scheduled_at: 'desc') }
+    scope :for_render, -> {}
 
     def ready_for_held?
       Time.current >= close_accepting_proposals_at  && Time.current < scheduled_at

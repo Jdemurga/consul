@@ -9,7 +9,7 @@
   </p>
 
   <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-    <%= t("mailers.meeting.notification", meeting: @meeting.title) %> <%= link_to @meeting.title, assemblies.meeting_path(@meeting), style: "color: #2895F1; text-decoration:none;" %>
+    <%= t("mailers.meeting.notification", meeting: @meeting.title) %> <%= link_to @meeting.title, assemblies.meeting_url(@meeting), style: "color: #2895F1; text-decoration:none;" %>
   </p>
 
 </td>

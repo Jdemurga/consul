@@ -62,6 +62,8 @@ gem 'ahoy_matey', '~> 1.6.0'
 gem 'groupdate', '~> 3.2.0' # group temporary data
 gem 'tolk', '~> 2.0.0' # Web interface for translations
 
+gem 'ransack'
+
 gem 'browser'
 gem 'turnout', '~> 2.4.0'
 gem 'redcarpet', '~> 3.4.0'

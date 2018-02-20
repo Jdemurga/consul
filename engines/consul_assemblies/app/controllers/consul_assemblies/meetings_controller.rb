@@ -8,6 +8,8 @@ module ConsulAssemblies
     helper_method :resource_model, :resource_name
     respond_to :html, :js
 
+    before_action :load_assemblies, except: [:show]
+
     def show
       @current_order = :newest
       scope = ConsulAssemblies::Meeting
@@ -20,9 +22,19 @@ module ConsulAssemblies
 
     end
 
+    def index
+      @meetings = ConsulAssemblies::Meeting.order(scheduled_at: 'desc')
+      @q = @meetings.ransack(params[:q])
+      @meetings = @q.result.page(params[:page])
+    end
+
 
     private
 
+    def current_order
+      'scheduled_at'
+    end
+    
     def resource_model
       ConsulAssemblies::Meeting
     end
@@ -31,6 +43,10 @@ module ConsulAssemblies
       'meeting'
     end
 
+
+    def load_assemblies
+      @assemblies = ConsulAssemblies::Assembly.order('name asc')
+    end
 
   end
 end

@@ -4,6 +4,26 @@ module ConsulAssemblies
       'consul_assemblies/admin'
     end
 
+    def boolean_check(boolean_value)
+      (boolean_value ? '&#x2714;' : '&#x2718;').html_safe
+    end
+
+    def proposal_origin_options
+      ConsulAssemblies::Proposal::PROPOSAL_ORIGIN.collect { |origin| [proposal_origin_name(origin), origin] }
+    end
+
+    def proposal_acceptance_status_options
+      ConsulAssemblies::Proposal::PROPOSAL_ACCEPTANCE_STATUSES.collect { |origin| [proposal_acceptance_status_name(origin), origin] }
+    end
+
+    def proposal_acceptance_status_name(status)
+      I18n.t("proposal_acceptance_status.#{status}")
+    end
+
+    def proposal_origin_name(status)
+      I18n.t("proposal_origin.#{status}")
+    end
+
     def method_missing method, *args, &block
 
       puts "METHODS LOOING #{method}"

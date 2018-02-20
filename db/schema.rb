@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180213190421) do
+ActiveRecord::Schema.define(version: 20180219123049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -305,38 +305,41 @@ ActiveRecord::Schema.define(version: 20180213190421) do
   end
 
   create_table "consul_assemblies_meetings", force: :cascade do |t|
-    t.string   "title",                                    null: false
+    t.string   "title",                                     null: false
     t.string   "description"
     t.string   "summary"
     t.string   "about_venue"
-    t.integer  "assembly_id",                              null: false
+    t.integer  "assembly_id",                               null: false
     t.integer  "followers_count",              default: 0
     t.integer  "comments_count",               default: 0
     t.datetime "close_accepting_proposals_at"
     t.datetime "scheduled_at"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.datetime "published_at"
     t.string   "attachment"
     t.string   "attachment_url"
     t.integer  "user_id"
+    t.string   "attendants_text",              default: "", null: false
   end
 
   add_index "consul_assemblies_meetings", ["assembly_id"], name: "index_consul_assemblies_meetings_on_assembly_id", using: :btree
 
   create_table "consul_assemblies_proposals", force: :cascade do |t|
-    t.integer  "meeting_id",                     null: false
-    t.string   "title",                          null: false
+    t.integer  "meeting_id",                                           null: false
+    t.string   "title",                                                null: false
     t.text     "description"
     t.integer  "user_id"
     t.boolean  "accepted"
     t.boolean  "terms_of_service"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
     t.string   "conclusion"
-    t.boolean  "is_previous_meeting_acceptance"
+    t.boolean  "is_previous_meeting_acceptance", default: false
     t.integer  "position"
     t.string   "attachment"
+    t.string   "proposal_origin",                default: "user"
+    t.string   "acceptance_status",              default: "undecided"
   end
 
   add_index "consul_assemblies_proposals", ["meeting_id"], name: "index_consul_assemblies_proposals_on_meeting_id", using: :btree

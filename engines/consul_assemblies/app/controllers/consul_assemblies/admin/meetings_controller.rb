@@ -44,8 +44,10 @@ module ConsulAssemblies
     end
 
     def update
+
       @meeting = ConsulAssemblies::Meeting.find(params[:id])
       if @meeting.update(meeting_params)
+
         redirect_to admin_meetings_path(assembly_id: @meeting.assembly_id), notice: t('.meeting_updated')
       else
         flash.now[:error] = t('admin.site_customization.pages.create.error')
@@ -80,7 +82,9 @@ module ConsulAssemblies
         :about_venue,
         :published_at,
         :attachment,
+        :remove_attachment,
         :comments_count,
+        :attendants_text,
         attachments_attributes: [:file, :file_cache, :title,:featured_image_flag, :_destroy, :id],
         previous_meeting_acceptance_proposals_attributes: [:attachment, :attachment_cache, :title, :_destroy, :id]
       )

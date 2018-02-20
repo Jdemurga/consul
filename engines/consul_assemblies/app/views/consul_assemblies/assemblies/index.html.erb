@@ -22,6 +22,26 @@
 
 
   <div class="row">
+    <div class="small-12 column">
+      <div id="assemblies-list">
+
+        <ul class="tabs text-right" data-tab role="tablist">
+
+          <li class="tabs-title">
+            <%= link_to assemblies_path(), "aria-selected" => "#{controller_name == 'assemblies'}" do %>
+              <%= t('.upcoming_assemblies') %>
+            <% end %>
+          </li>
+          <li class="tabs-title">
+            <%= link_to meetings_path(), "aria-selected" => "#{controller_name == 'meetings'}" do %>
+              <%= t('.historic_assemblies') %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+  </div>
+
+  <div class="row">
     <% if @assemblies.any? %>
       <div class="small-12 medium-3 column">
         <aside class="margin-bottom">
@@ -45,8 +65,6 @@
           <%= render "shared/banner" %>
         <% end %>
 
-
-        <div id="assemblies-list">
 
           <% if @meetings %>
             <% if @meetings.any? %>

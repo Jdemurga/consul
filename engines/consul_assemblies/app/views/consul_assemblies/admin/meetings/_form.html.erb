@@ -47,8 +47,24 @@
         <%= f.cktext_area :description, label: false, cols: 80, rows: 10, ckeditor: { language: I18n.locale } %>
       </div>
 
+      <div class="ckeditor margin-top">
+        <%= f.label :attendants_text, t(".attendants_text") %>
+        <%= f.cktext_area :attendants_text, label: false, cols: 80, rows: 10, ckeditor: { language: I18n.locale } %>
+      </div>
+
+      <div class="margin-top">
       <%= f.label :attachment, t(".attachment") %>
-      <%= f.file_field :attachment,label: false, hint: t('.about_attachment') %>
+        <% unless @meeting.attachment? %>
+          <%= f.file_field :attachment,label: false, hint: t('.about_attachment') %>
+        <% else %>
+          <br>
+          <%= link_to @meeting.attachment_url, class: 'button button-primary' do %>
+            <%= t('.see_current_attachment') %>
+          <% end %>
+          <%= f.check_box :remove_attachment %>
+        <% end %>
+
+      </div>
 
       <div class="small-12 medium-12 large-12 text-right">
         <%= f.submit t('.save'), class: "button success" %>

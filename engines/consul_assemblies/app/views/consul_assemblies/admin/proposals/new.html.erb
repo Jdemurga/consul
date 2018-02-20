@@ -2,7 +2,7 @@
   Admin - <%= t(".proposals") %> - <%= t(".new_proposal") %>
 <% end %>
 
-<%= back_link_to admin_proposals_path %>
+<%= back_link_to admin_proposals_path(meeting_id: @proposal.meeting_id) %>
 
 <div class="row">
   <div class="small-12 column">

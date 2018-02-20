@@ -31,7 +31,7 @@ module ConsulAssemblies
     end
 
     def create
-      @proposal = ConsulAssemblies::Proposal.new(proposal_params)
+      @proposal = ConsulAssemblies::Proposal.new(proposal_params.merge({ is_previous_meeting_acceptance: false }))
       if @proposal.save
         redirect_to admin_proposals_path(meeting_id: @proposal.meeting_id), notice: t('.proposal_created')
       else
@@ -76,8 +76,9 @@ module ConsulAssemblies
         :created_at,
         :updated_at,
         :conclusion,
-        :is_previous_meeting_acceptance,
         :position,
+        :proposal_origin,
+        :acceptance_status,
         attachments_attributes: [:file, :title,:featured_image_flag, :_destroy, :id]
       )
     end

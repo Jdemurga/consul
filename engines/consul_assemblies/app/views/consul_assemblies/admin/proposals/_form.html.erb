@@ -12,32 +12,17 @@
       </strong>
     </div>
   <% end %>
-  <div class="row">
-    <div class="small-12 column">
-      <h3><%= t(".attachments") %></h3>
-      <%= f.fields_for :attachments do |attachment| %>
-          <%= render '/admin/shared/attachment_fields', f: attachment %>
-      <% end %>
-      <br>
 
-      <div class="text-right">
-        <%= link_to_add_association f, :attachments, class: 'button success small'  do %>
-            <%= t(".new_attachment") %>
-        <% end %>
-      </div>
-    </div>
-  </div>
   <div class="row">
     <div class="small-12 column">
       <hr>
       <%= f.hidden_field :meeting_id%>
       <%= f.label :title, t('.title') %>
       <%= f.text_field :title, label: false, size: 80, maxlength: 80 %>
-      <%= f.label :accepted, t('.accepted') %>
-      <%= f.check_box :accepted, default: 0,  label: false, size: 80, maxlength: 80 %>
-      <br>
-      <%= f.label :is_previous_meeting_acceptance, t('.is_previous_meeting_acceptance') %>
-      <%= f.check_box :is_previous_meeting_acceptance, default: 0,  label: false, size: 80, maxlength: 80 %>
+
+      <%= f.select :proposal_origin,  proposal_origin_options %>
+      <%= f.select :acceptance_status,  proposal_acceptance_status_options %>
+
       <div class="ckeditor margin-top">
         <%= f.label :description, t('.description') %>
         <%= f.cktext_area :description, label: false, cols: 80, rows: 10, ckeditor: { language: I18n.locale } %>
@@ -46,11 +31,27 @@
         <%= f.label :conclusion, t('.conclusion') %>
         <%= f.cktext_area :conclusion, label: false, cols: 80, rows: 10, ckeditor: { language: I18n.locale } %>
       </div>
+
       <div class="small-12 medium-6 large-4">
         <%= f.submit  t('.save'), class: "button success expanded"%>
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="small-12 column">
+      <hr>
+      <h4><%= t(".attachments") %></h4>
+      <%= f.fields_for :attachments do |attachment| %>
+        <%= render '/admin/shared/attachment_fields', f: attachment %>
+      <% end %>
+      <br>
 
+      <div class="text-right">
+        <%= link_to_add_association f, :attachments, class: 'button primary small'  do %>
+          <%= t(".new_attachment") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
 <% end %>

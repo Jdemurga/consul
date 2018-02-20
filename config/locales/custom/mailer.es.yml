@@ -1,5 +1,7 @@
 es:
   mailers:
+    send_mail_to_followers:
+      meeting_follower_mail: 'Participa Getafe - Actualización en reunión, notificación a seguidores'
     meeting:
       hi: 'Hola'
       notification: 'Le informamos de que ha habido un cambio en la reunión %{meeting}, para ver dichos cambios haga click en el siguiente link:'
