@@ -5,14 +5,14 @@ module ConsulAssemblies
 
 
     before_action :authenticate_user!
+    before_action :load_meeting,  only: [:act, :draft]
     before_action :load_assembly, only: [:index, :new]
     before_action :load_assemblies, only: [:create, :new, :edit, :update]
 
 
 
-    def act
-      @meeting = ConsulAssemblies::Meeting.find(params[:id])
-    end
+    def act; end
+    def draft; end
 
     def new
 
@@ -63,6 +63,10 @@ module ConsulAssemblies
 
     private
 
+    def load_meeting
+      @meeting = ConsulAssemblies::Meeting.find(params[:id])
+    end
+
     def load_assembly
       @assembly = ConsulAssemblies::Assembly.find(params[:assembly_id]) if params[:assembly_id]
     end
@@ -85,6 +89,8 @@ module ConsulAssemblies
         :remove_attachment,
         :comments_count,
         :attendants_text,
+        :accepts_proposals,
+        :will_generate_acts,
         attachments_attributes: [:file, :file_cache, :title,:featured_image_flag, :_destroy, :id],
         previous_meeting_acceptance_proposals_attributes: [:attachment, :attachment_cache, :title, :_destroy, :id]
       )

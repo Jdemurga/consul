@@ -29,6 +29,8 @@ es:
         close_accepting_proposals_at: 'Periodo de aceptacion de propuestas terminado'
         schedule_at: 'Programado para fecha:'
         remove_attachment: 'Borrar el acta actual'
+        accepts_proposals: 'Acepta propuestas de orden del día'
+        will_generate_acts: 'Esta reunión generará acta'
       consul_assemblies/proposal:
         title: 'Título'
         description: 'Descripción'

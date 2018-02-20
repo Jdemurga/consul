@@ -53,7 +53,7 @@ module ConsulAssemblies
     end
 
     def accepting_proposals?
-      Time.current < close_accepting_proposals_at
+      Time.current < close_accepting_proposals_at && accepts_proposals?
     end
 
     def held?
@@ -64,6 +64,9 @@ module ConsulAssemblies
       errors.add(:published_at, 'no puede estar antes que la fecha programada') if published_at > scheduled_at
     end
 
+    def no_attachment_versions
+      true
+    end
 
     def archived?
       false

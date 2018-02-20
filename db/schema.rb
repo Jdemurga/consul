@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180219123049) do
+ActiveRecord::Schema.define(version: 20180220071109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -305,22 +305,24 @@ ActiveRecord::Schema.define(version: 20180219123049) do
   end
 
   create_table "consul_assemblies_meetings", force: :cascade do |t|
-    t.string   "title",                                     null: false
+    t.string   "title",                                       null: false
     t.string   "description"
     t.string   "summary"
     t.string   "about_venue"
-    t.integer  "assembly_id",                               null: false
+    t.integer  "assembly_id",                                 null: false
     t.integer  "followers_count",              default: 0
     t.integer  "comments_count",               default: 0
     t.datetime "close_accepting_proposals_at"
     t.datetime "scheduled_at"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.datetime "published_at"
     t.string   "attachment"
     t.string   "attachment_url"
     t.integer  "user_id"
-    t.string   "attendants_text",              default: "", null: false
+    t.string   "attendants_text",              default: "",   null: false
+    t.boolean  "accepts_proposals",            default: true, null: false
+    t.boolean  "will_generate_acts",           default: true, null: false
   end
 
   add_index "consul_assemblies_meetings", ["assembly_id"], name: "index_consul_assemblies_meetings_on_assembly_id", using: :btree

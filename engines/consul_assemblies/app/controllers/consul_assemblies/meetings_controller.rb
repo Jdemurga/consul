@@ -18,9 +18,7 @@ module ConsulAssemblies
       super
     end
 
-    def set_meeting_votes(votes)
-
-    end
+    def set_meeting_votes(votes);end
 
     def index
       @meetings = ConsulAssemblies::Meeting.published.order(scheduled_at: 'desc')
@@ -29,13 +27,12 @@ module ConsulAssemblies
       @meetings = @q.result.page(params[:page])
     end
 
-
     private
 
     def current_order
       'scheduled_at'
     end
-    
+
     def resource_model
       ConsulAssemblies::Meeting
     end

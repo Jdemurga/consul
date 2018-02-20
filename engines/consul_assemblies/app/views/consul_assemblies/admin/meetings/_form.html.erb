@@ -53,6 +53,11 @@
       </div>
 
       <div class="margin-top">
+        <%= f.check_box :accepts_proposals %>
+        <%= f.check_box :will_generate_acts %>
+      </div>
+
+      <div class="margin-top">
       <%= f.label :attachment, t(".attachment") %>
         <% unless @meeting.attachment? %>
           <%= f.file_field :attachment,label: false, hint: t('.about_attachment') %>
