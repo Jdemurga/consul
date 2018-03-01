@@ -10,9 +10,29 @@ class Mailer < ApplicationMailer
     @user = user
     @recipient = recipient
     @has_file = file_path
+    
+    attachments.inline['image1'] = File.read(file_path)
 
-    @file_basename = File.basename(file_path) if file_path
-    add_inline_attachment(@file_basename, file_path) if file_path
+    with_user(user) do
+      mail(to: @recipient,
+           subject: t('mailers.email_newsletter.subject',
+                      site_name: Setting['org_name'],
+                      subject: subject),
+           template_name: template
+      )
+    end
+  end
+
+  def email_newsletter_attachments(user, recipient, subject, template, file_paths=[])
+
+    @user = user
+    @recipient = recipient
+    @has_file = file_path
+
+    file_paths.each do |file_path|
+      @file_basename = File.basename(file_path) if file_path
+      add_inline_attachment(@file_basename, file_path) if file_path
+    end
 
     with_user(user) do
       mail(to: @recipient,

@@ -3,20 +3,59 @@
 
   </h1>
 
-  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-    Buenos días,<br />
-    El Ayuntamiento de Getafe <a href="https://www.getafe.es/ayuntamiento-getafe-abre-una-nueva-edicion-del-programa-presupuestos-participativos/" target="_blank">abre una nueva edición del programa de Presupuestos Participativos</a>.<br/>
-    Desde el 15 de enero y hasta el 30 de marzo, todos los vecinos y vecinas de Getafe podréis crear propuestas para uno o varios barrios, en una nueva edición del programa de Presupuestos Participativos del Ayuntamiento de Getafe. Haz tu propuesta en <a href="https://participa.getafe.es/budgets/2">participa.getafe.es</a>. “Decide que ciudad quieres”. Las votaciones serán del 21 al 31 de mayo.<br />
-    Recibe un cordial saludo.<br />
+  <div style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
 
+  <p>Buenos días vecinos y vecinas,</p>
+  <p>
+    ¿Tienes una idea para tu barrio? El día 30 de este mes concluye el plazo para que hagas tu
+    propuesta al proceso de Presupuestos Participativos 2018.
+  </p>
+  <p>
+    Cada barrio cuenta con 300.000 euros a destinar en inversiones, es decir ejecución de obra,
+    obra menor, adquisición de equipamiento o mejora de infraestructuras. 12.000 euros, por barrio, a
+    destinar en programas sociocomunitarios donde los vecinos y vecinas podrán proponer actividades culturales,
+    educativas y de ocio. Las votaciones se llevarán a cabo del 21 al 31 de mayo.<br>
+  </p>
+  <p>
+    Las propuestas se pueden hacer en la web <%= link_to 'https://participa.getafe.es/budgets/2' do %>
+      participa.getafe.es
+      <% end %>
+    donde además se explica todo el proceso de forma detallada.
+    También se pueden presentar las propuestas de forma presencial, en los Centros Cívicos de La Alhóndiga, El Bercial,
+    San Isidro, Getafe Norte, Juan de la Cierva, Las Margaritas, Perales del Río, Sector III.
+  </p>
+  <p>
+    El proceso realizado en 2016 es ya una realidad y se han ejecutado más del 90% de las propuestas electas.
+    Puedes consultarlas en <%= link_to 'https://participa.getafe.es/presupuestos-participativos-2016-resultados' do %>
+      https://participa.getafe.es/presupuestos-participativos-2016-resultados
+      <% end %>
+  </p>
+
+    <%= image_tag(attachments['image1'].url,  style: "border: 0; display: block; width: auto;", alt: setting['org_name']) %>
+
+
+  <p>¡Haz tu propuesta!</p>
+
+
+  <p> No te olvides seguirnos en redes sociales, </p>
+    <%= link_to 'https://www.facebook.com/participagetafe/' do %>https://www.facebook.com/participagetafe/<% end %>
     <br>
-    <br>
+    <%= link_to 'https://twitter.com/participagetafe' do %>https://twitter.com/participagetafe<% end %>
+  <p>Y en nuestra herramienta web,</p>
+    <%= link_to 'https://participa.getafe.es' do %>https://participa.getafe.es<% end %>
+  <p>Recibid un cordial saludo,</p>
+
+
+
+  <p>
+    Concejalía de Participación Ciudadana <br>
+
+    Presupuestos Participativos <br>
+
+    C/Béjar, 3 1ªplanta Getafe <br>
+
     <a href="https://participa.getafe.es/budgets/2">Participa Getafe</a>
   </p>
 
-  <% if @has_file %>
-    <%= link_to root_url, target: '_blank', title: setting['org_name'] do %>
-      <%= image_tag(attachments[@file_basename].url,  style: "border: 0; display: block; width: auto;", alt: setting['org_name']) %>
-    <% end %>
-  <% end %>
+  </div>
 </td>
