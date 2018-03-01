@@ -10,8 +10,8 @@ class Mailer < ApplicationMailer
     @user = user
     @recipient = recipient
     @has_file = file_path
-    
-    attachments.inline['image1'] = File.read(file_path)
+
+    attachments.inline['image1.png'] = File.read(file_path)
 
     with_user(user) do
       mail(to: @recipient,
