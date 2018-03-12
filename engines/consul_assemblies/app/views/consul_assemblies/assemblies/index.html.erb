@@ -1,9 +1,4 @@
 <% provide :title do %><%= t('.title') %><% end %>
-<% content_for :header_addon do %>
-  <%= render "shared/search_form",
-             search_path: assemblies_path(page: 1),
-             i18n_namespace: "assemblies.index.search_form" %>
-<% end %>
 <% content_for :canonical do %>
   <%= render "shared/canonical", href: assemblies_url %>
 <% end %>
