@@ -8,9 +8,12 @@
     <div class="help-header no-margin-top margin-bottom">
       <div class="row">
         <div class="small-12 column" data-magellan>
-          <%= link_to t("assemblies.index.section_header.help"), "#section_help", class: "float-right" %>
+
           <h1 class="inline-block"><%= @assembly_type ?  @assembly_type.name : t("assemblies.index.section_header..title") %></h1>
-          <h5>Espacios de participación</h5>
+          <br>
+          <%= link_to meetings_path() do %>
+            Histórico de Espacios de Participación
+          <% end %>
         </div>
       </div>
     </div>
@@ -27,11 +30,7 @@
               <%= t('.upcoming_assemblies') %>
             <% end %>
           </li>
-          <li class="tabs-title">
-            <%= link_to meetings_path(), "aria-selected" => "#{controller_name == 'meetings'}" do %>
-              <%= t('.historic_assemblies') %>
-            <% end %>
-          </li>
+
         </ul>
       </div>
   </div>

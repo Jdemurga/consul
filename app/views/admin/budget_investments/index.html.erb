@@ -49,3 +49,9 @@
   <%= render '/admin/budget_investments/investments' %>
 </div>
 
+<div class="row text-right">
+  <div class="small-12 column">
+    <%= link_to 'Descargar excel', admin_budget_budget_investments_path(params.merge(format: :csv)), class: 'button primary'%>
+  </div>
+</div>
+

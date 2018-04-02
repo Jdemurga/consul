@@ -1,41 +1,33 @@
 <div class="expanded highlight no-margin-top custom-getafe">
   <div class="row">
-    <div class="small-12 large-6 column">
-      <h1 class="project-title"><%= t("layouts.header.open_city_title") %></h1>
-      <h2 class="project-slogan">
-        <%= t("layouts.header.open_city_slogan_html") %>&nbsp;
-      </h2>
-      <p class="project-introduction">
+    <div class="small-12 medium-8 medium-offset-2 large-6 large-offset-3 column">
+
+
+      <div class="project-introduction">
+        <h1 class="project-title"><%= t("layouts.header.open_city_title") %></h1>
         <%= t("layouts.header.open_city_introduction_html") %>&nbsp;
         <%= link_to t("layouts.header.more_info"), more_info_path %>
-      </p>
-    </div>
-
-    <div class="small-12 large-6 column text-center hide-for-small-only" id="home-with-icon-background">
+        <h2 class="project-slogan">
+          <%= t("layouts.header.open_city_slogan_html") %>&nbsp;
+        </h2>
+      </div>
     </div>
   </div>
 </div>
 
+<%= render '/custom_banner' %>
 <% cache [locale_and_user_status, @featured_debates, @featured_proposals, @pages_in_cover, 'featured'] do %>
   <main>
 
-    <%= render 'welcome/active_procceses' %>
-    <div class="row text-center margin">
-      <div class="small-12 medium-4 column">
-        <%= image_tag("icon_home_proposal.png", size: "168x168", alt: "", title: t("welcome.proposal.title"))  %>
-        <h2><%= t("welcome.proposal.title") %></h2>
-        <p><%= t("welcome.proposal.description") %></p>
+    <div class="row margin">
+      <div class="small-8 column">
+        <h2 class="title open-processes inline-block">
+          Procesos abiertos e información sobre asambleas
+        </h2>
+        <%= render 'welcome/active_procceses' %>
       </div>
-
-      <div class="small-12 medium-4 column">
-        <%= image_tag("icon_home_decide.png", size: "168x168", alt: "", title: t("welcome.decide.title")) %>
-        <h2><%= t("welcome.decide.title") %></h2>
-        <p><%= t("welcome.decide.description") %></p>
-      </div>
-      <div class="small-12 medium-4 column">
-        <%= image_tag("icon_home_do.png", size: "168x168", alt: "", title: t("welcome.do.title")) %>
-        <h2><%= t("welcome.do.title") %></h2>
-        <p><%= t("welcome.do.description") %></p>
+      <div class="small-4 column">
+        <a class="twitter-timeline" data-dnt="true" data-height="1500px" data-theme="light" data-link-color="#E81C4F" href="https://twitter.com/participagetafe?ref_src=twsrc%5Etfw"></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
     </div>
   </main>

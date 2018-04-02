@@ -76,18 +76,15 @@ body, html {
 
 h1, h2, h3, h4, h5 {
 
-  text-transform: uppercase;
   font-weight: lighter !important;
 }
 
 h1.project-title {
 
-  font-weight: normal !important;
-  font-size: 400%;
-  margin-bottom: 0px;
-  text-align: left;
-  line-height: 65px;
-  margin-top: 10px;
+  font-weight: lighter !important;
+  margin-bottom: 30px;
+  text-transform: capitalize;
+
 }
 
 h2.project-slogan {
@@ -95,27 +92,44 @@ h2.project-slogan {
   text-transform: lowercase !important;
   font-style: italic;
   color: #a9a9a9;
-  text-align: left;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 80%;
 }
 
 h2.project-slogan:first-letter {
   text-transform: capitalize !important;
 }
 
-p.project-introduction {
-  background-color: #e6e7e9;
+.project-introduction {
+  background-color: rgba(0,0,0,0.4);
+  padding: 25px;
+  color: white;
+  min-height: 410px;
+  font-size: 1.35rem;
+  font-weight: lighter;
+  text-align: center;
+  margin: 40px 0px;
 }
 
 /* In two minutes pages */
 .highlight.custom-getafe {
 
-  background-color: #e6e7e9;
+  background-image: asset-url('participa-getafe-bg-4.jpg');
+  background-size: cover;
+  background-position: left center;
+  padding: 0px !important;
+
+  .row {
+
+    max-width: 100%;
+    background: rgba(0,0,0, 0.7);
+  }
 }
 
  #home-with-icon-background {
    background-color: transparent !important;
-   background-image: image-url('icon_home.gif');
-   min-height: 300px;
+   /*background-image: image-url('icon_home.gif');*/
    background-size: auto 100%;
    background-repeat: no-repeat;
    background-position: center bottom;
@@ -139,9 +153,7 @@ tr.small > td {
 /* Welcome */
 
 .open-processes {
-  border-left: 1px solid $brand;
-  color: $brand;
-  padding-left: 0.75rem;
+
 
 }
 
@@ -812,20 +824,27 @@ span.hint {
   border: 0;
   padding: $line-height/2 0;
 }
+.open-process {
+
+}
 
 .banner {
 
   .clickhere-button img {
 
-    max-height:60px;
+    max-height:80px;
   }
 
-  background-color: $banner-bg;
+  background-color: #e9e9e9;
 
   text-align: left;
-  font-size: 120%;
-  padding: 0px 10px;
+  font-size: 100%;
   margin-top: 0px;
+
+  background-image: image-url('icon_home_proposal.png');
+  background-position: 10% center;
+  background-size: auto 90%;
+  background-repeat: no-repeat;
 
   .banner-inner {
     .banner-icon {
@@ -838,6 +857,7 @@ span.hint {
     }
 
     .banner-left {
+      background-color: #e9e9e9;
 
       margin-top: 10px;
 
@@ -854,9 +874,9 @@ span.hint {
     }
 
     .banner-right {
+      background-color: #e9e9e9;
       text-align: center;
-      padding: 10px 0px;
-      padding-right: 15px;
+      padding-top: 20px;
       .button {
         top-bottom: 20px;
       }
