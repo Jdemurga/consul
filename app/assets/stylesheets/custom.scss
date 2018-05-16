@@ -247,6 +247,15 @@ table.ballot-paper tr.ballot-selected {
   }
 }
 
+.ballot-alert-status {
+
+  background-color: lighten(#B80830, 55%);
+  border-radius: 5px;
+  padding: 10px;
+
+}
+
+
 .swap-on-hover {
   height: 60px !important;
   .hide-on-over { display: block;  }
@@ -284,6 +293,49 @@ table.ballot-paper tr.ballot-selected {
   background-color: #43AC6A;
 }
 
+.ballot-step {
+
+  &.pending.active {
+
+    background-color: #ffae00 !important;
+    color: #333;
+  }
+
+  &.complete {
+    background-color: #43AC6A;
+    color: white;
+  }
+
+  a {
+    color: rgb(34, 34, 34);
+  }
+
+  .icon-check-circle {
+
+    position: relative;
+    color: #43AC6A;
+    font-size: 200%;
+    top: -18px;
+  }
+
+  .icon-help {
+
+    position: relative;
+    color: #ffae00;
+    font-size: 200%;
+    top: -18px;
+  }
+
+  &.active {
+
+    background-color: #e9e9e9 !important;
+
+    a {
+      color: #333;
+    }
+  }
+}
+
 
 .success-box {
   border: 2px solid #43AC6A !important;
@@ -314,7 +366,7 @@ table#spending-proposals-results {
   h1 {
     color: white;
     font-weight: normal !important;
-    margin: $line-height 0;
+
   }
 
   .button {

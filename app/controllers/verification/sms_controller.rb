@@ -1,7 +1,7 @@
 class Verification::SmsController < ApplicationController
   before_action :authenticate_user!
   before_action :verify_resident!
-  before_action :verify_verified!
+  before_action :verify_verified_and_phonenumber!
   before_action :verify_lock, only: [:new, :create]
   before_action :set_phone, only: :create
 
@@ -28,7 +28,8 @@ class Verification::SmsController < ApplicationController
     if @sms.verified?
 
       # GET-44 CUSTOMER REQUIREMENTS
-      current_user.update(confirmed_phone: normalize_phone(current_user.unconfirmed_phone), phone_number: normalize_phone(current_user.unconfirmed_phone), verified_at: Time.current)
+      current_user.update(confirmed_phone: normalize_phone(current_user.unconfirmed_phone), phone_number: normalize_phone(current_user.unconfirmed_phone))
+      current_user.update(verified_at: Time.current) unless current_user.verified_at?
       ahoy.track(:level_2_user, user_id: current_user.id) rescue nil
 
       #if VerifiedUser.phone?(current_user)

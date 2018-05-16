@@ -2,6 +2,10 @@ es:
   budgets:
     ballot_confirmation_sms_body: 'Votación Presupuestos Participativos Getafe. Su código de seguridad para votación es: %{code}'
     ballots:
+      balloting:
+        step_1: 'Propuestas Inversión'
+        step_2: 'Programas Socio-Culturales.'
+        step_3: 'Confirmar votación con SMS'
       banner:
         not_logged_in: "Para poder votar debes %{sign_in} o %{sign_up}."
       show:

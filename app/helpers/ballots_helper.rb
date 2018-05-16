@@ -4,6 +4,25 @@ module BallotsHelper
     (amount_spent/amount_available.to_f * 100).to_s + "%"
   end
 
+  def total_steps(ballot, group)
+    group.headings.count  + 1
+  end
+
+  def completed_steps(ballot, group)
+    group.headings.select { |heading| ballot.number_remaining_lines_to_complete(heading) == 0 }.count + (ballot.confirmed? ? 1 : 0)
+  end
+
+  def headings_with_status(ballot, group, current_heading)
+    group.headings.collect do |heading|
+      {
+          link: link_to(heading.name.truncate(26), budget_ballot_path(ballot.budget, heading_id: heading.id, group_id: group.id), title: heading.name),
+          pending: ballot.number_remaining_lines_to_complete(heading) > 0,
+          remaining_count: ballot.number_remaining_lines_to_complete(heading),
+          current: current_heading == heading
+      }
+    end
+  end
+
   def inline_pending_groups(ballot, group)
     pending = group.headings.select { |heading| ballot.number_remaining_lines_to_complete(heading) > 0 }
     links = pending.collect do |heading|

@@ -1,4 +1,5 @@
 es:
+  already_verified_but_not_phone_number: 'Es necesario que confirmes tu teléfono para poder cambiar tu votación'
   errors:
     messages:
       extension_whitelist_error: 'El tipo de fichero subido no está permitido. Sólo se permiten imágenes y PDF.'

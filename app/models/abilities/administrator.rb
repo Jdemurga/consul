@@ -12,7 +12,7 @@ module Abilities
 
 
       #GET-112 VER RESULTADOS
-      can :results, Budget
+      can :results, Budget, phase: "finished"
 
       #GET-136
       can :public_results, Budget
