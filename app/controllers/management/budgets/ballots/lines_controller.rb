@@ -19,7 +19,7 @@ class Management::Budgets::Ballots::LinesController < Management::BaseController
     unless @ballot.add_investment(@investment, line_params[:points])
       head :bad_request
     else
-      redirect_to management_budget_ballot_path(@budget, @ballot, heading_id:  @heading.id)
+      redirect_to management_budget_ballot_path(@budget, @ballot, heading_id:  @heading.id, group_id: @ballot.groups.first)
     end
   end
 
@@ -29,9 +29,11 @@ class Management::Budgets::Ballots::LinesController < Management::BaseController
 
     @line.destroy
     load_investments
-    #@ballot.reset_geozone
+   # @ballot.reset_geozone
 
-    redirect_to management_budget_ballot_path(@budget, @ballot, heading_id:  @heading.id)
+    heading_id = nil
+    heading_id = @heading.id if @ballot.groups.first
+    redirect_to management_budget_ballot_path(@budget, @ballot, heading_id:  heading_id, group_id: @ballot.groups.first)
   end
 
   private

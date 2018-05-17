@@ -43,7 +43,7 @@ class Management::Budgets::BallotsController < Management::BaseController
 
   def load_ballot
     query = Budget::Ballot.where(user: current_user, budget: @budget)
-    #@ballot = @budget.balloting? ? query.first_or_create : query.first_or_initialize
+    @ballot = @budget.balloting? ? query.first_or_create : query.first_or_initialize
   end
 
   #GET-107
@@ -58,6 +58,7 @@ class Management::Budgets::BallotsController < Management::BaseController
   end
 
   def load_heading
+
     if params[:heading_id]
       @heading = @group.headings.find(params[:heading_id])
     else
