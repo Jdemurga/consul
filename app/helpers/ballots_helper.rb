@@ -16,6 +16,8 @@ module BallotsHelper
     group.headings.collect do |heading|
       {
           link: link_to(heading.name.truncate(26), budget_ballot_path(ballot.budget, heading_id: heading.id, group_id: group.id), title: heading.name),
+          management_link: link_to(heading.name.truncate(26), management_budget_ballot_path(ballot.budget, ballot.id, heading_id: heading.id, group_id: group.id), title: heading.name),
+          name: heading.name.truncate(26),
           pending: ballot.number_remaining_lines_to_complete(heading) > 0,
           remaining_count: ballot.number_remaining_lines_to_complete(heading),
           current: current_heading == heading

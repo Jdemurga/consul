@@ -1,12 +1,12 @@
 <div class="row margin-top">
 
 
-
+  <%= render 'management/budgets/ballots/ballot_paper_status', ballot: @ballot %>
 
 
     <div class="small-12 medium-9 column margin-top">
 
-      <%= render 'management/budgets/ballots/ballot_paper_status', ballot: @ballot %>
+
 
       <h3><strong><%= @heading.name %></strong></h3>
       <h5><%= @budget.name %> en <strong><%= @group.name %></strong></h5>
