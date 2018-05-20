@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180220071109) do
+ActiveRecord::Schema.define(version: 20180520155822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -235,6 +235,7 @@ ActiveRecord::Schema.define(version: 20180220071109) do
     t.text     "description_balloting"
     t.text     "description_reviewing_ballots"
     t.text     "description_finished"
+    t.integer  "not_sent_participant_count",               default: 0
   end
 
   create_table "campaigns", force: :cascade do |t|
