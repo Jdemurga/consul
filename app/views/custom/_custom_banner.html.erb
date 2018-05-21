@@ -13,14 +13,16 @@
 
         <div class="register-investment">
 
-          <div class="register-allowed">
 
-          <%= link_to 'Acceder a votación',
-                      budget_ballot_path(Budget.last),
-                      class: 'button expanded' %></span>
-          </div>
 
           <% unless current_user.try(:level_three_verified?) %>
+            <div class="register-allowed">
+
+              <%= link_to 'Acceder a votación',
+                          budget_ballot_path(Budget.last),
+                          class: 'button expanded' %></span>
+            </div>
+
             <div class="register-not-allowed callout warning " style='display:none; font-size: 80%;' aria-hidden="false">
               <p class="small">
                 Para poder acceder a la votación debes
@@ -30,6 +32,13 @@
                   <%= link_to("registrarte como usuario", new_user_registration_path) %> o <%= link_to("entrar en tu cuenta", new_user_session_path) %>
                   <% end %>
               </p>
+            </div>
+            <% else %>
+            <div class="">
+
+              <%= link_to 'Acceder a votación',
+                          budget_ballot_path(Budget.last),
+                          class: 'button expanded' %></span>
             </div>
           <% end %>
         </div>
