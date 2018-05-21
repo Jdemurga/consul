@@ -4,6 +4,7 @@ module Budgets
     load_and_authorize_resource :budget
     before_action :load_ballot, :set_random_seed, :load_group, :load_heading, :load_investments
     before_action :verify_lock, only: [:confirm, :commit, :resend_code]
+    before_action :verify_verified_but_not_phonenumber! # GET-230
     after_action :store_referer, only: [:show]
 
     def show

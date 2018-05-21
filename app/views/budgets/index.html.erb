@@ -23,9 +23,16 @@
           <% if budget.finished? %>
             <%= link_to 'Ver resultados', results_budget_path(budget), class: "button see-more expanded" %>
             <% else %>
-            <br>
-            <br>
+
           <% end %>
+
+          <% if budget.balloting? %>
+              <div id="check-ballot" style="">
+                <%= link_to 'Acceder a votación',
+                            budget_ballot_path(budget),
+                            class: 'button success expanded' %>
+              </div>
+        <% end %>
           <br>
           <%= link_to t("budgets.phase.#{budget.phase}") , budget, class: "button primary expanded" %>
         </div>
@@ -39,9 +46,9 @@
       <p class="info-date"><strong>Presupuesto terminado</strong></p>
 
     </div>
+      <br>
 
     <%= link_to 'Ver resultados', participatory_budget_results_path, class: "button see-more expanded" %>
-    <br>
   </div>
   </div>
 </div>

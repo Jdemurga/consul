@@ -7,6 +7,30 @@
     <br>
     <br>
 <% else %>
+
+  <div class="ballot-alert-status">
+    <div class="text-center"><span class="lead" style="color: red;">Aún no has votado</span><br/>por favor, completa
+      estos pasos:
+    </div>
+
+    <br>
+    <ol class="small">
+
+      <% headings_with_status(@ballot, @group, @heading).each_with_index do |heading_link_status, index| %>
+        <% if heading_link_status[:pending] %>
+          <li>
+
+            Seleccionar <%= heading_link_status[:remaining_count] %> <%= heading_link_status[:name] %>
+          </li>
+        <% end %>
+      <% end %>
+      <li>
+        Haz click en "VOTAR" para enviar la votación
+      </li>
+    </ol>
+  </div>
+  <br>
+
     <% if @ballot.completed? %>
         <%= link_to confirm_management_budget_ballot_url(), method: 'post', class: 'button expanded success' do %>
             <%= t('budgets.ballots.show.confirm_ballot') %>

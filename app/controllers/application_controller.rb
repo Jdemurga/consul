@@ -102,6 +102,18 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def verify_verified_and_phonenumber!
+      if current_user.level_three_verified? && current_user.phone_number
+        redirect_to(account_path, notice: t('verification.redirect_notices.already_verified'))
+      end
+    end
+
+    def verify_verified_but_not_phonenumber!
+      if current_user.level_three_verified? && current_user.phone_number.nil?
+        redirect_to(new_sms_path, notice: t('already_verified_but_not_phone_number'))
+      end
+    end
+
     def track_email_campaign
       if params[:track_id]
         campaign = Campaign.where(track_id: params[:track_id]).first

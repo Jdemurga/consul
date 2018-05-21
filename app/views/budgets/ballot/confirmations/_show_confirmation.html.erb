@@ -8,6 +8,33 @@
     <br>
 <% else %>
 
+    <div class="ballot-alert-status">
+      <div class="text-center"><span class="lead" style="color: red;">Aún no has votado</span><br/>por favor, completa estos pasos:</div>
+
+      <br>
+      <ol class="small">
+
+        <% headings_with_status(@ballot, @group, @heading).each_with_index do |heading_link_status, index| %>
+          <% if heading_link_status[:pending] %>
+            <li>
+
+              Seleccionar <%= heading_link_status[:remaining_count] %> <%= heading_link_status[:link] %>
+            </li>
+          <% end %>
+        <% end %>
+        <li>
+          <% unless @ballot.confirmed? %>
+            <% if @ballot.notified? %>
+              <strong>Último paso:</strong> Verifica tu votación <u>introduciendo el código SMS</u> que te hemos enviado a tu teléfono en el bloque gris bajo este mensaje.
+              <% else %>
+              Click en "votar" y confirmar con el código SMS que recibirás
+            <% end %>
+          <% end %>
+        </li>
+      </ol>
+    </div>
+    <br>
+
     <% if @ballot.notified? %>
         <div data-alert class="ballot-alert ballot-secondary text-center">
           <%= form_for @ballot.confirmation, as: "confirmation", url: commit_budget_ballot_url do |f| %>
@@ -46,10 +73,6 @@
         <small class="text-muted">(*) Le será enviado un SMS con un código de seguridad para validar su votación al teléfono con el que validó su cuenta de usuario.</small>
         <br>
         <br>
-    <% else %>
-        <%= link_to '#ballot', class: 'button expanded secondary', disabled: 'disabled' do %>
-            <%= t('budgets.ballots.show.complete_ballot_to_vote') %>
-        <% end %>
     <% end %>
 <% end %>
 
