@@ -4,8 +4,8 @@
 
 <% if params[:filter] == 'unfeasible' %>
   <%= link_to t("budgets.investments.index.sidebar.feasible"),
-            budget_investments_path(@budget,  group_id: @group, heading_id: @heading, filter: '') %>
+            budget_investments_path(@budget,  group_id: @group, filter: '') %>
 <% else %>
   <%= link_to t("budgets.investments.index.sidebar.unfeasible"),
-            budget_investments_path(@budget, group_id: @group, heading_id: @heading, filter: 'unfeasible') %>
+            budget_investments_path(@budget, group_id: @group, filter: 'unfeasible') %>
 <% end %>
