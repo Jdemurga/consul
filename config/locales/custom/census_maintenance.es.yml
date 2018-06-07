@@ -5,8 +5,8 @@ es:
     email_reactivated_account_from_census:
       subject: "%{site_name} - Actualización estado de su cuenta de usuario: Cuenta reactivada"
       title: "Tu cuenta de usuario de %{org_name} vuelve a estar verificada"
-      instructions_html: Este es un correo autogenerado por %{site_link} para informarte de que tu cuenta de usuario en %{site_link} <i>"%{username}"</i> (vinculada a este correo electrónico) vuelve a ser <strong><u>activa y veridicada</u></strong>.
-      instructions_2_html: Tu cuenta <u>puede participar en los en los Procesos Participativos</u>. <br><br> La desactivación de su cuenta ha sido revertida pues fue realizada de manera automática por un proceso automático de control que no pudo consultar sus datos en el momento de la comprobación debido a un proceso de mantenimiento, pedimos disculas por ello e indicamos que <strong>tu cuenta ha sido reestablecida al estado previo como verificada</strong>.
+      instructions_html: Este es un correo autogenerado por %{site_link} para informarte de que tu cuenta de usuario en %{site_link} <i>"%{username}"</i> (vinculada a este correo electrónico) vuelve a ser <strong><u>activa y verificada</u></strong>.
+      instructions_2_html: Tu cuenta <u>puede participar en los en los Procesos Participativos</u>. <br><br> La desactivación de la cuenta ha venido motivada por un error técnico en la base de datos, sentimos las molestias que te haya ocasionado.
       thanks: "Recuerda que siempre podrás contactar con nosotros si necesitas ayuda. Gracias por utilizar %{site_link}."
 
     email_removed_from_census:
