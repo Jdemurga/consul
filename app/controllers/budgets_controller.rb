@@ -37,8 +37,20 @@ class BudgetsController < ApplicationController
                                          .joins('LEFT JOIN budget_ballot_lines ON budget_ballots.id = budget_ballot_lines.ballot_id')
                                          .uniq('budget_ballot_confirmations.id')
 
+    @not_verified = @budget.ballots.where.not(user_id: nil)
+                        .joins(:user)
+                        .where('users.verified_at IS NOT NULL').order('created_at desc')
+
+    @not_sms_sent_ballots_on_budget =  @budget.not_sent_participant_count - @valid_confirmations_on_budget.count - @not_valid_confirmations_on_budget.count
 
     if @group
+
+
+      @all_confirmations = Budget::Ballot::Confirmation.where(budget_id: @budget.id, discarted_at: nil, group_id: @group.id)
+                               .joins(:ballot)
+                               .joins('LEFT JOIN budget_ballot_lines ON budget_ballots.id = budget_ballot_lines.ballot_id')
+                               .uniq('budget_ballot_confirmations.id')
+
       @all_confirmations = Budget::Ballot::Confirmation.where(budget_id: @budget.id, discarted_at: nil, group_id: @group.id)
                            .joins(:ballot)
                            .joins('LEFT JOIN budget_ballot_lines ON budget_ballots.id = budget_ballot_lines.ballot_id')
@@ -55,7 +67,7 @@ class BudgetsController < ApplicationController
                            .joins(:ballot)
                            .joins('LEFT JOIN budget_ballot_lines ON budget_ballots.id = budget_ballot_lines.ballot_id')
                            .uniq('budget_ballot_confirmations.id')
-
+      
     else
 
       @headings_by_name = @budget.headings.group(:name).select(:name).collect { |h| [h.name, @budget.headings.where(name: h.name).pluck(:id)] }.to_h
