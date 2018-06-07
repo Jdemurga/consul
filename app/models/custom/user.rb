@@ -12,6 +12,12 @@ class User
     update_column(:census_removed_at, Time.current)
   end
 
+  def upgrade_verification_level_from_downgrade
+    update_column(:verified_at, Time.now)
+    update_column(:residence_verified_at, Time.now)
+    update_column(:census_removed_at, nil)
+  end
+
   def normalize_email
     return unless self.email
     if self.email.include?('+') && self.email.include?('@')

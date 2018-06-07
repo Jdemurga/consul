@@ -58,6 +58,16 @@ class Mailer < ApplicationMailer
     end
   end
 
+  def email_reactivated_account_from_census(user, recipient, document_type)
+    @user = user
+    @recipient = recipient
+    @document_type = document_type
+
+    with_user(user) do
+      mail(to: @recipient, subject: t('mailers.email_reactivated_account_from_census.subject', site_name: Setting['org_name']))
+    end
+  end
+
   def comment(comment)
     @comment = comment
     @commentable = comment.commentable
