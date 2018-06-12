@@ -3,35 +3,23 @@
     <thead>
     <tr>
       <th scope="col" class="text-center">
-        Total de papeletas enviadas
+        Papeletas Online
       </th>
       <th scope="col" class="text-center">
-        Online
+        Papeletas Presenciales
       </th>
       <th scope="col" class="text-center">
-        Presenciales
-      </th>
-      <th scope="col" class="text-center">
-        No validadas (nulas)
-      </th>
-      <th scope="col" class="text-center">
-        Válidas
+        Total
       </th>
     </tr>
     </thead>
     <tbody>
     <tr>
       <td scope="col" class="text-center">
-        <%= @all_confirmations.count %>
-      </td>
-      <td scope="col" class="text-center">
         <%= @all_confirmations.online.count %>
       </td>
       <td scope="col" class="text-center">
         <%= @all_confirmations.by_manager.count %>
-      </td>
-      <td scope="col" class="text-center">
-        <%= @not_valid_confirmations.count %>
       </td>
       <td scope="col" class="text-center ballot-points">
         <%= @valid_confirmations.count %>
@@ -40,8 +28,6 @@
     </tbody>
   </table>
 
-  <small>(*) <i><u>Un voto</u> es una papeleta que fue enviada a través del botón "VOTAR".</i></small><br>
-  <small>(*) <i><u>Un voto no validado (nulo)</u> es una papeleta que fue enviada a través del botón "VOTAR", pero no fue  confirmada con el código SMS de seguridad en el proceso de votación.</i></small>
   <br>
   <br>
 
