@@ -1,17 +1,7 @@
-<div class="row margin">
-  <div class="small-12 column">
-    <h2 class="title open-processes inline-block">
-      Procesos abiertos e información sobre asambleas
-    </h2>
-  </div>
-</div>
+
 
 <div class="row">
   <%- @pages_in_cover.each_with_index do |page, index| %>
-      <% if page.featured_image? && page.poster? %>
-          <%= render 'custom/site_customization/cover_poster', page: page %>
-      <% else %>
-          <%= render 'custom/site_customization/cover_box', page: page %>
-      <% end %>
+    <%= render 'custom/site_customization/cover_poster', page: page %>
   <% end %>
 </div>
