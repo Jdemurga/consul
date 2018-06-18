@@ -23,22 +23,22 @@ es:
         figcaption: 'Botones "Estoy de acuerdo" y "No estoy de acuerdo" para valorar los debates.'
       proposals:
         title: "Propuestas"
-        description: "Propón lo que quieres que el Ayuntamiento lleve a cabo y apoya propuestas de otras personas."
-        feature_1: "Para crear una propuesta tienes que %{link}, además para apoyarlas debes verificar tu cuenta."
+        description: "Propón lo que quieres que el Ayuntamiento lleve a cabo y expra tu opinión a las propuestas de otras personas."
+        feature_1: "Para crear una propuesta tienes que %{link} y verificar tu cuenta."
         feature_1_link: "registrarte en %{org_name}"
-        feature_2_html: "Las propuestas que consigan <strong>el apoyo del 1% de la gente</strong> (mayor de 16 años empadronada en Madrid; 27.064 apoyos) pasan a votación."
-        feature_3_html: "Si hay más gente a favor que en contra en la votación, <strong>el Ayuntamiento asume la propuesta y se hace</strong>."
+        feature_2_html: "Al crear una propuesta esta puede ser comentada por otros vecinos y puedes apoyarla haciend like en la propuesta."
+        feature_3_html: ""
         image_alt: "Botón para apoyar una propuesta"
         figcaption_html: 'Botón para "Apoyar" una propuesta.<br>Cuando alcance el número de apoyos pasará a votación.'
       budgets:
         title: "Presupuestos participativos"
-        description: "Los primeros seis meses de cada año puedes decidir cómo gastar parte del presupuesto."
+        description: "Puedes decidir cómo gastar parte del presupuesto en tu barrio."
         feature_1: "Para crear un proyecto de gasto tienes que %{link} y verificar tu cuenta."
         feature_1_link: "registrarte en %{org_name}"
-        feature_2_html: "En primer lugar empieza la <strong>fase de aceptación</strong> de proyectos de gasto."
-        feature_3_html: "Después hay una <strong>fase de apoyos</strong> para priorizar lo más interesante, las más apoyadas son evaluadas por el Ayuntamiento para ver si son viables y cuánto valen."
-        feature_4_html: "Al final hay una <strong>fase de votación</strong> donde se decide en cuáles se gasta esa parte del presupuesto."
-        image_alt: "Diferentes fases de un presupuesto participativo"
+        feature_2_html: "En primer lugar empieza la <strong>fase de aceptación</strong> de propuestas."
+        feature_3_html: "Después hay una <strong>fase de evaluación</strong> en la que el Ayuntamiento evalúa las propuestas para ver si son viables y cuánto valen."
+        feature_4_html: "Al final hay una <strong>fase de votación</strong> donde los vecinos deciden en cuáles se gasta esa parte del presupuesto."
+        image_alt: "Diferentes fases de un presupuesto participativo."
         figcaption_html: 'Fase de "Apoyos" y fase de "Votación" de los presupuestos participativos.'
       polls:
         title: "Votaciones"

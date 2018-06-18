@@ -18,19 +18,14 @@
 <div id="more-info" class="more-info-content">
   <div class="row">
     <div class="small-12 medium-7 large-8 column">
-      <% if feature?(:debates) %>
-        <%= render "pages/more_info/debates" %>
-      <% end %>
-
-      <%= render "pages/more_info/proposals" %>
 
       <% if feature?(:budgets) %>
         <%= render "pages/more_info/budgets" %>
       <% end %>
 
-      <% if feature?(:polls) %>
-        <%= render "pages/more_info/polls" %>
-      <% end %>
+      <%= render "pages/more_info/questions" %>
+      <%= render "pages/more_info/proposals" %>
+      <%= render "pages/more_info/assemblies" %>
     </div>
     <div class="small-12 medium-4 large-3 column more-info-sidebar">
       <%= render "pages/more_info/sidebar" %>
