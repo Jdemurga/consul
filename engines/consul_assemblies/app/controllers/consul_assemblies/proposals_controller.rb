@@ -4,7 +4,7 @@ module ConsulAssemblies
   class ProposalsController < ApplicationController
 
     before_action :authenticate_user!, except: [:index, :show]
-    before_filter :load_meeting, only: [:new]
+    before_filter :load_meeting, only: [:new, :create]
     load_and_authorize_resource :proposal, through: :meeting, class: "ConsulAssemblies::Meeting"
 
     def index; end
@@ -13,7 +13,7 @@ module ConsulAssemblies
 
       @proposal = ConsulAssemblies::Proposal.new(proposal_params.merge({ user: current_user }))
       if @proposal.save
-        redirect_to @proposal.meeting
+        redirect_to meeting_path(@proposal.meeting, proposals_type: 'pending' ), notice: 'Punto de orden del día enviado. Tras su aprobación pasará a aceptados.'
       else
         @meeting = @proposal.meeting
         render action: :new
@@ -31,9 +31,9 @@ module ConsulAssemblies
         :assembly_id
       )
     end
-
     def load_meeting
-      @meeting =  ConsulAssemblies::Meeting.find(params[:meeting_id])
+
+    @meeting =  ConsulAssemblies::Meeting.find(params[:meeting_id] || proposal_params[:meeting_id])
     end
   end
 end

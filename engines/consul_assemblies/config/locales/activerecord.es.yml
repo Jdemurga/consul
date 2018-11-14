@@ -32,8 +32,8 @@ es:
         accepts_proposals: 'Acepta propuestas de orden del día'
         will_generate_acts: 'Esta reunión generará acta'
       consul_assemblies/proposal:
-        title: 'Título'
-        description: 'Descripción'
+        title: 'Título descriptivo'
+        description: 'Descripción detallada'
         user_id: 'Usuario'
         accepted: 'Aceptado'
         terms_of_service: 'Términos del servicio'

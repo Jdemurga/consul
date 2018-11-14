@@ -1,4 +1,6 @@
 es:
+  form:
+    consul_assemblies/proposal: 'Propuesta de punto de orden del día'
   shared:
     followable:
       consulassemblies_meeting:
@@ -213,6 +215,7 @@ es:
           proposals: 'Propuestas'
           title_h2: 'Editar propuesta'
         form:
+          title: 'Título descriptivo de la propuesta de punto de orden del día'
           accepted: 'Aceptado'
           attachments: 'Adjuntos'
           conclusion: 'Conclusión acordada en la reunión sobre este punto'
@@ -220,7 +223,7 @@ es:
           is_previous_meeting_acceptance: 'Es propuesta de aceptación de actas'
           new_attachment: 'Nuevo adjunto'
           save: 'Guardar'
-          title: 'Título'
+
         index:
           is_previous_acceptance: 'Es propuesta de acta'
           attachments: 'Adjuntos'

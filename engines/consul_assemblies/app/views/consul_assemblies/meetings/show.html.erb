@@ -83,12 +83,12 @@
 
               <li class="tabs-title">
                 <%= link_to meeting_path(@meeting, proposals_type: 'declined'), "aria-selected" => "#{params[:proposals_type] == 'declined'}" do %>
-                  <%= t('.proposals_pending') %>
+                  <%= t('.proposals_refused') %>
                 <% end %>
               </li>
               <li class="tabs-title">
                 <%= link_to meeting_path(@meeting, proposals_type: 'pending'), "aria-selected" => "#{params[:proposals_type] == 'pending'}" do %>
-                  <%= t('.proposals_refused') %>
+                  <%= t('.proposals_pending') %>
                 <% end %>
               </li>
 
@@ -97,7 +97,7 @@
 
 
         <% if @meeting.proposals.any? %>
-
+          <div style="padding-left: 20px; border-left: 2px solid #e9e9e9;" class="row">
             <% if @meeting.accepts_proposals? %>
               <% if params[:proposals_type] == 'accepted' %>
               <div class="medium-12 column">
@@ -105,7 +105,7 @@
                   <% if @meeting.proposals.not_previous.accepted.any? %>
                     <% @meeting.proposals.not_previous.accepted.each do  |proposal| %>
                       <li>
-                          </small><%= proposal.title %></small>
+                        <%= proposal.title %> • <%= link_to proposal.user.name, proposal.user %>
                       </li>
                     <% end %>
                   <% else %>
@@ -113,13 +113,13 @@
                   <% end %>
                 </ol>
               </div>
-              <% elsif params[:proposals_type] == 'declined' %>
+              <% elsif params[:proposals_type] == 'pending' %>
               <div class="medium-12 column">
                 <ol>
                   <% if @meeting.proposals.not_previous.pending.any? %>
                     <% @meeting.proposals.not_previous.pending.each do  |proposal| %>
                       <li>
-                        <small><%= proposal.title %></small>
+                        <%= proposal.title %> • <%= link_to proposal.user.name, proposal.user %>
                       </li>
                     <% end %>
                   <% else %>
@@ -127,13 +127,13 @@
                   <% end %>
                 </ol>
               </div>
-              <% elsif params[:proposals_type] == 'pending'%>
+              <% elsif params[:proposals_type] == 'declined'%>
               <div class="medium-12 column">
                 <ol>
                   <% if @meeting.proposals.not_previous.declined.any? %>
                     <% @meeting.proposals.not_previous.declined.each do  |proposal| %>
                       <li>
-                        <small><%= proposal.title %></small>
+                        <%= proposal.title %> • <%= link_to proposal.user.name, proposal.user %>
                       </li>
                     <% end %>
                   <% else %>
@@ -157,7 +157,7 @@
                 </ol>
               </div>
             <% end %>
-
+          </div>
 
         <% else %>
         <p class="text-muted">

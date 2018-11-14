@@ -3,12 +3,12 @@
 
   <div class="row">
     <div class="small-12 column">
-      <%= f.label :title, t("proposals.form.title") %>
-      <%= f.text_field :title, maxlength: SpendingProposal.title_max_length, placeholder: t("proposals.form.title"), label: false %>
+      <%= f.label :title, ConsulAssemblies::Proposal.human_attribute_name(:title) %>
+      <%= f.text_field :title, maxlength: SpendingProposal.title_max_length, placeholder: t("consul_assemblies.admin.proposals.form.title"), label: false %>
     </div>
 
     <div class="ckeditor small-12 column">
-      <%= f.label :description, t("proposals.form.description") %>
+      <%= f.label :description, ConsulAssemblies::Proposal.human_attribute_name(:description) %>
       <%= f.cktext_area :description, maxlength: SpendingProposal.description_max_length, ckeditor: { language: I18n.locale }, label: false %>
     </div>
 
