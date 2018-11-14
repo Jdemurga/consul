@@ -162,8 +162,12 @@
         <% else %>
         <p class="text-muted">
           <%= t('.not_orders') %>
-          <% if @meeting.accepting_proposals? %>
-            <%= link_to ' puedes proponer un punto para el orden del día', new_proposal_path(meeting_id:@meeting), class: '' %>
+          <% if @meeting.accepting_proposals?  %>
+            <% if can?(:create, ConsulAssemblies::Proposal) %>
+              <%= link_to ' puedes proponer un punto para el orden del día', new_proposal_path(meeting_id:@meeting), class: '' %>
+            <% else %>
+              <small>Debes validar tu usuario con el padrón para poder proponer</small>
+            <% end %>
           <% end %>
         </p>
         <% end %>
@@ -184,12 +188,18 @@
 
     <aside class="small-12 medium-3 column">
 
-      <% if @meeting.accepting_proposals? %>
-      <%= link_to 'Proponer punto orden del día', new_proposal_path(meeting_id: @meeting), class: 'button  expanded' %>
-      <% end %>
-
 
       <span id="<%= @meeting.id %>"><%= render 'follows/follow_button', follow: find_or_build_follow(current_user, @meeting)%></span>
+
+      <% if @meeting.accepting_proposals?  %>
+        <% if can?(:create, ConsulAssemblies::Proposal) %>
+          <%= link_to 'Proponer punto orden del día', new_proposal_path(meeting_id: @meeting), class: 'button  expanded' %>
+        <% else %>
+        <%= link_to 'Proponer punto orden del día', '#', class: 'button  expanded', disabled: true %>
+          <div class="alert warning"><small class="text-muted">Debes <%= link_to 'verificar tu cuenta con el padrón', verification_path %> para poder enviar propuestas de Punto de orden del día.</small></div>
+        <% end %>
+      <% end %>
+
 
       <%= render partial: 'shared/social_share', locals: {
         share_title: t("meetings.show.share"),
