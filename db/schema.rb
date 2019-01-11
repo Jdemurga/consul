@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180520155822) do
+ActiveRecord::Schema.define(version: 20190111131358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
+  enable_extension "pgcrypto"
   enable_extension "unaccent"
 
   create_table "activities", force: :cascade do |t|
@@ -236,6 +237,7 @@ ActiveRecord::Schema.define(version: 20180520155822) do
     t.text     "description_reviewing_ballots"
     t.text     "description_finished"
     t.integer  "not_sent_participant_count",               default: 0
+    t.text     "description_configuring"
   end
 
   create_table "campaigns", force: :cascade do |t|

@@ -12,7 +12,7 @@ class BudgetsController < ApplicationController
   end
 
   def index
-    @budgets = @budgets.order(:created_at)
+    @budgets = @budgets.visible.order(:created_at)
   end
 
   def results

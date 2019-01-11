@@ -56,7 +56,7 @@
       <map name="html_map" id="html_map">
         <% @budget.groups.each do |geozone| %>
             <area shape="poly"
-                  coords="<%= geozone.geozone.html_map_coordinates %>"
+                  coords="<%= geozone.geozone.try(:html_map_coordinates) %>"
                   href="<%= budget_investments_path(@budget, group_id: geozone.id) %>"
                   title="<%= geozone.name %>"
                   alt="<%= geozone.name %>">

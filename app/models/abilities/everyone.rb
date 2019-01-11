@@ -29,6 +29,10 @@ module Abilities
       can [:search, :comments, :read, :create, :new_comment], Legislation::Annotation
       can :project,   Budget::Investment,               budget: { phase: "finished" } #GET-XX
       can :project,   SpendingProposal
+      
+      cannot [:read], Budget, phase: "configuring"      
+      cannot [:read], Budget::Group, budget: { phase: "configuring" }
+      cannot [:read, :print], Budget::Investment, budget: { phase: "configuring" }
     end
   end
 end

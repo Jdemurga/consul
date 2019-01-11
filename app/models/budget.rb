@@ -2,7 +2,7 @@ class Budget < ActiveRecord::Base
 
   include Measurable
 
-  PHASES = %w(accepting reviewing selecting valuating balloting reviewing_ballots finished).freeze
+  PHASES = %w(configuring accepting reviewing selecting valuating balloting reviewing_ballots finished).freeze
   CURRENCY_SYMBOLS = %w(€ $ £ ¥).freeze
 
   validates :name, presence: true
@@ -16,6 +16,7 @@ class Budget < ActiveRecord::Base
 
   before_validation :sanitize_descriptions
 
+  scope :hidden, -> { where(phase: "configuring") }
   scope :on_hold,   -> { where(phase: %w(reviewing valuating reviewing_ballots")) }
   scope :accepting, -> { where(phase: "accepting") }
   scope :reviewing, -> { where(phase: "reviewing") }
@@ -24,6 +25,7 @@ class Budget < ActiveRecord::Base
   scope :balloting, -> { where(phase: "balloting") }
   scope :reviewing_ballots, -> { where(phase: "reviewing_ballots") }
   scope :finished,  -> { where(phase: "finished") }
+  scope :visible, -> { where.not(phase: "configuring" )}
 
   scope :current,   -> { where.not(phase: "finished") }
 
@@ -37,6 +39,10 @@ class Budget < ActiveRecord::Base
 
   def self.title_max_length
     80
+  end
+  
+  def configuring?
+    phase == "configuring"
   end
 
   def accepting?

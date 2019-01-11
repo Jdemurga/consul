@@ -29,6 +29,7 @@ es:
         unselected_title: Propuestas no seleccionadas para la votación final
         unselected: Ver las propuestas no seleccionadas para la votación final
     phase:
+      configuring: Configurando presupuesto - No visible
       accepting: Presentación de proyectos
       reviewing: Revisión interna de proyectos
       selecting: Fase de apoyos
