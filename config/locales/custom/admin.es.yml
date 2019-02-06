@@ -533,6 +533,7 @@ es:
       update: Actualizar Tema
     users:
       index:
+        download_csv: 'DESCARGAR CSV'
         filter: Filtro
         filters:
           all: Todos

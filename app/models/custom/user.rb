@@ -6,6 +6,11 @@ class User
 
   before_validation :normalize_email
 
+  scope :accepted_newsletter, -> { where(newsletter: true) }
+  scope :rejected_newsletter, -> { where(newsletter: false) }
+
+  EXPORT_COLUMN_NAMES = %i{ username email newsletter}
+
   def downgrade_verification_level
     update_column(:verified_at, nil)
     update_column(:residence_verified_at, nil)
@@ -35,4 +40,17 @@ class User
   def self.find_by_param(input)
     find_by_username(input)
   end
+
+  def self.to_csv
+    CSV.generate(headers: true, col_sep: ";", encoding: Encoding::UTF_8) do |csv|
+      cols = (self::EXPORT_COLUMN_NAMES).flatten
+      csv << cols
+      all.find_each do |user|
+        csv << cols.map do |attr|
+          user.try(attr)
+        end
+      end
+    end
+  end
+
 end

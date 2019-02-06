@@ -26,4 +26,9 @@ module CustomHelper
   def assembly_types_for_menu
     ConsulAssemblies::AssemblyType.order(:name)
   end
+
+  def build_newsletter_options
+    [["Acepta notificaciones", true], ["No acepta notificaciones", false]]
+  end
+
 end
