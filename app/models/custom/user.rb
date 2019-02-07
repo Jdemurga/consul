@@ -47,7 +47,16 @@ class User
       csv << cols
       all.find_each do |user|
         csv << cols.map do |attr|
-          user.try(attr)
+          case attr
+            when :newsletter
+              if user.newsletter
+                "si"
+              else
+                "no"
+              end
+            else
+              user.try(attr)
+          end
         end
       end
     end
