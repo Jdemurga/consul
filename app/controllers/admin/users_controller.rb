@@ -14,18 +14,17 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def load_users
-    if params[:search]
-      s = params[:search]
-      @users = User.where("username ILIKE ? OR email ILIKE ? OR document_number ILIKE ?", "%#{s}%", "%#{s}%", "%#{s}%")
-      @users = User.where("newsletter = ?", params[:newsletter]) unless params[:newsletter].blank?
-      @users = @users.page(params[:page])
-      @params = params
-    elsif params[:params_csv]
-      s = params[:params_csv][:search]
-      @users = User.where("username ILIKE ? OR email ILIKE ? OR document_number ILIKE ?", "%#{s}%", "%#{s}%", "%#{s}%")
-      @users = User.where("newsletter = ?", params[:params_csv][:newsletter]) unless params[:params_csv][:newsletter].blank?
-    else
-      @users = @users.order(created_at: 'asc').page(params[:page])
-    end
+    
+    s = params.dig(:search) || params.dig(:params_csv, :search)
+    newslleter = params.dig(:newsletter) || params.dig(:params_csv, :newsletter)
+    
+    @users = User.all
+    @users = @users.where("username ILIKE ? OR email ILIKE ? OR document_number ILIKE ?", "%#{s}%", "%#{s}%", "%#{s}%") if s
+    @users = @users.where("newsletter = ?", newslleter) unless newslleter.blank?
+    @users = @users.page(params[:page])        
+    @users = @users.order(created_at: 'asc') if params[:params_csv]
+    
+    @params = params if params[:search]
+
   end
 end

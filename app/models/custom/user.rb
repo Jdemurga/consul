@@ -9,7 +9,8 @@ class User
   scope :accepted_newsletter, -> { where(newsletter: true) }
   scope :rejected_newsletter, -> { where(newsletter: false) }
 
-  EXPORT_COLUMN_NAMES = %i{ username email newsletter}
+  EXPORT_COLUMNS = %i{ email subject body username newsletter}
+  EXPORT_COLUMN_NAMES = { email: 'RECEPTOR', subject: 'ASUNTO', body: 'CUERPO',  username: 'NOMBRE_USUARIO', newsletter: 'ACEPTA_ENVIO_NOTICIAS'}
 
   def downgrade_verification_level
     update_column(:verified_at, nil)
@@ -42,12 +43,16 @@ class User
   end
 
   def self.to_csv
-    CSV.generate(headers: true, col_sep: ";", encoding: Encoding::UTF_8) do |csv|
-      cols = (self::EXPORT_COLUMN_NAMES).flatten
+    CSV.generate(headers: true, col_sep: "\t", encoding: Encoding::UTF_8) do |csv|
+      cols = self::EXPORT_COLUMNS.flatten.collect { |col| self::EXPORT_COLUMN_NAMES[col] }
       csv << cols
       all.find_each do |user|
-        csv << cols.map do |attr|
+        csv << self::EXPORT_COLUMNS.map do |attr|
           case attr
+            when :subject
+              ""
+            when :body
+              ""
             when :newsletter
               if user.newsletter
                 "si"
