@@ -22,7 +22,7 @@ class Admin::UsersController < Admin::BaseController
     @users = @users.where("username ILIKE ? OR email ILIKE ? OR document_number ILIKE ?", "%#{s}%", "%#{s}%", "%#{s}%") if s
     @users = @users.where("newsletter = ?", newslleter) unless newslleter.blank?
     @users = @users.page(params[:page])        
-    @users = @users.order(created_at: 'asc') if params[:params_csv]
+    @users = @users.order(created_at: 'asc')
     
     @params = params if params[:search]
 
