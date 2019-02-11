@@ -31,8 +31,8 @@ module Abilities
       can :project,   SpendingProposal
       
       cannot [:read], Budget, phase: "configuring"      
-      cannot [:read], Budget::Group, budget: { phase: "configuring" }
-      cannot [:read, :print], Budget::Investment, budget: { phase: "configuring" }
+#      cannot [:read], Budget::Group, budget: { phase: "configuring" }
+#      cannot [:read, :print], Budget::Investment, budget: { phase: "configuring" }
     end
   end
 end
