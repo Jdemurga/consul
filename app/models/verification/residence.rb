@@ -44,7 +44,7 @@ class Verification::Residence
 
   def document_number_uniqueness
 
-    errors.add(:document_number, I18n.t('errors.messages.taken')) if User.where(document_number: valid_variants).any?
+    errors.add(:document_number, I18n.t('errors.messages.taken')) if User.active.where(document_number: valid_variants).any? 
   end
 
   # WIll calculate all variants to avoid repeat
