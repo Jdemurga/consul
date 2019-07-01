@@ -44,6 +44,14 @@ class Admin::BudgetsController < Admin::BaseController
     end
   end
 
+  def annotate_participants
+    @total_ballots_count = @budget.ballots.where.not(user_id: nil).joins(:user).where('users.verified_at IS NOT NULL').count
+    @total_ballots_annotated = @budget.not_sent_participant_count || 0
+    @budget.update(not_sent_participant_count: [@total_ballots_count, @total_ballots_annotated].max)
+    @budget.headings.each { |heading| Budget::Result.new(@budget, heading).calculate_winners }
+    redirect_to admin_budget_path(@budget), notice: "Resultados calculados"
+  end
+
   #GET-130
   def ballot_dashboard
 

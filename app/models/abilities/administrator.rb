@@ -13,9 +13,13 @@ module Abilities
 
       #GET-112 VER RESULTADOS
       can :results, Budget, phase: "finished"
+      
+      #GET-1111 Anotar participación - resultados
+      can :annotate_participants, Budget, phase: ["finished", "reviewing_ballots"]
 
       #GET-136
       can :public_results, Budget
+      can :results, Budget
 
       #GET-113 IMPRIMIR PAPELETAS
       can :ballot_paper, Budget

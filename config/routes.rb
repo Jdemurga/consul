@@ -218,6 +218,7 @@ Rails.application.routes.draw do
         get :public_results
         get :ballot_paper
         get :ballot_dashboard
+        post :annotate_participants
       end
 
       resources :budget_groups do

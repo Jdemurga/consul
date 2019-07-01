@@ -3,5 +3,7 @@
 <h2><%= @budget.name %></h2>
 
 <div id="<%= dom_id @budget %>_groups">
+  <%= render 'annotate_participants' %>  
+  <br>
   <%= render "groups", groups: @budget.groups %>
 </div>
