@@ -1,50 +1,33 @@
-<% content_for :body_class, "home-page" %>
-
-<% content_for :canonical do %>
-  <%= render "shared/canonical", href: root_url %>
-<% end %>
-
-<div class="jumbo highlight">
+<div class="expanded highlight no-margin-top custom-getafe">
   <div class="row">
-    <div class="small-12 medium-9 small-centered column text-center">
-      <h1><%= t("layouts.header.open_city_title") %></h1>
-      <p class="lead">
-        <%= t("layouts.header.open_city_slogan_html") %>
-      </p>
-      <div class="small-12 medium-6 large-4 small-centered">
-        <%= link_to t("layouts.header.more_info"), more_info_path, class: "button expanded large" %>
+    <div class="small-12 medium-8 medium-offset-2 large-6 large-offset-3 column">
+
+
+      <div class="project-introduction">
+        <h1 class="project-title"><%= t("layouts.header.open_city_title") %></h1>
+        <%= t("layouts.header.open_city_introduction_html") %>&nbsp;
+        <%= link_to t("layouts.header.more_info"), more_info_path %>
+        <h2 class="project-slogan">
+          <%= t("layouts.header.open_city_slogan_html") %>&nbsp;
+        </h2>
       </div>
     </div>
   </div>
 </div>
 
-<% if feature?("user.recommendations") && (@recommended_debates.present? || @recommended_proposals.present?) %>
-  <%= render "recommended",
-              recommended_debates: @recommended_debates,
-              recommended_proposals: @recommended_proposals %>
-  <hr>
-<% end %>
-
-<% cache [locale_and_user_status, @featured_debates, @featured_proposals, 'featured'] do %>
+<%= render '/custom_banner' %>
+<% cache [locale_and_user_status, @featured_debates, @featured_proposals, @pages_in_cover, 'featured'] do %>
   <main>
-    <div class="small-12 column text-center">
-      <div class="row margin padding">
-        <div class="small-12 medium-3 column">
-          <h2><%= t("welcome.debates.title") %></h2>
-          <p><%= t("welcome.debates.description") %></p>
-        </div>
-        <div class="small-12 medium-3 column">
-          <h2><%= t("welcome.proposal.title") %></h2>
-          <p><%= t("welcome.proposal.description") %></p>
-        </div>
-        <div class="small-12 medium-3 column">
-          <h2><%= t("welcome.decide.title") %></h2>
-          <p><%= t("welcome.decide.description") %></p>
-        </div>
-        <div class="small-12 medium-3 column">
-          <h2><%= t("welcome.do.title") %></h2>
-          <p><%= t("welcome.do.description") %></p>
-        </div>
+
+    <div class="row margin">
+      <div class="medium-8 column">
+        <h2 class="title open-processes inline-block">
+          Procesos abiertos e información sobre asambleas
+        </h2>
+        <%= render 'welcome/active_procceses' %>
+      </div>
+      <div class="medium-4 column">
+        <a class="twitter-timeline" data-dnt="true" data-height="900px" data-theme="light" data-link-color="#E81C4F" href="https://twitter.com/participagetafe?ref_src=twsrc%5Etfw"></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
     </div>
   </main>

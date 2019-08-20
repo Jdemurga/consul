@@ -4,8 +4,6 @@ require 'rails_helper'
 describe Debate do
   let(:debate) { build(:debate) }
 
-  it_behaves_like "has_public_author"
-
   it "should be valid" do
     expect(debate).to be_valid
   end
@@ -86,7 +84,6 @@ describe Debate do
   describe "#editable?" do
     let(:debate) { create(:debate) }
     before(:each) { Setting["max_votes_for_debate_edit"] = 3 }
-    after(:each) { Setting["max_votes_for_debate_edit"] = 1000 }
 
     it "should be true if debate has no votes yet" do
       expect(debate.total_votes).to eq(0)
@@ -109,7 +106,6 @@ describe Debate do
   describe "#editable_by?" do
     let(:debate) { create(:debate) }
     before(:each) { Setting["max_votes_for_debate_edit"] = 1 }
-    after(:each) { Setting["max_votes_for_debate_edit"] = 1000 }
 
     it "should be true if user is the author and debate is editable" do
       expect(debate.editable_by?(debate.author)).to be true
@@ -545,7 +541,7 @@ describe Debate do
         title_some_votes    = create(:debate, title: 'stop corruption', cached_votes_up: 5)
         title_least_voted   = create(:debate, title: 'stop corruption', cached_votes_up: 2)
         title_most_voted    = create(:debate, title: 'stop corruption', cached_votes_up: 10)
-        description_most_voted = create(:debate, description: 'stop corruption', cached_votes_up: 10)
+        description_most_voted  = create(:debate, description: 'stop corruption', cached_votes_up: 10)
 
         results = Debate.search('stop corruption')
 
@@ -687,12 +683,12 @@ describe Debate do
   describe "#last_week" do
     it "should return debates created this week" do
       debate = create(:debate)
-      expect(Debate.last_week.all).to include debate
+      expect(Debate.last_week.all).to include (debate)
     end
 
     it "should not show debates created more than a week ago" do
       debate = create(:debate, created_at: 8.days.ago)
-      expect(Debate.last_week.all).to_not include debate
+      expect(Debate.last_week.all).to_not include (debate)
     end
   end
 
@@ -702,65 +698,4 @@ describe Debate do
     end
   end
 
-  describe 'public_for_api scope' do
-    it 'returns debates' do
-      debate = create(:debate)
-      expect(Debate.public_for_api).to include(debate)
-    end
-
-    it 'does not return hidden debates' do
-      debate = create(:debate, :hidden)
-      expect(Debate.public_for_api).to_not include(debate)
-    end
-  end
-
-  describe "#recommendations" do
-
-    let(:user)     { create(:user) }
-
-    it "Should not return any debates when user has not interests" do
-      create(:debate)
-
-      expect(Debate.recommendations(user).size).to eq 0
-    end
-
-    it "Should return debates ordered by cached_votes_total" do
-      debate1 =  create(:debate, cached_votes_total: 1, tag_list: "Sport")
-      debate2 =  create(:debate, cached_votes_total: 5, tag_list: "Sport")
-      debate3 =  create(:debate, cached_votes_total: 10, tag_list: "Sport")
-      proposal = create(:proposal, tag_list: "Sport")
-      create(:follow, followable: proposal, user: user)
-
-      result = Debate.recommendations(user).sort_by_recommendations
-
-      expect(result.first).to eq debate3
-      expect(result.second).to eq debate2
-      expect(result.third).to eq debate1
-    end
-
-    it "Should return debates related with user interests" do
-      debate1 =  create(:debate, tag_list: "Sport")
-      debate2 =  create(:debate, tag_list: "Politics")
-      proposal1 = create(:proposal, tag_list: "Sport")
-      create(:follow, followable: proposal1, user: user)
-
-      result = Debate.recommendations(user)
-
-      expect(result.size).to eq 1
-      expect(result).to eq [debate1]
-    end
-
-    it "Should not return debates when user is the author" do
-      debate1 =  create(:debate, author: user, tag_list: "Sport")
-      debate2 =  create(:debate, tag_list: "Sport")
-      proposal = create(:proposal, tag_list: "Sport")
-      create(:follow, followable: proposal, user: user)
-
-      result = Debate.recommendations(user)
-
-      expect(result.size).to eq 1
-      expect(result).to eq [debate2]
-    end
-
-  end
 end

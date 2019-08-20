@@ -29,18 +29,16 @@ class Legislation::AnnotationsController < ApplicationController
   end
 
   def create
-    if !@process.allegations_phase.open? || @draft_version.final_version?
-      render(json: {}, status: :not_found) && return
+    if !@process.open_phase?(:allegations) || @draft_version.final_version?
+      render json: {}, status: :not_found and return
     end
 
     existing_annotation = @draft_version.annotations.where(
       range_start: annotation_params[:ranges].first[:start], range_start_offset: annotation_params[:ranges].first[:startOffset].to_i,
       range_end: annotation_params[:ranges].first[:end], range_end_offset: annotation_params[:ranges].first[:endOffset].to_i).first
 
-    @annotation = existing_annotation
-    if @annotation.present?
-      comment = @annotation.comments.create(body: annotation_params[:text], user: current_user)
-      if comment.present?
+    if @annotation = existing_annotation
+      if comment = @annotation.comments.create(body: annotation_params[:text], user: current_user)
         render json: @annotation.to_json
       else
         render json: comment.errors.full_messages, status: :unprocessable_entity
@@ -102,9 +100,8 @@ class Legislation::AnnotationsController < ApplicationController
     end
 
     def convert_ranges_parameters
-      annotation = params[:legislation_annotation]
-      if annotation && annotation[:ranges] && annotation[:ranges].is_a?(String)
-        params[:legislation_annotation][:ranges] = JSON.parse(annotation[:ranges])
+      if params[:legislation_annotation] && params[:legislation_annotation][:ranges] && params[:legislation_annotation][:ranges].is_a?(String)
+        params[:legislation_annotation][:ranges] = JSON.parse(params[:legislation_annotation][:ranges])
       end
     rescue JSON::ParserError
     end

@@ -6,16 +6,27 @@ class SpendingProposal < ActiveRecord::Base
 
   acts_as_votable
 
+  #GET-131
+  PHASES = ['no_bidding',
+        'pre_bidding',
+        'bidding',
+        'in_progress',
+        'being_processed',
+        'almost_finished',
+        'finished']
+
   belongs_to :author, -> { with_hidden }, class_name: 'User', foreign_key: 'author_id'
   belongs_to :geozone
   belongs_to :administrator
   has_many :valuation_assignments, dependent: :destroy
   has_many :valuators, through: :valuation_assignments
 
+  belongs_to :joined_to, class_name: 'SpendingProposal', foreign_key: 'joined_to_spending_proposal_id'
+
   validates :title, presence: true
   validates :author, presence: true
   validates :description, presence: true
-  validates :feasible_explanation, presence: { if: :feasible_explanation_required? }
+  validates_presence_of :feasible_explanation, if: :feasible_explanation_required?
 
   validates :title, length: { in: 4..SpendingProposal.title_max_length }
   validates :description, length: { maximum: SpendingProposal.description_max_length }
@@ -31,20 +42,30 @@ class SpendingProposal < ActiveRecord::Base
   scope :not_unfeasible,         -> { where("feasible IS ? OR feasible = ?", nil, true) }
   scope :with_supports,          -> { where('cached_votes_up > 0') }
 
-  scope :by_admin,    ->(admin)    { where(administrator_id: admin.presence) }
-  scope :by_tag,      ->(tag_name) { tagged_with(tag_name) }
-  scope :by_valuator, ->(valuator) { where("valuation_assignments.valuator_id = ?", valuator.presence).joins(:valuation_assignments) }
+  scope :programs,               -> { where(spending_type: 'program') }
+  scope :investments,            -> { where(spending_type: 'investment') }
 
-  scope :for_render, -> { includes(:geozone) }
+  scope :by_admin,    -> (admin)    { where(administrator_id: admin.presence) }
+  scope :by_tag,      -> (tag_name) { tagged_with(tag_name) }
+  scope :by_valuator, -> (valuator) { where("valuation_assignments.valuator_id = ?", valuator.presence).joins(:valuation_assignments) }
+
+  scope :for_render,             -> { includes(:geozone) }
+
+  has_many :attachments, as: :attachable
+  accepts_nested_attributes_for :attachments,  :reject_if => :all_blank, :allow_destroy => true
 
   before_validation :set_responsible_name
+
+  def has_project?
+    attachments.any? || project_phase.present? || project_content.present?
+  end
 
   def description
     super.try :html_safe
   end
 
   def self.filter_params(params)
-    params.select{|x, _| %w{geozone_id administrator_id tag_name valuator_id}.include? x.to_s }
+    params.select{|x,_| %w{geozone_id administrator_id tag_name valuator_id}.include? x.to_s }
   end
 
   def self.scoped_filter(params, current_filter)
@@ -66,7 +87,7 @@ class SpendingProposal < ActiveRecord::Base
   end
 
   def self.search(terms)
-    pg_search(terms)
+    self.pg_search(terms)
   end
 
   def self.by_geozone(geozone)

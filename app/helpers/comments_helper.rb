@@ -50,8 +50,6 @@ module CommentsHelper
       legislation_process_question_path(commentable.process, commentable)
     when "Legislation::Annotation"
       legislation_process_draft_version_annotation_path(commentable.draft_version.process, commentable.draft_version, commentable)
-    when "Topic"
-      community_topic_path(commentable.community, commentable)
     else
       commentable
     end
@@ -80,9 +78,7 @@ module CommentsHelper
   def require_verified_resident_for_commentable?(commentable, current_user)
     return false if current_user.administrator? || current_user.moderator?
 
-    commentable.respond_to?(:comments_for_verified_residents_only?) &&
-      commentable.comments_for_verified_residents_only? &&
-      !current_user.residence_verified?
+    commentable.respond_to?(:comments_for_verified_residents_only?) && commentable.comments_for_verified_residents_only? && !current_user.residence_verified?
   end
 
   def comments_closed_for_commentable?(commentable)

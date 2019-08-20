@@ -7,9 +7,7 @@ class Admin::SpendingProposalsController < Admin::BaseController
   load_and_authorize_resource
 
   def index
-    @spending_proposals = SpendingProposal.scoped_filter(params, @current_filter)
-                                          .order(cached_votes_up: :desc, created_at: :desc)
-                                          .page(params[:page])
+    @spending_proposals = SpendingProposal.scoped_filter(params, @current_filter).order(cached_votes_up: :desc, created_at: :desc).page(params[:page])
   end
 
   def show
@@ -35,15 +33,20 @@ class Admin::SpendingProposalsController < Admin::BaseController
 
   def summary
     @spending_proposals = SpendingProposal.group(:geozone).sum(:price).sort_by{|geozone, count| geozone.present? ? geozone.name : "z"}
-    @spending_proposals_with_supports = SpendingProposal.with_supports.group(:geozone).sum(:price)
-                                                        .sort_by{|geozone, count| geozone.present? ? geozone.name : "z"}
+    @spending_proposals_with_supports = SpendingProposal.with_supports.group(:geozone).sum(:price).sort_by{|geozone, count| geozone.present? ? geozone.name : "z"}
   end
 
   private
 
+  def budget_investment_project_params
+    [:project_content,
+     :project_phase,
+     attachments_attributes: [:file, :title, :_destroy, :id]
+    ]
+  end
+
     def spending_proposal_params
-      params.require(:spending_proposal).permit(:title, :description, :external_url, :geozone_id, :association_name,
-                                                :administrator_id, :tag_list, valuator_ids: [])
+      params.require(:spending_proposal).permit(budget_investment_project_params + [:title, :description, :external_url, :geozone_id, :association_name, :administrator_id, :tag_list, :phase, valuator_ids: []])
     end
 
     def load_admins

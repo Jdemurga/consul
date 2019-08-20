@@ -1,2 +1,1 @@
-App.Flaggable.update("<%= dom_id(@proposal) %>",
-  "<%= j render("proposals/flag_actions", proposal: @proposal) %>")
+$("#<%= dom_id(@proposal) %> .js-flag-actions").html('<%= j render("proposals/flag_actions", proposal: @proposal) %>');

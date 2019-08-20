@@ -36,6 +36,13 @@
   <div class="row">
 
     <div class="small-12 column">
+      <%= f.select(:phase,
+
+                   SpendingProposal::PHASES.collect{ |phase| [t("spending_proposals.results.spending_proposal_phases.#{phase}"), phase ] },
+                   { include_blank: false }) %>
+    </div>
+
+    <div class="small-12 column">
       <%= f.select(:administrator_id,
                      @admins.collect{ |a| [a.name_and_email, a.id ] },
                      { include_blank: t("admin.spending_proposals.edit.undefined") }) %>
@@ -64,10 +71,10 @@
     </div>
   </div>
 
-  <p class="clear">
+    <%= render 'custom/budget_investments_project_form', f:f %>
+
+
+    <p class="clear">
     <%= f.submit(class: "button", value: t("admin.spending_proposals.edit.submit_button")) %>
   </p>
 <% end %>
-
-<hr>
-<%= render 'valuation/spending_proposals/written_by_valuators' %>

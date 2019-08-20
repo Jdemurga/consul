@@ -19,13 +19,6 @@
     </div>
 
     <div class="small-12 column">
-      <%= f.label :tag_list, t("admin.budget_investments.edit.user_tags") %>
-      <%= f.text_field :tag_list,
-                       value: @investment.tag_list.sort.join(','),
-                       label: false %>
-    </div>
-
-    <div class="small-12 column">
       <%= f.text_field :external_url %>
     </div>
 
@@ -33,6 +26,8 @@
       <%= f.select :heading_id, budget_heading_select_options(@budget), include_blank: t("admin.budget_investments.edit.select_heading") %>
     </div>
   </div>
+
+    <br>
 
   <h2 id="classification"><%= t("admin.budget_investments.edit.classification") %></h2>
 
@@ -46,7 +41,7 @@
 
 
     <div class="small-12 column">
-      <%= f.label :valuation_tag_list, t("admin.budget_investments.edit.tags") %>
+      <%= f.label :tag_list, t("admin.budget_investments.edit.tags") %>
       <div class="tags">
         <% @tags.each do |tag| %>
           <a class="js-add-tag-link"><%= tag.name %></a>
@@ -68,29 +63,12 @@
     </div>
   </div>
 
+    <%= render 'custom/budget_investments_unification_form', f:f %>
+    <%= render 'custom/budget_investments_project_form', f:f %>
 
-  <div class="row margin-top">
-    <% if @investment.incompatible? || @investment.winner? %>
-    <div class="small-12 medium-3 column">
-      <h2 id="incompatible"><%= t("admin.budget_investments.edit.compatibility") %></h2>
-      <%= f.label :incompatible do %>
-        <%= f.check_box :incompatible, title: t('admin.budget_investments.edit.compatibility'), label: false %>
-        <span class="checkbox"><%= t("admin.budget_investments.edit.mark_as_incompatible") %></span>
-      <% end %>
-    </div>
-    <% end %>
-    <div class="small-12 medium-3 column float-left">
-      <h2 id="selected"><%= t("admin.budget_investments.edit.selection") %></h2>
-      <%= f.label :selected do %>
-        <%= f.check_box :selected, title: t('admin.budget_investments.edit.selection'), label: false %>
-        <span class="checkbox"><%= t("admin.budget_investments.edit.mark_as_selected") %></span>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="margin-top">
+  <p class="clear">
     <%= f.submit(class: "button", value: t("admin.budget_investments.edit.submit_button")) %>
-  </div>
+  </p>
 <% end %>
 
 <hr>

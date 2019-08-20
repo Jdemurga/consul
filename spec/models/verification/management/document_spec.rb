@@ -25,10 +25,7 @@ describe Verification::Management::Document do
     end
 
     it "returns false when the user is user's minimum required age" do
-      date_of_birth = Date.new(User.minimum_required_age.years.ago.year,
-                      User.minimum_required_age.years.ago.month,
-                      User.minimum_required_age.years.ago.day)
-      census_response = double(date_of_birth: date_of_birth)
+      census_response = double(date_of_birth: Date.new(User.minimum_required_age.years.ago.year, User.minimum_required_age.years.ago.month, User.minimum_required_age.years.ago.day))
       expect(Verification::Management::Document.new.under_age?(census_response)).to be false
     end
 

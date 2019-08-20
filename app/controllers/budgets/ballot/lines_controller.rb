@@ -2,11 +2,12 @@ module Budgets
   module Ballot
     class LinesController < ApplicationController
       before_action :authenticate_user!
-      #before_action :ensure_final_voting_allowed
+
       before_action :load_budget
       before_action :load_ballot
       before_action :load_tag_cloud
       before_action :load_categories
+      before_action :ensure_final_voting_allowed
       before_action :load_investments
       before_action :load_ballot_referer
 
@@ -18,7 +19,11 @@ module Budgets
         load_investment
         load_heading
 
-        @ballot.add_investment(@investment)
+        unless @ballot.add_investment(@investment, line_params[:points])
+          head :bad_request
+        else
+          redirect_to budget_ballot_path(@budget, heading_id: @heading.id)
+        end
       end
 
       def destroy
@@ -27,6 +32,8 @@ module Budgets
 
         @line.destroy
         load_investments
+
+        redirect_to budget_ballot_path(@budget, group_id: @line.group, heading_id: @line.heading_id)
       end
 
       private
@@ -36,7 +43,7 @@ module Budgets
         end
 
         def line_params
-          params.permit(:investment_id, :budget_id)
+          params.permit(:investment_id, :budget_id, :points)
         end
 
         def load_budget
@@ -67,7 +74,7 @@ module Budgets
         end
 
         def load_categories
-          @categories = ActsAsTaggableOn::Tag.category.order(:name)
+          @categories = ActsAsTaggableOn::Tag.where("kind = 'category'").order(:name)
         end
 
         def load_ballot_referer

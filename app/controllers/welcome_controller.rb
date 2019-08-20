@@ -1,10 +1,12 @@
 class WelcomeController < ApplicationController
   skip_authorization_check
-  before_action :set_user_recommendations, only: :index, if: :current_user
 
   layout "devise", only: [:welcome, :verification]
+  before_action :index, :load_pages_in_cover
+  before_action :welcome, :load_pages_in_cover
 
   def index
+
   end
 
   def welcome
@@ -16,9 +18,7 @@ class WelcomeController < ApplicationController
 
   private
 
-  def set_user_recommendations
-    @recommended_debates = Debate.recommendations(current_user).sort_by_recommendations.limit(3)
-    @recommended_proposals = Proposal.recommendations(current_user).sort_by_recommendations.limit(3)
+  def load_pages_in_cover
+    @pages_in_cover = SiteCustomization::Page.with_show_in_cover_flag
   end
-
 end

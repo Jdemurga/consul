@@ -1,12 +1,14 @@
-<div class="small-12 medium-9 large-10 column <%= results_type == :compatible ? 'success' : 'js-discarded' %>"
-     style="<%= results_type != :compatible ? 'display: none' : '' %>"
-     id="<%= results_type %>-container">
+<div class="small-12 medium-9 column" id="results-container">
+  <h3 class="inline-block">
+    <%= heading.name %>
+  </h3>
 
-  <h4 class="inline-block">
-    <%= title %>
-  </h4>
+  <%= link_to t("budgets.results.show_all_link"), "#",
+              class: "js-toggle-link button hollow margin-bottom float-right",
+              data: {'toggle-selector' => '.js-discarded',
+                     'toggle-text' => t("budgets.results.hide_discarded_link")} %>
 
-  <table id="budget-investments-<%= results_type %>" class="table-for-mobile">
+  <table id="budget-investments-results" class="table-for-mobile">
     <thead>
       <tr>
         <th scope="col">
@@ -18,36 +20,39 @@
         <th scope="col" class="text-center">
           <%= t("budgets.results.price") %>
         </th>
-        <% if results_type == :compatible %>
-          <th scope="col" class="text-right">
-            <small><%= t("budgets.results.amount_available") %></small><br>
-            <%= format_price(heading_price) %><br>
-          </th>
-        <% end %>
+        <th scope="col" class="text-right">
+          <%= format_price(heading.price) %><br>
+          <small><%= t("budgets.results.amount_available") %></small>
+        </th>
       </tr>
     </thead>
 
     <tbody>
-      <% amount_available = heading_price %>
-      <% investments.each do |investment| %>
+      <% amount_available = heading.price %>
+      <% @result.investments.each do |investment| %>
+        <% if investment.winner? %>
           <tr id="<%= dom_id(investment) %>"
-              class="budget-investments <%= investment.winner? ? 'success' : 'js-discarded' %>"
-              style="<%= investment.winner? ? '' : 'display: none' %>">
+              class="spending_proposal success">
+        <% else %>
+          <tr id="<%= dom_id(investment) %>"
+              class="spending_proposal js-discarded" style="display:none">
+        <% end %>
             <td>
               <% if investment.winner? %>
                 <span class="icon-check">
-                  <span class="show-for-sr">
+                  <span class="sr-only">
                     <%= t("budgets.results.accepted") %>
                   </span>
                 </span>
               <% else %>
                 <span class="icon-x delete">
-                  <span class="show-for-sr">
+                  <span class="sr-only">
                     <%= t("budgets.results.discarded") %>
                   </span>
                 </span>
               <% end %>
-              <%= link_to investment.title, budget_investment_path(@budget, investment) %>
+              <%= link_to investment.title,
+                          budget_investment_path(@budget, investment) %>
             </td>
             <td class="text-center">
               <%= investment.ballot_lines_count %>
@@ -55,13 +60,11 @@
             <td class="text-center">
               <%= format_price investment.price %>
             </td>
-            <% if results_type == :compatible %>
-              <td class="small text-right"
-                  title="<%= format_price(amount_available) %> - <%= format_price(investment.price) %>">
-                  <%= format_price amount_available - investment.price %>
-                  <% amount_available -= investment.price if investment.winner? %>
-              </td>
-            <% end %>
+            <td class="small text-right"
+                title="<%= format_price(amount_available) %> - <%= format_price(investment.price) %>">
+                <%= format_price amount_available - investment.price %>
+                <% amount_available -= investment.price if investment.winner? %>
+            </td>
         </tr>
       <% end %>
     </tbody>

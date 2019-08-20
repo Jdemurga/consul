@@ -1,6 +1,4 @@
-class Admin::Poll::QuestionsController < Admin::Poll::BaseController
-  include CommentableActions
-
+class Admin::Poll::QuestionsController < Admin::BaseController
   load_and_authorize_resource :poll
   load_and_authorize_resource :question, class: 'Poll::Question'
 
@@ -15,6 +13,7 @@ class Admin::Poll::QuestionsController < Admin::Poll::BaseController
 
   def new
     @polls = Poll.all
+    @question.valid_answers = I18n.t('poll_questions.default_valid_answers')
     proposal = Proposal.find(params[:proposal_id]) if params[:proposal_id].present?
     @question.copy_attributes_from_proposal(proposal)
   end
@@ -55,7 +54,7 @@ class Admin::Poll::QuestionsController < Admin::Poll::BaseController
   private
 
     def question_params
-      params.require(:poll_question).permit(:poll_id, :title, :question, :proposal_id, :video_url)
+      params.require(:poll_question).permit(:poll_id, :title, :question, :description, :proposal_id, :valid_answers)
     end
 
     def search_params

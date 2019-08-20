@@ -303,7 +303,7 @@ feature 'Votes' do
     debate = create(:debate)
     comment = create(:comment, commentable: debate)
 
-    visit comment_path(comment)
+    visit comment_path(debate)
     within("#comment_#{comment.id}") do
       find("div.votes").hover
       expect_message_you_need_to_sign_in_to_vote_comments
@@ -364,14 +364,9 @@ feature 'Votes' do
 
   feature 'Spending Proposals' do
     background do
-     Setting['feature.spending_proposals'] = true
+     Setting["feature.spending_proposals"] = true
      Setting['feature.spending_proposal_features.voting_allowed'] = true
      login_as(@manuela)
-    end
-
-    after do
-      Setting['feature.spending_proposals'] = nil
-      Setting['feature.spending_proposal_features.voting_allowed'] = nil
     end
 
     feature 'Index' do

@@ -9,8 +9,7 @@ class Admin::Legislation::ProcessesController < Admin::Legislation::BaseControll
 
   def create
     if @process.save
-      link = legislation_process_path(@process).html_safe
-      redirect_to edit_admin_legislation_process_path(@process), notice: t('admin.legislation.processes.create.notice', link: link)
+      redirect_to edit_admin_legislation_process_path(@process), notice: t('admin.legislation.processes.create.notice', link: legislation_process_path(@process).html_safe)
     else
       flash.now[:error] = t('admin.legislation.processes.create.error')
       render :new
@@ -19,10 +18,7 @@ class Admin::Legislation::ProcessesController < Admin::Legislation::BaseControll
 
   def update
     if @process.update(process_params)
-      set_tag_list
-
-      link = legislation_process_path(@process).html_safe
-      redirect_to :back, notice: t('admin.legislation.processes.update.notice', link: link)
+      redirect_to edit_admin_legislation_process_path(@process), notice: t('admin.legislation.processes.update.notice', link: legislation_process_path(@process).html_safe)
     else
       flash.now[:error] = t('admin.legislation.processes.update.error')
       render :edit
@@ -39,8 +35,11 @@ class Admin::Legislation::ProcessesController < Admin::Legislation::BaseControll
     def process_params
       params.require(:legislation_process).permit(
         :title,
-        :summary,
+        :description_summary,
+        :target_summary,
         :description,
+        :target,
+        :how_to_participate,
         :additional_info,
         :start_date,
         :end_date,
@@ -49,23 +48,8 @@ class Admin::Legislation::ProcessesController < Admin::Legislation::BaseControll
         :draft_publication_date,
         :allegations_start_date,
         :allegations_end_date,
-        :proposals_phase_start_date,
-        :proposals_phase_end_date,
-        :result_publication_date,
-        :debate_phase_enabled,
-        :allegations_phase_enabled,
-        :proposals_phase_enabled,
-        :draft_publication_enabled,
-        :result_publication_enabled,
-        :published,
-        :proposals_description,
-        :custom_list,
-        documents_attributes: [:id, :title, :attachment, :cached_attachment, :user_id, :_destroy]
+        :final_publication_date,
+        attachments_attributes: [:file, :title,:featured_image_flag, :_destroy, :id]
       )
-    end
-
-    def set_tag_list
-      @process.set_tag_list_on(:customs, process_params[:custom_list])
-      @process.save
     end
 end

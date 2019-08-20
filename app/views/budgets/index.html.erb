@@ -1,43 +1,81 @@
-<% provide :title do %><%= t('budgets.index.title') %><% end %>
 <% content_for :canonical do %>
   <%= render "shared/canonical", href: budgets_url %>
 <% end %>
 
-<%= render "shared/section_header", i18n_namespace: "budgets.index.section_header", image: "budgets" %>
-
-<div class="row margin-top">
-  <div class="small-12 medium-9 column">
-    <table>
-      <thead>
-        <tr>
-          <th scope="col"><%= Budget.human_attribute_name(:name) %></th>
-          <th scope="col"><%= Budget.human_attribute_name(:phase) %></th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @budgets.each do |budget| %>
-        <tr>
-          <td>
-            <%= link_to budget.name, budget %>
-          </td>
-          <td>
-            <%= budget.translated_phase %>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-
-    <div id="section_help" class="margin" data-magellan-target="section_help">
-      <p class="lead">
-        <strong><%= t("budgets.index.section_footer.title") %></strong>
-      </p>
-      <p><%= t("budgets.index.section_footer.description") %></p>
-      <p><%= t("budgets.index.section_footer.help_text_1") %></p>
-      <p><%= t("budgets.index.section_footer.help_text_2") %></p>
-      <p><%= t("budgets.index.section_footer.help_text_3",
-                org: link_to(setting['org_name'], new_user_registration_path)).html_safe %></p>
-      <p><%= t("budgets.index.section_footer.help_text_4") %></p>
+<div class="expanded budget-header-bg no-margin-top padding">
+  <div class="row">
+    <div class="small-12 column">
+      <h1><%= t('budgets.index.title') %></h1>
     </div>
+  </div>
+</div>
+
+<div class="row">
+  <%- @budgets.visible.reverse.each_with_index do |budget, index| %>
+      <div class="small-12 medium-4 columns column end">
+        <div class="panel margin" data-equalizer-watch="">
+
+          <div style="min-height: 165px;">
+            <h2><%= budget.name %></h2>
+            <p class="info-date"><strong><%= budget.translated_phase %></strong></p>
+
+          </div>
+          <% if budget.finished? %>
+            <%= link_to 'Ver resultados', results_budget_path(budget), class: "button see-more expanded" %>
+            <% else %>
+
+          <% end %>
+
+          <% if budget.balloting? %>
+
+            <div class="register-investment">
+
+
+              <% unless current_user.try(:level_three_verified?) %>
+                <div class="register-allowed">
+
+                  <%= link_to 'Acceder a votación',
+                              budget_ballot_path(Budget.last),
+                              class: 'button success expanded' %></span>
+                </div>
+
+                <div class="register-not-allowed callout warning " style='display:none; font-size: 80%;' aria-hidden="false">
+                  <p class="small">
+                    Para poder acceder a la votación debes
+                    <% if current_user %>
+                      <%= link_to("verificar tu cuenta con el padrón", verification_path) %>
+                    <% else %>
+                      <%= link_to("registrarte como usuario", new_user_registration_path) %>
+                      o <%= link_to("entrar en tu cuenta", new_user_session_path) %>
+                    <% end %>
+                  </p>
+                </div>
+              <% else %>
+                <div class="">
+
+                  <%= link_to 'Acceder a votación',
+                              budget_ballot_path(Budget.last),
+                              class: 'button success expanded' %></span>
+                </div>
+              <% end %>
+            </div>
+        <% end %>
+          <br>
+          <%= link_to t("budgets.phase.#{budget.phase}") , budget, class: "button primary expanded" %>
+        </div>
+      </div>
+  <% end %>
+  <div class="small-12 medium-4 columns column end">
+    <div class="panel margin" data-equalizer-watch="">
+
+    <div style="min-height: 210px;">
+      <h2>Presupuestos Participativos 2016</h2>
+      <p class="info-date"><strong>Presupuesto terminado</strong></p>
+
+    </div>
+      <br>
+
+    <%= link_to 'Ver resultados', participatory_budget_results_path, class: "button see-more expanded" %>
+  </div>
   </div>
 </div>

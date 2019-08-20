@@ -1,4 +1,5 @@
 class ProposalsController < ApplicationController
+  include FeatureFlags #GET-53
   include CommentableActions
   include FlagActions
 
@@ -7,9 +8,11 @@ class ProposalsController < ApplicationController
   before_action :load_geozones, only: [:edit, :map, :summary]
   before_action :authenticate_user!, except: [:index, :show, :map, :summary]
 
+  feature_flag :proposals #GET-53 Disable proposals by default
+
   invisible_captcha only: [:create, :update], honeypot: :subtitle
 
-  has_orders ->(c) { Proposal.proposals_orders(c.current_user) }, only: :index
+  has_orders %w{hot_score confidence_score created_at relevance archival_date}, only: :index
   has_orders %w{most_voted newest oldest}, only: :show
 
   load_and_authorize_resource
@@ -40,7 +43,8 @@ class ProposalsController < ApplicationController
   end
 
   def vote
-    @proposal.register_vote(current_user, 'yes')
+    # GET-104 Supports to likes
+    @proposal.register_vote(current_user, params[:value] || 'yes')
     set_proposal_votes(@proposal)
   end
 
@@ -57,7 +61,7 @@ class ProposalsController < ApplicationController
 
   def share
     if Setting['proposal_improvement_path'].present?
-      @proposal_improvement_path = Setting['proposal_improvement_path']
+      @proposal_improvement_url = root_url + Setting['proposal_improvement_path']
     end
   end
 
@@ -74,11 +78,7 @@ class ProposalsController < ApplicationController
   private
 
     def proposal_params
-      params.require(:proposal).permit(:title, :question, :summary, :description, :external_url, :video_url,
-                                       :responsible_name, :tag_list, :terms_of_service, :geozone_id,
-                                       image_attributes: [:id, :title, :attachment, :cached_attachment, :user_id, :_destroy],
-                                       documents_attributes: [:id, :title, :attachment, :cached_attachment, :user_id, :_destroy],
-                                       map_location_attributes: [:latitude, :longitude, :zoom])
+      params.require(:proposal).permit(:title, :question, :summary, :description, :external_url, :video_url, :responsible_name, :tag_list, :terms_of_service, :geozone_id)
     end
 
     def retired_params
@@ -113,8 +113,8 @@ class ProposalsController < ApplicationController
     end
 
     def load_featured
-      return unless !@advanced_search_terms && @search_terms.blank? && @tag_filter.blank? && params[:retired].blank? && @current_order != "recommendations"
-      @featured_proposals = Proposal.not_archived.sort_by_confidence_score.limit(3)
+      # GET-104
+      @featured_proposals = [] #Proposal.not_archived.sort_by_confidence_score.limit(3) if (!@advanced_search_terms && @search_terms.blank? && @tag_filter.blank? && params[:retired].blank?)
       if @featured_proposals.present?
         set_featured_proposal_votes(@featured_proposals)
         @resources = @resources.where('proposals.id NOT IN (?)', @featured_proposals.map(&:id))

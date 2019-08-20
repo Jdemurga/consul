@@ -4,8 +4,6 @@ require 'rails_helper'
 describe Proposal do
   let(:proposal) { build(:proposal) }
 
-  it_behaves_like "has_public_author"
-
   it "should be valid" do
     expect(proposal).to be_valid
   end
@@ -67,18 +65,6 @@ describe Proposal do
     end
   end
 
-  describe "#video_url" do
-    it "should not be valid when URL is not from Youtube or Vimeo" do
-      proposal.video_url = "https://twitter.com"
-      expect(proposal).to_not be_valid
-    end
-
-    it "should be valid when URL is from Youtube or Vimeo" do
-      proposal.video_url = "https://vimeo.com/112681885"
-      expect(proposal).to be_valid
-    end
-  end
-
   describe "#responsible_name" do
     it "should be mandatory" do
       proposal.responsible_name = nil
@@ -111,7 +97,7 @@ describe Proposal do
 
       expect(proposal).to be_valid
       proposal.responsible_name = "12345678Z"
-     end
+    end
 
     it "should not be updated when the author is deleted" do
       author = create(:user, :level_three, document_number: "12345678Z")
@@ -152,14 +138,11 @@ describe Proposal do
     Setting["proposal_code_prefix"] = "TEST"
     proposal = create(:proposal)
     expect(proposal.code).to eq "TEST-#{proposal.created_at.strftime('%Y-%m')}-#{proposal.id}"
-
-    Setting["proposal_code_prefix"] = "MAD"
   end
 
   describe "#editable?" do
     let(:proposal) { create(:proposal) }
     before(:each) {Setting["max_votes_for_proposal_edit"] = 5}
-    after(:each) {Setting["max_votes_for_proposal_edit"] = 1000}
 
     it "should be true if proposal has no votes yet" do
       expect(proposal.total_votes).to eq(0)
@@ -715,14 +698,14 @@ describe Proposal do
     context "categories" do
 
       it "should return proposals tagged with a category" do
-        create(:tag, :category, name: 'culture')
+        create(:tag, kind: 'category', name: 'culture')
         proposal = create(:proposal, tag_list: 'culture')
 
         expect(Proposal.for_summary.values.flatten).to include(proposal)
       end
 
       it "should not return proposals tagged without a category" do
-        create(:tag, :category, name: 'culture')
+        create(:tag, kind: 'category', name: 'culture')
         proposal = create(:proposal, tag_list: 'parks')
 
         expect(Proposal.for_summary.values.flatten).to_not include(proposal)
@@ -747,19 +730,19 @@ describe Proposal do
     end
 
     it "should return proposals created this week" do
-      create(:tag, :category, name: 'culture')
+      create(:tag, kind: 'category', name: 'culture')
       proposal = create(:proposal, tag_list: 'culture')
       expect(Proposal.for_summary.values.flatten).to include(proposal)
     end
 
     it "should not return proposals created more than a week ago" do
-      create(:tag, :category, name: 'culture')
+      create(:tag, kind: 'category', name: 'culture')
       proposal = create(:proposal, tag_list: 'culture', created_at: 8.days.ago)
       expect(Proposal.for_summary.values.flatten).to_not include(proposal)
     end
 
     it "should order proposals by votes" do
-      create(:tag, :category, name: 'culture')
+      create(:tag, kind: 'category', name: 'culture')
       create(:proposal,  tag_list: 'culture').update_column(:confidence_score, 2)
       create(:proposal, tag_list: 'culture').update_column(:confidence_score, 10)
       create(:proposal, tag_list: 'culture').update_column(:confidence_score, 5)
@@ -772,9 +755,9 @@ describe Proposal do
     end
 
     it "should order groups alphabetically" do
-      create(:tag, :category, name: 'health')
-      create(:tag, :category, name: 'culture')
-      create(:tag, :category, name: 'social services')
+      create(:tag, kind: 'category', name: 'health')
+      create(:tag, kind: 'category', name: 'culture')
+      create(:tag, kind: 'category', name: 'social services')
 
       health_proposal  = create(:proposal,  tag_list: 'health')
       culture_proposal = create(:proposal,  tag_list: 'culture')
@@ -788,8 +771,8 @@ describe Proposal do
     end
 
     it "should return proposals grouped by tag" do
-      create(:tag, :category, name: 'culture')
-      create(:tag, :category, name: 'health')
+      create(:tag, kind: 'category', name: 'culture')
+      create(:tag, kind: 'category', name: 'health')
 
       proposal1 = create(:proposal, tag_list: 'culture')
       proposal2 = create(:proposal, tag_list: 'culture')
@@ -857,97 +840,4 @@ describe Proposal do
     end
   end
 
-  describe 'public_for_api scope' do
-    it 'returns proposals' do
-      proposal = create(:proposal)
-      expect(Proposal.public_for_api).to include(proposal)
-    end
-
-    it 'does not return hidden proposals' do
-      proposal = create(:proposal, :hidden)
-      expect(Proposal.public_for_api).to_not include(proposal)
-    end
-  end
-
-  describe "#user_to_notify" do
-
-    it "should return voters and followers" do
-      proposal = create(:proposal)
-      voter = create(:user, :level_two)
-      follower = create(:user, :level_two)
-      follow = create(:follow, user: follower, followable: proposal)
-      create(:vote, voter: voter, votable: proposal)
-
-      expect(proposal.users_to_notify).to eq([voter, follower])
-    end
-
-    it "should return voters and followers discarding duplicates" do
-      proposal = create(:proposal)
-      voter_and_follower = create(:user, :level_two)
-      follow = create(:follow, user: voter_and_follower, followable: proposal)
-      create(:vote, voter: voter_and_follower, votable: proposal)
-
-      expect(proposal.users_to_notify).to eq([voter_and_follower])
-    end
-
-  end
-
-  describe "#recommendations" do
-
-    let(:user)     { create(:user) }
-
-    it "Should not return any proposals when user has not interests" do
-      create(:proposal)
-
-      expect(Proposal.recommendations(user).size).to eq 0
-    end
-
-    it "Should return proposals ordered by cached_votes_up" do
-      proposal1 = create(:proposal, cached_votes_up: 1,  tag_list: "Sport")
-      proposal2 = create(:proposal, cached_votes_up: 5,  tag_list: "Sport")
-      proposal3 = create(:proposal, cached_votes_up: 10, tag_list: "Sport")
-      proposal4 = create(:proposal, tag_list: "Sport")
-      create(:follow, followable: proposal4, user: user)
-
-      result = Proposal.recommendations(user).sort_by_recommendations
-
-      expect(result.first).to eq proposal3
-      expect(result.second).to eq proposal2
-      expect(result.third).to eq proposal1
-    end
-
-    it "Should return proposals related with user interests" do
-      proposal1 =  create(:proposal, tag_list: "Sport")
-      proposal2 =  create(:proposal, tag_list: "Sport")
-      proposal3 =  create(:proposal, tag_list: "Politics")
-      create(:follow, followable: proposal1, user: user)
-
-      result = Proposal.recommendations(user)
-
-      expect(result.size).to eq 1
-      expect(result).to eq [proposal2]
-    end
-
-    it "Should not return proposals when user is follower" do
-      proposal1 =  create(:proposal, tag_list: "Sport")
-      create(:follow, followable: proposal1, user: user)
-
-      result = Proposal.recommendations(user)
-
-      expect(result.size).to eq 0
-    end
-
-    it "Should not return proposals when user is the author" do
-      proposal1 =  create(:proposal, author: user, tag_list: "Sport")
-      proposal2 =  create(:proposal, tag_list: "Sport")
-      proposal3 =  create(:proposal, tag_list: "Sport")
-      create(:follow, followable: proposal3, user: user)
-
-      result = Proposal.recommendations(user)
-
-      expect(result.size).to eq 1
-      expect(result).to eq [proposal2]
-    end
-
-  end
 end

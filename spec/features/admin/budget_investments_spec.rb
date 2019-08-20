@@ -11,15 +11,8 @@ feature 'Admin budget investments' do
 
   context "Feature flag" do
 
-    background do
-      Setting['feature.budgets'] = nil
-    end
-
-    after do
-      Setting['feature.budgets'] = true
-    end
-
     scenario 'Disabled with a feature flag' do
+      Setting['feature.budgets'] = nil
       expect{ visit admin_budgets_path }.to raise_exception(FeatureFlags::FeatureDisabled)
     end
 
@@ -27,7 +20,7 @@ feature 'Admin budget investments' do
 
   context "Index" do
 
-    scenario 'Displaying investments' do
+    scenario 'Displaying investmentss' do
       budget_investment = create(:budget_investment, budget: @budget, cached_votes_up: 77)
       visit admin_budget_budget_investments_path(budget_id: @budget.id)
       expect(page).to have_content(budget_investment.title)
@@ -47,7 +40,7 @@ feature 'Admin budget investments' do
 
       budget_investment1.valuators << valuator1
       budget_investment2.valuator_ids = [valuator1.id, valuator2.id]
-      budget_investment3.update(administrator_id: admin.id)
+      budget_investment3.update({administrator_id: admin.id})
 
       visit admin_budget_budget_investments_path(budget_id: @budget.id)
 
@@ -311,8 +304,8 @@ feature 'Admin budget investments' do
 
   context "Edit" do
 
-    scenario "Change title, incompatible, description or heading" do
-      budget_investment = create(:budget_investment, :incompatible)
+    scenario "Change title, description or heading" do
+      budget_investment = create(:budget_investment)
       create(:budget_heading, group: budget_investment.group, name: "Barbate")
 
       visit admin_budget_budget_investment_path(budget_investment.budget, budget_investment)
@@ -321,27 +314,12 @@ feature 'Admin budget investments' do
       fill_in 'budget_investment_title', with: 'Potatoes'
       fill_in 'budget_investment_description', with: 'Carrots'
       select "#{budget_investment.group.name}: Barbate", from: 'budget_investment[heading_id]'
-      uncheck "budget_investment_incompatible"
-      check "budget_investment_selected"
 
       click_button 'Update'
 
       expect(page).to have_content 'Potatoes'
       expect(page).to have_content 'Carrots'
       expect(page).to have_content 'Barbate'
-      expect(page).to have_content 'Compatibility: Compatible'
-      expect(page).to have_content 'Selected'
-    end
-
-    scenario "Compatible non-winner can't edit incompatibility" do
-      budget_investment = create(:budget_investment, :selected)
-      create(:budget_heading, group: budget_investment.group, name: "Tetuan")
-
-      visit admin_budget_budget_investment_path(budget_investment.budget, budget_investment)
-      click_link 'Edit'
-
-      expect(page).not_to have_content 'Compatibility'
-      expect(page).not_to have_content 'Mark as incompatible'
     end
 
     scenario "Add administrator" do
@@ -390,9 +368,12 @@ feature 'Admin budget investments' do
 
       budget_investment2 = create(:budget_investment)
 
-      visit edit_admin_budget_budget_investment_path(budget_investment2.budget, budget_investment2)
+      visit admin_budget_budget_investment_path(budget_investment2.budget, budget_investment2)
+      click_link 'Edit classification'
 
       find('.js-add-tag-link', text: 'Education').click
+
+      fill_in 'budget_investment_title', with: 'Updated title'
 
       click_button 'Update'
 
@@ -421,37 +402,20 @@ feature 'Admin budget investments' do
       end
     end
 
-    scenario "Changes valuation and user generated tags" do
+    scenario "Only displays valuation tags" do
       budget_investment = create(:budget_investment, tag_list: 'Park')
       budget_investment.set_tag_list_on(:valuation, 'Education')
       budget_investment.save
 
       visit admin_budget_budget_investment_path(budget_investment.budget, budget_investment)
 
-      within("#user-tags") do
-        expect(page).to_not have_content "Education"
-        expect(page).to have_content "Park"
-      end
+      expect(page).to     have_content "Education"
+      expect(page).to_not have_content "Park"
 
       click_link 'Edit classification'
 
-      fill_in 'budget_investment_tag_list', with: 'Park, Trees'
-      fill_in 'budget_investment_valuation_tag_list', with: 'Education, Environment'
-      click_button 'Update'
-
-      visit admin_budget_budget_investment_path(budget_investment.budget, budget_investment)
-
-      within("#user-tags") do
-        expect(page).to_not have_content "Education"
-        expect(page).to_not have_content "Environment"
-        expect(page).to have_content "Park, Trees"
-      end
-
-      within("#tags") do
-        expect(page).to have_content "Education, Environment"
-        expect(page).to_not have_content "Park"
-        expect(page).to_not have_content "Trees"
-      end
+      expect(page).to     have_content "Education"
+      expect(page).to_not have_content "Park"
     end
 
     scenario "Maintains user tags" do
@@ -492,7 +456,6 @@ feature 'Admin budget investments' do
     let!(:feasible_bi)    { create(:budget_investment, :feasible, budget: @budget, title: "Feasible project") }
     let!(:feasible_vf_bi) { create(:budget_investment, :feasible, :finished, budget: @budget, title: "Feasible, VF project") }
     let!(:selected_bi)    { create(:budget_investment, :selected, budget: @budget, title: "Selected project") }
-    let!(:winner_bi)      { create(:budget_investment, :winner, budget: @budget, title: "Winner project") }
 
     scenario "Filtering by valuation and selection" do
       visit admin_budget_budget_investments_path(@budget)
@@ -502,28 +465,18 @@ feature 'Admin budget investments' do
       expect(page).to_not have_content(feasible_bi.title)
       expect(page).to have_content(feasible_vf_bi.title)
       expect(page).to have_content(selected_bi.title)
-      expect(page).to have_content(winner_bi.title)
 
       within('#filter-subnav') { click_link 'Val. fin. Feasible' }
       expect(page).to_not have_content(unfeasible_bi.title)
       expect(page).to_not have_content(feasible_bi.title)
       expect(page).to have_content(feasible_vf_bi.title)
       expect(page).to have_content(selected_bi.title)
-      expect(page).to have_content(winner_bi.title)
 
       within('#filter-subnav') { click_link 'Selected' }
       expect(page).to_not have_content(unfeasible_bi.title)
       expect(page).to_not have_content(feasible_bi.title)
       expect(page).to_not have_content(feasible_vf_bi.title)
       expect(page).to have_content(selected_bi.title)
-      expect(page).to have_content(winner_bi.title)
-
-      within('#filter-subnav') { click_link 'Winners' }
-      expect(page).to_not have_content(unfeasible_bi.title)
-      expect(page).to_not have_content(feasible_bi.title)
-      expect(page).to_not have_content(feasible_vf_bi.title)
-      expect(page).to_not have_content(selected_bi.title)
-      expect(page).to have_content(winner_bi.title)
     end
 
     scenario "Showing the selection buttons", :js do
@@ -572,14 +525,14 @@ feature 'Admin budget investments' do
       visit admin_budget_budget_investments_path(@budget)
       within('#filter-subnav') { click_link 'Selected' }
 
-      expect(page).to have_content('There are 2 investments')
+      expect(page).to have_content('There is 1 investment')
 
       within("#budget_investment_#{selected_bi.id}") do
         click_link('Selected')
       end
 
       expect(page).to_not have_content(selected_bi.title)
-      expect(page).to have_content('There is 1 investment')
+      expect(page).to have_content('investments cannot be found')
 
       within('#filter-subnav') { click_link 'All' }
 

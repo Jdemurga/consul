@@ -10,8 +10,6 @@ feature 'Valuation budgets' do
   scenario 'Disabled with a feature flag' do
     Setting['feature.budgets'] = nil
     expect{ visit valuation_budgets_path }.to raise_exception(FeatureFlags::FeatureDisabled)
-
-    Setting['feature.budgets'] = true
   end
 
   context 'Index' do

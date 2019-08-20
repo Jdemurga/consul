@@ -3,7 +3,7 @@
 
 .ui-datepicker-header {
   background: $brand;
-  color: #fff;
+  color: white;
   font-weight: bold;
 }
 
@@ -14,17 +14,9 @@
     color: $text;
   }
 
-  .ui-state-hover,
-  .ui-state-active {
+  .ui-state-hover, .ui-state-active {
     background: $brand;
-    color: #fff;
-  }
-
-  thead {
-
-    tr th {
-      color: $dark;
-    }
+    color: white;
   }
 }
 
@@ -32,71 +24,71 @@
   padding: 0;
   z-index: 4 !important;
 
-  .ui-datepicker-prev,
+  .ui-datepicker-prev {
+    left: 12px;
+  }
+
   .ui-datepicker-next {
-    color: #fff;
+    right: 12px;
+  }
+
+  .ui-datepicker-prev, .ui-datepicker-next {
+    color: white;
     cursor: pointer;
-    font-family: "icons" !important;
-    font-size: rem-calc(24);
     font-weight: normal;
-    height: rem-calc(30);
+    font-size: $small-font-size;
     line-height: $line-height;
-    position: absolute;
-    top: 4px;
-    width: rem-calc(30);
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  .ui-datepicker-prev::after {
-    content: '\62';
-  }
-
-  .ui-datepicker-next::after {
-    content: '\63';
+    top: 0;
   }
 
   table {
     border: 1px solid $border;
     border-top: 0;
-  }
 
-  tr {
-    border-bottom: 1px solid $border;
+    thead {
+      background: $dark;
+      border-left: 1px solid $dark;
+      border-right: 1px solid $dark;
 
-    &:last-child {
-      border-bottom: 0;
+      tr th {
+        color: $dark;     
+      }
     }
 
-    &:nth-child(odd) {
-      background: none;
+    tr {
+      border-bottom: 1px solid $border;
+
+      &:last-child {
+        border-bottom: 0px;
+      }
+
+      &:nth-child(odd) {
+        background: none;
+      }
     }
-  }
 
-  td {
-    padding: 0;
-    border-right: 1px solid $border;
+    td {
+      padding: 0;
+      border-right: 1px solid $border;
 
-    &:last-child {
-      border-right: 0;
+      &:last-child {
+        border-right: 0px;
+      }
+
+      span, a {
+        text-align: center;
+        line-height: $line-height;
+        color: $text;
+      }
+
+      &.ui-datepicker-unselectable.ui-state-disabled {
+        background: white;
+
+        .ui-state-default {
+          background: #F8F8F8;
+          color: $text-medium;
+        }
+      }
     }
-
-    span,
-    a {
-      text-align: center;
-      line-height: $line-height;
-      color: $text;
-    }
-  }
-}
-
-.ui-datepicker-unselectable.ui-state-disabled {
-  background: #fff;
-
-  .ui-state-default {
-    background: #f8f8f8;
-    color: $text-medium;
   }
 }

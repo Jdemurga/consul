@@ -5,18 +5,20 @@ Rails.application.routes.draw do
     get '/sandbox/*template' => 'sandbox#show'
   end
 
+  mount ConsulAssemblies::Engine => '/assemblies', as: 'assemblies'
+
   devise_for :users, controllers: {
-    registrations: 'users/registrations',
-    sessions: 'users/sessions',
-    confirmations: 'users/confirmations',
-    omniauth_callbacks: 'users/omniauth_callbacks'
-  }
+                       registrations: 'users/registrations',
+                       sessions: 'users/sessions',
+                       confirmations: 'users/confirmations',
+                       omniauth_callbacks: 'users/omniauth_callbacks'
+                     }
   devise_for :organizations, class_name: 'User',
-                             controllers: {
-                               registrations: 'organizations/registrations',
-                               sessions: 'devise/sessions'
-                             },
-                             skip: [:omniauth_callbacks]
+             controllers: {
+               registrations: 'organizations/registrations',
+               sessions: 'devise/sessions',
+             },
+             skip: [:omniauth_callbacks]
 
   devise_scope :organization do
     get 'organizations/sign_up/success', to: 'organizations/registrations#success'
@@ -35,6 +37,9 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get '/welcome', to: 'welcome#welcome'
   get '/cuentasegura', to: 'welcome#verification', as: :cuentasegura
+
+  # GET-67 Usernames can include dots and needs to be shown by username
+  get 'users/:id', to: 'users#show', constraints: { id: /[a-zA-Z1-9\.@]+/ }
 
   resources :debates do
     member do
@@ -76,14 +81,24 @@ Rails.application.routes.draw do
   end
 
   resources :budgets, only: [:show, :index] do
+    member do
+      get :results
+    end
+
     resources :groups, controller: "budgets/groups", only: [:show]
     resources :investments, controller: "budgets/investments", only: [:index, :new, :create, :show, :destroy] do
-      member do
-        post :vote
-      end
-      collection { get :suggest }
+      member { post :vote }
+      member { get :project }
     end
     resource :ballot, only: :show, controller: "budgets/ballots" do
+
+      member do
+        post :confirm
+        post :resend_code
+        patch :commit
+        delete :discard
+      end
+
       resources :lines, controller: "budgets/ballot/lines", only: [:create, :destroy]
     end
     resource :results, only: :show, controller: "budgets/results"
@@ -92,17 +107,9 @@ Rails.application.routes.draw do
   scope '/participatory_budget' do
     resources :spending_proposals, only: [:index, :new, :create, :show, :destroy], path: 'investment_projects' do
       post :vote, on: :member
+      member { get :project }
     end
   end
-
-  resources :follows, only: [:create, :destroy]
-
-  resources :documents, only: [:destroy]
-
-  resources :images, only: [:destroy]
-
-  resources :direct_uploads, only: [:create]
-  delete "direct_uploads/destroy", to: "direct_uploads#destroy", as: :direct_upload_destroy
 
   resources :stats, only: [:index]
 
@@ -113,37 +120,19 @@ Rails.application.routes.draw do
   end
 
   resources :polls, only: [:show, :index] do
-    member do
-      get :stats
-      get :results
-    end
-    resources :questions, controller: 'polls/questions', shallow: true do
+    resources :questions, only: [:show], controller: 'polls/questions', shallow: true do
       post :answer, on: :member
     end
   end
 
   namespace :legislation do
     resources :processes, only: [:index, :show] do
-      member do
-        get :debate
-        get :draft_publication
-        get :allegations
-        get :result_publication
-        get :proposals
-      end
+      get :debate
+      get :draft_publication
+      get :allegations
+      get :final_version_publication
       resources :questions, only: [:show] do
         resources :answers, only: [:create]
-      end
-      resources :proposals do
-        member do
-          post :vote
-          put :flag
-          put :unflag
-        end
-        collection do
-          get :map
-          get :suggest
-        end
       end
       resources :draft_versions, only: [:show] do
         get :go_to_version, on: :collection
@@ -173,22 +162,12 @@ Rails.application.routes.draw do
 
   resource :verification, controller: "verification", only: [:show]
 
-  resources :communities, only: [:show] do
-    resources :topics
-  end
-
   scope module: :verification do
     resource :residence, controller: "residence", only: [:new, :create]
     resource :sms, controller: "sms", only: [:new, :create, :edit, :update]
     resource :verified_user, controller: "verified_user", only: [:show]
     resource :email, controller: "email", only: [:new, :show, :create]
     resource :letter, controller: "letter", only: [:new, :create, :show, :edit, :update]
-  end
-
-  resources :tags do
-    collection do
-      get :suggest
-    end
   end
 
   namespace :admin do
@@ -201,7 +180,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :hidden_users, only: [:index, :show] do
+    resources :users, only: [:index, :show] do
       member do
         put :restore
         put :confirm_hide
@@ -232,8 +211,14 @@ Rails.application.routes.draw do
     end
 
     resources :budgets do
+
+      #GET-112
       member do
-        put :calculate_winners
+        get :results
+        get :public_results
+        get :ballot_paper
+        get :ballot_dashboard
+        post :annotate_participants
       end
 
       resources :budget_groups do
@@ -242,7 +227,6 @@ Rails.application.routes.draw do
       end
 
       resources :budget_investments, only: [:index, :show, :edit, :update] do
-        resources :budget_investment_milestones
         member { patch :toggle_selection }
       end
     end
@@ -266,8 +250,6 @@ Rails.application.routes.draw do
     end
 
     resources :settings, only: [:index, :update]
-    put :update_map, to: "settings#update_map"
-
     resources :moderators, only: [:index, :create, :destroy] do
       get :search, on: :collection
     end
@@ -285,16 +267,14 @@ Rails.application.routes.draw do
       get :search, on: :collection
     end
 
-    resources :users, only: [:index, :show]
-
     scope module: :poll do
       resources :polls do
-        get :booth_assignments, on: :collection
+        get :search_questions, on: :member
         patch :add_question, on: :member
+        patch :remove_question, on: :member
 
         resources :booth_assignments, only: [:index, :show, :create, :destroy] do
           get :search_booths, on: :collection
-          get :manage, on: :collection
         end
 
         resources :officer_assignments, only: [:index, :create, :destroy] do
@@ -310,22 +290,8 @@ Rails.application.routes.draw do
         get :search, on: :collection
       end
 
-      resources :booths do
-        get :available, on: :collection
-
-        resources :shifts do
-          get :search_officers, on: :collection
-        end
-      end
-
-      resources :questions, shallow: true do
-        resources :answers, except: [:index, :destroy], controller: 'questions/answers', shallow: true do
-          resources :images, controller: 'questions/answers/images'
-          resources :videos, controller: 'questions/answers/videos'
-          get :documents, to: 'questions/answers#documents'
-        end
-        post '/answers/order_answers', to: 'questions/answers#order_answers'
-      end
+      resources :booths
+      resources :questions
     end
 
     resources :verifications, controller: :verifications, only: :index do
@@ -344,7 +310,6 @@ Rails.application.routes.draw do
     namespace :legislation do
       resources :processes do
         resources :questions
-        resources :proposals
         resources :draft_versions
       end
     end
@@ -383,6 +348,12 @@ Rails.application.routes.draw do
     end
 
     resources :comments, only: :index do
+      put :hide, on: :member
+      put :moderate, on: :collection
+    end
+
+    #GET-57
+    resources :investments, only: :index do
       put :hide, on: :member
       put :moderate, on: :collection
     end
@@ -427,6 +398,8 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resources :proposals, only: [:index, :new, :create, :show] do
       post :vote, on: :member
+      post :vote_up, on: :member
+      post :vote_down, on: :member
       get :print, on: :collection
     end
 
@@ -440,7 +413,17 @@ Rails.application.routes.draw do
         get :create_investments
         get :support_investments
         get :print_investments
+        get :ballot_investments
       end
+
+      resources :ballots, only: [:new, :show], controller: 'budgets/ballots' do
+          resources :lines, controller: "budgets/ballots/lines", only: [:create, :destroy]
+          member do
+            post :confirm
+            delete :discard
+          end
+      end
+
       resources :investments, only: [:index, :new, :create, :show, :destroy], controller: 'budgets/investments' do
         post :vote, on: :member
         get :print, on: :collection
@@ -452,6 +435,8 @@ Rails.application.routes.draw do
     resources :polls, only: [:index] do
       get :final, on: :collection
 
+      resources :recounts, only: [:new, :create]
+      resources :final_recounts, only: [:new, :create]
       resources :results, only: [:new, :create, :index]
     end
     resource :residence, controller: "residence", only: [:new, :create]
@@ -459,20 +444,56 @@ Rails.application.routes.draw do
     root to: "dashboard#index"
   end
 
-  # GraphQL
-  get '/graphql', to: 'graphql#query'
-  post '/graphql', to: 'graphql#query'
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 
-  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
-
-  mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
+  mount Tolk::Engine => '/translate', :as => 'tolk'
 
   # more info pages
   get 'more-information',                     to: 'pages#show', id: 'more_info/index',                as: 'more_info'
   get 'more-information/how-to-use',          to: 'pages#show', id: 'more_info/how_to_use/index',     as: 'how_to_use'
   get 'more-information/faq',                 to: 'pages#show', id: 'more_info/faq/index',            as: 'faq'
+  get 'more-information/participation/facts', to: 'pages#show', id: 'more_info/participation/facts',  as: 'participation_facts'
+  get 'more-information/participation/world', to: 'pages#show', id: 'more_info/participation/world',  as: 'participation_world'
 
   # static pages
-  get '/blog' => redirect("http://blog.consul/")
+  get '/blog' => redirect("http://getafe.es/")
+
+  # GET-24 Carga de resultados de 2016-06
+  get 'presupuestos-participativos-2016-resultados', to: 'spending_proposals#results', as: 'participatory_budget_results'
+
+  # GET-17
+  # GET-22
+  get 'presupuestos-participativos-2017', to: 'pages#show', id: 'participatory_budget/in_two_minutes', as: 'participatory_budget/in_two_minutes'
+  get 'normativa-presupuestos-participativos-2018', to: 'pages#show', id: 'normativa_presupuestos_participativos_2018', as: 'normativa-presupuestos-participativos-2018'
+  get 'participatory_budget', to: 'spending_proposals#welcome', as: 'participatory_budget'
+  get 'informacion-detallada-participa-getage', to: 'pages#show', as: 'mode_information', id: 'more_information'
+  get 'informacion-detallada-participa-getage-pptos-participativo-2017', to: 'pages#show', as: 'mode_information_2017', id: 'more_information_2017'
+  get 'comisiones-de-barrio', to: 'pages#show', as: 'about_neighborhood_commissions', id: 'about_neighborhood_commissions'
+
+
+  get 'plan-municipal-accesibilidad-getafe',
+      to: 'pages#show',
+      as: 'plan-municipal-accesibilidad-getafe',
+      id: 'plan_municipal_de_la_accesibilidad_de_getafe'
+
+  get 'participacion-consulta-pleno-del-estado-del-municipio',
+      to: 'pages#show',
+      as: 'participacion-consulta-pleno-del-estado-del-municipio',
+      id: 'participacion_consulta_pleno_del_estado_del_municipio'
+
+  get 'reglamento-cesiones-locales-municipales',
+      to: 'pages#show',
+      as: 'reglamento-cesiones-locales-municipales',
+      id: 'reglamento_cesiones_locales_municipales'
+
+  get 'ordenanza-reguladora-adjudicacion-terrenos-municipales',
+      to: 'pages#show',
+      as: 'ordenanza-reguladora-adjudicacion-terrenos-municipales',
+      id: 'ordenanza_reguladora_adjudicacion_terrenos_municipales'
+
+
+  resources :follows
   resources :pages, path: '/', only: [:show]
 end

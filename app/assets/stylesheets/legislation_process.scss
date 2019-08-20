@@ -13,149 +13,236 @@
 //
 
 // 01. Utils
-// ---------
-
-$grey-heading: #e6e6e6;
-$border-dark:  darken($border, 10%);
+// -----------------
 
 .grey-heading {
-  background: $grey-heading;
+  background: #E6E6E6;
 }
 
-// 02. Hero
-// --------
+$epigraph-font-size: rem-calc(15);
+$epigraph-line-height: rem-calc(22);
 
+// 02. Hero
+// -----------------
 .legislation-hero {
+  padding-top: 1.5rem;
+
+  @include breakpoint(medium) {
+    padding-top: 3.5rem;
+  }
+
+  h4 {
+    text-transform: uppercase;
+  }
 
   ul {
     list-style: none;
     margin-left: 0;
 
-    li::before {
-      color: #8aa8be;
-      content: '■';
-      padding-right: $line-height / 4;
+    li:before {
       vertical-align: text-bottom;
+      padding-right: 0.5rem;
+      content: "■";
+      color: #8AA8BE;
     }
   }
 
-  .legislation-debate-show {
+  #debate-show {
     display: none;
   }
 
   .debate-add-info {
-    border-top: 1px solid $border-dark;
-    margin-top: $line-height;
-    padding-top: $line-height;
+    margin-top: 3rem;
+    padding-top: 4rem;
+    border-top: 1px solid darken($border, 10%);
 
-  }
+    @include breakpoint(medium) {
+      margin-bottom: 2rem;
+    }
 
-  .title {
-    font-weight: bold;
-    text-transform: uppercase;
-  }
+    .debate-info-wrapper {
 
-  .description {
+      h2 {
+        font-size: $lead-font-size;
 
-    li {
+        @include breakpoint(medium) {
+          float: left;
+        }
+      }
 
       p {
-        display: inline;
+        font-size: $epigraph-font-size;
+        line-height: $epigraph-line-height;
+
+        @include breakpoint(medium) {
+          margin-left: 25%;
+        }
       }
     }
   }
 
-  .button-subscribe {
-    margin-top: $line-height;
+  .half-gradient {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e6e6e6+0,e6e6e6+50,ffffff+50 */
+    background: #e6e6e6; /* Old browsers */
+    background: -moz-linear-gradient(top, #e6e6e6 0%, #e6e6e6 50%, #ffffff 50%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #e6e6e6 0%,#e6e6e6 50%,#ffffff 50%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #e6e6e6 0%,#e6e6e6 50%,#ffffff 50%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6e6e6', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+  }
+
+  .text-center .button {
+    background: $brand;
+    margin-bottom: 0;
+  }
+
+  .headline {
+    margin-bottom: 1rem;
 
     @include breakpoint(medium) {
-      margin-top: $line-height * 2;
-      padding: 0.5em 1em;
+      margin-bottom: 4rem;
+
     }
+  }
+
+  .description {
+    margin-bottom: 1rem;
+
+    p {
+      font-size: $epigraph-font-size;
+      line-height: $epigraph-line-height;
+    }
+
+    ul {
+      font-size: $epigraph-font-size;
+      line-height: $epigraph-line-height;
+
+      li {
+        margin-bottom: 1rem;
+
+        p {
+          display: inline;
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    h4 {
+      font-size: $base-font-size;
+    }
+  }
+
+  .button-subscribe {
+    margin-top: 1rem;
 
     h3 {
       margin-bottom: 0;
     }
 
     p {
-      font-size: $small-font-size;
       margin-bottom: 0;
+      font-size: $small-font-size;
     }
 
     &:hover h3 {
-      color: #fff;
+      color: white;
+    }
+
+    @include breakpoint(medium) {
+      padding: 0.5em 1em;
+      margin-top: 3rem;
     }
   }
 }
 
 // 03. Legislation process navigation
-// ----------------------------------
-
+// -----------------
 .legislation-process-categories {
   position: relative;
 
   .legislation-process-list {
     border-bottom: 1px solid $medium-gray;
-    margin: 0 1rem 1rem;
+    margin: 0 1rem 1rem 1rem;
+    padding-top: 4rem;
+
+    @include breakpoint(medium) {
+      margin-left: 0;
+    }
 
     ul {
-
+      position: relative;
+      max-width: 75rem;
+      margin-left: auto;
+      margin-right: auto;
       list-style: none;
-      margin: 0 auto;
-      margin-bottom: 0;
       padding-left: 0;
-    }
-
-    li {
-      cursor: pointer;
-      display: inline-block;
-      margin-bottom: $line-height;
-      margin-right: $line-height;
-      transition: all 0.4s;
-      border-bottom: 2px solid transparent;
+      margin-bottom: 0;
 
       @include breakpoint(medium) {
-        margin-bottom: 0;
+        padding-left: 1rem;
       }
 
-      &:hover,
-      &:active,
-      &:focus {
-        border-bottom: 2px solid $brand;
-      }
+      svg {
+        position: absolute;
+        top: 1.25rem;
 
-      a,
-      h4 {
-        display: block;
-        color: #6d6d6d;
-        margin-bottom: 0;
-      }
-    }
-
-    a {
-      &:hover,
-      &:active {
-        text-decoration: none;
-      }
-
-      p {
-        margin-bottom: 0;
-
-        @include breakpoint(medium) {
-          margin-bottom: 1rem;
+        @include breakpoint(1280px) {
+          transform: rotate(-6deg);
+          left: -1rem;
         }
       }
-    }
 
-    .active {
-      border-bottom: 2px solid $brand;
+      li {
+        cursor: pointer;
+        display: inline-block;
+        margin: 0 1rem 1rem 0;
+        transition: all 0.4s;
+        border-bottom: 2px solid transparent;
+
+        &:first-of-type {
+          margin-left: 0;
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+          border-bottom: 2px solid $brand;
+        }
+
+        @media (min-width: 950px) {
+          margin: 0 0 0 3rem;
+        }
+
+        a,
+        h4 {
+          display: block;
+          color: #6D6D6D;
+          margin-bottom: 0;
+        }
+
+        a {
+          &:hover, &:active {
+            text-decoration: none;
+          }
+
+          p {
+            margin-bottom: 0;
+
+            @include breakpoint(medium) {
+              margin-bottom: 1rem;
+            }
+          }
+        }
+      }
+
+      .active {
+        border-bottom: 2px solid $brand;
+      }
     }
   }
 }
 
 // 04. Debate list
-// ----------------
-
+// -----------------
 .debate-chooser {
   padding: 2rem 1rem;
 
@@ -182,119 +269,119 @@ $border-dark:  darken($border, 10%);
     .debate-title a {
       color: $brand;
     }
-  }
 
-  .debate-meta,
-  .debate-meta a {
-    font-size: $small-font-size;
-    color: #6d6d6d;
+    .debate-meta,
+    .debate-meta a {
+      font-size: $small-font-size;
+      color: #6D6D6D;
 
-    .icon-comments {
-      margin-right: 0.2rem;
+      .icon-comments {
+        margin-right: 0.2rem;
+      }
     }
   }
 
   .debate-info {
     padding: 1rem;
-    background: #f4f4f4;
+    background: #F4F4F4;
   }
 }
 
 // 05. Debate quiz
-// ---------------
-
+// -----------------
 .debate-questions {
-
   .comments {
-    margin-top: $line-height * 2.5;
+    margin-top: 4rem;
   }
 
   .quiz-header {
-    margin-bottom: $line-height;
+    margin-bottom: 2rem;
 
-    .quiz-title,
-    .quiz-next {
-      padding: $line-height;
-
-      @include breakpoint(medium) {
-        height: $line-height * 4;
-      }
+    .quiz-title, .quiz-next {
+      padding: 1rem;
+      height: 6rem;
     }
 
     .quiz-title {
-      background: #e5ecf2;
+      background: #E5ECF2;
 
       .quiz-header-title {
-        font-size: $small-font-size;
-        font-weight: 700;
         margin-bottom: 0;
         text-transform: uppercase;
+        font-weight: 700;
+        font-size: $small-font-size;
       }
     }
 
     h4 a {
       color: $brand;
+    }
 
-      &:hover {
-        text-decoration: none;
-      }
+    h4 a:hover {
+      text-decoration: none;
     }
 
     .quiz-next-link {
       display: block;
 
-      &:hover,
-      &:active {
+      &:hover, &:active {
         text-decoration: none;
       }
-    }
 
-    .quiz-next {
-      background: #ccdbe5;
-      color: $brand;
-      font-size: $small-font-size;
-      font-weight: bold;
-      text-align: right;
-      text-transform: uppercase;
-      transition: background 0.25s ease-out, background 0.25s ease-out;
+      .quiz-next {
+        background: #CCDBE5;
+        font-weight: 700;
+        color: $brand;
+        font-size: $small-font-size;
+        text-align: right;
+        text-transform: uppercase;
+        transition: background 0.25s ease-out, background 0.25s ease-out;
 
-      .icon-angle-right {
-        vertical-align: middle;
-      }
+        .icon-angle-right {
+          vertical-align: sub;
+        }
 
-      &:hover,
-      &:active {
-        background: $brand;
-        color: #fff;
-        text-decoration: none;
+        &:hover, &:active {
+          text-decoration: none;
+          background: $brand;
+          color: white;
+
+          .icon-angle-right {
+            color: white;
+          }
+        }
       }
     }
   }
 
   .quiz-question {
-    margin-bottom: $line-height;
+    margin-bottom: 2rem;
   }
 
   .debate-questions {
     position: relative;
     list-style: none;
 
+    .participation-not-allowed {
+      padding-bottom: 3rem;
+    }
+
     .control {
-      background: #fff;
-      border: 1px solid $border;
-      border-radius: rem-calc(4);
+      position: relative;
+      display: inline-block;
       color: #555;
       cursor: pointer;
-      display: inline-block;
-      margin-bottom: $line-height / 2;
-      margin-right: $line-height;
-      padding: $line-height / 2  $line-height * 2;
-      position: relative;
+      background: #fff;
+      border: 1px solid $border;
+      border-radius: 4px;
+      padding: 0.75rem 2.5rem;
+      margin-right: 1.5rem;
+      margin-bottom: 0.5rem;
     }
 
     .active {
-      background: #ccdbe6;
-      border: 0;
+      background: #CCDBE6;
+      border: none;
     }
 
     .control input {
@@ -305,7 +392,7 @@ $border-dark:  darken($border, 10%);
 
     .control input:checked ~ .control-indicator {
       background-color: $brand;
-      border: 0;
+      border: none;
     }
 
     .radio .control-indicator {
@@ -322,23 +409,25 @@ $border-dark:  darken($border, 10%);
       line-height: 1rem;
       font-size: 65%;
       text-align: center;
-      border: 2px solid #9c9c9c;
+      border: 2px solid #9C9C9C;
       pointer-events: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
       user-select: none;
     }
   }
 }
 
 // 06. Legislation draft
-// ---------------------
-
+// -----------------
 .debate-draft {
-  padding: 10rem 2rem 15rem;
+  padding: 10rem 2rem 15rem 2rem;
   display: block;
-  background: #f2f2f2;
+  background: #F2F2F2;
 
   button {
-    height: rem-calc(90);
+    height: 90px;
 
     h3 {
       margin-bottom: 0;
@@ -352,12 +441,11 @@ $border-dark:  darken($border, 10%);
 }
 
 // 07. Legislation allegations
-// ---------------------------
-
+// -----------------
 .legislation-allegation {
   padding-top: 1rem;
 
-  .legislation-debate-show {
+  #debate-show {
     margin-top: 2rem;
   }
 
@@ -371,15 +459,15 @@ $border-dark:  darken($border, 10%);
 
   .button-circle {
     line-height: 0;
-    padding: 0;
-    width: rem-calc(30);
-    height: rem-calc(30);
+    padding: 0em;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
 
     span {
-      padding-left: rem-calc(1);
+      padding-left: 1px;
 
-      &::before {
+      &:before {
         line-height: 1.55;
       }
     }
@@ -394,12 +482,8 @@ $border-dark:  darken($border, 10%);
 
   .button-subscribed {
     margin-top: 1rem;
-    border: 1px solid #d1d1d1;
-    background: #f2f2f2;
-
-    @include breakpoint(medium) {
-      padding: 0.5em 1em;
-    }
+    border: 1px solid #D1D1D1;
+    background: #F2F2F2;
 
     h3 {
       display: inline-block;
@@ -414,6 +498,10 @@ $border-dark:  darken($border, 10%);
 
     &:hover h3 {
       color: $text;
+    }
+
+    @include breakpoint(medium) {
+      padding: 0.5em 1em;
     }
   }
 }
@@ -456,11 +544,11 @@ $border-dark:  darken($border, 10%);
       span {
         vertical-align: inherit;
         font-style: normal;
-      }
 
-      .see-changes {
-        color: $text-medium;
-        text-decoration: underline;
+        a {
+          text-decoration: underline;
+          color: $text-medium
+        }
       }
     }
 
@@ -474,7 +562,6 @@ $border-dark:  darken($border, 10%);
   }
 
   .draft-allegation {
-
     @include breakpoint(medium) {
       display: flex;
       padding-left: 0.9375rem;
@@ -491,22 +578,22 @@ $border-dark:  darken($border, 10%);
       }
     }
 
+    // Panel calcs for desktop
     @media screen and (min-width: 40em) {
       .calc-index {
         width: calc(35% - 25px);
       }
 
       .calc-text {
-        width: calc(65% - 25px);
+        width: calc(65% - 25px)
       }
 
       .calc-comments {
         cursor: pointer;
-        background: #f2f2f2;
-        width: rem-calc(50);
+        background: #F2F2F2;
+        width: 50px;
 
         .draft-panel {
-
           .panel-title {
             display: none;
           }
@@ -531,7 +618,7 @@ $border-dark:  darken($border, 10%);
       font-weight: 700;
       padding: 0.5rem 1rem;
       color: #696969;
-      background: #f2f2f2;
+      background: #F2F2F2;
       font-size: $small-font-size;
 
       .icon-comments {
@@ -560,23 +647,21 @@ $border-dark:  darken($border, 10%);
         li {
           margin-bottom: 1rem;
         }
-
         .open::before {
           cursor: pointer;
           position: absolute;
           margin-left: -1.25rem;
-          font-family: 'icons';
-          content: '\58';
+          font-family: "icons";
+          content: "\58";
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
         }
-
         .closed::before {
           cursor: pointer;
           position: absolute;
           margin-left: -1.25rem;
-          font-family: 'icons';
-          content: '\5a';
+          font-family: "icons";
+          content: "\5a";
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
         }
@@ -604,7 +689,7 @@ $border-dark:  darken($border, 10%);
 
       .anchor::before {
         display: none;
-        content: '#';
+        content: "#";
         color: $text-medium;
         position: absolute;
         left: 0;
@@ -647,7 +732,10 @@ $border-dark:  darken($border, 10%);
           font-weight: 700;
           color: #696969;
           margin-top: 4rem;
-          transform: rotate(-90deg);
+          -webkit-transform: rotate(-90deg);
+          -moz-transform: rotate(-90deg);
+          -ms-transform: rotate(-90deg);
+          -o-transform: rotate(-90deg);
           filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
         }
       }
@@ -657,8 +745,8 @@ $border-dark:  darken($border, 10%);
 
   .comments-on {
     .calc-index {
-      width: rem-calc(50);
-      background: #f2f2f2;
+      width: 50px;
+      background: #F2F2F2;
       cursor: pointer;
 
       .panel-title {
@@ -671,14 +759,16 @@ $border-dark:  darken($border, 10%);
 
       .draft-index-rotated {
         @include breakpoint(medium) {
-          line-height: 1;
           display: block;
           font-size: $small-font-size;
           text-transform: uppercase;
           font-weight: 700;
           color: #696969;
-          margin-top: $line-height;
-          transform: rotate(-90deg);
+          margin-top: 1rem;
+          -webkit-transform: rotate(-90deg);
+          -moz-transform: rotate(-90deg);
+          -ms-transform: rotate(-90deg);
+          -o-transform: rotate(-90deg);
           filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 
           .panel-title {
@@ -690,11 +780,11 @@ $border-dark:  darken($border, 10%);
 
     .calc-text {
       width: calc(65% - 25px);
-      border-right: 0;
+      border-right: none;
 
       .show-comments {
         width: 105%;
-        background: #fafafa;
+        background: #FAFAFA;
         padding: 0.25rem 2.5rem 0.25rem 0.25rem;
         border: 1px solid $border;
         margin-bottom: 1rem;
@@ -707,7 +797,7 @@ $border-dark:  darken($border, 10%);
     }
 
     .calc-comments {
-      background: #fff;
+      background: white;
       cursor: auto;
       width: calc(35% - 25px);
 
@@ -719,15 +809,15 @@ $border-dark:  darken($border, 10%);
         display: none;
       }
 
-      .comments-box-container {
+      #comments-box {
         position: absolute;
-        top: rem-calc(230);
+        top: 230px;
       }
 
       .comment-box {
-        width: rem-calc(375);
+        width: 375px;
         padding: 1rem;
-        background: #f9f9f9;
+        background: #F9F9F9;
         border: 1px solid $border;
         display: block;
         margin-bottom: 2rem;
@@ -776,8 +866,8 @@ $border-dark:  darken($border, 10%);
 
           .participation-not-allowed {
             font-size: 0.875rem;
-            height: rem-calc(50);
-            padding: 0.85rem 0.75rem;
+            height: 50px;
+            padding: .85rem 0.75rem;
             top: -18px;
           }
         }
@@ -789,39 +879,39 @@ $border-dark:  darken($border, 10%);
           border-bottom: 1px solid $border;
 
           .comment-advice {
-            border-top: 1px solid #d0d0d0;
-            border-right: 1px solid #d0d0d0;
-            border-left: 1px solid #d0d0d0;
+            border-top: 1px solid #D0D0D0;
+            border-right: 1px solid #D0D0D0;
+            border-left: 1px solid #D0D0D0;
             width: 100%;
             padding: 0.5rem;
             display: inline-block;
             font-size: $small-font-size;
-            background: #dfdfdf;
+            background: #DFDFDF;
 
             .icon-proposals {
               color: #838383;
             }
 
             a {
-              color: #87a3b9;
-              text-decoration: underline;
-            }
+                color: #87A3B9;
+                text-decoration: underline;
+              }
           }
 
           textarea {
             border-radius: 0;
             box-shadow: none;
-            border-bottom: 1px solid #d0d0d0;
-            border-right: 1px solid #d0d0d0;
-            border-left: 1px solid #d0d0d0;
+            border-bottom: 1px solid #D0D0D0;
+            border-right: 1px solid #D0D0D0;
+            border-left: 1px solid #D0D0D0;
             width: 100%;
-            height: rem-calc(200);
+            height: 200px;
             margin-bottom: 0.5rem;
           }
 
           .comment-actions {
             .cancel-comment {
-              color: #87a3b9;
+              color: #87A3B9;
               text-decoration: underline;
               font-size: $small-font-size;
               display: inline-block;
@@ -857,11 +947,10 @@ $border-dark:  darken($border, 10%);
                 display: inline-block;
 
                 &::after {
-                  content: '|';
+                  content: "|";
                   color: #838383;
                 }
               }
-
               .comment-replies {
                 display: inline-block;
               }
@@ -878,14 +967,14 @@ $border-dark:  darken($border, 10%);
 
                 &::after {
                   margin-left: 0.25rem;
-                  content: '|';
+                  content: "|";
                 }
               }
 
               .icon-like,
               .icon-unlike {
                 cursor: pointer;
-                color: #c7c7c7;
+                color: #C7C7C7;
 
                 &:hover,
                 &:active,
@@ -903,11 +992,17 @@ $border-dark:  darken($border, 10%);
       }
 
       .draft-panel {
-        background: #e5e5e5;
-        border-left: 1px solid #d4d4d4;
+        background: #E5E5E5;
+        border-left: 1px solid #D4D4D4;
 
         .panel-title {
           display: inline-block;
+        }
+      }
+
+      .show-for-medium {
+        .panel-title {
+          display: none;
         }
       }
     }
@@ -916,9 +1011,7 @@ $border-dark:  darken($border, 10%);
 
 // 08. Legislation changes
 // -----------------
-
 .legislation-changes {
-
   ul {
     list-style: none;
     margin-left: 0;
@@ -928,38 +1021,37 @@ $border-dark:  darken($border, 10%);
 
       &::before {
         margin-right: 0.25rem;
-        content: '—';
-      }
-    }
-  }
-
-  .changes-link {
-    display: block;
-    margin-left: 1rem;
-    font-size: $small-font-size;
-
-    @include breakpoint(medium) {
-      display: inline-block;
-    }
-
-    a {
-
-      span {
-        text-decoration: underline;
+        content: "—"
       }
 
-      .icon-external {
-        text-decoration: none;
-        color: #999;
-        line-height: 0;
-        vertical-align: sub;
-        margin-left: 0.5rem;
-      }
+      .changes-link {
+        display: block;
+        margin-left: 1rem;
+        font-size: $small-font-size;
 
-      &:active,
-      &:focus,
-      &:hover {
-        text-decoration: none;
+        @include breakpoint(medium) {
+          display: inline-block;
+        }
+
+        a {
+          span {
+            text-decoration: underline;
+          }
+
+          .icon-external {
+            text-decoration: none;
+            color: #999999;
+            line-height: 0;
+            vertical-align: sub;
+            margin-left: 0.5rem;
+          }
+
+          &:active,
+          &:focus,
+          &:hover {
+            text-decoration: none;
+          }
+        }
       }
     }
   }
@@ -967,7 +1059,6 @@ $border-dark:  darken($border, 10%);
 
 // 09. Legislation comments
 // -----------------
-
 .legislation-comments {
 
   .pull-right {
@@ -975,9 +1066,9 @@ $border-dark:  darken($border, 10%);
   }
 
   .comment-section {
-    background: #fafafa;
+    background: #FAFAFA;
     padding: 1rem;
-    border: 1px solid #dee0e3;
+    border: 1px solid #DEE0E3;
     margin-top: 0.25rem;
     margin-bottom: 1rem;
   }
@@ -993,7 +1084,7 @@ $border-dark:  darken($border, 10%);
       .icon-expand,
       .icon-comments {
         text-decoration: none;
-        color: #999;
+        color: #999999;
         line-height: 0;
       }
 
@@ -1016,7 +1107,6 @@ $border-dark:  darken($border, 10%);
 
 // 10. Legislation draft comment
 // -----------------
-
 .legislation-comment {
 
   .annotation-share-comment {
@@ -1028,14 +1118,15 @@ $border-dark:  darken($border, 10%);
   }
 
   .comment-section {
-    background: #fafafa;
+    background: #FAFAFA;
     padding: 1rem;
-    border: 1px solid #dee0e3;
+    border: 1px solid #DEE0E3;
     margin-top: 0.25rem;
     margin-bottom: 1rem;
   }
 
   .comment {
+    margin-bottom: 3rem;
 
     a {
       span {
@@ -1045,7 +1136,7 @@ $border-dark:  darken($border, 10%);
       .icon-expand,
       .icon-comments {
         text-decoration: none;
-        color: #999;
+        color: #999999;
         line-height: 0;
       }
 

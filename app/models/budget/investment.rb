@@ -1,18 +1,11 @@
 class Budget
   class Investment < ActiveRecord::Base
+
     include Measurable
     include Sanitizable
     include Taggable
     include Searchable
     include Reclassification
-    include Followable
-    include Communitable
-    include Imageable
-    include Mappable
-    include Documentable
-    documentable max_documents_allowed: 3,
-                 max_file_size: 3.megabytes,
-                 accepted_content_types: [ "application/pdf" ]
 
     acts_as_votable
     acts_as_paranoid column: :hidden_at
@@ -27,14 +20,14 @@ class Budget
     has_many :valuator_assignments, dependent: :destroy
     has_many :valuators, through: :valuator_assignments
     has_many :comments, as: :commentable
-    has_many :milestones
+
 
     validates :title, presence: true
     validates :author, presence: true
     validates :description, presence: true
     validates :heading_id, presence: true
-    validates :unfeasibility_explanation, presence: { if: :unfeasibility_explanation_required? }
-    validates :price, presence: { if: :price_required? }
+    validates_presence_of :unfeasibility_explanation, if: :unfeasibility_explanation_required?
+    validates_presence_of :price, if: :price_required?
 
     validates :title, length: { in: 4..Budget::Investment.title_max_length }
     validates :description, length: { maximum: Budget::Investment.description_max_length }
@@ -57,27 +50,23 @@ class Budget
     scope :undecided,                   -> { where(feasibility: "undecided") }
     scope :with_supports,               -> { where('cached_votes_up > 0') }
     scope :selected,                    -> { feasible.where(selected: true) }
-    scope :compatible,                  -> { where(incompatible: false) }
-    scope :incompatible,                -> { where(incompatible: true) }
-    scope :winners,                     -> { selected.compatible.where(winner: true) }
     scope :unselected,                  -> { not_unfeasible.where(selected: false) }
     scope :last_week,                   -> { where("created_at >= ?", 7.days.ago)}
 
-    scope :by_group,    ->(group_id)    { where(group_id: group_id) }
-    scope :by_heading,  ->(heading_id)  { where(heading_id: heading_id) }
-    scope :by_admin,    ->(admin_id)    { where(administrator_id: admin_id) }
-    scope :by_tag,      ->(tag_name)    { tagged_with(tag_name) }
-    scope :by_valuator, ->(valuator_id) { where("budget_valuator_assignments.valuator_id = ?", valuator_id).joins(:valuator_assignments) }
+    scope :by_group,    -> (group_id)    { where(group_id: group_id) }
+    scope :by_heading,  -> (heading_id)  { where(heading_id: heading_id) }
+    scope :by_admin,    -> (admin_id)    { where(administrator_id: admin_id) }
+    scope :by_tag,      -> (tag_name)    { tagged_with(tag_name) }
+    scope :by_valuator, -> (valuator_id) { where("budget_valuator_assignments.valuator_id = ?", valuator_id).joins(:valuator_assignments) }
 
-    scope :for_render, -> { includes(:heading) }
+    scope :for_render,             -> { includes(:heading) }
 
     before_save :calculate_confidence_score
-    after_save :recalculate_heading_winners if :incompatible_changed?
     before_validation :set_responsible_name
     before_validation :set_denormalized_ids
 
     def self.filter_params(params)
-      params.select{|x, _| %w{heading_id group_id administrator_id tag_name valuator_id}.include? x.to_s }
+      params.select{|x,_| %w{heading_id group_id administrator_id tag_name valuator_id}.include? x.to_s }
     end
 
     def self.scoped_filter(params, current_filter)
@@ -101,7 +90,7 @@ class Budget
     end
 
     def self.search(terms)
-      pg_search(terms)
+      self.pg_search(terms)
     end
 
     def self.by_heading(heading)
@@ -164,7 +153,7 @@ class Budget
       return :not_logged_in unless user
       return :organization  if user.organization?
       return :not_verified  unless user.can?(:vote, Budget::Investment)
-      nil
+      return nil
     end
 
     def permission_problem?(user)
@@ -189,8 +178,8 @@ class Budget
     end
 
     def heading_voted_by_user?(user)
-      user.votes.for_budget_investments(budget.investments.where(group: group))
-          .votables.map(&:heading_id).first
+      user.votes.for_budget_investments(budget.investments.where(group: group)).
+      votables.map(&:heading_id).first
     end
 
     def ballotable_by?(user)
@@ -198,7 +187,7 @@ class Budget
     end
 
     def enough_money?(ballot)
-      available_money = ballot.amount_available(heading)
+      available_money = ballot.amount_available(self.heading)
       price.to_i <= available_money
     end
 
@@ -210,18 +199,14 @@ class Budget
       self.confidence_score = ScoreCalculator.confidence_score(total_votes, total_votes)
     end
 
-    def recalculate_heading_winners
-      Budget::Result.new(budget, heading).calculate_winners if incompatible_changed?
-    end
-
     def set_responsible_name
       self.responsible_name = author.try(:document_number) if author.try(:document_number).present?
     end
 
     def should_show_aside?
-      (budget.selecting? && !unfeasible?) ||
-        (budget.balloting? && feasible?) ||
-        (budget.valuating? && !unfeasible?)
+      (budget.selecting?  && !unfeasible?) ||
+      (budget.balloting?  && feasible?)    ||
+      (budget.valuating? && !unfeasible?)
     end
 
     def should_show_votes?
@@ -238,24 +223,25 @@ class Budget
 
     def should_show_price?
       feasible? &&
-        selected? &&
-        (budget.reviewing_ballots? || budget.finished?)
+      selected? &&
+      (budget.reviewing_ballots? || budget.finished?)
     end
 
     def should_show_price_info?
       feasible? &&
-        price_explanation.present? &&
-        (budget.balloting? || budget.reviewing_ballots? || budget.finished?)
+      price_explanation.present? &&
+      (budget.balloting? || budget.reviewing_ballots? || budget.finished?)
     end
 
     def formatted_price
       budget.formatted_amount(price)
     end
 
-    def self.apply_filters_and_search(_budget, params, current_filter = nil)
+    def self.apply_filters_and_search(budget, params, current_filter=nil)
       investments = all
       investments = investments.send(current_filter)            if current_filter.present?
       investments = investments.by_heading(params[:heading_id]) if params[:heading_id].present?
+      investments = investments.by_group(params[:group_id]) if params[:group_id].present?
       investments = investments.search(params[:search])         if params[:search].present?
       investments
     end
@@ -263,8 +249,8 @@ class Budget
     private
 
       def set_denormalized_ids
-        self.group_id = heading.try(:group_id) if heading_id_changed?
-        self.budget_id ||= heading.try(:group).try(:budget_id)
+        self.group_id = self.heading.try(:group_id) if self.heading_id_changed?
+        self.budget_id ||= self.heading.try(:group).try(:budget_id)
       end
 
   end

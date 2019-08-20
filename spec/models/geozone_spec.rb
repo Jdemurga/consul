@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Geozone do
+RSpec.describe Geozone, type: :model do
   let(:geozone) { build(:geozone) }
 
   it "should be valid" do
@@ -13,8 +13,6 @@ describe Geozone do
   end
 
   describe "#safe_to_destroy?" do
-    let(:geozone) { create(:geozone) }
-
     it "is true when not linked to other models" do
       expect(geozone.safe_to_destroy?).to be_truthy
     end

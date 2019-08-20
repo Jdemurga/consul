@@ -2,7 +2,9 @@
 
 <%= render 'legislation/processes/header', process: @process, header: :full %>
 
-<%= render 'documents/additional_documents', documents: @process.documents %>
+<% if @process.attachments.any? %>
+  <%= render 'custom/attachments/attachments', attachments: @process.attachments %>
+<% end %>
 
 <%= render 'key_dates', process: @process, phase: :debate %>
 

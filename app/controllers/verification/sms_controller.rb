@@ -1,7 +1,7 @@
 class Verification::SmsController < ApplicationController
   before_action :authenticate_user!
   before_action :verify_resident!
-  before_action :verify_verified!
+  before_action :verify_verified_and_phonenumber!
   before_action :verify_lock, only: [:new, :create]
   before_action :set_phone, only: :create
 
@@ -10,7 +10,6 @@ class Verification::SmsController < ApplicationController
   def new
     @sms = Verification::Sms.new(phone: params[:phone])
   end
-
   def create
     @sms = Verification::Sms.new(phone: @phone, user: current_user)
     if @sms.save
@@ -27,12 +26,15 @@ class Verification::SmsController < ApplicationController
   def update
     @sms = Verification::Sms.new(sms_params.merge(user: current_user))
     if @sms.verified?
-      current_user.update(confirmed_phone: current_user.unconfirmed_phone)
+
+      # GET-44 CUSTOMER REQUIREMENTS
+      current_user.update(confirmed_phone: normalize_phone(current_user.unconfirmed_phone), phone_number: normalize_phone(current_user.unconfirmed_phone))
+      current_user.update(verified_at: Time.current) unless current_user.verified_at?
       ahoy.track(:level_2_user, user_id: current_user.id) rescue nil
 
-      if VerifiedUser.phone?(current_user)
-        current_user.update(verified_at: Time.current)
-      end
+      #if VerifiedUser.phone?(current_user)
+      #  current_user.update(verified_at: Time.current)
+      #end
 
       redirect_to_next_path
     else
@@ -43,6 +45,9 @@ class Verification::SmsController < ApplicationController
 
   private
 
+    def normalize_phone(phone)
+      PhonyRails.normalize_number(phone.gsub('+',''), default_country_code: 'ES', strict: true)
+    end
     def sms_params
       params.require(:sms).permit(:phone, :confirmation_code)
     end

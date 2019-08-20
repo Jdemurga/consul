@@ -11,11 +11,11 @@ class Users::SessionsController < Devise::SessionsController
     end
 
     def after_sign_out_path_for(resource)
-      request.referer.present? ? request.referer : super
+      request.referrer.present? ? request.referrer : super
     end
 
     def verifying_via_email?
-      return false if resource.blank?
+      return false unless resource.present?
       stored_path = session[stored_location_key_for(resource)] || ""
       stored_path[0..5] == "/email"
     end

@@ -22,7 +22,7 @@ class Admin::Api::StatsController < Admin::Api::BaseController
     end
 
     if params[:spending_proposals].present?
-      ds.add "Spending proposals", SpendingProposal.group_by_day(:created_at).count
+      ds.add "Spending proposals", Budget::Investment.group_by_day(:created_at).count
     end
 
     if params[:budget_investments].present?

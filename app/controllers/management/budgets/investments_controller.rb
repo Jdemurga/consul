@@ -20,7 +20,7 @@ class Management::Budgets::InvestmentsController < Management::BaseController
     @investment.author = managed_user
 
     if @investment.save
-      notice = t('flash.actions.create.notice', resource_name: Budget::Investment.model_name.human, count: 1)
+      notice= t('flash.actions.create.notice', resource_name: Budget::Investment.model_name.human, count: 1)
       redirect_to management_budget_investment_path(@budget, @investment), notice: notice
     else
       render :new
@@ -41,7 +41,7 @@ class Management::Budgets::InvestmentsController < Management::BaseController
   end
 
   def print
-    @investments = @investments.apply_filters_and_search(@budget, params).order(cached_votes_up: :desc).for_render.limit(15)
+    @investments = @investments.apply_filters_and_search(@budget, params).order(created_at: :asc).for_render
     load_investment_votes(@investments)
   end
 
@@ -52,7 +52,7 @@ class Management::Budgets::InvestmentsController < Management::BaseController
     end
 
     def investment_params
-      params.require(:budget_investment).permit(:title, :description, :external_url, :heading_id, :tag_list, :organization_name, :location)
+      params.require(:budget_investment).permit(:title, :description, :heading_id, :attachment, :attachment_cache, :external_url, :tag_list, :organization_name, :location)
     end
 
     def only_verified_users
@@ -64,7 +64,7 @@ class Management::Budgets::InvestmentsController < Management::BaseController
     end
 
     def load_categories
-      @categories = ActsAsTaggableOn::Tag.category.order(:name)
+      @categories = ActsAsTaggableOn::Tag.where("kind = 'category'").order(:name)
     end
 
 end

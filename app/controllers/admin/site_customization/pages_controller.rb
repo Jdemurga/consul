@@ -39,7 +39,13 @@ class Admin::SiteCustomization::PagesController < Admin::SiteCustomization::Base
         :more_info_flag,
         :print_content_flag,
         :status,
-        :locale
+        :show_in_cover_flag,
+        :highlight_in_cover_flag,
+        :cover_position,
+        :date_information,
+        :process_url,
+        :show_as_poster_flag,
+        attachments_attributes: [:file, :title,:featured_image_flag, :_destroy, :id]
       )
     end
 end

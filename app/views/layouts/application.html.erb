@@ -23,10 +23,10 @@
 
     <%= setting['per_page_code_head'].try(:html_safe) %>
   </head>
-  <body class="<%= yield (:body_class) %>">
+  <body>
     <%= setting['per_page_code_body'].try(:html_safe) %>
 
-    <h1 class="show-for-sr"><%= setting['org_name'] %></h1>
+    <h1 class="sr-only"><%= setting['org_name'] %></h1>
 
     <div class="wrapper <%= yield (:wrapper_class) %>">
       <%= render 'layouts/header' %>

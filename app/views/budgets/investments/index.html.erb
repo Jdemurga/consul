@@ -1,70 +1,69 @@
 <% provide :title do %><%= t('budgets.investments.index.title') %><% end %>
 <% content_for :header_addon do %>
   <%= render "shared/search_form",
-             search_path: budget_investments_path(budget_id: @budget.id, page: 1),
-             i18n_namespace: "budgets.investments.index.search_form" %>
+           search_path: budget_investments_path(budget_id: @budget.id, page: 1),
+           i18n_namespace: "budgets.investments.index.search_form" %>
 <% end %>
-<% content_for :canonical do %>
-  <% if @heading.present? %>
-    <%= render "shared/canonical", href: budget_investments_url(@budget, heading_id: @heading.id, filter: @current_filter) %>
-  <% else %>
-    <%= render "shared/canonical", href: budget_investments_url(@budget) %>
-  <% end %>
-<% end %>
-
 <main id="budget-investments-main">
 
-  <% unless params[:search].present? %>
-    <%= render '/budgets/investments/header' %>
-  <% end %>
 
-  <% if params[:search].present? %>
-    <div class="highlight no-margin-top padding margin-bottom">
-      <div class="row">
-        <div class="small-12 column">
-          <h2><%= t("shared.search_results") %></h2>
-          <p>
-            <%= page_entries_info @investments %>
-            <%= t("budgets.investments.index.search_results_html", count: @investments.size, search_term: params[:search]) %>
-          </p>
-        </div>
-      </div>
-    </div>
-  <% end %>
+  <%= render '/budgets/investments/header' %>
 
-  <div class="row">
+  <div class="wrap row">
     <div id="budget-investments" class="budget-investments-list small-12 medium-9 column">
 
-      <% if @current_filter == "unfeasible" %>
-        <div class="small-12 margin-bottom">
-          <h2><%= t("budgets.investments.index.unfeasible") %>: <%= @heading.name %></h2>
-          <div class="callout primary margin">
+      <div class="small-12 search-results margin-bottom">
+
+        <% if params[:unfeasible].present? %>
+          <h3><%= t("budgets.investments.index.unfeasible") %></h3>
+          <p>
               <%= t("budgets.investments.index.unfeasible_text",
-              definitions: link_to(t("budgets.investments.index.unfeasible_text_definitions"), "https://decide.madrid.es/participatory_budget_info#20")).html_safe %>
-          </div>
-        </div>
-      <% elsif @heading.present? %>
-        <div class="small-12 margin-bottom">
-          <h2><%= t("budgets.investments.index.by_heading", heading: @heading.name) %></h2>
-        </div>
-      <% end %>
+              definitions: link_to(t("budgets.investments.index.unfeasible_text_definitions"), "https://participa.getafe.es/more_information#2")).html_safe %>
+          </p>
+        <% end %>
+
+        <% if params[:search].present? %>
+          <h3>
+            <%= page_entries_info @investments %>
+            <%= t("budgets.investments.index.search_results", count: @investments.size, search_term: params[:search]) %>
+          </h3>
+        <% end %>
+      </div>
 
       <%= render('shared/order_links', i18n_namespace: "budgets.investments.index") unless @current_filter == "unfeasible" %>
 
-      <% @investments.each do |investment| %>
-        <%= render partial: '/budgets/investments/investment', locals: {
-          investment: investment,
-          investment_ids: @investment_ids,
-          investment_votes: @investment_votes,
-          ballot: @ballot
-        } %>
-      <% end %>
+      <% if @investments.any? %>
+        <% @investments.each do |investment| %>
+          <%= render partial: '/budgets/investments/investment', locals: {
+            investment: investment,
+            investment_ids: @investment_ids,
+            investment_votes: @investment_votes,
+            ballot: @ballot
+          } %>
+        <% end %>
 
-      <%= paginate @investments %>
+        <%= paginate @investments %>
+      <% else %>
+          <div class="investments-list-empty">
+            <% if @group %>
+              <%= t("budgets.investments.index.empty", extra_information: t("budgets.investments.index.empty_investments_current_group")).html_safe %>
+            <% elsif params[:search] %>
+                <%= t("budgets.investments.index.empty", extra_information: t("budgets.investments.index.empty_investments_current_search")).html_safe %>
+            <% else %>
+                <%= t("budgets.investments.index.empty", extra_information: '.').html_safe %>
+          <% end %>
+            <br>
+            <br>
+            <%= t("budgets.investments.index.empty_see_all",
+                  link_see_all: link_to(t("budgets.investments.index.empty_see_all_link"), budget_investments_path(@budget)).html_safe,
+                  link_add_new: link_to(t("budgets.investments.index.empty_select_and_add"), budget_path(@budget)).html_safe).html_safe %>
+          </div>
+      <% end %>
     </div>
 
     <div class="small-12 medium-3 column">
       <aside class="margin-bottom">
+
         <div id="sidebar">
           <%= render '/budgets/investments/sidebar' %>
         </div>

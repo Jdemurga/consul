@@ -13,31 +13,27 @@ module AdminHelper
   end
 
   def menu_tags?
-    ["tags"].include?(controller_name)
+    ["tags"].include? controller_name
   end
 
   def menu_moderated_content?
-    ["proposals", "debates", "comments", "hidden_users"].include?(controller_name) && controller.class.parent != Admin::Legislation
+    ["proposals", "debates", "comments"].include? controller_name
   end
 
   def menu_budget?
-    ["spending_proposals"].include?(controller_name)
+    ["spending_proposals"].include? controller_name
   end
 
   def menu_polls?
-    %w[polls questions officers booths officer_assignments booth_assignments recounts results shifts questions answers].include?(controller_name)
+    ["polls", "questions", "officers", "booths", "officer_assignments", "booth_assignments", "recounts", "results"].include? controller_name
   end
 
   def menu_profiles?
-    %w[administrators organizations officials moderators valuators managers users activity].include?(controller_name)
+    ["users", "administrators", "organizations", "officials", "moderators", "valuators", "managers"].include? controller_name
   end
 
   def menu_banners?
-    ["banners"].include?(controller_name)
-  end
-
-  def menu_customization?
-    ["pages", "images", "content_blocks"].include?(controller_name)
+    ["banners"].include? controller_name
   end
 
   def official_level_options
@@ -56,6 +52,11 @@ module AdminHelper
     resource.persisted? ? "edit" : "new"
   end
 
+  def display_user_roles(user)
+    user_roles(user).join(", ")
+  end
+
+
   def user_roles(user)
     roles = []
     roles << :admin if user.administrator?
@@ -66,10 +67,6 @@ module AdminHelper
     roles << :official if user.official?
     roles << :organization if user.organization?
     roles
-  end
-
-  def display_user_roles(user)
-    user_roles(user).join(", ")
   end
 
   private

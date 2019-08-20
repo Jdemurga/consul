@@ -9,7 +9,7 @@ class Legislation::AnswersController < Legislation::BaseController
   respond_to :html, :js
 
   def create
-    if @process.debate_phase.open?
+    if @process.open_phase?(:debate)
       @answer.user = current_user
       @answer.save
       track_event
@@ -18,19 +18,17 @@ class Legislation::AnswersController < Legislation::BaseController
         format.html { redirect_to legislation_process_question_path(@process, @question) }
       end
     else
-      alert = t('legislation.questions.participation.phase_not_open')
       respond_to do |format|
-        format.js { render json: {}, status: :not_found }
-        format.html { redirect_to legislation_process_question_path(@process, @question), alert: alert }
+        format.js { render json: {} , status: :not_found }
+        format.html { redirect_to legislation_process_question_path(@process, @question), alert: t('legislation.questions.participation.phase_not_open') }
       end
     end
   end
 
   private
-
     def answer_params
       params.require(:legislation_answer).permit(
-        :legislation_question_option_id
+        :legislation_question_option_id,
       )
     end
 

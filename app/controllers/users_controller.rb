@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
-  has_filters %w{proposals debates budget_investments comments follows}, only: :show
+  has_filters %w{proposals debates budget_investments comments}, only: :show
+
+  before_filter :find_by_username, :only => :show
 
   load_and_authorize_resource
   helper_method :author?
-  helper_method :valid_interests_access?
+  helper_method :author_or_admin?
 
   def show
     load_filtered_activity if valid_access?
@@ -11,13 +13,18 @@ class UsersController < ApplicationController
 
   private
 
+  #GET-65
+  def find_by_username
+    @user = User.find_by_param(params[:id])
+    raise ActiveRecord::RecordNotFound.new() unless @user #GET-67 User's profile only accessible by username
+  end
+
     def set_activity_counts
       @activity_counts = HashWithIndifferentAccess.new(
                           proposals: Proposal.where(author_id: @user.id).count,
                           debates: (Setting['feature.debates'] ? Debate.where(author_id: @user.id).count : 0),
                           budget_investments: (Setting['feature.budgets'] ? Budget::Investment.where(author_id: @user.id).count : 0),
-                          comments: only_active_commentables.count,
-                          follows: @user.follows.count)
+                          comments: only_active_commentables.count)
     end
 
     def load_filtered_activity
@@ -26,8 +33,7 @@ class UsersController < ApplicationController
       when "proposals" then load_proposals
       when "debates"   then load_debates
       when "budget_investments" then load_budget_investments
-      when "comments" then load_comments
-      when "follows" then load_follows
+      when "comments"  then load_comments
       else load_available_activity
       end
     end
@@ -45,9 +51,6 @@ class UsersController < ApplicationController
       elsif  @activity_counts[:comments] > 0
         load_comments
         @current_filter = "comments"
-      elsif  @activity_counts[:follows] > 0
-        load_follows
-        @current_filter = "follows"
       end
     end
 
@@ -67,20 +70,16 @@ class UsersController < ApplicationController
       @budget_investments = Budget::Investment.where(author_id: @user.id).order(created_at: :desc).page(params[:page])
     end
 
-    def load_follows
-      @follows = @user.follows.group_by(&:followable_type)
-    end
-
     def valid_access?
       @user.public_activity || authorized_current_user?
     end
 
-    def valid_interests_access?
-      @user.public_interests || authorized_current_user?
+    def author?
+      @author ||= current_user && (current_user == @user)
     end
 
-    def author?(proposal)
-      proposal.author_id == current_user.id if current_user
+    def author_or_admin?
+      @author_or_admin ||= current_user && (author? || current_user.administrator?)
     end
 
     def authorized_current_user?

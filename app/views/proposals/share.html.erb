@@ -12,39 +12,35 @@
 <% cache [locale_and_user_status(@proposal), @proposal, @proposal.author, Flag.flagged?(current_user, @proposal), @proposal_votes] do %>
   <div class="proposal-show">
     <div id="<%= dom_id(@proposal) %>" class="row">
-      <div class="small-12 medium-8 column">
+      <div class="small-12 medium-9 column">
 
         <h1><%= t("proposals.proposal.created") %></h1>
 
+        <h2><%= @proposal.title %></h2>
         <p>
-          <span class="lead"><%= t("proposals.proposal.share.guide") %></span><br>
-          <%= t("proposals.proposal.share.edit") %>
+          <%= t("proposals.show.code") %>
+          <strong><%= @proposal.code %></strong>
         </p>
+
+        <p><%= t("proposals.proposal.share.guide").html_safe %></p>
 
         <%= render partial: 'shared/social_share', locals: {
           title: @proposal.title,
           url: proposal_url(@proposal)
         } %>
 
-        <% if @proposal_improvement_path.present? %>
-          <div class="callout highlight margin-top text-center">
-            <p class="lead"><strong><%= t("proposals.proposal.improve_info") %></strong></p>
-            <%= link_to t("proposals.proposal.improve_info_link"), @proposal_improvement_path, class: "button" %>
-          </div>
+        <br/>
+
+        <% if @proposal_improvement_url.present? %>
+        <p><%= t('proposals.proposal.improve_info', improve_info_link: link_to(t('proposals.proposal.improve_info_link'), @proposal_improvement_url)).html_safe %></p>
         <% end %>
 
-        <div class="small margin-bottom">
-          <%= link_to t("proposals.proposal.share.view_proposal"), proposal_path(@proposal) %>
-        </div>
-      </div>
+        <p>
+        <%= link_to proposal_path(@proposal), class: 'proposal' do %>
+          <%= t("proposals.proposal.share.view_proposal") %>
+        <% end %>
+        </p>
 
-      <div class="small-12 medium-4 column">
-        <div class="callout light">
-          <p>
-            <strong><%= @proposal.title %></strong><br>
-            <%= t("proposals.show.code") %> <%= @proposal.code %>
-          </p>
-        </div>
       </div>
     </div>
   </div>

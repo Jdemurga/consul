@@ -24,31 +24,30 @@ feature 'Admin poll questions' do
     visit admin_question_path(question)
 
     expect(page).to have_content(question.title)
+    expect(page).to have_content(question.description)
     expect(page).to have_content(question.author.name)
+    expect(page).to have_content(question.valid_answers.join(" "))
   end
 
   scenario 'Create' do
     poll = create(:poll, name: 'Movies')
     title = "Star Wars: Episode IV - A New Hope"
     description = %{
-      During the battle, Rebel spies managed to steal secret plans to the Empire's ultimate weapon, the DEATH STAR, an armored space station
-       with enough power to destroy an entire planet.
-      Pursued by the Empire's sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her
-       people and restore freedom to the galaxy....
+      During the battle, Rebel spies managed to steal secret plans to the Empire's ultimate weapon, the DEATH STAR, an armored space station with enough power to destroy an entire planet.
+      Pursued by the Empire's sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy....
     }
-    video_url = "https://puppyvideos.com"
 
     visit admin_questions_path
     click_link "Create question"
 
     select 'Movies', from: 'poll_question_poll_id'
     fill_in 'poll_question_title', with: title
-    fill_in 'poll_question_video_url', with: video_url
+    fill_in 'poll_question_description', with: description
 
     click_button 'Save'
 
     expect(page).to have_content(title)
-    expect(page).to have_content(video_url)
+    expect(page).to have_content(description)
   end
 
   scenario 'Create from successful proposal index' do
@@ -60,12 +59,15 @@ feature 'Admin poll questions' do
 
     expect(current_path).to eq(new_admin_question_path)
     expect(page).to have_field('poll_question_title', with: proposal.title)
+    expect(page).to have_field('poll_question_description', with: proposal.description)
+    expect(page).to have_field('poll_question_valid_answers', with: "Yes, No")
 
     select 'Proposals', from: 'poll_question_poll_id'
 
     click_button 'Save'
 
     expect(page).to have_content(proposal.title)
+    expect(page).to have_content(proposal.description)
     expect(page).to have_link(proposal.title, href: proposal_path(proposal))
     expect(page).to have_link(proposal.author.name, href: user_path(proposal.author))
   end

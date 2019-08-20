@@ -78,10 +78,6 @@ feature 'Official positions' do
         @spending_proposal2 = create(:spending_proposal, author: @user2)
       end
 
-      after do
-        Setting["feature.spending_proposals"] = nil
-      end
-
       scenario "Index" do
         visit spending_proposals_path
 

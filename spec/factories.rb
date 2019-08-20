@@ -1,11 +1,26 @@
 FactoryGirl.define do
-  factory :local_census_record, class: 'LocalCensusRecord' do
-    document_number '12345678A'
-    document_type 1
-    date_of_birth Date.new(1970, 1, 31)
-    postal_code '28002'
+  factory :attachment do
+    
   end
-
+  factory :budget_ballot_confirmation, class: 'Budget::Ballot::Confirmation' do
+    phone_number "MyString"
+    sms_sent_at "2017-06-15 11:15:13"
+    ballot_summary "MyText"
+    group_id 1
+    ballot_id 1
+    budget_id 1
+    confirmed_by "MyString"
+  end
+  factory :sms_otp do
+    phone_number "MyString"
+    confirmation_code "MyString"
+  end
+  factory :commission do
+    geozone_id nil
+    name "MyString"
+    place "MyString"
+    address "MyString"
+  end
   sequence(:document_number) { |n| "#{n.to_s.rjust(8, '0')}X" }
 
   factory :user do
@@ -13,9 +28,8 @@ FactoryGirl.define do
     sequence(:email)    { |n| "manuela#{n}@consul.dev" }
 
     password            'judgmentday'
-    terms_of_service    '1'
+    terms_of_service     '1'
     confirmed_at        { Time.current }
-    public_activity     true
 
     trait :incomplete_verification do
       after :create do |user|
@@ -49,15 +63,6 @@ FactoryGirl.define do
       confirmed_hide_at Time.current
     end
 
-    trait :verified do
-      verified_at Time.current
-    end
-
-    trait :in_census do
-      document_number "12345678Z"
-      document_type "1"
-      verified_at Time.current
-    end
   end
 
   factory :identity do
@@ -112,7 +117,7 @@ FactoryGirl.define do
 
   factory :verified_user do
     document_number
-    document_type 'dni'
+    document_type    'dni'
   end
 
   factory :debate do
@@ -161,7 +166,7 @@ FactoryGirl.define do
     description          'Proposal description'
     question             'Proposal question'
     external_url         'http://external_documention.es'
-    video_url            'https://youtu.be/nhuNb0XtRhQ'
+    video_url            'http://video_link.com'
     responsible_name     'John Snow'
     terms_of_service     '1'
     association :author, factory: :user
@@ -179,8 +184,8 @@ FactoryGirl.define do
     end
 
     trait :flagged do
-      after :create do |proposal|
-        Flag.flag(FactoryGirl.create(:user), proposal)
+      after :create do |debate|
+        Flag.flag(FactoryGirl.create(:user), debate)
       end
     end
 
@@ -267,11 +272,10 @@ FactoryGirl.define do
     association :group, factory: :budget_group
     sequence(:name) { |n| "Heading #{n}" }
     price 1000000
-    population 1234
   end
 
   factory :budget_investment, class: 'Budget::Investment' do
-    sequence(:title) { |n| "Budget Investment #{n} title" }
+    sequence(:title)     { |n| "Budget Investment #{n} title" }
     association :heading, factory: :budget_heading
     association :author, factory: :user
     description          'Spend money on this'
@@ -279,7 +283,6 @@ FactoryGirl.define do
     unfeasibility_explanation ''
     external_url         'http://external_documention.org'
     terms_of_service     '1'
-    incompatible          false
 
     trait :with_confidence_score do
       before(:save) { |i| i.calculate_confidence_score }
@@ -306,38 +309,12 @@ FactoryGirl.define do
       selected true
       feasibility "feasible"
       valuation_finished true
-
-    end
-
-    trait :winner do
-      selected
-      winner true
-    end
-
-    trait :incompatible do
-      selected
-      incompatible true
     end
 
     trait :unselected do
       selected false
       feasibility "feasible"
       valuation_finished true
-    end
-
-  end
-
-  factory :image do
-    attachment { File.new("spec/fixtures/files/clippy.jpg") }
-    title "Lorem ipsum dolor sit amet"
-    association :user, factory: :user
-
-    trait :proposal_image do
-      association :imageable, factory: :proposal
-    end
-
-    trait :budget_investment_image do
-      association :imageable, factory: :budget_investment
     end
   end
 
@@ -357,12 +334,6 @@ FactoryGirl.define do
     reason "unfeasible"
   end
 
-  factory :budget_investment_milestone, class: 'Budget::Investment::Milestone' do
-    association :investment, factory: :budget_investment
-    sequence(:title)     { |n| "Budget investment milestone #{n} title" }
-    description          'Milestone description'
-  end
-
   factory :vote do
     association :votable, factory: :debate
     association :voter,   factory: :user
@@ -375,36 +346,6 @@ FactoryGirl.define do
   factory :flag do
     association :flaggable, factory: :debate
     association :user, factory: :user
-  end
-
-  factory :follow do
-    association :user, factory: :user
-
-    trait :followed_proposal do
-      association :followable, factory: :proposal
-    end
-
-    trait :followed_investment do
-      association :followable, factory: :budget_investment
-    end
-  end
-
-  factory :document do
-    sequence(:title) { |n| "Document title #{n}" }
-    association :user, factory: :user
-    attachment { File.new("spec/fixtures/files/empty.pdf") }
-
-    trait :proposal_document do
-      association :documentable, factory: :proposal
-    end
-
-    trait :budget_investment_document do
-      association :documentable, factory: :budget_investment
-    end
-
-    trait :poll_question_document do
-      association :documentable, factory: :poll_question
-    end
   end
 
   factory :comment do
@@ -443,7 +384,7 @@ FactoryGirl.define do
   factory :annotation do
     quote "ipsum"
     text "Loremp ipsum dolor"
-    ranges [{"start" => "/div[1]", "startOffset" => 5, "end" => "/div[1]", "endOffset" => 10}]
+    ranges [{"start"=>"/div[1]", "startOffset"=>5, "end"=>"/div[1]", "endOffset"=>10}]
     legacy_legislation
     user
   end
@@ -474,11 +415,6 @@ FactoryGirl.define do
     starts_at { 1.month.ago }
     ends_at { 1.month.from_now }
 
-    trait :current do
-      starts_at { 2.days.ago }
-      ends_at { 2.days.from_now }
-    end
-
     trait :incoming do
       starts_at { 2.days.from_now }
       ends_at { 1.month.from_now }
@@ -487,11 +423,6 @@ FactoryGirl.define do
     trait :expired do
       starts_at { 1.month.ago }
       ends_at { 15.days.ago }
-    end
-
-    trait :recounting do
-      starts_at { 1.month.ago }
-      ends_at { Date.current }
     end
 
     trait :published do
@@ -503,25 +434,8 @@ FactoryGirl.define do
     poll
     association :author, factory: :user
     sequence(:title) { |n| "Question title #{n}" }
-
-    trait :with_answers do
-      after(:create) do |question, _evaluator|
-        create(:poll_question_answer, question: question, title: "Yes")
-        create(:poll_question_answer, question: question, title: "No")
-      end
-    end
-  end
-
-  factory :poll_question_answer, class: 'Poll::Question::Answer' do
-    association :question, factory: :poll_question
-    sequence(:title) { |n| "Answer title #{n}" }
-    sequence(:description) { |n| "Answer description #{n}" }
-  end
-
-  factory :poll_answer_video, class: 'Poll::Question::Answer::Video' do
-    association :answer, factory: :poll_question_answer
-    title "Sample video title"
-    url "https://youtu.be/nhuNb0XtRhQ"
+    sequence(:description) { |n| "Question description #{n}" }
+    valid_answers { Faker::Lorem.words(3).join(', ') }
   end
 
   factory :poll_booth, class: 'Poll::Booth' do
@@ -537,32 +451,30 @@ FactoryGirl.define do
   factory :poll_officer_assignment, class: 'Poll::OfficerAssignment' do
     association :officer, factory: :poll_officer
     association :booth_assignment, factory: :poll_booth_assignment
-    date Date.current
+    date Time.current.to_date
 
     trait :final do
       final true
     end
   end
 
-  factory :poll_shift, class: 'Poll::Shift' do
-    association :booth, factory: :poll_booth
-    association :officer, factory: :poll_officer
-    date Date.current
+  factory :poll_recount, class: 'Poll::Recount' do
+    association :officer_assignment, factory: :poll_officer_assignment
+    association :booth_assignment, factory: :poll_booth_assignment
+    count (1..100).to_a.sample
+    date (1.month.ago.to_datetime..1.month.from_now.to_datetime).to_a.sample
+  end
 
-    trait :vote_collection_task do
-      task 0
-    end
-
-    trait :recount_scrutiny_task do
-      task 1
-    end
+  factory :poll_final_recount, class: 'Poll::FinalRecount' do
+    association :officer_assignment, factory: [:poll_officer_assignment, :final]
+    association :booth_assignment, factory: :poll_booth_assignment
+    count (1..100).to_a.sample
+    date (1.month.ago.to_datetime..1.month.from_now.to_datetime).to_a.sample
   end
 
   factory :poll_voter, class: 'Poll::Voter' do
     poll
     association :user, :level_two
-    association :officer, factory: :poll_officer
-    origin "web"
 
     trait :from_booth do
       association :booth_assignment, factory: :poll_booth_assignment
@@ -580,19 +492,24 @@ FactoryGirl.define do
   end
 
   factory :poll_answer, class: 'Poll::Answer' do
-    association :question, factory: [:poll_question, :with_answers]
+    association :question, factory: :poll_question
     association :author, factory: [:user, :level_two]
-    answer { question.question_answers.sample.title }
+    answer { question.valid_answers.sample }
   end
 
   factory :poll_partial_result, class: 'Poll::PartialResult' do
-    association :question, factory: [:poll_question, :with_answers]
+    association :question, factory: :poll_question
     association :author, factory: :user
     origin { 'web' }
-    answer { question.question_answers.sample.title }
+    answer { question.valid_answers.sample }
   end
 
-  factory :poll_recount, class: 'Poll::Recount' do
+  factory :poll_white_result, class: 'Poll::WhiteResult' do
+    association :author, factory: :user
+    origin { 'web' }
+  end
+
+  factory :poll_null_result, class: 'Poll::NullResult' do
     association :author, factory: :user
     origin { 'web' }
   end
@@ -626,8 +543,12 @@ FactoryGirl.define do
   factory :tag, class: 'ActsAsTaggableOn::Tag' do
     sequence(:name) { |n| "Tag #{n} name" }
 
-    trait :category do
-      kind "category"
+    trait :featured do
+      featured true
+    end
+
+    trait :unfeatured do
+      featured false
     end
   end
 
@@ -636,7 +557,7 @@ FactoryGirl.define do
     sequence(:value) { |n| "Setting #{n} Value" }
   end
 
-  factory :ahoy_event, class: Ahoy::Event do
+  factory :ahoy_event, :class => Ahoy::Event do
     id { SecureRandom.uuid }
     time DateTime.current
     sequence(:name) {|n| "Event #{n} type"}
@@ -649,7 +570,7 @@ FactoryGirl.define do
 
   factory :campaign do
     sequence(:name) { |n| "Campaign #{n}" }
-    sequence(:track_id) { |n| n.to_s }
+    sequence(:track_id) { |n| "#{n}" }
   end
 
   factory :notification do
@@ -659,8 +580,8 @@ FactoryGirl.define do
 
   factory :geozone do
     sequence(:name) { |n| "District #{n}" }
-    sequence(:external_code) { |n| n.to_s }
-    sequence(:census_code) { |n| n.to_s }
+    sequence(:external_code) { |n| "#{n}" }
+    sequence(:census_code) { |n| "#{n}" }
 
     trait :in_census do
       census_code "01"
@@ -669,7 +590,7 @@ FactoryGirl.define do
 
   factory :banner do
     sequence(:title) { |n| "Banner title #{n}" }
-    sequence(:description) { |n| "This is the text of Banner #{n}" }
+    sequence(:description)  { |n| "This is the text of Banner #{n}" }
     style {["banner-style-one", "banner-style-two", "banner-style-three"].sample}
     image {["banner.banner-img-one", "banner.banner-img-two", "banner.banner-img-three"].sample}
     target_url {["/proposals", "/debates" ].sample}
@@ -704,7 +625,8 @@ FactoryGirl.define do
   factory :legislation_process, class: 'Legislation::Process' do
     title "A collaborative legislation process"
     description "Description of the process"
-    summary "Summary of the process"
+    target "Who will affected by this law?"
+    how_to_participate "You can participate by answering some questions"
     start_date Date.current - 5.days
     end_date Date.current + 5.days
     debate_start_date Date.current - 5.days
@@ -712,22 +634,17 @@ FactoryGirl.define do
     draft_publication_date Date.current - 1.day
     allegations_start_date Date.current
     allegations_end_date Date.current + 3.days
-    result_publication_date Date.current + 5.days
-    debate_phase_enabled true
-    allegations_phase_enabled true
-    draft_publication_enabled true
-    result_publication_enabled true
-    published true
+    final_publication_date Date.current + 5.days
 
     trait :next do
       start_date Date.current + 2.days
       end_date Date.current + 8.days
       debate_start_date Date.current + 2.days
       debate_end_date Date.current + 4.days
-      draft_publication_date Date.current + 5.days
+      draft_publication_date Date.current + 5.day
       allegations_start_date Date.current + 5.days
       allegations_end_date Date.current + 7.days
-      result_publication_date Date.current + 8.days
+      final_publication_date Date.current + 8.days
     end
 
     trait :past do
@@ -735,27 +652,22 @@ FactoryGirl.define do
       end_date Date.current - 2.days
       debate_start_date Date.current - 12.days
       debate_end_date Date.current - 9.days
-      draft_publication_date Date.current - 8.days
+      draft_publication_date Date.current - 8.day
       allegations_start_date Date.current - 8.days
       allegations_end_date Date.current - 4.days
-      result_publication_date Date.current - 2.days
+      final_publication_date Date.current - 2.days
     end
 
     trait :in_debate_phase do
       start_date Date.current - 5.days
       end_date Date.current + 5.days
       debate_start_date Date.current - 5.days
-      debate_end_date Date.current + 1.day
+      debate_end_date Date.current + 1.days
       draft_publication_date Date.current + 1.day
       allegations_start_date Date.current + 2.days
       allegations_end_date Date.current + 3.days
-      result_publication_date Date.current + 5.days
+      final_publication_date Date.current + 5.days
     end
-
-    trait :not_published do
-      published false
-    end
-
   end
 
   factory :legislation_draft_version, class: 'Legislation::DraftVersion' do
@@ -792,7 +704,7 @@ LOREM_IPSUM
     author factory: :user
     quote "ipsum"
     text "a comment"
-    ranges [{"start" => "/p[1]", "startOffset" => 6, "end" => "/p[1]", "endOffset" => 11}]
+    ranges [{"start"=>"/p[1]", "startOffset"=>6, "end"=>"/p[1]", "endOffset"=>11}]
     range_start "/p[1]"
     range_start_offset 6
     range_end "/p[1]"
@@ -824,7 +736,6 @@ LOREM_IPSUM
     more_info_flag false
     print_content_flag false
     status 'draft'
-    locale 'en'
 
     trait :published do
       status "published"
@@ -840,46 +751,4 @@ LOREM_IPSUM
     locale "en"
     body "Some top links content"
   end
-
-  factory :topic do
-    sequence(:title) { |n| "Topic title #{n}" }
-    sequence(:description) { |n| "Description as comment #{n}" }
-    association :author, factory: :user
-  end
-
-  factory :direct_upload do
-    user
-
-    trait :proposal do
-      resource_type "Proposal"
-    end
-    trait :budget_investment do
-      resource_type "Budget::Investment"
-    end
-
-    trait :documents do
-      resource_relation "documents"
-      attachment { File.new("spec/fixtures/files/empty.pdf") }
-    end
-    trait :image do
-      resource_relation "image"
-      attachment { File.new("spec/fixtures/files/clippy.jpg") }
-    end
-    initialize_with { new(attributes) }
-  end
-
-  factory :map_location do
-    latitude 51.48
-    longitude 0.0
-    zoom 10
-
-    trait :proposal_map_location do
-      proposal
-    end
-
-    trait :budget_investment_map_location do
-      association :investment, factory: :budget_investment
-    end
-  end
-
 end

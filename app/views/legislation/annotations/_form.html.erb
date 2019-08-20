@@ -6,7 +6,7 @@
 
   <div class="comments-wrapper">
     <div class="comment-input">
-      <% if !@process.allegations_phase.open? %>
+      <% if !@process.open_phase?(:allegations) %>
         <div data-alert class="callout primary">
           <%= t("legislation.annotations.form.phase_not_open") %>
         </div>
@@ -16,7 +16,9 @@
 
           <div class="comment-actions">
             <a class="cancel-comment" href="#" data-cancel-annotation><%= t('legislation.annotations.comments.cancel') %></a>
-            <%= f.submit value: t('legislation.annotations.comments.publish_comment'), class: 'button publish-comment' %>
+            <%= f.submit class: 'button publish-comment' do %>
+              <strong><%= t('legislation.annotations.comments.publish_comment') %></strong>
+            <% end %>
           </div>
 
           <%= f.hidden_field :quote %>

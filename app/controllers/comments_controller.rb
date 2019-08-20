@@ -82,7 +82,7 @@ class CommentsController < ApplicationController
     end
 
     def verify_resident_for_commentable!
-      return if current_user.administrator? || current_user.moderator?
+      return if current_user.administrator? || current_user.moderator? || current_user.verified_organization?
 
       if @commentable.respond_to?(:comments_for_verified_residents_only?) && @commentable.comments_for_verified_residents_only?
         verify_resident!

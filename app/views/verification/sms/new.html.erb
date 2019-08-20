@@ -18,7 +18,10 @@
       <span class="meter" style="width: 66%"></span>
     </div>
 
-    <%= back_link_to account_path, t("verification.back") %>
+    <%= link_to account_path, class: "back" do %>
+      <span class="icon-angle-left"></span>
+      <%= t("verification.back") %>
+    <% end %>
 
     <h1><%= t("verification.sms.new.title") %></h1>
 
@@ -28,10 +31,8 @@
       <div class="small-12 medium-6">
         <%= f.label :phone, t("verification.sms.new.phone"), class: "inline-block" %>
         <span class="inline-block"><%= t("verification.sms.new.phone_format_html") %></span>
-        <p class="help-text" id="phone-text-help"><%= t("verification.sms.new.phone_note") %></p>
-        <%= f.text_field :phone, label: false,
-                                 placeholder: t("verification.sms.new.phone_placeholder"),
-                                 aria: {describedby: "phone-help-text"} %>
+        <p class="note"><%= t("verification.sms.new.phone_note") %></p>
+        <%= f.text_field :phone, label: false, placeholder: t("verification.sms.new.phone_placeholder") %>
       </div>
 
       <%= f.submit t("verification.sms.new.submit_button"), class: "button success" %>

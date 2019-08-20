@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title><%= content_for?(:title) ? yield(:title) : "Admin" %></title>
     <%= stylesheet_link_tag    "application" %>
+    <%= stylesheet_link_tag  "print", media: "print" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= content_for :head %>
     <%= csrf_meta_tags %>
@@ -16,7 +17,11 @@
   <body class="admin" data-watch-form-message="<%= I18n.t('layouts.admin.watch_form_message') %>">
     <div class="off-canvas-wrapper">
       <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
-        <div class="off-canvas position-left" id="offCanvas" data-off-canvas>
+        <div class="off-canvas position-left not-print" id="offCanvas" data-off-canvas>
+
+          <button class="close-button" aria-label="Close menu" type="button" data-close>
+            <span aria-hidden="true">&times;</span>
+          </button>
 
           <div class="show-for-small-only">
             <%= side_menu %>
@@ -26,8 +31,8 @@
         <div class="off-canvas-content" data-off-canvas-content>
           <%= render 'layouts/admin_header' %>
 
-          <div class="no-margin-top row expanded collapse" data-equalizer>
-            <div class="small-12 medium-3 column" data-equalizer-watch>
+          <div class="no-margin-top row no-max-width collapse" data-equalizer>
+            <div class="small-12 medium-3 column not-print" data-equalizer-watch>
 
               <div class="show-for-small-only">
                 <button type="button" class="button hollow expanded" data-toggle="offCanvas"><%= t("admin.menu.admin") %></button>

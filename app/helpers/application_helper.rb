@@ -43,9 +43,10 @@ module ApplicationHelper
     authorable.author_id == user.id
   end
 
-  def back_link_to(destination = :back, text = t("shared.back"))
+  def back_link_to(destination_path)
+    destination = destination_path || :back
     link_to destination, class: "back" do
-      content_tag(:span, nil, class: "icon-angle-left") + text
+      "<span class='icon-angle-left'></span>".html_safe + t("shared.back")
     end
   end
 
@@ -59,9 +60,5 @@ module ApplicationHelper
 
   def format_price(number)
     number_to_currency(number, precision: 0, locale: I18n.default_locale)
-  end
-
-  def kaminari_path(url)
-    "#{root_url.chomp("\/")}#{url}"
   end
 end

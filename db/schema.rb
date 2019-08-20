@@ -11,12 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20171115164152) do
+=======
+ActiveRecord::Schema.define(version: 20190111131358) do
+>>>>>>> b27553f333300e4c30220277dff8a590714b6398
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "unaccent"
   enable_extension "pg_trgm"
+  enable_extension "pgcrypto"
+  enable_extension "unaccent"
 
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
@@ -63,6 +68,16 @@ ActiveRecord::Schema.define(version: 20171115164152) do
   add_index "annotations", ["legacy_legislation_id"], name: "index_annotations_on_legacy_legislation_id", using: :btree
   add_index "annotations", ["user_id"], name: "index_annotations_on_user_id", using: :btree
 
+  create_table "attachments", force: :cascade do |t|
+    t.integer  "attachable_id",                       null: false
+    t.string   "attachable_type",                     null: false
+    t.string   "file",                                null: false
+    t.string   "title"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.boolean  "featured_image_flag", default: false
+  end
+
   create_table "banners", force: :cascade do |t|
     t.string   "title",           limit: 80
     t.string   "description"
@@ -78,6 +93,31 @@ ActiveRecord::Schema.define(version: 20171115164152) do
 
   add_index "banners", ["hidden_at"], name: "index_banners_on_hidden_at", using: :btree
 
+  create_table "budget_ballot_confirmations", force: :cascade do |t|
+    t.string   "phone_number"
+    t.integer  "group_id"
+    t.integer  "ballot_id"
+    t.integer  "budget_id"
+    t.integer  "user_id"
+    t.integer  "confirmed_by_user_id"
+    t.datetime "confirmed_at"
+    t.string   "confirmed_by_username"
+    t.integer  "discarted_by_user_id"
+    t.datetime "discarted_at"
+    t.string   "discarted_by_username"
+    t.datetime "sms_sent_at"
+    t.text     "ballot_summary"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "sms_confirmation_code"
+    t.datetime "sms_code_sent_at"
+    t.string   "sms_code_sent_by_username"
+    t.integer  "sms_code_sent_by_user_id"
+    t.text     "sms_code_sending_error"
+    t.string   "created_by_username"
+    t.integer  "created_by_user_id"
+  end
+
   create_table "budget_ballot_lines", force: :cascade do |t|
     t.integer  "ballot_id"
     t.integer  "investment_id"
@@ -86,6 +126,7 @@ ActiveRecord::Schema.define(version: 20171115164152) do
     t.integer  "budget_id"
     t.integer  "group_id"
     t.integer  "heading_id"
+    t.integer  "points"
   end
 
   add_index "budget_ballot_lines", ["ballot_id", "investment_id"], name: "index_budget_ballot_lines_on_ballot_id_and_investment_id", unique: true, using: :btree
@@ -95,14 +136,20 @@ ActiveRecord::Schema.define(version: 20171115164152) do
   create_table "budget_ballots", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "budget_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.float    "random_seed"
   end
 
   create_table "budget_groups", force: :cascade do |t|
     t.integer "budget_id"
+<<<<<<< HEAD
     t.string  "name",      limit: 50
     t.string  "slug"
+=======
+    t.string  "name",       limit: 50
+    t.integer "geozone_id"
+>>>>>>> b27553f333300e4c30220277dff8a590714b6398
   end
 
   add_index "budget_groups", ["budget_id"], name: "index_budget_groups_on_budget_id", using: :btree
@@ -156,11 +203,24 @@ ActiveRecord::Schema.define(version: 20171115164152) do
     t.string   "location"
     t.string   "organization_name"
     t.datetime "unfeasible_email_sent_at"
+    t.string   "attachment"
+    t.boolean  "attachment_verified"
+    t.string   "attachment_verified_by"
+    t.datetime "ignored_flag_at"
+    t.integer  "flags_count",                           default: 0
+    t.integer  "unified_with_id"
+    t.string   "unification_reason"
+    t.text     "unification_explanation"
     t.integer  "ballot_lines_count",                    default: 0
     t.integer  "previous_heading_id"
     t.boolean  "winner",                                default: false
+<<<<<<< HEAD
     t.boolean  "incompatible",                          default: false
     t.integer  "community_id"
+=======
+    t.text     "project_content"
+    t.string   "project_phase"
+>>>>>>> b27553f333300e4c30220277dff8a590714b6398
   end
 
   add_index "budget_investments", ["administrator_id"], name: "index_budget_investments_on_administrator_id", using: :btree
@@ -168,6 +228,7 @@ ActiveRecord::Schema.define(version: 20171115164152) do
   add_index "budget_investments", ["community_id"], name: "index_budget_investments_on_community_id", using: :btree
   add_index "budget_investments", ["heading_id"], name: "index_budget_investments_on_heading_id", using: :btree
   add_index "budget_investments", ["tsv"], name: "index_budget_investments_on_tsv", using: :gin
+  add_index "budget_investments", ["unified_with_id"], name: "index_budget_investments_on_unified_with_id", using: :btree
 
   create_table "budget_reclassified_votes", force: :cascade do |t|
     t.integer  "user_id"
@@ -180,8 +241,9 @@ ActiveRecord::Schema.define(version: 20171115164152) do
   create_table "budget_valuator_assignments", force: :cascade do |t|
     t.integer  "valuator_id"
     t.integer  "investment_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.datetime "finished_by_user_at"
   end
 
   add_index "budget_valuator_assignments", ["investment_id"], name: "index_budget_valuator_assignments_on_investment_id", using: :btree
@@ -199,7 +261,12 @@ ActiveRecord::Schema.define(version: 20171115164152) do
     t.text     "description_balloting"
     t.text     "description_reviewing_ballots"
     t.text     "description_finished"
+<<<<<<< HEAD
     t.string   "slug"
+=======
+    t.integer  "not_sent_participant_count",               default: 0
+    t.text     "description_configuring"
+>>>>>>> b27553f333300e4c30220277dff8a590714b6398
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -238,17 +305,92 @@ ActiveRecord::Schema.define(version: 20171115164152) do
   add_index "comments", ["hidden_at"], name: "index_comments_on_hidden_at", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
+<<<<<<< HEAD
   create_table "communities", force: :cascade do |t|
+=======
+  create_table "commissions", force: :cascade do |t|
+    t.integer  "geozone_id"
+    t.string   "name"
+    t.string   "place"
+    t.string   "address"
+>>>>>>> b27553f333300e4c30220277dff8a590714b6398
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
+=======
+  add_index "commissions", ["geozone_id"], name: "index_commissions_on_geozone_id", using: :btree
+
+  create_table "consul_assemblies_assemblies", force: :cascade do |t|
+    t.string   "name",                null: false
+    t.string   "general_description"
+    t.string   "scope_description"
+    t.integer  "geozone_id",          null: false
+    t.string   "about_venue"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "assembly_type_id"
+  end
+
+  add_index "consul_assemblies_assemblies", ["geozone_id"], name: "index_consul_assemblies_assemblies_on_geozone_id", using: :btree
+
+  create_table "consul_assemblies_assembly_types", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "consul_assemblies_meetings", force: :cascade do |t|
+    t.string   "title",                                       null: false
+    t.string   "description"
+    t.string   "summary"
+    t.string   "about_venue"
+    t.integer  "assembly_id",                                 null: false
+    t.integer  "followers_count",              default: 0
+    t.integer  "comments_count",               default: 0
+    t.datetime "close_accepting_proposals_at"
+    t.datetime "scheduled_at"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.datetime "published_at"
+    t.string   "attachment"
+    t.string   "attachment_url"
+    t.integer  "user_id"
+    t.string   "attendants_text",              default: "",   null: false
+    t.boolean  "accepts_proposals",            default: true, null: false
+    t.boolean  "will_generate_acts",           default: true, null: false
+  end
+
+  add_index "consul_assemblies_meetings", ["assembly_id"], name: "index_consul_assemblies_meetings_on_assembly_id", using: :btree
+
+  create_table "consul_assemblies_proposals", force: :cascade do |t|
+    t.integer  "meeting_id",                                           null: false
+    t.string   "title",                                                null: false
+    t.text     "description"
+    t.integer  "user_id"
+    t.boolean  "accepted"
+    t.boolean  "terms_of_service"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.string   "conclusion"
+    t.boolean  "is_previous_meeting_acceptance", default: false
+    t.integer  "position"
+    t.string   "attachment"
+    t.string   "proposal_origin",                default: "user"
+    t.string   "acceptance_status",              default: "undecided"
+  end
+
+  add_index "consul_assemblies_proposals", ["meeting_id"], name: "index_consul_assemblies_proposals_on_meeting_id", using: :btree
+
+>>>>>>> b27553f333300e4c30220277dff8a590714b6398
   create_table "debates", force: :cascade do |t|
     t.string   "title",                        limit: 80
     t.text     "description"
     t.integer  "author_id"
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
     t.string   "visit_id"
     t.datetime "hidden_at"
     t.integer  "flags_count",                             default: 0
@@ -265,6 +407,7 @@ ActiveRecord::Schema.define(version: 20171115164152) do
     t.integer  "geozone_id"
     t.tsvector "tsv"
     t.datetime "featured_at"
+    t.boolean  "likes_disallowed",                        default: false
   end
 
   add_index "debates", ["author_id", "hidden_at"], name: "index_debates_on_author_id_and_hidden_at", using: :btree
@@ -614,10 +757,11 @@ ActiveRecord::Schema.define(version: 20171115164152) do
 
   create_table "organizations", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "name",             limit: 60
+    t.string   "name",                        limit: 60
     t.datetime "verified_at"
     t.datetime "rejected_at"
-    t.string   "responsible_name", limit: 60
+    t.string   "responsible_name",            limit: 60
+    t.string   "responsible_document_number"
   end
 
   add_index "organizations", ["user_id"], name: "index_organizations_on_user_id", using: :btree
@@ -900,43 +1044,70 @@ ActiveRecord::Schema.define(version: 20171115164152) do
   add_index "site_customization_images", ["name"], name: "index_site_customization_images_on_name", unique: true, using: :btree
 
   create_table "site_customization_pages", force: :cascade do |t|
-    t.string   "slug",                                 null: false
-    t.string   "title",                                null: false
+    t.string   "slug",                                      null: false
+    t.string   "title",                                     null: false
     t.string   "subtitle"
     t.text     "content"
     t.boolean  "more_info_flag"
     t.boolean  "print_content_flag"
+<<<<<<< HEAD
     t.string   "status",             default: "draft"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.string   "locale"
+=======
+    t.string   "status",                  default: "draft"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.boolean  "show_in_cover_flag",      default: false
+    t.boolean  "highlight_in_cover_flag", default: false
+    t.integer  "cover_position"
+    t.string   "process_url"
+    t.string   "date_information"
+    t.boolean  "show_as_poster_flag",     default: false
   end
 
+  create_table "sms_otps", force: :cascade do |t|
+    t.string   "phone_number",      null: false
+    t.string   "confirmation_code", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+>>>>>>> b27553f333300e4c30220277dff8a590714b6398
+  end
+
+  add_index "sms_otps", ["phone_number"], name: "index_sms_otps_on_phone_number", using: :btree
+
   create_table "spending_proposals", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",                          limit: 255
     t.text     "description"
     t.integer  "author_id"
     t.string   "external_url"
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
     t.integer  "geozone_id"
-    t.integer  "price",                       limit: 8
+    t.integer  "price",                          limit: 8
     t.boolean  "feasible"
     t.string   "association_name"
     t.text     "price_explanation"
     t.text     "feasible_explanation"
     t.text     "internal_comments"
-    t.boolean  "valuation_finished",                     default: false
+    t.boolean  "valuation_finished",                         default: false
     t.text     "explanations_log"
     t.integer  "administrator_id"
-    t.integer  "valuation_assignments_count",            default: 0
-    t.integer  "price_first_year",            limit: 8
+    t.integer  "valuation_assignments_count",                default: 0
+    t.integer  "price_first_year",               limit: 8
     t.string   "time_scope"
     t.datetime "unfeasible_email_sent_at"
-    t.integer  "cached_votes_up",                        default: 0
+    t.integer  "cached_votes_up",                            default: 0
     t.tsvector "tsv"
-    t.string   "responsible_name",            limit: 60
-    t.integer  "physical_votes",                         default: 0
+    t.string   "responsible_name",               limit: 60
+    t.integer  "physical_votes",                             default: 0
+    t.string   "spending_type"
+    t.string   "phase",                                      default: "pre_bidding"
+    t.string   "extra_info"
+    t.integer  "joined_to_spending_proposal_id"
+    t.text     "project_content"
+    t.string   "project_phase"
   end
 
   add_index "spending_proposals", ["author_id"], name: "index_spending_proposals_on_author_id", using: :btree
@@ -1042,13 +1213,23 @@ ActiveRecord::Schema.define(version: 20171115164152) do
     t.boolean  "email_digest",                              default: true
     t.boolean  "email_on_direct_message",                   default: true
     t.boolean  "official_position_badge",                   default: false
+<<<<<<< HEAD
     t.datetime "password_changed_at",                       default: '2015-01-01 01:01:01', null: false
     t.boolean  "created_from_signature",                    default: false
     t.integer  "failed_email_digests_count",                default: 0
     t.text     "former_users_data_log",                     default: ""
     t.boolean  "public_interests",                          default: false
+=======
+    t.datetime "password_changed_at",                       default: '2016-12-30 01:08:21', null: false
+    t.integer  "commission_id"
+    t.boolean  "created_from_signature",                    default: false
+    t.integer  "failed_email_digests_count",                default: 0
+    t.text     "former_users_data_log",                     default: ""
+    t.datetime "census_removed_at"
+>>>>>>> b27553f333300e4c30220277dff8a590714b6398
   end
 
+  add_index "users", ["commission_id"], name: "index_users_on_commission_id", using: :btree
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["geozone_id"], name: "index_users_on_geozone_id", using: :btree
@@ -1137,8 +1318,12 @@ ActiveRecord::Schema.define(version: 20171115164152) do
   add_foreign_key "administrators", "users"
   add_foreign_key "annotations", "legacy_legislations"
   add_foreign_key "annotations", "users"
+<<<<<<< HEAD
   add_foreign_key "budget_investments", "communities"
   add_foreign_key "documents", "users"
+=======
+  add_foreign_key "commissions", "geozones"
+>>>>>>> b27553f333300e4c30220277dff8a590714b6398
   add_foreign_key "failed_census_calls", "poll_officers"
   add_foreign_key "failed_census_calls", "users"
   add_foreign_key "flags", "users"
@@ -1169,7 +1354,13 @@ ActiveRecord::Schema.define(version: 20171115164152) do
   add_foreign_key "poll_recounts", "poll_booth_assignments", column: "booth_assignment_id"
   add_foreign_key "poll_recounts", "poll_officer_assignments", column: "officer_assignment_id"
   add_foreign_key "poll_voters", "polls"
+<<<<<<< HEAD
   add_foreign_key "proposals", "communities"
+=======
+  add_foreign_key "poll_white_results", "poll_booth_assignments", column: "booth_assignment_id"
+  add_foreign_key "poll_white_results", "poll_officer_assignments", column: "officer_assignment_id"
+  add_foreign_key "users", "commissions"
+>>>>>>> b27553f333300e4c30220277dff8a590714b6398
   add_foreign_key "users", "geozones"
   add_foreign_key "valuators", "users"
 end

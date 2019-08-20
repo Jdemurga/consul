@@ -1,14 +1,11 @@
 class Budget
   class Group < ActiveRecord::Base
-    include Sluggable
-
     belongs_to :budget
+    belongs_to :geozone
 
     has_many :headings, dependent: :destroy
 
     validates :budget_id, presence: true
-    validates :name, presence: true, uniqueness: { scope: :budget }
-    validates :slug, presence: true, format: /\A[a-z0-9\-_]+\z/
-
+    validates :name, presence: true
   end
 end

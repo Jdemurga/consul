@@ -9,6 +9,7 @@
       <strong>
         <%= @page.errors.count %>
         <%= t("admin.site_customization.pages.errors.form.error", count: @page.errors.count) %>
+        <!-- <%= @page.errors.inspect %> -->
       </strong>
     </div>
   <% end %>
@@ -21,6 +22,10 @@
       <h3><%= t("admin.site_customization.pages.form.options") %></h3>
       <%= f.check_box :more_info_flag, class: "small" %>
       <%= f.check_box :print_content_flag %>
+      <%= f.check_box :show_in_cover_flag %>
+      <%= f.check_box :highlight_in_cover_flag %>
+      <hr>
+      <%= f.check_box :show_as_poster_flag %>
     </div>
     <div class="small-12 medium-3 column">
       <%= f.label :status %>
@@ -31,15 +36,31 @@
       <% end %>
     </div>
     <div class="small-12 medium-4 column">
-      <%= f.label :locale %>
-      <%= f.select :locale, I18n.available_locales.map { |l| [name_for_locale(l), l.to_s] }, { include_blank: true, label: false } %>
-    </div>
-    <div class="small-12 medium-4 column">
       <%= f.label :slug %>
       <%= f.text_field :slug, label: false, size: 80, maxlength: 80 %>
+      <%= f.label :cover_position %>
+      <%= f.text_field :cover_position, label: false, type: :number, min: 1, max: SiteCustomization::Page::MAX_POSITIONS_IN_COVER   %>
+
+      <%= f.label :date_information %>
+      <%= f.text_field :date_information, label: false, size: 80, maxlength: 80   %>
     </div>
   </div>
+  <div class="row">
+    <div class="small-12 column">
+      <h3><%= t("admin.site_customization.pages.form.attachments") %></h3>
 
+      <%= f.fields_for :attachments do |attachment| %>
+          <%= render 'admin/shared/attachment_fields', f: attachment %>
+      <% end %>
+      <br>
+
+      <div class="text-right">
+        <%= link_to_add_association f, :attachments, class: 'button success small'  do %>
+            <%= t("admin.budget_investments.edit.project_attachments_add") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="small-12 column">
       <hr>
@@ -48,7 +69,11 @@
       <%= f.text_field :title, label: false %>
 
       <%= f.label :subtitle %>
-      <%= f.text_field :subtitle, label: false, size: 80, maxlength: 80 %>
+      <%= f.text_field :subtitle, label: false %>
+
+      <%= f.label :process_url %>
+      <%= f.text_field :process_url, label: false, type: :url %>
+
 
       <div class="ckeditor margin-top">
         <%= f.label :content %>
@@ -60,4 +85,6 @@
       </div>
     </div>
   </div>
+
+
 <% end %>

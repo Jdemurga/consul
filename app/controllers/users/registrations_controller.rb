@@ -48,7 +48,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def check_username
-    if User.find_by username: params[:username]
+    if User.find_by_username params[:username]
       render json: {available: false, message: t("devise_views.users.registrations.new.username_is_not_available")}
     else
       render json: {available: true, message: t("devise_views.users.registrations.new.username_is_available")}
@@ -72,4 +72,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       users_sign_up_success_path
     end
 
+    def account_update_params
+      # GET-50 Custom field
+      params.require(:user).permit(:email, :password, :password_confirmation, :current_password, :commission_id)
+
+
+    end
 end

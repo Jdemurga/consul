@@ -91,8 +91,8 @@ feature 'Tags' do
     user = create(:user)
     login_as(user)
 
-    education = create(:tag, :category, name: 'Education')
-    health    = create(:tag, :category, name: 'Health')
+    education = create(:tag, name: 'Education', kind: 'category')
+    health    = create(:tag, name: 'Health',    kind: 'category')
 
     visit new_proposal_path
 
@@ -101,7 +101,7 @@ feature 'Tags' do
     fill_in 'proposal_summary', with: 'In summary, what we want is...'
     fill_in_ckeditor 'proposal_description', with: 'A description with enough characters'
     fill_in 'proposal_external_url', with: 'http://rescue.org/refugees'
-    fill_in 'proposal_video_url', with: 'https://www.youtube.com/watch?v=Ae6gQmhaMn4'
+    fill_in 'proposal_video_url', with: 'http://youtube.com'
     fill_in 'proposal_responsible_name', with: 'Isabel Garcia'
     check 'proposal_terms_of_service'
 
@@ -265,8 +265,8 @@ feature 'Tags' do
   context "Categories" do
 
     scenario 'Display category tags' do
-      create(:tag, :category, name: 'Medio Ambiente')
-      create(:tag, :category, name: 'Economía')
+      create(:tag, kind: 'category', name: 'Medio Ambiente')
+      create(:tag, kind: 'category', name: 'Economía')
 
       earth = create(:proposal, tag_list: 'Medio Ambiente')
       money = create(:proposal, tag_list: 'Economía')
@@ -280,8 +280,8 @@ feature 'Tags' do
     end
 
     scenario "Filter by category tags" do
-      create(:tag, :category, name: 'Medio Ambiente')
-      create(:tag, :category, name: 'Economía')
+      create(:tag, kind: 'category', name: 'Medio Ambiente')
+      create(:tag, kind: 'category', name: 'Economía')
 
       proposal1 = create(:proposal, tag_list: 'Medio Ambiente')
       proposal2 = create(:proposal, tag_list: 'Medio Ambiente')

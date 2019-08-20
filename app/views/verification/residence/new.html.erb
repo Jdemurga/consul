@@ -18,7 +18,10 @@
       <span class="meter" style="width: 33%"></span>
     </div>
 
-    <%= back_link_to account_path, t("verification.back") %>
+    <%= link_to account_path, class: "back" do %>
+      <span class="icon-angle-left"></span>
+      <%= t("verification.back") %>
+    <% end %>
 
     <h1><%= t("verification.residence.new.title") %></h1>
 
@@ -50,7 +53,7 @@
 
           <div class="inline-block" data-toggle="info-document-number">
             <span class="icon-help"></span>
-            <span class="show-for-sr"><%= t("verification.residence.new.document_number_help_title") %></span>
+            <span class="sr-only"><%= t("verification.residence.new.document_number_help_title") %></span>
           </div>
 
           <div class="dropdown-pane" id="info-document-number" data-dropdown
@@ -73,9 +76,9 @@
 
       <div class="small-12 medium-5 clear">
         <%= f.label t("verification.residence.new.postal_code") %>
-        <p class="help-text" id="postal-code-help-text"><%= t("verification.residence.new.postal_code_note") %></p>
+        <p class="note"><%= t("verification.residence.new.postal_code_note") %></p>
         <div class="medium-6">
-          <%= f.text_field :postal_code, label: false, aria: {describedby: "postal-code-help-text"} %>
+          <%= f.text_field :postal_code, label: false %>
         </div>
       </div>
 

@@ -14,14 +14,17 @@ feature "Notifications" do
   let(:legislation_question) { create(:legislation_question, process: process, author: administrator) }
   let(:legislation_annotation) { create(:legislation_annotation, author: author) }
 
-  let(:topic) do
-    proposal = create(:proposal)
-    community = proposal.community
-    create(:topic, community: community, author: author)
-  end
-
   scenario "User commented on my debate", :js do
-    create(:notification, notifiable: debate, user: author)
+    login_as user
+    visit debate_path debate
+
+    fill_in "comment-body-debate_#{debate.id}", with: "I commented on your debate"
+    click_button "Publish comment"
+    within "#comments" do
+      expect(page).to have_content "I commented on your debate"
+    end
+
+    logout
     login_as author
     visit root_path
 
@@ -34,21 +37,18 @@ feature "Notifications" do
   end
 
   scenario "User commented on my legislation question", :js do
-    create(:notification, notifiable: legislation_question, user: administrator)
+    verified_user = create(:user, :level_two)
+    login_as verified_user
+    visit legislation_process_question_path legislation_question.process, legislation_question
+
+    fill_in "comment-body-legislation_question_#{legislation_question.id}", with: "I answered your question"
+    click_button "Publish answer"
+    within "#comments" do
+      expect(page).to have_content "I answered your question"
+    end
+
+    logout
     login_as administrator
-    visit root_path
-
-    find(".icon-notification").click
-
-    expect(page).to have_css ".notification", count: 1
-
-    expect(page).to have_content "Someone commented on"
-    expect(page).to have_xpath "//a[@href='#{notification_path(Notification.last)}']"
-  end
-
-  scenario "User commented on my topic", :js do
-    create(:notification, notifiable: topic, user: author)
-    login_as author
     visit root_path
 
     find(".icon-notification").click
@@ -82,7 +82,6 @@ feature "Notifications" do
     logout
     login_as author
     visit root_path
-    visit root_path
 
     find(".icon-notification").click
 
@@ -108,9 +107,7 @@ feature "Notifications" do
     end
 
     logout
-
     login_as author
-    visit root_path
     visit root_path
 
     find(".icon-notification").click
@@ -139,7 +136,6 @@ feature "Notifications" do
     end
 
     login_as author
-    visit root_path
     visit root_path
 
     find(".icon-notification").click
@@ -212,7 +208,6 @@ feature "Notifications" do
       logout
       login_as user1
       visit root_path
-      visit root_path
 
       find(".icon-notification").click
 
@@ -224,7 +219,6 @@ feature "Notifications" do
       logout
       login_as user2
       visit root_path
-      visit root_path
 
       find(".icon-notification").click
 
@@ -235,61 +229,6 @@ feature "Notifications" do
 
       logout
       login_as user3
-      visit root_path
-      visit root_path
-
-      find(".icon-no-notification").click
-
-      expect(page).to have_css ".notification", count: 0
-    end
-
-    scenario "Followers should receive a notification", :js do
-      author = create(:user)
-
-      user1 = create(:user)
-      user2 = create(:user)
-      user3 = create(:user)
-
-      proposal = create(:proposal, author: author)
-
-      create(:follow, :followed_proposal, user: user1, followable: proposal)
-      create(:follow, :followed_proposal, user: user2, followable: proposal)
-
-      login_as author.reload
-      visit root_path
-
-      visit new_proposal_notification_path(proposal_id: proposal.id)
-
-      fill_in 'proposal_notification_title', with: "Thank you for supporting my proposal"
-      fill_in 'proposal_notification_body', with: "Please share it with others so we can make it happen!"
-      click_button "Send message"
-
-      expect(page).to have_content "Your message has been sent correctly."
-
-      logout
-      login_as user1.reload
-      visit root_path
-
-      find(".icon-notification").click
-
-      notification_for_user1 = Notification.where(user: user1).first
-      expect(page).to have_css ".notification", count: 1
-      expect(page).to have_content "There is one new notification on #{proposal.title}"
-      expect(page).to have_xpath "//a[@href='#{notification_path(notification_for_user1)}']"
-
-      logout
-      login_as user2.reload
-      visit root_path
-
-      find(".icon-notification").click
-
-      notification_for_user2 = Notification.where(user: user2).first
-      expect(page).to have_css ".notification", count: 1
-      expect(page).to have_content "There is one new notification on #{proposal.title}"
-      expect(page).to have_xpath "//a[@href='#{notification_path(notification_for_user2)}']"
-
-      logout
-      login_as user3.reload
       visit root_path
 
       find(".icon-no-notification").click

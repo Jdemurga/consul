@@ -26,10 +26,17 @@
                        class: "js-submit-on-change" } %>
     </div>
 
-    <div class="small-12 medium-3 column">
+    <div class="small-12 medium-2 column">
       <%= select_tag :tag_name,
                      options_for_select(investment_tags_select_options, params[:tag_name]),
                      { prompt: t("admin.budget_investments.index.tags_filter_all"),
+                       label: false,
+                       class: "js-submit-on-change" } %>
+    </div>
+    <div class="small-12 medium-1 column">
+      <%= select_tag :format,
+                     options_for_select([:html, :csv]),
+                     {
                        label: false,
                        class: "js-submit-on-change" } %>
     </div>
@@ -40,4 +47,11 @@
 
 <div id="investments">
   <%= render '/admin/budget_investments/investments' %>
+</div>
+
+<%= paginate @investments %>
+<div class="row text-right">
+  <div class="small-12 column">
+    <%= link_to 'Descargar excel', admin_budget_budget_investments_path(params.merge(format: :csv)), class: 'button primary'%>
+  </div>
 </div>

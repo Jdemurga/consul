@@ -1,7 +1,4 @@
 class Organization < ActiveRecord::Base
-
-  include Graphqlable
-
   belongs_to :user, touch: true
 
   validates :name, presence: true
@@ -9,6 +6,8 @@ class Organization < ActiveRecord::Base
   validate  :validate_name_length
   validates :responsible_name, presence: true
   validate  :validate_responsible_name_length
+
+  before_save :generate_username
 
   delegate :email, :phone_number, to: :user
 
@@ -35,19 +34,15 @@ class Organization < ActiveRecord::Base
   end
 
   def self.search(text)
-    if text.present?
-      joins(:user).where("users.email = ? OR users.phone_number = ? OR organizations.name ILIKE ?", text, text, "%#{text}%")
-    else
-      none
-    end
+    text.present? ? joins(:user).where("users.email = ? OR users.phone_number = ? OR organizations.name ILIKE ?", text, text, "%#{text}%") : none
   end
 
   def self.name_max_length
-    @@name_max_length ||= columns.find { |c| c.name == 'name' }.limit || 60
+    @@name_max_length ||= self.columns.find { |c| c.name == 'name' }.limit || 60
   end
 
   def self.responsible_name_max_length
-    @@responsible_name_max_length ||= columns.find { |c| c.name == 'responsible_name' }.limit || 60
+    @@responsible_name_max_length ||= self.columns.find { |c| c.name == 'responsible_name' }.limit || 60
   end
 
   private
@@ -66,4 +61,10 @@ class Organization < ActiveRecord::Base
       validator.validate(self)
     end
 
+  def generate_username
+    username  = "#{name.parameterize}-#{user.id}"
+    return if username == user.username
+    user.username = username
+    user.save!
+  end
 end

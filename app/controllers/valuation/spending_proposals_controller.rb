@@ -10,13 +10,11 @@ class Valuation::SpendingProposalsController < Valuation::BaseController
 
   def index
     @geozone_filters = geozone_filters
-    @spending_proposals = if current_user.valuator?
-                            SpendingProposal.scoped_filter(params_for_current_valuator, @current_filter)
-                                            .order(cached_votes_up: :desc)
-                                            .page(params[:page])
-                          else
-                            SpendingProposal.none.page(params[:page])
-                          end
+    if current_user.valuator?
+      @spending_proposals = SpendingProposal.scoped_filter(params_for_current_valuator, @current_filter).order(cached_votes_up: :desc).page(params[:page])
+    else
+      @spending_proposals = SpendingProposal.none.page(params[:page])
+    end
   end
 
   def valuate
@@ -56,18 +54,15 @@ class Valuation::SpendingProposalsController < Valuation::BaseController
     def valuation_params
       params[:spending_proposal][:feasible] = nil if params[:spending_proposal][:feasible] == 'nil'
 
-      params.require(:spending_proposal).permit(:price, :price_first_year, :price_explanation, :feasible, :feasible_explanation,
-                                                :time_scope, :valuation_finished, :internal_comments)
+      params.require(:spending_proposal).permit(:price, :price_first_year, :price_explanation, :feasible, :feasible_explanation, :time_scope, :valuation_finished, :internal_comments)
     end
 
     def params_for_current_valuator
-      params.merge(valuator_id: current_user.valuator.id)
+      params.merge({valuator_id: current_user.valuator.id})
     end
 
     def restrict_access_to_assigned_items
-      return if current_user.administrator? ||
-                ValuationAssignment.exists?(spending_proposal_id: params[:id], valuator_id: current_user.valuator.id)
-      raise ActionController::RoutingError.new('Not Found')
+      raise ActionController::RoutingError.new('Not Found') unless current_user.administrator? || ValuationAssignment.exists?(spending_proposal_id: params[:id], valuator_id: current_user.valuator.id)
     end
 
     def valid_price_params?

@@ -38,28 +38,12 @@ feature 'Proposals' do
 
       within("ul.pagination") do
         expect(page).to have_content("1")
-        expect(page).to have_link('2', href: 'http://www.example.com/proposals?page=2')
+        expect(page).to have_content("2")
         expect(page).to_not have_content("3")
         click_link "Next", exact: false
       end
 
       expect(page).to have_selector('#proposals .proposal', count: 2)
-    end
-
-    scenario 'Index should show proposal descriptive image only when is defined' do
-      featured_proposals = create_featured_proposals
-      proposal = create(:proposal)
-      proposal_with_image = create(:proposal)
-      image = create(:image, imageable: proposal_with_image)
-
-      visit proposals_path(proposal)
-
-      within("#proposal_#{proposal.id}") do
-        expect(page).to have_css("div.no-image")
-      end
-      within("#proposal_#{proposal_with_image.id}") do
-        expect(page).to have_css("img[alt='#{proposal_with_image.image.title}']")
-      end
     end
   end
 
@@ -77,8 +61,6 @@ feature 'Proposals' do
     expect(page).to have_content I18n.l(proposal.created_at.to_date)
     expect(page).to have_selector(avatar(proposal.author.name))
     expect(page.html).to include "<title>#{proposal.title}</title>"
-    expect(page).not_to have_selector ".js-flag-actions"
-    expect(page).not_to have_selector ".js-follow"
 
     within('.social-share-button') do
       expect(page.all('a').count).to be(4) # Twitter, Facebook, Google+, Telegram
@@ -105,27 +87,9 @@ feature 'Proposals' do
       expect(current_path).to_not eq(old_path)
       expect(current_path).to eq(right_path)
     end
-
-    scenario 'Can access the community' do
-      Setting['feature.community'] = true
-
-      proposal = create(:proposal)
-      visit proposal_path(proposal)
-      expect(page).to have_content "Access the community"
-
-      Setting['feature.community'] = false
-    end
-
-    scenario 'Can not access the community' do
-      Setting['feature.community'] = false
-
-      proposal = create(:proposal)
-      visit proposal_path(proposal)
-      expect(page).not_to have_content "Access the community"
-    end
   end
 
-  context "Embedded video" do
+  context "Embedded video"  do
 
     scenario "Show YouTube video" do
       proposal = create(:proposal, video_url: "http://www.youtube.com/watch?v=a7UFm6ErMPU")
@@ -135,7 +99,7 @@ feature 'Proposals' do
     end
 
     scenario "Show Vimeo video" do
-      proposal = create(:proposal, video_url: "https://vimeo.com/7232823")
+      proposal = create(:proposal, video_url: "https://vimeo.com/7232823" )
       visit proposal_path(proposal)
       expect(page).to have_selector("div[id='js-embedded-video']")
       expect(page.html).to include 'https://player.vimeo.com/video/7232823'
@@ -167,7 +131,7 @@ feature 'Proposals' do
     fill_in 'proposal_summary', with: 'In summary, what we want is...'
     fill_in 'proposal_description', with: 'This is very important because...'
     fill_in 'proposal_external_url', with: 'http://rescue.org/refugees'
-    fill_in 'proposal_video_url', with: 'https://www.youtube.com/watch?v=yPQfcG-eimk'
+    fill_in 'proposal_video_url', with: 'http://youtube.com'
     fill_in 'proposal_responsible_name', with: 'Isabel Garcia'
     fill_in 'proposal_tag_list', with: 'Refugees, Solidarity'
     check 'proposal_terms_of_service'
@@ -185,7 +149,7 @@ feature 'Proposals' do
     expect(page).to have_content 'In summary, what we want is...'
     expect(page).to have_content 'This is very important because...'
     expect(page).to have_content 'http://rescue.org/refugees'
-    expect(page).to have_content 'https://www.youtube.com/watch?v=yPQfcG-eimk'
+    expect(page).to have_content 'http://youtube.com'
     expect(page).to have_content author.name
     expect(page).to have_content 'Refugees'
     expect(page).to have_content 'Solidarity'
@@ -193,7 +157,7 @@ feature 'Proposals' do
   end
 
   scenario 'Create with proposal improvement info link' do
-    Setting['proposal_improvement_path'] = '/more-information/proposal-improvement'
+    Setting['proposal_improvement_path'] = 'more-information/proposal-improvement'
     author = create(:user)
     login_as(author)
 
@@ -203,7 +167,7 @@ feature 'Proposals' do
     fill_in 'proposal_summary', with: 'In summary, what we want is...'
     fill_in 'proposal_description', with: 'This is very important because...'
     fill_in 'proposal_external_url', with: 'http://rescue.org/refugees'
-    fill_in 'proposal_video_url', with: 'https://www.youtube.com/watch?v=yPQfcG-eimk'
+    fill_in 'proposal_video_url', with: 'http://youtube.com'
     fill_in 'proposal_responsible_name', with: 'Isabel Garcia'
     fill_in 'proposal_tag_list', with: 'Refugees, Solidarity'
     check 'proposal_terms_of_service'
@@ -211,7 +175,7 @@ feature 'Proposals' do
     click_button 'Create proposal'
 
     expect(page).to have_content 'Proposal created successfully.'
-    expect(page).to have_content 'Improve your campaign and get more supports'
+    expect(page).to have_content 'You can also see more information about improving your campaign'
 
     click_link 'Not now, go to my proposal'
 
@@ -367,14 +331,13 @@ feature 'Proposals' do
 
   scenario 'JS injection is prevented but autolinking is respected' do
     author = create(:user)
-    js_injection_string = "<script>alert('hey')</script> <a href=\"javascript:alert('surprise!')\">click me<a/> http://example.org"
     login_as(author)
 
     visit new_proposal_path
     fill_in 'proposal_title', with: 'Testing auto link'
     fill_in 'proposal_question', with: 'Should I stay or should I go?'
     fill_in 'proposal_summary', with: 'In summary, what we want is...'
-    fill_in 'proposal_description', with: js_injection_string
+    fill_in 'proposal_description', with: "<script>alert('hey')</script> <a href=\"javascript:alert('surprise!')\">click me<a/> http://example.org"
     fill_in 'proposal_responsible_name', with: 'Isabel Garcia'
     check 'proposal_terms_of_service'
 
@@ -409,7 +372,7 @@ feature 'Proposals' do
       fill_in 'proposal_summary', with: 'In summary, what we want is...'
       fill_in 'proposal_description', with: 'This is very important because...'
       fill_in 'proposal_external_url', with: 'http://rescue.org/refugees'
-      fill_in 'proposal_video_url', with: 'https://www.youtube.com/watch?v=yPQfcG-eimk'
+      fill_in 'proposal_video_url', with: 'http://youtube.com'
       fill_in 'proposal_responsible_name', with: 'Isabel Garcia'
       check 'proposal_terms_of_service'
 
@@ -437,7 +400,7 @@ feature 'Proposals' do
       fill_in 'proposal_summary', with: 'In summary, what we want is...'
       fill_in 'proposal_description', with: 'This is very important because...'
       fill_in 'proposal_external_url', with: 'http://rescue.org/refugees'
-      fill_in 'proposal_video_url', with: 'https://www.youtube.com/watch?v=yPQfcG-eimk'
+      fill_in 'proposal_video_url', with: 'http://youtube.com'
       fill_in 'proposal_responsible_name', with: 'Isabel Garcia'
       check 'proposal_terms_of_service'
 
@@ -556,7 +519,7 @@ feature 'Proposals' do
 
     visit edit_proposal_path(proposal)
     expect(current_path).not_to eq(edit_proposal_path(proposal))
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(proposals_path)
     expect(page).to have_content 'You do not have permission'
   end
 
@@ -571,9 +534,8 @@ feature 'Proposals' do
     visit edit_proposal_path(proposal)
 
     expect(current_path).not_to eq(edit_proposal_path(proposal))
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(proposals_path)
     expect(page).to have_content 'You do not have permission'
-    Setting["max_votes_for_proposal_edit"] = 1000
   end
 
   scenario 'Update should be posible for the author of an editable proposal' do
@@ -662,69 +624,6 @@ feature 'Proposals' do
 
       expect(current_url).to include('order=created_at')
       expect(current_url).to include('page=1')
-    end
-
-    context 'Recommendations' do
-
-      before do
-        Setting['feature.user.recommendations'] = true
-        create(:proposal, title: 'Best',   cached_votes_up: 10, tag_list: "Sport")
-        create(:proposal, title: 'Medium', cached_votes_up: 5, tag_list: "Sport")
-        create(:proposal, title: 'Worst',  cached_votes_up: 1, tag_list: "Sport")
-      end
-
-      after do
-        Setting['feature.user.recommendations'] = nil
-      end
-
-      scenario 'Proposals can not ordered by recommendations when there is not an user logged', :js do
-        visit proposals_path
-
-        expect(page).not_to have_selector('a', text: 'recommendations')
-      end
-
-      scenario 'Should display text when there are not recommendeds results', :js do
-        user = create(:user)
-        proposal = create(:proposal, tag_list: "Distinct_to_sport")
-        create(:follow, followable: proposal, user: user)
-        login_as(user)
-        visit proposals_path
-
-        click_link 'recommendations'
-
-        expect(page).to have_content "There are not proposals related to your interests"
-      end
-
-      scenario 'Should display text when user has not related interests', :js do
-        user = create(:user)
-        login_as(user)
-        visit proposals_path
-
-        click_link 'recommendations'
-
-        expect(page).to have_content "Follow proposals so we can give you recommendations"
-      end
-
-      scenario 'Proposals are ordered by recommendations when there is an user logged', :js do
-        user = create(:user)
-        proposal = create(:proposal, tag_list: "Sport")
-        create(:follow, followable: proposal, user: user)
-        login_as(user)
-
-        visit proposals_path
-
-        click_link 'recommendations'
-
-        expect(page).to have_selector('a.active', text: 'recommendations')
-
-        within '#proposals-list' do
-          expect('Best').to appear_before('Medium')
-          expect('Medium').to appear_before('Worst')
-        end
-
-        expect(current_url).to include('order=recommendations')
-        expect(current_url).to include('page=1')
-      end
     end
   end
 
@@ -1125,7 +1024,7 @@ feature 'Proposals' do
           click_link "Advanced search"
           select "Customized", from: "js-advanced-search-date-min"
           fill_in "advanced_search_date_min", with: 7.days.ago
-          fill_in "advanced_search_date_max", with: 1.day.ago
+          fill_in "advanced_search_date_max", with: 1.days.ago
           click_button "Filter"
 
           expect(page).to have_content("There are 2 citizen proposals")
@@ -1172,7 +1071,7 @@ feature 'Proposals' do
           click_link "Advanced search"
           fill_in "Write the text", with: "Schwifty"
           select Setting['official_level_1_name'], from: "advanced_search_official_level"
-          select "Last 24 hours", from: "js-advanced-search-date-min"
+          select "Last 24 hours",   from: "js-advanced-search-date-min"
 
           click_button "Filter"
 
@@ -1208,7 +1107,7 @@ feature 'Proposals' do
 
           select "Customized", from: "js-advanced-search-date-min"
           fill_in "advanced_search_date_min", with: 7.days.ago.to_date
-          fill_in "advanced_search_date_max", with: 1.day.ago.to_date
+          fill_in "advanced_search_date_max", with: 1.days.ago.to_date
           click_button "Filter"
 
           expect(page).to have_content("citizen proposals cannot be found")
@@ -1259,32 +1158,6 @@ feature 'Proposals' do
         expect(all(".proposal")[2].text).to match "Show what you got"
         expect(page).to_not have_content "Do not display"
       end
-    end
-
-    scenario "Reorder by recommendations results maintaing search", :js do
-      Setting['feature.user.recommendations'] = true
-      user = create(:user)
-      login_as(user)
-      proposal1 = create(:proposal, title: "Show you got",      cached_votes_up: 10,  tag_list: "Sport")
-      proposal2 = create(:proposal, title: "Show what you got", cached_votes_up: 1,   tag_list: "Sport")
-      proposal3 = create(:proposal, title: "Do not display with same tag", cached_votes_up: 100, tag_list: "Sport")
-      proposal4 = create(:proposal, title: "Do not display",    cached_votes_up: 1)
-      proposal5 = create(:proposal, tag_list: "Sport")
-      create(:follow, followable: proposal5, user: user)
-
-      visit proposals_path
-      fill_in "search", with: "Show you got"
-      click_button "Search"
-      click_link 'recommendations'
-      expect(page).to have_selector("a.active", text: "recommendations")
-
-      within("#proposals") do
-        expect(all(".proposal")[0].text).to match "Show you got"
-        expect(all(".proposal")[1].text).to match "Show what you got"
-        expect(page).to_not have_content "Do not display with same tag"
-        expect(page).to_not have_content "Do not display"
-      end
-      Setting['feature.user.recommendations'] = nil
     end
 
     scenario 'After a search do not show featured proposals' do
@@ -1348,82 +1221,6 @@ feature 'Proposals' do
 
     expect(Flag.flagged?(user, proposal)).to_not be
   end
-
-  scenario 'Flagging/Unflagging AJAX', :js do
-    user = create(:user)
-    proposal = create(:proposal)
-
-    login_as(user)
-    visit proposal_path(proposal)
-
-    # Flagging
-    within "#proposal_#{proposal.id}" do
-      page.find("#flag-expand-proposal-#{proposal.id}").click
-      page.find("#flag-proposal-#{proposal.id}").click
-
-      expect(page).to have_css("#unflag-expand-proposal-#{proposal.id}")
-    end
-
-    expect(Flag.flagged?(user, proposal)).to be
-
-    # Unflagging
-    within "#proposal_#{proposal.id}" do
-      page.find("#unflag-expand-proposal-#{proposal.id}").click
-      page.find("#unflag-proposal-#{proposal.id}").click
-
-      expect(page).to have_css("#flag-expand-proposal-#{proposal.id}")
-    end
-
-    expect(Flag.flagged?(user, proposal)).to_not be
-  end
-
-  it_behaves_like "followable", "proposal", "proposal_path", { "id": "id" }
-
-  it_behaves_like "imageable", "proposal", "proposal_path", { "id": "id" }
-
-  it_behaves_like "nested imageable",
-                  "proposal",
-                  "new_proposal_path",
-                  { },
-                  "imageable_fill_new_valid_proposal",
-                  "Create proposal",
-                  "Proposal created successfully"
-
-  it_behaves_like "nested imageable",
-                  "proposal",
-                  "edit_proposal_path",
-                  { "id": "id" },
-                  nil,
-                  "Save changes",
-                  "Proposal updated successfully"
-
-  it_behaves_like "documentable", "proposal", "proposal_path", { "id": "id" }
-
-  it_behaves_like "nested documentable",
-                  "user",
-                  "proposal",
-                  "new_proposal_path",
-                  { },
-                  "documentable_fill_new_valid_proposal",
-                  "Create proposal",
-                  "Proposal created successfully"
-
-  it_behaves_like "nested documentable",
-                  "user",
-                  "proposal",
-                  "edit_proposal_path",
-                  { "id": "id" },
-                  nil,
-                  "Save changes",
-                  "Proposal updated successfully"
-
-  it_behaves_like "mappable",
-                  "proposal",
-                  "proposal",
-                  "new_proposal_path",
-                  "edit_proposal_path",
-                  "proposal_path",
-                  { }
 
   scenario 'Erased author' do
     user = create(:user)
@@ -1523,7 +1320,7 @@ feature 'Proposals' do
       check "proposal_terms_of_service"
 
       within('div#js-suggest') do
-        expect(page).to have_content "You are seeing 5 of 6 proposals containing the term 'search'"
+        expect(page).to have_content ("You are seeing 5 of 6 proposals containing the term 'search'")
       end
     end
 
@@ -1539,7 +1336,7 @@ feature 'Proposals' do
       check "proposal_terms_of_service"
 
       within('div#js-suggest') do
-        expect(page).to_not have_content 'You are seeing'
+        expect(page).to_not have_content ('You are seeing')
       end
     end
   end
@@ -1547,8 +1344,8 @@ feature 'Proposals' do
   context "Summary" do
 
     scenario "Displays proposals grouped by category" do
-      create(:tag, :category, name: 'Culture')
-      create(:tag, :category, name: 'Social Services')
+      create(:tag, kind: 'category', name: 'Culture')
+      create(:tag, kind: 'category', name: 'Social Services')
 
       3.times { create(:proposal, tag_list: 'Culture') }
       3.times { create(:proposal, tag_list: 'Social Services') }
@@ -1591,7 +1388,7 @@ feature 'Proposals' do
     end
 
     scenario "Displays a maximum of 3 proposals per category" do
-      create(:tag, :category, name: 'culture')
+      create(:tag, kind: 'category', name: 'culture')
       4.times { create(:proposal, tag_list: 'culture') }
 
       visit summary_proposals_path
@@ -1600,7 +1397,7 @@ feature 'Proposals' do
     end
 
     scenario "Orders proposals by votes" do
-      create(:tag, :category, name: 'culture')
+      create(:tag, kind: 'category', name: 'culture')
       create(:proposal, title: 'Best',   tag_list: 'culture').update_column(:confidence_score, 10)
       create(:proposal, title: 'Worst',  tag_list: 'culture').update_column(:confidence_score, 2)
       create(:proposal, title: 'Medium', tag_list: 'culture').update_column(:confidence_score, 5)
@@ -1612,7 +1409,7 @@ feature 'Proposals' do
     end
 
     scenario "Displays proposals from last week" do
-      create(:tag, :category, name: 'culture')
+      create(:tag, kind: 'category', name: 'culture')
       proposal1 = create(:proposal, tag_list: 'culture', created_at: 1.day.ago)
       proposal2 = create(:proposal, tag_list: 'culture', created_at: 5.days.ago)
       proposal3 = create(:proposal, tag_list: 'culture', created_at: 8.days.ago)
@@ -1633,6 +1430,21 @@ feature 'Proposals' do
 end
 
 feature 'Successful proposals' do
+
+  scenario 'Banner shows in proposal index' do
+    create_featured_proposals
+
+    visit proposals_path
+    expect(page).to_not have_css("#next-voting")
+    expect(page).to have_css("#featured-proposals")
+
+    create_successful_proposals
+
+    visit proposals_path
+
+    expect(page).to have_css("#next-voting")
+    expect(page).to_not have_css("#featured-proposals")
+  end
 
   scenario 'Successful proposals do not show support buttons in index' do
     successful_proposals = create_successful_proposals

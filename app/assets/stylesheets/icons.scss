@@ -4,9 +4,9 @@
   font-family: 'icons';
   src: font-url('icons.eot');
   src: font-url('icons.eot?#iefix') format('embedded-opentype'),
-    font-url('icons.woff') format('woff'),
-    font-url('icons.ttf') format('truetype'),
-    font-url('icons.svg#icons') format('svg');
+  font-url('icons.woff') format('woff'),
+  font-url('icons.ttf') format('truetype'),
+  font-url('icons.svg#icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -287,4 +287,8 @@
 
 .icon-file-text::before {
   content: '\21';
+}
+
+.icon-bars::before {
+  content: '\22';
 }

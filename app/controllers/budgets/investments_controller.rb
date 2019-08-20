@@ -4,7 +4,7 @@ module Budgets
     include CommentableActions
     include FlagActions
 
-    before_action :authenticate_user!, except: [:index, :show]
+    before_action :authenticate_user!, except: [:index, :show, :project]
 
     load_and_authorize_resource :budget
     load_and_authorize_resource :investment, through: :budget, class: "Budget::Investment"
@@ -12,6 +12,7 @@ module Budgets
     before_action -> { flash.now[:notice] = flash[:notice].html_safe if flash[:html_safe] && flash[:notice] }
     before_action :load_ballot, only: [:index, :show]
     before_action :load_heading, only: [:index, :show]
+    before_action :load_group, only: [:index, :show]
     before_action :set_random_seed, only: :index
     before_action :load_categories, only: [:index, :new, :create]
     before_action :set_default_budget_filter, only: :index
@@ -20,22 +21,28 @@ module Budgets
 
     has_orders %w{most_voted newest oldest}, only: :show
     has_orders ->(c) { c.instance_variable_get(:@budget).investments_orders }, only: :index
-    has_filters %w{not_unfeasible feasible unfeasible unselected selected}, only: [:index, :show, :suggest]
+    has_filters %w{not_unfeasible feasible unfeasible unselected selected}, only: [:index, :show]
 
     invisible_captcha only: [:create, :update], honeypot: :subtitle, scope: :budget_investment
 
-    helper_method :resource_model, :resource_name
     respond_to :html, :js
 
+    def project; end
+
     def index
-      @investments = @investments.apply_filters_and_search(@budget, params, @current_filter)
-                                 .send("sort_by_#{@current_order}").page(params[:page]).per(10).for_render
+      @investments = @investments.apply_filters_and_search(@budget, params, @current_filter).send("sort_by_#{@current_order}").page(params[:page]).per(10).for_render
       @investment_ids = @investments.pluck(:id)
       load_investment_votes(@investments)
       @tag_cloud = tag_cloud
     end
 
     def new
+      if params[:group_id]
+        @group = @budget.groups.find(params[:group_id])
+        @heading = @group.headings.first
+      else
+        redirect_to @budget, notice: I18n.t('budgets.investments.new.should_select_a_geozone', budget_page_url: budget_path(@budget)).html_safe
+      end
     end
 
     def show
@@ -48,12 +55,15 @@ module Budgets
 
     def create
       @investment.author = current_user
+      @heading = @investment.heading
+      @group = @heading.group
 
       if @investment.save
         Mailer.budget_investment_created(@investment).deliver_later
         redirect_to budget_investment_path(@budget, @investment),
                     notice: t('flash.actions.create.budget_investment')
       else
+
         render :new
       end
     end
@@ -64,7 +74,7 @@ module Budgets
     end
 
     def vote
-      @investment.register_selection(current_user)
+      @investment.register_selection(current_user, params[:value]) #GET-62
       load_investment_votes(@investment)
       respond_to do |format|
         format.html { redirect_to budget_investments_path(heading_id: @investment.heading.id) }
@@ -72,21 +82,7 @@ module Budgets
       end
     end
 
-    def suggest
-      @resource_path_method = :namespaced_budget_investment_path
-      @resource_relation    = resource_model.where(budget: @budget).apply_filters_and_search(@budget, params, @current_filter)
-      super
-    end
-
     private
-
-      def resource_model
-        Budget::Investment
-      end
-
-      def resource_name
-        "budget_investment"
-      end
 
       def load_investment_votes(investments)
         @investment_votes = current_user ? current_user.budget_investment_votes(investments) : {}
@@ -94,7 +90,7 @@ module Budgets
 
       def set_random_seed
         if params[:order] == 'random' || params[:order].blank?
-          params[:random_seed] ||= rand(99) / 100.0
+          params[:random_seed] ||= rand(99)/100.0
           seed = Float(params[:random_seed]) rescue 0
           Budget::Investment.connection.execute("select setseed(#{seed})")
         else
@@ -103,12 +99,11 @@ module Budgets
       end
 
       def investment_params
-        params.require(:budget_investment)
-              .permit(:title, :description, :external_url, :heading_id, :tag_list,
-                      :organization_name, :location, :terms_of_service,
-                      image_attributes: [:id, :title, :attachment, :cached_attachment, :user_id, :_destroy],
-                      documents_attributes: [:id, :title, :attachment, :cached_attachment, :user_id, :_destroy],
-                      map_location_attributes: [:latitude, :longitude, :zoom])
+        #GET-62 Permit uploads
+        params.require(:budget_investment).permit(:title, :description, :external_url, :heading_id,
+                                                  :tag_list, :organization_name, :location,
+                                                  :terms_of_service, :attachment,
+                                                  :attachment_cache)
       end
 
       def load_ballot
@@ -116,15 +111,25 @@ module Budgets
         @ballot = @budget.balloting? ? query.first_or_create : query.first_or_initialize
       end
 
+      def load_group
+        if params[:group_id].present?
+          @group = @budget.groups.find(params[:group_id])
+        end
+      end
+
       def load_heading
         if params[:heading_id].present?
           @heading = @budget.headings.find(params[:heading_id])
           @assigned_heading = @ballot.try(:heading_for_group, @heading.try(:group))
+          @group = @heading.group
+        else
+          # GET-107 - Default heading
+          @heading = @budget.headings.first
         end
       end
 
       def load_categories
-        @categories = ActsAsTaggableOn::Tag.category.order(:name)
+        @categories = ActsAsTaggableOn::Tag.where("kind = 'category'").order(:name)
       end
 
       def tag_cloud

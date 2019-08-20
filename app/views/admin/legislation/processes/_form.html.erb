@@ -39,9 +39,6 @@
                         class: "js-calendar-full",
                         id: "end_date" %>
     </div>
-    <div class="small-12 medium-2 column">
-      <%= f.check_box :published, checked: @process.published?, label: t('admin.legislation.processes.form.enabled') %>
-    </div>
 
     <div class="small-12 column">
       <hr>
@@ -73,7 +70,8 @@
                         id: "debate_end_date" %>
     </div>
     <div class="small-12 medium-2 column">
-      <%= f.check_box :debate_phase_enabled, checked: @process.debate_phase.enabled?, label: t('admin.legislation.processes.form.enabled') %>
+      <%= check_box_tag :debate_phase_active, @process.active_phase?(:debate), @process.new_record? || @process.active_phase?(:debate), data: {disable_date: "debate"} %>
+      <%= label_tag :debate_phase_active, t('admin.legislation.processes.form.active') %>
     </div>
 
     <div class="small-12 column">
@@ -106,40 +104,8 @@
                         id: "allegations_end_date" %>
     </div>
     <div class="small-12 medium-2 column">
-      <%= f.check_box :allegations_phase_enabled, checked: @process.allegations_phase.enabled?, label: t('admin.legislation.processes.form.enabled') %>
-    </div>
-
-    <div class="small-12 column">
-      <hr>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="small-12 medium-4 column">
-      <label><%= t('admin.legislation.processes.form.proposals_phase') %></label>
-    </div>
-    <div class="small-12 medium-1 column legislation-process-start">
-      <%= t('admin.legislation.processes.form.start') %>
-    </div>
-    <div class="small-12 medium-2 column">
-      <%= f.text_field :proposals_phase_start_date,
-                        label: false,
-                        value: format_date_for_calendar_form(@process.proposals_phase_start_date),
-                        class: "js-calendar-full",
-                        id: "proposals_phase_start_date" %>
-    </div>
-    <div class="small-12 medium-1 column legislation-process-end">
-      <%= t('admin.legislation.processes.form.end') %>
-    </div>
-    <div class="small-12 medium-2 column">
-      <%= f.text_field :proposals_phase_end_date,
-                        label: false,
-                        value: format_date_for_calendar_form(@process.proposals_phase_end_date),
-                        class: "js-calendar-full",
-                        id: "proposals_phase_end_date" %>
-    </div>
-    <div class="small-12 medium-2 column">
-      <%= f.check_box :proposals_phase_enabled, checked: @process.proposals_phase.enabled?, label: t('admin.legislation.processes.form.enabled') %>
+      <%= check_box_tag :allegations_phase_active, @process.active_phase?(:allegations), @process.new_record? || @process.active_phase?(:allegations), data: {disable_date: "allegations"} %>
+      <%= label_tag :allegations_phase_active, t('admin.legislation.processes.form.active') %>
     </div>
 
     <div class="small-12 column">
@@ -159,7 +125,8 @@
                         id: "draft_publication_date" %>
     </div>
     <div class="small-12 medium-2 column">
-      <%= f.check_box :draft_publication_enabled, checked: @process.draft_publication.enabled?, label: t('admin.legislation.processes.form.enabled') %>
+      <%= check_box_tag :draft_publication_phase_active, @process.active_phase?(:draft_publication), @process.new_record? || @process.active_phase?(:draft_publication), data: {disable_date: "draft_publication"} %>
+      <%= label_tag :draft_publication_phase_active, t('admin.legislation.processes.form.active') %>
     </div>
     <div class="small-12 column">
       <hr>
@@ -168,27 +135,38 @@
 
   <div class="row">
     <div class="small-12 medium-4 column">
-      <%= f.label :result_publication_date %>
+      <%= f.label :final_publication_date %>
     </div>
     <div class="small-12 medium-2 column end">
-      <%= f.text_field :result_publication_date,
+      <%= f.text_field :final_publication_date,
                         label: false,
-                        value: format_date_for_calendar_form(@process.result_publication_date),
+                        value: format_date_for_calendar_form(@process.final_publication_date),
                         class: "js-calendar-full",
-                        id: "result_publication_date" %>
+                        id: "final_publication_date" %>
     </div>
     <div class="small-12 medium-2 column">
-      <%= f.check_box :result_publication_enabled, checked: @process.result_publication.enabled?, label: t('admin.legislation.processes.form.enabled') %>
+      <%= check_box_tag :final_version_publication_phase_active, @process.active_phase?(:final_version_publication), @process.new_record? || @process.active_phase?(:final_version_publication), data: {disable_date: "final_publication"} %>
+      <%= label_tag :final_version_publication_phase_active, t('admin.legislation.processes.form.active') %>
     </div>
     <div class="small-12 column">
       <hr>
     </div>
   </div>
 
-  <div class="documents small-12 column">
-    <%= render 'documents/nested_documents', documentable: @process, f: f %>
+  <div class="row">
     <div class="small-12 column">
-      <hr>
+      <h3><%= t("admin.site_customization.pages.form.attachments") %></h3>
+
+      <%= f.fields_for :attachments do |attachment| %>
+        <%= render 'admin/shared/attachment_fields', f: attachment %>
+      <% end %>
+      <br>
+
+      <div class="text-right">
+        <%= link_to_add_association f, :attachments, class: 'button success small'  do %>
+          <%= t("admin.budget_investments.edit.project_attachments_add") %>
+        <% end %>
+      </div>
     </div>
   </div>
 
@@ -205,19 +183,6 @@
 
   <div class="row">
     <div class="small-12 medium-4 column">
-      <%= f.label :summary %>
-      <small><%= t('admin.legislation.processes.form.use_markdown') %></small>
-    </div>
-    <div class="small-12 medium-8 column">
-      <%= f.text_area :summary,
-                       label: false,
-                       rows: 2,
-                       placeholder: t('admin.legislation.processes.form.summary_placeholder') %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="small-12 medium-4 column">
       <%= f.label :description %>
       <small><%= t('admin.legislation.processes.form.use_markdown') %></small>
     </div>
@@ -226,6 +191,32 @@
                        label: false,
                        rows: 5,
                        placeholder: t('admin.legislation.processes.form.description_placeholder') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-4 column">
+      <%= f.label :target %>
+      <small><%= t('admin.legislation.processes.form.use_markdown') %></small>
+    </div>
+    <div class="small-12 medium-8 column">
+      <%= f.text_area :target,
+                       label: false,
+                       rows: 5,
+                       placeholder: t('admin.legislation.processes.form.target_placeholder') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-4 column">
+      <%= f.label :how_to_participate %>
+      <small><%= t('admin.legislation.processes.form.use_markdown') %></small>
+    </div>
+    <div class="small-12 medium-8 column">
+      <%= f.text_area :how_to_participate,
+                       label: false,
+                       rows: 5,
+                       placeholder: t('admin.legislation.processes.form.how_to_participate_placeholder') %>
     </div>
   </div>
 

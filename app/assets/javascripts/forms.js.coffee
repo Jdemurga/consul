@@ -15,11 +15,6 @@ App.Forms =
   toggleLink: ->
     $('.js-toggle-link').unbind('click').on('click', ->
       $($(this).data('toggle-selector')).toggle("down")
-      if $(this).data('toggle-text') isnt undefined
-        toggle_txt = $(this).text()
-        $(this).text( $(this).data('toggle-text')  )
-        $(this).data('toggle-text', toggle_txt)
-
       false
     )
 

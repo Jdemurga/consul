@@ -8,149 +8,96 @@
 // 06. Polls
 // 07. Legislation
 // 08. CMS
-// 09. Map
 //
 
 // 01. Global styles
 // -----------------
 
-$admin-color:    #245b80;
-$sidebar:        #245b80;
-$sidebar-hover:  #25597c;
-$sidebar-active: #f4fcd0;
+$admin-color: #CF3638;
 
-.admin {
+body.admin {
 
-  h2 {
-    font-weight: 100;
-    margin-bottom: $line-height;
-
-    &.title {
-      text-transform: uppercase;
-    }
-  }
-
-  .back {
-    float: none;
-  }
-
-  .header {
+  header {
     border: 0;
-  }
 
-  .top-links {
-    background: #000;
+    .top-links {
+      background: darken($admin-color, 15%);
+    }
+
+    .back-web {
+      padding-top: $line-height/4;
+      text-decoration: underline;
+    }
   }
 
   .top-bar {
-    background: #fff !important;
-    border-bottom: 1px solid #eee;
-    box-shadow: 0 2px 2px #eee;
-    color: #000;
+    background: $admin-color !important;
     height: auto;
-
-    [class^="icon-"]:not(.icon-circle) {
-      font-size: $base-font-size;
-    }
   }
 
   .top-bar-title {
 
     h1 {
       margin-bottom: 0;
-      margin-top: $line-height / 2;
-
-      @include breakpoint(medium) {
-        margin-left: $line-height / 2;
-      }
-
-      small {
-        color: #000;
-        text-transform: uppercase;
-      }
     }
+  }
 
-    a {
-      color: #000 !important;
-      line-height: $line-height !important;
+  form {
 
-      @include breakpoint(medium) {
-        line-height: $line-height !important;
+    .button {
+      margin-top: 0;
+
+      &.margin-top {
+        margin-top: $line-height;
       }
     }
-  }
 
-  .top-bar .menu > li {
-
-    @include breakpoint(medium) {
-      height: auto !important;
-      padding-top: $line-height / 2;
+    input[type="text"], textarea {
+      width: 100%;
     }
 
-    a {
-      color: #000 !important;
-    }
-  }
+    .fieldset {
 
-  .menu-icon.dark {
+      select {
+        height: $line-height*2;
+      }
 
-    &::after,
-    &:hover::after {
-      background: #000 !important;
-      box-shadow: 0 7px 0 #000, 0 14px 0 #000 !important;
-    }
-  }
-
-  .notifications .icon-circle {
-    color: $admin-color;
-  }
-
-  .dropdown.menu > .is-dropdown-submenu-parent > a::after {
-    border-color: #000 transparent transparent;
-  }
-
-  .fieldset {
-
-    select {
-      height: $line-height * 2;
-    }
-
-    [type="text"] {
-      border-radius: 0;
-      margin-bottom: 0 !important;
-    }
-  }
-
-  th,
-  td {
-    text-align: left;
-
-    &.text-center {
-      text-align: center;
-    }
-
-    &.text-right {
-      padding-right: $line-height;
-      text-align: right;
-    }
-
-    &.with-button {
-      line-height: $line-height * 2;
-    }
-  }
-
-  tr {
-    background: #fff;
-    border: 1px solid $border;
-
-    &:hover {
-      background: #f3f6f7;
+      .input-group input[type="text"] {
+        border-radius: 0;
+        margin-bottom: 0 !important;
+      }
     }
   }
 
   table {
 
-    .break {
+    th {
+      text-align: left;
+
+      &.text-center {
+        text-align: center;
+      }
+
+      &.text-right {
+        padding-right: $line-height;
+        text-align: right;
+      }
+
+      &.with-button {
+        line-height: $line-height*2;
+      }
+    }
+
+    tr {
+      background: white;
+      border: 1px solid $border;
+
+      &:hover {
+        background: #f3f6f7;
+      }
+    }
+
+    td.break {
       word-break: break-word;
     }
 
@@ -158,15 +105,14 @@ $sidebar-active: #f4fcd0;
       table-layout: fixed;
     }
 
-    [type="submit"] ~ a,
-    a ~ a {
+    input[type="submit"] ~ a, a ~ a {
       margin-left: 0;
       margin-right: 0;
-      margin-top: $line-height / 2;
+      margin-top: $line-height/2;
 
       @include breakpoint(medium) {
-        margin-left: $line-height / 2;
-        margin-right: $line-height / 2;
+        margin-left: $line-height/2;
+        margin-right: $line-height/2;
         margin-top: 0;
       }
     }
@@ -176,24 +122,18 @@ $sidebar-active: #f4fcd0;
     max-width: none;
   }
 
-  .menu.simple {
-    margin-bottom: $line-height / 2;
-
-    h2 {
-      font-weight: bold;
-      margin-bottom: $line-height / 3;
-    }
-
-    .active {
-      border-bottom: 2px solid $admin-color;
-      color: $admin-color;
-      font-weight: bold;
-    }
+  .menu.simple li.active {
+    border-bottom: 2px solid $admin-color;
+    color: $admin-color;
   }
 
   .tabs-panel {
     padding-left: 0;
     padding-right: 0;
+  }
+
+  #proposals {
+    width: 100% !important;
   }
 
   .accordion-title {
@@ -243,7 +183,7 @@ $sidebar-active: #f4fcd0;
     &:hover .on-hover-block {
       display: block;
       margin: 0;
-      margin-top: $line-height / 2;
+      margin-top: $line-height/2;
       width: 100%;
     }
   }
@@ -274,12 +214,10 @@ $sidebar-active: #f4fcd0;
 // -----------
 
 .admin-sidebar {
-  background: $sidebar;
-  background: linear-gradient(to bottom, #245b80 0%, #488fb5 100%);
   border-right: 1px solid $border;
 
   @include breakpoint(medium) {
-    min-height: rem-calc(1100);
+   min-height: rem-calc(1100);
   }
 
   ul {
@@ -289,57 +227,62 @@ $sidebar-active: #f4fcd0;
     padding: 0;
 
     [class^="icon-"] {
-      color: #fff;
+      color: $admin-color;
       display: inline-block;
       font-size: rem-calc(24);
       line-height: $line-height;
-      padding: $line-height / 2 $line-height / 4;
+      padding: $line-height/2 $line-height/4;
       padding-left: 0;
       vertical-align: middle;
     }
-  }
 
-  li {
-    margin: 0;
-    outline: 0;
+    li {
+      background: white;
+      margin: 0;
+      outline: 0;
 
-    ul {
-      margin-left: $line-height / 1.5;
-      border-left: 1px solid $sidebar-hover;
-      padding-left: $line-height / 2;
+      ul {
+        margin-left: $line-height/1.5;
+        border-left: 1px solid $border;
+        padding-left: $line-height/2;
+      }
+
+      &.section-title {
+        border-bottom: 1px solid $border;
+      }
+
+      &.active a {
+        background: #f3f6f7;
+        border-radius: rem-calc(6);
+        -moz-border-radius: rem-calc(6);
+        -webkit-border-radius: rem-calc(6);
+        color: $admin-color;
+        font-weight: bold;
+      }
     }
 
-    &.active a {
-      background: $sidebar-hover;
-      border-left: 2px solid $sidebar-active;
-      font-weight: bold;
-    }
-  }
+    li a {
+      color: $text;
+      display: block;
+      line-height: rem-calc(48);
+      padding-left: rem-calc(12);
+      vertical-align: top;
 
-  li a {
-    color: #fff;
-    display: block;
-    line-height: rem-calc(48);
-    padding-left: rem-calc(12);
-    vertical-align: top;
-
-    &:hover {
-      background: $sidebar-hover;
-      color: #fff;
-      text-decoration: none;
+      &:hover {
+        background: #f3f6f7;
+        border-radius: rem-calc(6);
+        -moz-border-radius: rem-calc(6);
+        -webkit-border-radius: rem-calc(6);
+        color: $admin-color;
+        text-decoration: none;
+      }
     }
   }
 
   .is-accordion-submenu-parent {
 
-    > a::after {
-      border: 0;
-      content: '\61' !important;
-      font-family: "icons" !important;
-      height: auto;
-      position: absolute !important;
-      right: 30px;
-      top: 6px !important;
+    & > a::after {
+      border-color: $admin-color transparent transparent;
     }
   }
 
@@ -348,19 +291,15 @@ $sidebar-active: #f4fcd0;
     margin-left: $line-height;
 
     li:first-child {
-      padding-top: $line-height / 2;
+      padding-top: $line-height/2;
     }
 
     li:last-child {
-      padding-bottom: $line-height / 2;
+      padding-bottom: $line-height/2;
     }
 
     a {
       font-weight: normal;
-    }
-
-    .active {
-      border-bottom: 0;
     }
   }
 }
@@ -369,14 +308,12 @@ $sidebar-active: #f4fcd0;
 // -----------------
 
 .delete {
-  border-bottom: 1px dotted #cf2a0e;
+  border-bottom: 1px dotted #CF2A0E;
   color: $delete;
   font-size: $small-font-size;
 
-  &:hover,
-  &:active,
-  &:focus {
-    border-bottom: 1px dotted #fff;
+  &:hover, &:active, &:focus {
+    border-bottom: 1px dotted white;
     color: #cf2a0e;
   }
 }
@@ -439,6 +376,8 @@ $sidebar-active: #f4fcd0;
   &:hover {
     max-height: rem-calc(1000);
     transition: max-height 0.9s;
+    -moz-transition: max-height 0.9s;
+    -webkit-transition: max-height 0.9s;
   }
 }
 
@@ -446,7 +385,7 @@ $sidebar-active: #f4fcd0;
 // ---------
 
 .stats {
-  background: #fff;
+  background: white;
 }
 
 .stats-numbers {
@@ -478,36 +417,34 @@ $sidebar-active: #f4fcd0;
   ul {
     list-style-type: none;
     margin-left: 0;
-  }
 
-  li {
-    font-size: rem-calc(14);
-    margin-bottom: rem-calc(12);
+    li {
+      font-size: rem-calc(14);
+      margin-bottom: rem-calc(12);
 
-    span {
-      color: $text-medium;
-      font-size: rem-calc(12);
-    }
+      span {
+        color: $text-medium;
+        font-size: rem-calc(12);
+      }
 
-    .icon-check {
-      color: $check;
-    }
+      .icon-check {
+        color: $check;
+      }
 
-    .icon-x {
-      color: $delete;
+      .icon-x {
+        color: $delete;
+      }
     }
   }
 }
 
-.account-info,
-.login-as,
-.spending-proposal-info {
+.account-info, .login-as, .spending-proposal-info {
   background-color: #e7e7e7;
   border-radius: rem-calc(3);
   font-size: rem-calc(16);
   font-weight: normal;
   margin: $line-height;
-  padding: $line-height / 2;
+  padding: $line-height/2;
 
   strong {
     font-size: rem-calc(18);
@@ -518,42 +455,40 @@ $sidebar-active: #f4fcd0;
   margin-bottom: 0;
 }
 
-.admin {
+body.admin {
 
   .investment-projects-list.medium-9 {
     width: 100%;
   }
-}
 
-.investment-projects-summary {
+  .investment-projects-summary {
 
-  th,
-  td {
-    text-align: center;
+    th, td {
+      text-align: center;
 
-    &:first-child {
-      font-weight: bold;
-      text-align: left;
+      &:first-child {
+        font-weight: bold;
+        text-align: left;
+      }
+
+      &:last-child {
+        font-weight: bold;
+      }
     }
 
-    &:last-child {
-      font-weight: bold;
+    tr {
+      &:nth-child(even) td:last-child {
+        background: $success-border;
+      }
+
+      &:nth-child(odd) td:last-child {
+        background: $success-bg;
+      }
     }
   }
-
-  tr {
-    &:nth-child(even) td:last-child {
-      background: $success-border;
-    }
-
-    &:nth-child(odd) td:last-child {
-      background: $success-bg;
-    }
-  }
 }
 
-.admin-content .select-geozone,
-.admin-content .select-heading {
+.admin-content .select-geozone, .admin-content .select-heading {
 
   a {
     display: block;
@@ -566,14 +501,14 @@ $sidebar-active: #f4fcd0;
   }
 }
 
-.investment-projects-summary {
+table.investment-projects-summary {
 
-  .total-price {
+  td.total-price {
     white-space: nowrap;
   }
 }
 
-.admin {
+body.admin {
 
   .geozone {
     background: #ececec;
@@ -581,8 +516,8 @@ $sidebar-active: #f4fcd0;
     color: $text;
     display: inline-block;
     font-size: $small-font-size;
-    margin-bottom: $line-height / 3;
-    padding: $line-height / 4 $line-height / 3;
+    margin-bottom: $line-height/3;
+    padding: $line-height/4 $line-height/3;
     text-decoration: none;
 
     &:hover {
@@ -603,10 +538,9 @@ $sidebar-active: #f4fcd0;
 table {
 
   .callout {
-    height: $line-height * 2;
-    line-height: $line-height * 2;
-    margin: 0;
-    padding: 0 $line-height / 2;
+    height: $line-height*2;
+    line-height: $line-height*2;
+    padding: 0 $line-height/2;
   }
 }
 
@@ -617,15 +551,15 @@ table {
 // ---------------
 
 .markdown-editor {
-  background-color: #fff;
+  background-color: white;
 
   .markdown-area,
-  .markdown-preview {
+  #markdown-preview {
     display: none;
   }
 }
 
-.markdown-editor .markdown-preview {
+.markdown-editor #markdown-preview {
   overflow-y: auto;
   height: 15em;
 }
@@ -643,11 +577,11 @@ table {
   left: 0;
 }
 
-.markdown-editor.fullscreen .markdown-preview {
+.markdown-editor.fullscreen #markdown-preview {
   height: 99%;
 }
 
-.edit-legislation-draft-version .row {
+.edit_legislation_draft_version .row {
   margin-bottom: 2rem;
 }
 
@@ -680,7 +614,7 @@ table {
 
 // 08. CMS
 // --------------
-.cms-page-list {
+.cms_page_list {
 
   [class^="icon-"] {
     padding-right: $menu-icon-spacing;
@@ -690,18 +624,17 @@ table {
 
 .legislation-process-edit {
 
-  .edit-legislation-process {
+  .edit_legislation_process {
 
     small {
       color: $text-medium;
     }
 
-    [type]:not([type="submit"]):not([type="file"]):not([type="checkbox"]):not([type="radio"]) {
+    input[type]:not([type="submit"]):not([type="file"]):not([type="checkbox"]):not([type="radio"]) {
       background: $white;
     }
 
-    .legislation-process-start,
-    .legislation-process-end {
+    .legislation-process-start, .legislation-process-end {
       @include breakpoint(medium) {
         line-height: 3rem;
       }
@@ -731,7 +664,7 @@ table {
 
 .legislation-questions-form {
 
-  [type]:not([type="submit"]):not([type="file"]):not([type="checkbox"]):not([type="radio"]) {
+  input[type]:not([type="submit"]):not([type="file"]):not([type="checkbox"]):not([type="radio"]) {
     background: $white;
     margin-bottom: 0;
 
@@ -740,112 +673,52 @@ table {
     }
   }
 
-  input::placeholder {
+  input::-webkit-input-placeholder {
+    font-style: italic;
+  }
+
+  input:-moz-placeholder { /* Firefox 18- */
+    font-style: italic;
+  }
+
+  input::-moz-placeholder {  /* Firefox 19+ */
+    font-style: italic;
+  }
+
+  input:-ms-input-placeholder {
     font-style: italic;
   }
 
   .legislation-questions-answers {
     margin-bottom: 1rem;
   }
-}
 
-.field {
-  margin-bottom: 1rem;
+  .field {
+    margin-bottom: 1rem;
 
-  @include breakpoint(medium) {
-    margin-bottom: 0;
-  }
-
-  a {
-    line-height: 3rem;
-    color: $delete;
-
-    span {
-      text-decoration: underline;
+    @include breakpoint(medium) {
+      margin-bottom: 0;
     }
-
-    .icon-x {
-      vertical-align: sub;
-      text-decoration: none;
-      line-height: 0;
-    }
-
-    &:active,
-    &:focus,
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
-.fullscreen-container {
-
-  a {
-    line-height: 8rem;
-
-    &:active,
-    &:focus,
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
-.fullscreen {
-
-  .fullscreen-container {
 
     a {
       line-height: 3rem;
+      color: $delete;
 
-      @include breakpoint(medium) {
-        float: right;
+      span {
+        text-decoration: underline;
       }
-    }
 
-    .markdown-editor-header {
-      vertical-align: top;
-      display: inline-block;
-      color: $white;
-
-      @include breakpoint(medium) {
-        line-height: 3rem;
+      .icon-x {
+        vertical-align: sub;
+        text-decoration: none;
+        line-height: 0;
       }
-    }
 
-    .truncate {
-      @include breakpoint(medium) {
-        width: 40vw;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      &:active,
+      &:focus,
+      &:hover {
+        text-decoration: none;
       }
-    }
-
-    .markdown-editor-buttons {
-      display: block;
-
-      @include breakpoint(medium) {
-        display: inline-block;
-        float: right;
-        padding-left: 1rem;
-      }
-    }
-
-    input {
-      font-size: $small-font-size;
-      padding: 0.5em 1em;
-      margin-left: 0;
-      margin-bottom: 0;
-      margin-top: 1rem;
-
-      @include breakpoint(medium) {
-        margin: 0.5rem;
-      }
-    }
-
-    a {
-      color: $white;
     }
   }
 }
@@ -858,7 +731,7 @@ table {
     }
   }
 
-  [type]:not([type="submit"]):not([type="file"]):not([type="checkbox"]):not([type="radio"]) {
+  input[type]:not([type="submit"]):not([type="file"]):not([type="checkbox"]):not([type="radio"]) {
     background: $white;
   }
 
@@ -888,20 +761,30 @@ table {
       display: none;
     }
 
-    span {
-      text-decoration: none;
-      font-size: $small-font-size;
-    }
+    a {
+      line-height: 8rem;
 
-    .icon-expand {
-      margin-left: 0.25rem;
-      vertical-align: sub;
-      text-decoration: none;
-      line-height: 0;
+      span {
+        text-decoration: none;
+        font-size: $small-font-size;
+      }
+
+      .icon-expand {
+        margin-left: 0.25rem;
+        vertical-align: sub;
+        text-decoration: none;
+        line-height: 0;
+      }
+
+      &:active,
+      &:focus,
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 
-  .legislation-draft-version-body {
+  #legislation_draft_version_body {
     font-family: $font-family-serif;
     background: #f5f5f5;
     height: 16em;
@@ -912,17 +795,12 @@ table {
     }
   }
 
-  .markdown-preview {
+  #markdown-preview {
     font-family: $font-family-serif;
     border: 1px solid #cacaca;
     margin-bottom: 2rem;
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    h1, h2, h3, h4, h5, h6 {
       font-family: $font-family-serif !important;
       font-size: 1rem;
       line-height: 1.625rem;
@@ -938,7 +816,7 @@ table {
   .fullscreen {
 
     .markdown-area,
-    .markdown-preview {
+    #markdown-preview {
       display: block;
     }
 
@@ -951,79 +829,82 @@ table {
       background: $admin-color;
       padding: 0.5rem 1rem;
       margin-bottom: 0;
+
+        a {
+          line-height: 3rem;
+
+          @include breakpoint(medium) {
+            float: right;
+          }
+        }
+
+      .markdown-editor-header {
+        vertical-align: top;
+        display: inline-block;
+        color: $white;
+
+        @include breakpoint(medium) {
+          line-height: 3rem;
+        }
+      }
+
+      .truncate {
+        @include breakpoint(medium) {
+          width: 40vw;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .markdown-editor-buttons {
+        display: block;
+
+        @include breakpoint(medium) {
+          display: inline-block;
+          float: right;
+          padding-left: 1rem;
+        }
+
+        input {
+          font-size: $small-font-size;
+          padding: 0.5em 1em;
+          margin-left: 0;
+          margin-bottom: 0;
+          margin-top: 1rem;
+
+          @include breakpoint(medium) {
+            margin: 0.5rem;
+          }
+        }
+      }
+
+      a {
+        color: $white;
+      }
     }
 
-    .legislation-draft-version-body {
+    #legislation_draft_version_body {
       border-radius: 0;
       padding: 1rem;
-      border: 0;
+      border: none;
 
       @include breakpoint(medium) {
         padding: 1rem 2rem;
       }
+
+      &:focus {
+        border: none;
+      }
     }
 
-    .markdown-preview {
+    #markdown-preview {
       padding: 1rem;
-      border: 0;
+      border: none;
 
       @include breakpoint(medium) {
         padding: 1rem 2rem;
       }
     }
   }
-}
-
-.legislation-draft-version-body {
-  &:focus {
-    border: 0;
-  }
-}
-
-// 09. Map
-// --------------
-
-.map {
-  width: 100%;
-  height: 350px;
-
-  .map-marker {
-    visibility: visible;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-top: -5px;
-
-    .map-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 50% 50% 50% 0;
-      background: #00cae9;
-      transform: rotate(-45deg);
-    }
-
-    .map-icon::after {
-      content: '';
-      width: 14px;
-      height: 14px;
-      margin: 8px 0 0 8px;
-      background: #fff;
-      position: absolute;
-      border-radius: 50%;
-    }
-  }
-
-  .map-attributtion {
-    visibility: visible;
-    height: auto;
-  }
-}
-
-.map-marker {
-  visibility: hidden;
-}
-
-.map-attributtion {
-  visibility: hidden;
-  height: 0;
 }

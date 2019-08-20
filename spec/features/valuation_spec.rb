@@ -4,13 +4,8 @@ feature 'Valuation' do
   let(:user) { create(:user) }
 
   background do
-    Setting['feature.spending_proposals'] = true
+    Setting["feature.spending_proposals"] = true
     Setting['feature.spending_proposal_features.voting_allowed'] = true
-  end
-
-  after do
-    Setting['feature.spending_proposals'] = nil
-    Setting['feature.spending_proposal_features.voting_allowed'] = nil
   end
 
   scenario 'Access as regular user is not authorized' do
@@ -21,7 +16,7 @@ feature 'Valuation' do
     visit valuation_root_path
 
     expect(current_path).not_to eq(valuation_root_path)
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(proposals_path)
     expect(page).to have_content "You do not have permission to access this page"
   end
 
@@ -34,7 +29,7 @@ feature 'Valuation' do
     visit valuation_root_path
 
     expect(current_path).not_to eq(valuation_root_path)
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(proposals_path)
     expect(page).to have_content "You do not have permission to access this page"
   end
 
@@ -47,7 +42,7 @@ feature 'Valuation' do
     visit valuation_root_path
 
     expect(current_path).not_to eq(valuation_root_path)
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(proposals_path)
     expect(page).to have_content "You do not have permission to access this page"
   end
 
@@ -60,7 +55,7 @@ feature 'Valuation' do
     visit valuation_root_path
 
     expect(current_path).not_to eq(valuation_root_path)
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(proposals_path)
     expect(page).to have_content "You do not have permission to access this page"
   end
 

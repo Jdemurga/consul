@@ -2,7 +2,7 @@ require 'rails_helper'
 include ActionView::Helpers::DateHelper
 
 feature 'Commenting legislation questions' do
-  let(:user) { create :user, :level_two }
+  let(:user)   { create :user, :level_two }
   let(:process) { create :legislation_process, :in_debate_phase }
   let(:legislation_question) { create :legislation_question, process: process }
 
@@ -25,7 +25,6 @@ feature 'Commenting legislation questions' do
     parent_comment = create(:comment, commentable: legislation_question)
     first_child    = create(:comment, commentable: legislation_question, parent: parent_comment)
     second_child   = create(:comment, commentable: legislation_question, parent: parent_comment)
-    href           = legislation_process_question_path(legislation_question.process, legislation_question)
 
     visit comment_path(parent_comment)
 
@@ -34,11 +33,7 @@ feature 'Commenting legislation questions' do
     expect(page).to have_content first_child.body
     expect(page).to have_content second_child.body
 
-    expect(page).to have_link "Go back to #{legislation_question.title}", href: href
-
-    expect(page).to have_selector("ul#comment_#{parent_comment.id}>li", count: 2)
-    expect(page).to have_selector("ul#comment_#{first_child.id}>li", count: 1)
-    expect(page).to have_selector("ul#comment_#{second_child.id}>li", count: 1)
+    expect(page).to have_link "Go back to #{legislation_question.title}", href: legislation_process_question_path(legislation_question.process, legislation_question)
   end
 
   scenario 'Collapsable comments', :js do
@@ -68,12 +63,9 @@ feature 'Commenting legislation questions' do
   end
 
   scenario 'Comment order' do
-    c1 = create(:comment, :with_confidence_score, commentable: legislation_question, cached_votes_up: 100,
-                                                  cached_votes_total: 120, created_at: Time.current - 2)
-    c2 = create(:comment, :with_confidence_score, commentable: legislation_question, cached_votes_up: 10,
-                                                  cached_votes_total: 12, created_at: Time.current - 1)
-    c3 = create(:comment, :with_confidence_score, commentable: legislation_question, cached_votes_up: 1,
-                                                  cached_votes_total: 2, created_at: Time.current)
+    c1 = create(:comment, :with_confidence_score, commentable: legislation_question, cached_votes_up: 100, cached_votes_total: 120, created_at: Time.current - 2)
+    c2 = create(:comment, :with_confidence_score, commentable: legislation_question, cached_votes_up: 10, cached_votes_total: 12, created_at: Time.current - 1)
+    c3 = create(:comment, :with_confidence_score, commentable: legislation_question, cached_votes_up: 1, cached_votes_total: 2, created_at: Time.current)
 
     visit legislation_process_question_path(legislation_question.process, legislation_question, order: :most_voted)
 
@@ -127,8 +119,7 @@ feature 'Commenting legislation questions' do
   end
 
   scenario 'Sanitizes comment body for security' do
-    create :comment, commentable: legislation_question,
-                     body: "<script>alert('hola')</script> <a href=\"javascript:alert('sorpresa!')\">click me<a/> http://www.url.com"
+    create :comment, commentable: legislation_question, body: "<script>alert('hola')</script> <a href=\"javascript:alert('sorpresa!')\">click me<a/> http://www.url.com"
 
     visit legislation_process_question_path(legislation_question.process, legislation_question)
 
@@ -201,7 +192,7 @@ feature 'Commenting legislation questions' do
   end
 
   scenario "Can't create comments if debate phase is not open", :js do
-    process.update_attributes(debate_start_date: Date.current - 2.days, debate_end_date: Date.current - 1.day)
+    process.update_attributes(debate_start_date: Date.current - 2.days, debate_end_date: Date.current - 1.days)
     login_as(user)
 
     visit legislation_process_question_path(legislation_question.process, legislation_question)
@@ -433,7 +424,7 @@ feature 'Commenting legislation questions' do
     end
 
     scenario "can not comment as a moderator" do
-      admin = create(:administrator)
+      admin  = create(:administrator)
 
       login_as(admin.user)
       visit legislation_process_question_path(legislation_question.process, legislation_question)

@@ -3,7 +3,7 @@ class Admin::BudgetInvestmentsController < Admin::BaseController
   feature_flag :budgets
 
   has_filters(%w{valuation_open without_admin managed valuating valuation_finished
-                 valuation_finished_feasible selected winners all},
+                 valuation_finished_feasible selected all},
               only: [:index, :toggle_selection])
 
   before_action :load_budget
@@ -12,18 +12,25 @@ class Admin::BudgetInvestmentsController < Admin::BaseController
   before_action :load_investments, only: [:index, :toggle_selection]
 
   def index
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @investments.limit(nil).reorder('id asc').to_csv, filename: "propuestas-#{Date.today}.csv" }
+    end
   end
 
   def show
   end
 
   def edit
+    load_not_unified_investments
     load_admins
     load_valuators
     load_tags
   end
 
   def update
+    load_not_unified_investments
     set_valuation_tags
     if @investment.update(budget_investment_params)
       redirect_to admin_budget_budget_investment_path(@budget, @investment, Budget::Investment.filter_params(params)),
@@ -43,6 +50,12 @@ class Admin::BudgetInvestmentsController < Admin::BaseController
 
   private
 
+    #GET-98
+    def load_not_unified_investments
+      @investments = Budget::Investment.scoped_filter(params, @current_filter)
+                         .where.not(id: @investment.id).not_unified.order(:id)
+    end
+
     def load_investments
       @investments = Budget::Investment.scoped_filter(params, @current_filter)
                                        .order(cached_votes_up: :desc, created_at: :desc)
@@ -51,8 +64,19 @@ class Admin::BudgetInvestmentsController < Admin::BaseController
 
     def budget_investment_params
       params.require(:budget_investment)
-            .permit(:title, :description, :external_url, :heading_id, :administrator_id, :tag_list, :valuation_tag_list, :incompatible,
-                    :selected, valuator_ids: [])
+            .permit(budget_investment_unification_params + budget_investment_project_params + [:title, :description, :external_url, :heading_id, :administrator_id, :valuation_tag_list, valuator_ids: []])
+    end
+
+
+    def budget_investment_unification_params
+      [:unified_with_id, :unification_reason, :unification_explanation]
+    end
+
+    def budget_investment_project_params
+      [:project_content,
+          :project_phase,
+          attachments_attributes: [:file, :title, :_destroy, :id]
+      ]
     end
 
     def load_budget

@@ -1,9 +1,9 @@
 module PollsHelper
 
-  def poll_select_options(include_all = nil)
-    options = @polls.collect do |poll|
+  def poll_select_options(include_all=nil)
+    options = @polls.collect {|poll|
       [poll.name, current_path_with_query_params(poll_id: poll.id)]
-    end
+    }
     options << all_polls if include_all
     options_for_select(options, request.fullpath)
   end
@@ -28,6 +28,11 @@ module PollsHelper
     options_for_select(options, params[:d])
   end
 
+  def poll_final_recount_option(poll)
+    final_date = poll.ends_at.to_date + 1.day
+    options_for_select([[I18n.t("polls.final_date"), l(final_date)]])
+  end
+
   def poll_booths_select_options(poll)
     options = []
     poll.booths.each do |booth|
@@ -39,14 +44,6 @@ module PollsHelper
   def booth_name_with_location(booth)
     location = booth.location.blank? ? "" : " (#{booth.location})"
     booth.name + location
-  end
-
-  def poll_voter_token(poll, user)
-    Poll::Voter.where(poll: poll, user: user, origin: "web").first&.token || ''
-  end
-
-  def voted_before_sign_in(question)
-    question.answers.where(author: current_user).any? { |vote| current_user.current_sign_in_at >= vote.updated_at }
   end
 
 end
