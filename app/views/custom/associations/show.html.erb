@@ -1,0 +1,100 @@
+<div class="row">
+  <a class="back" href="/associative_spaces">
+    <i class="icon-angle-left"></i>
+    Volver
+  </a>
+  <div class="assemblies-list small-12 medium-9 column">
+    <div class="legislation clear investment-project-show" style="padding: 0px;">
+      <div class="column row legislation-text" style="padding: 0px; margin: 0px;">
+        <div class="small-3 column" style="padding-top: 6rem;">
+          <% if !@association.logo.nil? %>
+            <img src="uploads/associationsLogo/<%= @association.logo %>">
+          <% else %>
+            No dispone de Logo
+          <% end %>
+        </div>
+        <div class="small-5 column" style="padding-top: 15px;">
+          <div class="legislation-text">
+            <h3>
+              <%= @association.name %>
+            </h3>
+
+          </div>
+          <p><strong>Áreas:</strong>
+            <% if !@association.areas.nil? %>
+              <% @areas = @association.areas.to_s.split(';') %>
+              <% @areas.each do |area| %>
+                <span class="warning round radius label"><%= area %></span>
+              <% end %>
+            <% else %>
+              No dispone de áreas
+            <% end %>
+          </p>
+
+          <div class="">
+
+            <P><strong>Contacto:</strong>
+              <% if !@association.phone.nil? %><%= @association.phone %>
+              <% else %>No dispone de teléfono
+              <% end %></P>
+
+            <p><strong>MAIL:</strong>
+              <% if !@association.mail.nil? %><%= @association.mail %>
+              <% else %>No dispone de mail
+              <% end %></p>
+            <P><strong>Web:</strong>
+              <% if !@association.url.nil? %><a href="<%= @association.url %>"><%= @association.url %></a>
+              <% else %>No dispone de dominio web
+              <% end %></p>
+            <p><strong>DIRECCIÓN:</strong>
+              <% if !@association.address.nil? %>
+                <a href="https://www.google.es/maps/place/<%= @association.address %>, Getafe?hl=es"><%= @association.address %></a></a>
+              <% else %>No dispone de dirección
+              <% end %></p>
+          </div>
+        </div>
+        <div class="small-4 column">
+          <p class="text-center">
+
+          </p>
+        </div>
+      </div>
+      <div class="column row small-collapse medium-uncollapse legislation-calendar">
+        <div style="float: right;width: 25%;display: inline-flex">
+          <% if !@association.twitter_profile.nil? %>
+            <div class="small-6 medium-4 column" style="padding-left: 0px;padding-right: 0px;">
+              <h5>Twitter</h5>
+              <p>
+                <a href="https://twitter.com/<%= @association.twitter_profile %>"><img src="/assets/custom/ico-twitter.png" alt="twitter"></a>
+              </p>
+            </div>
+          <% end %>
+          <% if !@association.facebook_profile.nil? %>
+            <div class="small-6 medium-4 column">
+              <h5>Facebook</h5>
+              <p>
+                <a href="https://www.facebook.com/<%= @association.facebook_profile %>"><img src="/assets/custom/ico-facebook.png" alt="facebook"></a>
+              </p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-12 column">
+        <div id="section_help" class="margin" data-magellan-target="section_help">
+          <p class="lead">
+            <strong>
+              <%= @association.name %></strong>
+          </p>
+          <p></p>
+          <p id="description">
+            <% if !@association.description.nil? || @association.description != "''" %><%= @association.description %>
+            <% else %>No dispone de descripción
+            <% end %></p>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

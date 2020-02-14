@@ -1,0 +1,144 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="tracking_data" data-track-usertype="anonymous">
+
+  <meta name="description" content="">
+
+  <meta name="keywords" content="">
+
+  <title>Getafe - Asambleas de barrio</title>
+
+  <link rel="stylesheet" media="screen" href="../../../../assets/stylesheets/custom.scss">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" media="screen"
+        href="assets/ie-aaceaebc5c2bbc209791077d1ebfbe04df35db71b52e9833e1a38810b4d8dd70.css"/>
+  <![endif]-->
+  <script src="assets/codigi.js" data-turbolinks-track="true"></script>
+  <style>.cke {
+    visibility: hidden;
+  }</style>
+  <meta name="csrf-param" content="authenticity_token">
+  <meta name="csrf-token"
+        content="5mVao2qh4UajqhN0Va2cHE59Wq68o3ssgG0tl3m+AsjhBkkZwYU70KuC4xIuTJIbAR+0C9F0YgyLf9lFP+IFhg==">
+
+
+  <style>html.turbolinks-progress-bar::before {
+    content: ' ';
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    background-color: #0076ff;
+    height: 3px;
+
+    opacity: 0.99;
+    width: 0%;
+    transition: width 0ms ease-out, opacity 0ms ease-in;
+    transform: translate3d(0, 0, 0);
+  }</style>
+  <meta class="foundation-mq">
+  <script charset="utf-8" src="/assets/custom/codigo.js"></script>
+  <script charset="utf-8" src="/assets/custom/codigo.js"></script>
+</head>
+<script type="text/javascript">
+  window.onload = function () {
+    var parentDiv = document.getElementById("associations_active");
+    if (parentDiv.children.length <= 0) {
+      document.getElementById('no-associations-active').style.visibility = 'visible';
+      document.getElementById('form-search').style.display = 'none'
+      document.getElementById('associations_active').style.display = 'none';
+    }
+  }
+</script>
+
+<div class="wrapper" style="margin-bottom: 0 !important;">
+  <main>
+    <div class="row">
+
+      <div style="display: flex; margin-left: -0.9375rem; margin-right: -0.9375rem;">
+        <a class="button expanded" style="float: left; width: 25%" href="/newAssociations">Crear asociación</a>
+        <form id="form-search" class="navbar-form navbar-left" action="/searchAssociations" style="float: right;width: 100%">
+          <div class="small-12 column" style="display: flex">
+            <input placeholder="Nombre de asociacion" name="search" type="text" class="form-control">
+            <div class="small-12 medium-3 column end clear">
+              <button class='button expanded'>Buscar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="row">
+        <div class="margin-top">
+          <div class="small-12 medium-3 column">
+            <p onclick="location.href='/associative_spaces'" aria-selected="true" class="menu vertical" style="cursor:pointer;color:#6d0c27;margin: 0rem; padding:0rem 24px; padding-bottom: 10px !important;">Barrios Getafe</p>
+            <aside class="margin-bottom">
+              <ul class="menu vertical no-margin-top no-padding-top">
+                <% if @zones.any? %>
+                  <% @zones.each do |zone| %>
+                    <li class="small">
+                      <a href="/searchAssociations?zoneSelected=<%= zone.geozones %>" name="<%= zone.geozones %>"><%= Geozone.find_by_id(zone.geozones).name %></a>
+                    </li>
+                  <% end %>
+                <% else %>
+                  <p class="text-muted">No hay zonas</p>
+                <% end %>
+              </ul>
+            </aside>
+          </div>
+          <% if !Association.first.nil? %>
+            <% Association.find_each do |association| %>
+              <% if !association.hidden %>
+                <div id="associations_active" class="legislation medium-9" style="float: right;width: 75%">
+                  <div class="column row legislation-text">
+                    <div class="small-12 medium-8 column">
+                      <div class="legislation-text">
+                        <h3><a href="/showAssociations?q=<%= association.id %>"><%= association.name %></a></h3>
+                      </div>
+                    </div>
+                    <div class="small-12 medium-11 column end">
+                      <p> <% if !association.areas.nil? %>
+                          <% @areas = association.areas.to_s.split(';') %>
+                          <%  @areas.each do |area| %>
+                            <span class="warning round radius label"><%= area %></span>
+                          <% end %>
+                        <% else %>
+                          No dispone de areas
+                        <% end %></p>
+                    </div>
+                  </div>
+
+                  <div class="column row">
+                    <div class="small-12 column legislation-calendar-info">
+                      <p>Fechas clave</p>
+                    </div>
+                  </div>
+
+                  <div class="column row small-collapse medium-uncollapse legislation-calendar">
+                    <div class="small-6 medium-3 column">
+                      <h5>Fecha de alta</h5>
+                      <p><%= association.created_at.strftime("%d %b %Y") %></p>
+                    </div>
+                    <div class="small-6 medium-3 column">
+                      <h5>Fecha de actualización</h5>
+                      <p><%= association.updated_at.strftime("%d %b %Y") %></p>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          <% else %>
+            <div class="callout primary">
+              No hay asociaciones todavia
+            </div>
+          <% end %>
+          <div id="no-associations-active" class="callout primary" style="visibility: hidden">
+            No hay asociaciones todavia
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+

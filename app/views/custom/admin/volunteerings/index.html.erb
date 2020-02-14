@@ -1,0 +1,32 @@
+<%= link_to t("admin.volunteering.index.create"),
+            new_admin_volunteerings_path, class: "button success float-right" %>
+
+<h2 class="inline-block"><%= t("admin.volunteering.index.title") %></h2>
+
+<table>
+  <thead>
+  <tr>
+    <th><%= t("admin.volunteering.data.name") %></th>
+    <th><%= t("admin.volunteering.data.state") %></th>
+    <th colspan="2"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @volunteering.each do |volunteering| %>
+    <tr id="<%= dom_id(volunteering) %>">
+      <td><%= volunteering.name %></td>
+      <td>
+        <% if volunteering.hidden %>Oculto
+        <% else %>Visible
+        <% end %></td>
+      <td>
+        <%= link_to t("admin.volunteering.index.edit"), edit_admin_volunteerings_path(volunteering), class: 'edit-banner button hollow' %>
+      </td>
+      <td>
+        <%= link_to t("admin.volunteering.index.delete"), admin_volunteerings_path(volunteering), method: :delete, class: 'button hollow alert' %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

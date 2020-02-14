@@ -1,0 +1,187 @@
+<script>
+
+  function selectZone() {
+    var zone = document.getElementById('Szone');
+    var opt = zone.options[zone.selectedIndex].value;
+    document.getElementById('zonefinal').value = opt;
+  }
+
+  window.onload = function () {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      document.getElementById('inputSelea').addEventListener('change', handleFileSelect, false);
+    } else {
+      alert('The File APIs are not fully supported in this browser.');
+    }
+  }
+
+  /* function setFilename() {
+     var fullPath = document.getElementById('inputSelea').value;
+     if (fullPath) {
+       var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+       var filename = fullPath.substring(startIndex);
+       if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+         filename = filename.substring(1);
+       }
+       alert(filename);
+     }
+   }*/
+  function handleFileSelect(evt) {
+    var f = evt.target.files[0]; // FileList object
+    var reader = new FileReader();
+    // Closure to capture the file information.
+    reader.onload = (function (theFile) {
+      return function (e) {
+        var binaryData = e.target.result;
+        //Converting Binary Data to base 64
+        var base64String = window.btoa(binaryData);
+        //showing file converted to base64
+        var imageType = document.getElementById('inputSelea').value.split('.')[1];
+        console.log(imageType);
+        document.getElementById('b64').value = base64String;
+        document.getElementById('imgAssociation').src = 'data:image/' + imageType + ';base64,' + base64String;
+        console.log('File converted to base64 successfuly!\nCheck in Textarea');
+      };
+    })(f);
+    // Read in the image file as a data URL.
+    reader.readAsBinaryString(f);
+  }
+
+  function checkText() {
+    var ul = document.getElementById("areasChecked");
+    var newtext = "";
+    if (ul.childElementCount > 0) {
+      for (let i = 0; i < ul.childElementCount; i++) {
+        newtext += ul.children[i].textContent;
+        if (i != ul.childElementCount - 1) {
+          newtext += ";";
+        }
+      }
+      console.log(newtext);
+      document.getElementById('areasCheckedFinal').value = newtext;
+    } else {
+      document.getElementById('areasCheckedFinal').value = "";
+      console.log("valor vacio" + document.getElementById('areasCheckedFinal').value);
+
+    }
+
+  }
+
+  function addli(text) {
+    var ul = document.getElementById("areasChecked");
+    if (text.includes(';')) {
+      console.log("añade");
+      var li = document.createElement('li');
+      li.className = "bubble";
+      li.textContent = text.replace(';', '');
+      li.id = text + "id1";
+      li.addEventListener("click", function () {
+        var actualLi = document.getElementById(this.id);
+        actualLi.remove();
+        checkText();
+      });
+      ul.appendChild(li);
+      checkText();
+      document.getElementById("textForArea").value = "";
+    }
+  }
+</script>
+
+<div class="wrapper auth-page margin-bottom padding" style="margin-bottom: auto">
+  <div class="row">
+
+    <div class="margin-top margin-bottom">
+      <div class="row">
+        <main>
+          <div class="small-12 column small-centered panel padding margin-bottom">
+            <h2>Registrar Asociación</h2>
+            <form class="new_user" id="new_user" action="/createAssociations" accept-charset="UTF-8" method="post">
+              <input type="hidden" name="authenticity_token" value="gLqJjLSt++BL/cV4vPnZ+PRs+78xArJsc1dNnvr2t0P57PVhIhESvKRGJqjxiSIIU6+PjtE0qMK7/U1cbREW0Q==">
+              <div class="row">
+                <div class="small-12 column" style="display: flex;">
+                  <div style="width: 45%; float: left;margin-left: 15px;margin-right: 15px">
+
+                    <label for="user_organization_attributes_name">Nombre de
+                      asociación</label><input autofocus="autofocus" placeholder="Nombre de la asociación" type="text" name="name" id="user_organization_attributes_name">
+                    <label for="user_organization_attributes_responsible_name">Descripción de la asociación</label>
+                    <p class="note">Será la descripción breve y detallada que aparecerá en la página de la
+                      asociación</p>
+                    <input placeholder="Descripción de asociación" type="text" name="description" id="user_organization_attributes_responsible_name">
+
+                    <label for="user_email">Correo
+                      electrónico</label><input placeholder="Email" type="text" value="" name="mail" id="user_email">
+
+                    <label for="user_phone_number">Teléfono</label><input placeholder="Teléfono" type="text" name="phone" id="user_phone_number">
+                    <label for="user_organization_attributes_name">Calle de la Asociación</label>
+                    <p class="note">Aquí deberá introducir su dirección (sin indicar si es Calle o Avenida), número(en
+                      caso de tenerlo) y la localidad<br>Ej: <strong>Ferrocarril, 1, Getafe</strong></p>
+                    <input autofocus="autofocus" placeholder="Calle de la Asociación" type="text" name="address" id="user_organization_attributes_name">
+
+                    <label for="user_organization_attributes_responsible_name">Dominio Web</label>
+                    <p class="note">Aquí deberá introducir la url de su dominio web para poder enlazarlo en nuestro
+                      sistema</p>
+                    <input placeholder="Dominio Web" type="text" name="url" id="user_organization_attributes_responsible_name">
+
+                  </div>
+                  <div style="width: 45% ; float: right;margin-left: 15px;margin-right: 15px">
+
+                    <label for="user_email">Redes sociales vinculadas</label>
+                    <div id="social_media">
+                      <p class="note">Si desea puede vincular las redes sociales para que los ciudadanos puedan
+                        acceder a ellas</p>
+                      <p class="note"><strong style="font-size: 1rem">Twitter</strong> (sin '@' por favor)</p>
+                      <input placeholder="Cuenta de twitter" type="text" name="twitter_profile">
+                      <p class="note"><strong style="font-size: 1rem">Facebook</strong> (deberá acceder a su perfil y
+                        obtener su nombre de enlaze ej:
+                        https://www.facebook.com/<strong>nombre.enlaze.000</strong>)</p>
+                      <input placeholder="Nombre de enlace Facebook" type="text" name="facebook_profile">
+                    </div>
+                    <div>
+                      <label for="geozoneAssociation">Zona de Getafe</label>
+                      <div id="geozoneAssociation">
+                        <select onchange="selectZone()" id="Szone" class="advanced_search[official_level]">
+                          <% Geozone.find_each do |zone| %>
+                            <option value="<%= zone.id %>"><%= zone.name %></option>
+                          <% end %>
+                        </select>
+                        <input style="display:none;height: 0px;min-height: 0px;line-height: 0px;padding-bottom: 0px;" id="zonefinal" name="zone" value="<%= Geozone.find_by_id(1).name %>">
+                      </div>
+
+                      <div id="logoAssociation">
+                        <label for="selectLogo">Logo de asociación</label>
+                        <img id="imgAssociation" height="150" style="width: 50%;">
+                        <div id="selectLogo">
+                          <input id="inputSelea" name="filename" type='file'>
+                          <input style="display:none;" name="fileContent" id="b64">
+                        </div>
+                      </div>
+                      <label for="areasAssociation">Areas </label>
+                      <div id="areasAssociation">
+                        <datalist id="areasAvaible">
+                          <% ActsAsTaggableOn::Tag.where("kind = 'category'").order(:name) do |tag| %>
+                            <option value="<%= tag.name %>"><%= tag.name %></option>
+                          <% end %>
+                        </datalist>
+                        <p class="note">Para poder añadir un area perteneciente deberá finalizar el area con '
+                          <strong>;</strong> '.<br>En caso de desear borrar un area solo haga click encima del texto del
+                          area</p>
+                        <input id="textForArea" type="text" list="areasAvaible" onkeyup="addli(this.value)">
+                        <ul id="areasChecked" style=" overflow:auto; ">
+
+                        </ul>
+                        <input style="visibility: hidden" type="text" id="areasCheckedFinal" name="areasChecked">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="small-12 medium-6 small-centered">
+                  <input type="submit" name="commit" value="Registrarse" class="button expanded">
+                </div>
+              </div>
+            </form>
+          </div>
+        </main>
+      </div>
+
+    </div>
+  </div>
+</div>

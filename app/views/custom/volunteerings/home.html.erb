@@ -1,0 +1,26 @@
+<div class="mainContainer">
+  <div class="tittleBar">
+    <div class="contentBar">
+      <img src="assets/volunteering/voluntariadoGetafe.png" class="imageTittle">
+    </div>
+  </div>
+  <div class="contentBody">
+    <div class="menu2">
+      <% if @volunterlist.present? and !@volunterlist.nil? %>
+        <% @volunterlist.each do |volunteering| %>
+          <div onclick="location.href='/volunteerings?id=<%= volunteering.id %>';" class="
+          <% if volunteering.name == @volunteeringActual.name %>
+          menuSelectedItem2
+          <% else %>
+          menuItem2
+          <% end %>">
+            <%= volunteering.name %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="content">
+      <%= render "show" %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<% if !@volunteeringActual.nil? && @volunteeringActual.present? %>
+  <div>
+    <h3><strong><%= @volunteeringActual.name %></strong></h3>
+    <p style="display: inline;  white-space: pre-wrap"><%= @volunteeringActual.description %></p>
+  </div>
+  <br>
+  <br>
+  <% if @photos.present? && !@photos.nil? %>
+    <div class="galery">
+      <% @photos.each do |photo| %>
+        <img src="uploads/volunteeringPhotos/<%= photo %>" class="galeryImage">
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <div id="no-voluntaries-active" class="callout primary">
+    No hay volutariados todavia
+  </div>
+<% end %>

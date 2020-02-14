@@ -1,0 +1,277 @@
+<script>
+  var isNew = false;
+
+  function selectVisible() {
+    var zone = document.getElementById('Svisible');
+    var opt = zone.options[zone.selectedIndex].value;
+    document.getElementById('hiddenfinal').value = opt;
+  }
+
+  function expandImage(ids, id) {
+    var container = document.getElementById("container").style.display = "flex";
+    var expandImg = document.getElementById("expandedImg");
+    var imgLabel = document.getElementById("imageLabel");
+    var inpuSelea = document.getElementById("inpuSelea");
+    var inputid = document.getElementById("valueId");
+    console.log(ids);
+    var imgs = document.getElementById(ids);
+    inputid.value = id;
+    expandImg.src = imgs.src;
+    imgLabel.innerText = imgs.alt;
+    document.getElementById("section1").style = "display: flex;float: left;";
+    document.getElementById("section2").style = "width: 50%;float: right;margin: 1rem;";
+    document.getElementById("inputSelea").style = "display: block";
+    document.getElementById("acceptImage").style = "display: block;background: #6d0c27;width: 50%";
+    document.getElementById("cancelImage").style = "display: block;background: #6d0c27;width: 50%";
+    inpuSelea.value = "";
+    expandImg.src = "";
+    expandImg.parentElement.style = "display:flex;width:40%";
+  }
+
+
+  function newImage() {
+    isNew = true;
+    var expandImg = document.getElementById("expandedImg");
+    var imageLabel = document.getElementById("imageLabel");
+    var inpuSelea = document.getElementById("inputSelea");
+    document.getElementById("section1").removeAttribute("style");
+    document.getElementById("section2").removeAttribute("style");
+    inpuSelea.removeAttribute("style");
+    document.getElementById("acceptImage").style = "background: #6d0c27;";
+    document.getElementById("cancelImage").style = "background: #6d0c27;";
+    document.getElementById("deleteImage").style = "background: #6d0c27;";
+    document.getElementById("container").removeAttribute("style");
+    imageLabel.innerText = "";
+    inpuSelea.value = "";
+    expandImg.src = "";
+    expandImg.parentElement.style = "block";
+  }
+
+
+  function createChildImage(id) {
+    console.log(id);
+    var parent = document.getElementById("personalImageGallery");
+    console.log(parent);
+    var divsubparent = document.createElement("DIV");
+    divsubparent.id = "gallery" + id;
+    divsubparent.className = "personalGallery";
+    var image = document.createElement("IMG");
+    image.className = "personalImage";
+    image.id = "photo" + id;
+    image.setAttribute('name', "photo" + id);
+    image.onclick = function () {
+      expandImage("photo" + id, id);
+    };
+    var inputname = document.createElement("INPUT");
+    inputname.hidden = true;
+    inputname.id = "namePhoto" + id;
+    inputname.setAttribute('name', "namePhoto" + id);
+    var inputphoto = document.createElement("INPUT");
+    inputphoto.hidden = true;
+    inputphoto.id = "photoB64" + id;
+    inputphoto.setAttribute('name', "photo" + id);
+    parent.appendChild(divsubparent);
+    divsubparent.appendChild(image);
+    divsubparent.appendChild(inputname);
+    divsubparent.appendChild(inputphoto);
+
+  }
+
+  function deleteImagenes() {
+    var id = document.getElementById('valueId').value;
+    console.log(id);
+    var element = document.getElementById("gallery" + id);
+    element.remove();
+    var imageLabel = document.getElementById("imageLabel");
+    imageLabel.innerText = "";
+    checkText();
+    document.getElementById('container').style.display = 'none';
+  }
+
+  function saveNewImg() {
+
+    var newId = document.getElementsByClassName("personalGallery").length;
+    console.log("newID -> " + newId);
+    createChildImage(newId);
+
+    var namefinal = document.getElementById('namePhoto' + newId);
+    namefinal.value = document.getElementById('nameId').value;
+
+    var b64final = document.getElementById('photoB64' + newId);
+    b64final.value = document.getElementById('contentId').value;
+
+    var imageType = namefinal.value.split('.')[1];
+
+    var photoToPut = document.getElementById("photo" + newId);
+    photoToPut.src = 'data:image/' + imageType + ';base64,' + b64final.value;
+    photoToPut.alt = namefinal.value;
+
+    checkText();
+    document.getElementById('container').style.display = 'none';
+    isNew = false;
+  }
+
+  function saveImg() {
+    var id = document.getElementById("valueId").value;
+    var photoToPut = document.getElementById("photo" + id);
+    var namefinal = document.getElementById('namePhoto' + id);
+    var b64final = document.getElementById('photoB64' + id);
+    photoToPut.src = document.getElementById('expandedImg').src;
+    photoToPut.alt = document.getElementById('nameId').value;
+    namefinal.value = document.getElementById('nameId').value;
+    b64final.value = document.getElementById('contentId').value;
+    checkText();
+    this.parentElement.style.display = 'none';
+  }
+
+  function checkImage() {
+    document.getElementById('ErrorSize').style.display = "none";
+    if (isNew) {
+      saveNewImg()
+    } else {
+      saveImg()
+    }
+  }
+
+  window.onload = function () {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      document.getElementById('inputSelea').addEventListener('change', handleFileSelect, false);
+    } else {
+      alert('The File APIs are not fully supported in this browser.');
+    }
+  };
+
+  function handleFileSelect(evt) {
+    if(this.files[0].size < 100000) {
+      document.getElementById('ErrorSize').style.display = "none";
+      var f = evt.target.files[0]; // FileList object
+      var reader = new FileReader();
+      // Closure to capture the file information.
+      reader.onload = (function (theFile) {
+        return function (e) {
+          var binaryData = e.target.result;
+          //Converting Binary Data to base 64
+          var base64String = window.btoa(binaryData);
+          //showing file converted to base64
+          var imageType = document.getElementById('inputSelea').value.split('.')[1];
+          var imageName = document.getElementById('inputSelea').value.split("\\")[document.getElementById('inputSelea').value.split("\\").length - 1];
+          console.log(imageType);
+          document.getElementById('contentId').value = base64String;
+          document.getElementById('expandedImg').src = "";
+          document.getElementById('expandedImg').src = 'data:image/' + imageType + ';base64,' + base64String;
+          document.getElementById('nameId').value = imageName;
+          console.log('File converted to base64 successfuly!\nCheck in Textarea');
+
+        };
+      })(f);
+      // Read in the image file as a data URL.
+      reader.readAsBinaryString(f);
+    }else{
+      document.getElementById('container').style.display = 'none';
+      document.getElementById('inputSelea').value = "";
+      var imageLabel = document.getElementById("imageLabel");
+      imageLabel.innerText = "";
+      document.getElementById('ErrorSize').style.display = "block";
+    }
+  }
+
+  function checkText() {
+    var ul = document.getElementById("personalImageGallery");
+    var newtext = "";
+    if (document.getElementById("namePhoto0") != null) {
+      newtext += document.getElementById("namePhoto0").value + ";";
+    }
+    if (document.getElementById("namePhoto1") != null) {
+      newtext += document.getElementById("namePhoto2").value + ";";
+    }
+    if (document.getElementById("namePhoto2") != null) {
+      newtext += document.getElementById("namePhoto1").value + ";";
+    }
+    if (document.getElementById("namePhoto3") != null) {
+      newtext += document.getElementById("namePhoto3").value + ";";
+    }
+    if (document.getElementById("namePhoto4") != null) {
+      newtext += document.getElementById("namePhoto4").value;
+    }
+    if (document.getElementsByClassName("personalGallery").length == 4 || document.getElementsByClassName("personalGallery").length > 4) {
+      documentt.getElementById('addImage').style.display = "none";
+    }
+    console.log(newtext);
+    document.getElementById('imagesGallery').value = newtext;
+
+
+  }
+
+</script>
+
+<form id="new_user" action="/volunteeringEdit" accept-charset="UTF-8" method="post">
+  <div clas="row">
+    <div style="width: 45% ; float: left;margin-left: 15px;margin-right: 15px">
+      <input style="display: none" name="id" value="<%= @volunteering.id %>">
+      <label for="user_organization_attributes_name">Nombre de
+        voluntariado</label><input autofocus="autofocus" placeholder="Nombre de la asociación" type="text" name="name" id="user_organization_attributes_name" value="<%= @volunteering.name %>">
+
+      <label for="hidden">Estado</label>
+      <div id="hidden">
+        <select id="Svisible" onchange="selectVisible()" class="advanced_search[official_level]">
+          <option value="false" <% if @volunteering.hidden %> selected <% end %>>Visible</option>
+          <option value="true" <% if !@volunteering.hidden %> selected <% end %>>Oculto</option>
+        </select>
+        <input style="display:none;height: 0px;min-height: 0px;line-height: 0px;padding-bottom: 0px;" id="hiddenfinal" name="hidden" value="<%= @volunteering.hidden %>">
+      </div>
+
+
+    </div>
+    <div style="margin-left: 15px;margin-right: 15px">
+      <div>
+        <label for="user_organization_attributes_responsible_name" style="width: 45%;">Texto del voluntariado</label>
+        <textarea placeholder="Descripción de asociación" style="height: 25rem;" name="description" id="user_organization_attributes_responsible_name"><%= @volunteering.description %></textarea>
+      </div>
+      <label for="personalImageGallery">Imagenes asociadas</label>
+      <div id="personalImageGallery" class="personalImageGallery">
+        <% if @photos.present? && !@photos.nil? %>
+          <% @photos.each_with_index do |photo, index| %>
+            <div id="gallery<%= index %>" class="personalGallery">
+              <img src="/uploads/volunteeringPhotos/<%= photo %>" alt="<%= photo %>" id="photo<%= index %>" name="photo<%= index %>" class="personalImage" onclick="expandImage(this.id,<%=index %>)">
+              <input hidden name="namePhoto<%= index %>" value="<%= photo %>" id="namePhoto<%= index %>" value="<%= photo %>">
+              <input hidden name="photo<%= index %>" id="photoB64<%= index %>">
+            </div>
+          <% end %>
+          <input hidden name="imagesGallery" id="imagesGallery" value="<%= @volunteering.imagesGallery %>">
+        <% else %>
+          <input hidden name="imagesGallery" id="imagesGallery">
+        <% end %>
+        <% if @photos.nil? || @photos.size < 5 %>
+          <div id="addImage" style="display: inline-flex">
+            <input type="button" class="button" value="Añadir imagen" onclick="newImage()" style="background: #6d0c27 !important;">
+          </div>
+        <% end %>
+      </div>
+
+      <br>
+      <div id="ErrorSize" style="display: none"><label>Error</label>
+        <p>El tamaño(KB) de la imagen es demasiado grande, por favor intentelo de nuevo</p></div>
+      <label id="imageLabel"></label>
+      <div class="container" id="container" style="display: none">
+        <div id="section1" class="only40width" style="display: flex;float: left;">
+          <img id="expandedImg" style="max-height:290px;border: 1px solid #cacaca; border-radius: 0.1875rem">
+        </div>
+        <div id="section2" style="width: 50%;float: right;margin: 1rem;">
+          <input id="inputSelea" accept="image/*" data-max-size="2048" style="display: block" type='file'>
+          <input id="acceptImage" style="display: block;background: #6d0c27;width: 50%" type="button" class="button" value="Aceptar" onclick="checkImage()" style="background: #6d0c27 !important;">
+          <input id="cancelImage" style="display: block;background: #6d0c27;width: 50%" type="button" class="button" onclick="this.parentElement.style.display='none'" value="Cancelar" style="background: #6d0c27 !important;">
+          <input id="deleteImage" style="display: block;background: #6d0c27;width: 50%" type="button" class="button" onclick="deleteImagenes()" value="Borrar" style="background: #6d0c27 !important;">
+        </div>
+
+        <input hidden id="valueId">
+        <input hidden id="nameId">
+        <input hidden id="contentId">
+      </div>
+    </div>
+    <div class="row margin-top">
+      <div class="actions small-12 large-3 medium-3 column">
+        <input type="submit" name="commit" value="<%= t("admin.geozones.edit.form.submit_button") %>" class="button expanded">
+      </div>
+    </div>
+  </div>
+</form>

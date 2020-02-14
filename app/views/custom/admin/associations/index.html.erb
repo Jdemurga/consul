@@ -1,0 +1,31 @@
+<h2 class="inline-block"><%= t("admin.associations.index.title") %></h2>
+
+<table>
+  <thead>
+  <tr>
+    <th><%= t("admin.associations.data.name") %></th>
+    <th><%= t("admin.associations.data.geozone") %></th>
+    <th><%= t("admin.associations.data.state") %></th>
+    <th colspan="2"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @associations.each do |association| %>
+    <tr id="<%= dom_id(association) %>">
+      <td><%= association.name %></td>
+      <td><%= Geozone.find_by_id(association.geozones).name %></td>
+      <td>
+        <% if association.hidden %>Oculto
+        <% else %>Visible
+        <% end %></td>
+      <td>
+        <%= link_to t("admin.associations.index.edit"), edit_admin_associations_path(association), class: 'edit-banner button hollow' %>
+      </td>
+      <td>
+        <%= link_to t("admin.associations.index.delete"), admin_associations_path(association), method: :delete, class: 'button hollow alert' %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

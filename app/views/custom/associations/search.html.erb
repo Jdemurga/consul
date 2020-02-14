@@ -1,0 +1,86 @@
+<div class="row">
+  <div style="display: flex; margin-left: -0.9375rem; margin-right: -0.9375rem;">
+    <a class="button expanded" style="float: left; width: 25%" href="/newAssociations">Crear asociación</a>
+    <% if @zoneSelected.nil? %>
+      <% @azvancedSearchURL = "/searchAssociations" %>
+    <% else %>
+      <% @azvancedSearchURL = "/searchAssociations?zoneSelected=" + @zoneSelected %>
+    <% end %>
+    <form id="form-search" class="navbar-form navbar-left" action="<%= @azvancedSearchURL %>" style="float: right;width: 100%">
+      <div class="small-12 column" style="display: flex">
+        <input placeholder="Nombre de asociacion" name="search" type="text" class="form-control">
+        <input name="zoneSelected" style="display: none" type="text" value="<%= @zoneSelected %>">
+        <div class="small-12 medium-3 column end clear">
+          <button class='button expanded'>Buscar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="row">
+    <div class="margin-top">
+      <div class="small-12 medium-3 column">
+        <p onclick="location.href='/associative_spaces'" aria-selected="true" class="menu vertical" style="cursor:pointer;color:#6d0c27;margin: 0rem; padding:0rem 24px; padding-bottom: 10px !important;">Barrios
+          Getafe</p>
+        <aside class="margin-bottom">
+          <ul class="menu vertical no-margin-top no-padding-top">
+            <% if @zones.any? %>
+              <% @zones.each do |zone| %>
+                <li class="small <%= 'active' if @zoneSelected == zone.geozones %>">
+                  <a href="/searchAssociations?zoneSelected=<%= zone.geozones %>" name="<%= zone.geozones %>"><%= Geozone.find_by_id(zone.geozones).name %></a>
+                </li>
+              <% end %>
+            <% else %>
+              <p class="text-muted">No hay zonas</p>
+            <% end %>
+          </ul>
+        </aside>
+      </div>
+      <% if @results.blank? %>
+        <div class="legislation-list small-12 medium-9 column" style="float: left !important;;">
+          <div class="callout primary margin-top">
+            No se han encontrado asociaciones con ese nombre o parecidos
+          </div>
+        </div>
+      <% else %>
+        <% @results.each do |result| %>
+          <div class="legislation " style="float: right;width: 75%">
+            <div class="column row legislation-text">
+              <div class="small-12 medium-8 column">
+                <div class="legislation-text">
+                  <h3><a href="/showAssociations?q=<%= result.id %>"><%= result.name %></a></h3>
+                </div>
+              </div>
+              <div class="small-12 medium-11 column end">
+                <p>
+                  <% if !result.areas.nil? %>
+                    <% @areas = result.areas.to_s.split(';') %>
+                    <% @areas.each do |area| %>
+                      <span class="warning round radius label"><%= area %></span>
+                    <% end %>
+                  <% else %>
+                    No dispone de areas
+                  <% end %></p>
+              </div>
+            </div>
+            <div class="column row">
+              <div class="small-12 column legislation-calendar-info">
+                <p>Fechas clave</p>
+              </div>
+            </div>
+
+            <div class="column row small-collapse medium-uncollapse legislation-calendar">
+              <div class="small-6 medium-3 column">
+                <h5>Fecha de alta</h5>
+                <p><%= result.created_at.strftime("%d %b %Y") %></p>
+              </div>
+              <div class="small-6 medium-3 column">
+                <h5>Fecha de actualización</h5>
+                <p><%= result.updated_at.strftime("%d %b %Y") %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

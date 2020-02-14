@@ -1,0 +1,15 @@
+# Overrides and adds customized gems in this file
+# Read more on documentation:
+# * English: https://github.com/consul/consul/blob/master/CUSTOMIZE_EN.md#gemfile
+# * Spanish: https://github.com/consul/consul/blob/master/CUSTOMIZE_ES.md#gemfile
+#
+gem 'tzinfo'
+gem 'tzinfo-data'
+gem 'carrierwave', '~> 1.0'
+gem 'mini_magick'
+gem 'acts_as_list'
+gem "validate_url"
+gem 'phony_rails'
+gem 'file_validators'
+gem 'ransack'
+gem 'consul_assemblies', path: 'engines/consul_assemblies'

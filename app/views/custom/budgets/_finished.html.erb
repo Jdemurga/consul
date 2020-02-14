@@ -1,0 +1,28 @@
+<div id="finished_budgets" class="row">
+  <% budgets.each do |budget| %>
+    <div class="small-12 medium-4 columns column end">
+      <div class="panel margin" data-equalizer-watch="">
+        <div style="min-height: 165px;">
+          <h2><%= budget.name %></h2>
+          <% if budget.phase == "finished" %>
+            <p class="info-date"><strong>Presupuesto terminado</strong></p>
+          <% else %>
+            <p class="info-date"><strong>Presupuesto abierto</strong></p>
+          <% end %>
+        </div>
+        <% if can?(:read_results, budget) %>
+          <%= link_to t("budgets.index.see_results"),
+                      budget_results_path(budget),
+                      class: "button",style: "width:100%;" %>
+        <% end %>
+
+        <%= link_to t("budgets.index.milestones"),
+                    budget_executions_path(budget),
+                    class: "button",style: "width:100%;" %>
+
+      </div>
+    </div>
+  <% end %>
+</div>
+
+

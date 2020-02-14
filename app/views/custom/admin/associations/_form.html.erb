@@ -1,0 +1,179 @@
+<script>
+  function selectZone() {
+    var zone = document.getElementById('Szone');
+    var opt = zone.options[zone.selectedIndex].value;
+    document.getElementById('zonefinal').value = opt;
+  }
+
+  function selectVisible() {
+    var zone = document.getElementById('Svisible');
+    var opt = zone.options[zone.selectedIndex].value;
+    document.getElementById('hiddenfinal').value = opt;
+  }
+
+  window.onload = function () {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      document.getElementById('inputSelea').addEventListener('change', handleFileSelect, false);
+    } else {
+      alert('The File APIs are not fully supported in this browser.');
+    }
+  };
+
+  function handleFileSelect(evt) {
+    var f = evt.target.files[0]; // FileList object
+    var reader = new FileReader();
+    // Closure to capture the file information.
+    reader.onload = (function (theFile) {
+      return function (e) {
+        var imageAssociation = document.getElementById('imgAssociation');
+        var binaryData = e.target.result;
+        //Converting Binary Data to base 64
+        var base64String = window.btoa(binaryData);
+        //showing file converted to base64
+        var imageType = document.getElementById('inputSelea').value.split('.')[1];
+        console.log(imageType);
+        document.getElementById('b64').value = base64String;
+        imageAssociation.src = "";
+        imageAssociation.src = "data:image/" + imageType + ";base64," + base64String;
+        console.log('File converted to base64 successfuly!\nCheck in Textarea');
+      };
+    })(f);
+    // Read in the image file as a data URL.
+    reader.readAsBinaryString(f);
+  }
+
+  function checkText() {
+    var ul = document.getElementById("areasChecked");
+    var newtext = "";
+    if (ul.childElementCount > 0) {
+      for (let i = 0; i < ul.childElementCount; i++) {
+        newtext += ul.children[i].textContent;
+        if (i != ul.childElementCount - 1) {
+          newtext += ";";
+        }
+      }
+      console.log(newtext);
+      document.getElementById('areasCheckedFinal').value = newtext;
+    } else {
+      document.getElementById('areasCheckedFinal').value = "";
+      console.log("valor vacio" + document.getElementById('areasCheckedFinal').value);
+
+    }
+
+  }
+
+  function defaultLi(id) {
+    var actualLi = document.getElementById(id);
+    actualLi.remove();
+    checkText();
+  };
+
+  function addli(text) {
+    var ul = document.getElementById("areasChecked");
+    if (text.includes(';')) {
+      console.log("añade");
+      var li = document.createElement('li');
+      li.className = "bubble";
+      li.textContent = text.replace(';', '');
+      li.id = text + "id1";
+      li.addEventListener("click", function () {
+        var actualLi = document.getElementById(this.id);
+        actualLi.remove();
+        checkText();
+      });
+      ul.appendChild(li);
+      checkText();
+      document.getElementById("textForArea").value = "";
+    }
+  }
+</script>
+
+<form id="new_user" action="/associationEdit" accept-charset="UTF-8" method="post">
+  <div clas="row">
+    <div style="width: 45% ; float: left;margin-left: 15px;margin-right: 15px">
+      <input style="display: none" name="id" value="<%= @association.id %>">
+      <label for="user_organization_attributes_name">Nombre de
+        asociación</label><input autofocus="autofocus" placeholder="Nombre de la asociación" type="text" name="name" id="user_organization_attributes_name" value="<%= @association.name %>">
+      <label for="geozoneAssociation">Distrito</label>
+      <div id="geozoneAssociation">
+        <select onchange="selectZone()" id="Szone" class="advanced_search[official_level]">
+          <% Geozone.find_each do |zone| %>
+            <option value="<%= zone.id %>"
+                    <% if zone.id.to_s == @association.geozones %> selected="selected"
+                    <% end %>><%= zone.name %></option>
+          <% end %>
+        </select>
+        <input style="display:none;height: 0px;min-height: 0px;line-height: 0px;padding-bottom: 0px;" id="zonefinal" name="geozones" value="<%= @association.geozones %>">
+      </div>
+      <label for="hidden">Estado</label>
+      <div id="hidden">
+        <select id="Svisible" onchange="selectVisible()" class="advanced_search[official_level]">
+          <option value="false">Visible</option>
+          <option value="true">Oculto</option>
+        </select>
+        <input style="display:none;height: 0px;min-height: 0px;line-height: 0px;padding-bottom: 0px;" id="hiddenfinal" name="hidden" value="<%= @association.hidden %>">
+      </div>
+
+      <label for="user_organization_attributes_responsible_name">Descripción de la asociación</label>
+      <input placeholder="Descripción de asociación" type="text" name="description" id="user_organization_attributes_responsible_name" value="<%= @association.description %>">
+
+      <label for="user_organization_attributes_responsible_name">Dominio Web</label>
+      <input placeholder="Dominio Web" type="text" name="url" id="user_organization_attributes_responsible_name" value="<%= @association.url %>">
+
+      <label for="user_phone_number">Teléfono</label><input placeholder="Teléfono" type="text" name="phone" id="user_phone_number" value="<%= @association.phone %>">
+
+      <div id="logoAssociation">
+        <label for="selectLogo">Logo de asociación</label>
+        <img id="imgAssociation" height="150" style="width: 25%;" src = "/uploads/associationsLogo/<%= @association.logo %>">
+        <div id="selectLogo">
+          <input id="inputSelea" name="logo" type='file'>
+          <input style="display:none;" name="fileContent" id="b64">
+        </div>
+      </div>
+
+    </div>
+    <div style="width: 45% ; float: right;margin-left: 15px;margin-right: 15px">
+      <label for="user_email">Correo
+        electrónico</label><input placeholder="Email" type="text" name="mail" id="user_email" value="<%= @association.mail %>">
+
+      <label for="user_organization_attributes_name">Calle de la Asociación</label>
+      <input autofocus="autofocus" placeholder="Calle de la Asociación" type="text" name="address" id="user_organization_attributes_name" value="<%= @association.address %>">
+
+
+      <p class="note"><strong style="font-size: 1rem">Twitter</strong> (sin '@' por favor)</p>
+      <input placeholder="Cuenta de twitter" type="text" name="twitter_profile" value="<%= @association.twitter_profile %>">
+
+      <p class="note"><strong style="font-size: 1rem">Facebook</strong> (deberá acceder a su perfil y
+        obtener su nombre de enlaze ej:
+        https://www.facebook.com/<strong>nombre.enlaze.000</strong>)</p>
+      <input placeholder="Nombre de enlace Facebook" type="text" name="facebook_profile" value="<%= @association.facebook_profile %>">
+
+      <div id="areasAssociation">
+        <datalist id="areasAvaible">
+          <% ActsAsTaggableOn::Tag.where("kind = 'category'").order(:name) do |tag| %>
+            <option value="<%= tag.name %>"><%= tag.name %></option>
+          <% end %>
+        </datalist>
+        <p class="note">Para poder añadir un area perteneciente deberá finalizar el area con '
+          <strong>;</strong> '.<br>En caso de desear borrar un area solo haga click encima del texto del
+          area</p>
+        <input id="textForArea" type="text" list="areasAvaible" onkeyup="addli(this.value)">
+        <ul id="areasChecked" style=" overflow:auto; ">
+          <% if !@association.areas.nil? %>
+            <% @areas = @association.areas.to_s.split(';') %>
+            <% @areas.each do |area| %>
+              <li class="bubble" id="<%= area %>id1" onclick="defaultLi(this.id)"><%= area %></li>
+            <% end %>
+          <% end %>
+        </ul>
+        <input style="visibility: hidden" type="text" id="areasCheckedFinal" name="areas" value="<%= @association.areas %>">
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="actions small-12 large-3 medium-3 column">
+      <input type="submit" name="commit" value="<%= t("admin.geozones.edit.form.submit_button") %>" class="button expanded">
+    </div>
+  </div>
+</form>

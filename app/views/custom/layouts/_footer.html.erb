@@ -1,0 +1,95 @@
+<footer>
+  <div class="row">
+    <div class="small-12 large-7 column">
+      <h1 class="logo" style="display: block !important;float: left;margin-right: 35px; margin-bottom: 0.5rem;">
+        <%= link_to root_path, accesskey: "0" do %>
+          <%= image_tag(image_path_for("logo_footer.png"), class: "float-left", style:"width:161px !important;", alt: t("layouts.header.logo")) %>
+        <% end %>
+      </h1>
+      <p class="info">
+        <%= sanitize(t("layouts.footer.description",
+                       participaGetafe: link_to(t("layouts.footer.participaGetafe"), participaGetafe_url: t("layouts.footer.participaGetafe_url"), target: "blank", rel: "nofollow"),
+                       open_source: link_to(t("layouts.footer.open_source"), open_source_url: "https://github.com/consul/consul", target: "blank", rel: "nofollow"),
+                       consul: link_to(t("layouts.footer.consul"), consul_url: t("layouts.footer.consul_url"), target: "blank", rel: "nofollow"))) %>
+      </p>
+    </div>
+    <div class="footer-sections small-12 large-5 column">
+      <div class="small-12 medium-6 column">
+        <h2>
+          <a href="https://www.getafe.es/areas-de-gobierno/area-social/participacion-ciudadana/" class="title"><%= t("layouts.footer.participation_title") %></a>
+        </h2>
+        <p><%= t("layouts.footer.participation_text") %></p>
+      </div>
+      <div class="small-12 medium-6 column">
+        <h2>
+          <a href="https://transparencia.getafe.es/portalGetafe/transparencia/se_principal1.jsp?codResi=1" class="title"><%= t("layouts.footer.transparency_title") %></a>
+        </h2>
+        <p><%= t("layouts.footer.transparency_text") %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="subfooter row">
+    <div class="small-12 medium-8 column">
+      <%= t("layouts.footer.copyright", year: Time.current.year) %>&nbsp;|
+      <ul class="no-bullet inline-block">
+        <li class="inline-block"><%= link_to t("layouts.footer.privacy"), page_path("privacy") %>&nbsp;|</li>
+        <li class="inline-block"><%= link_to t("layouts.footer.conditions"), page_path("conditions") %>&nbsp;|</li>
+        <li class="inline-block"><%= link_to t("layouts.footer.accessibility"), page_path("accessibility") %></li>
+      </ul>
+    </div>
+
+    <div class="small-12 medium-4 column social">
+      <div class="text-right">
+        <ul>
+
+          <li class="inline-block">
+            <%= link_to "https://twitter.com/#{setting["twitter_handle"]}", target: "_blank",
+                        title: t("shared.go_to_page") + t("social.twitter", org: setting["org_name"]) + t("shared.target_blank") do %>
+              <span class="show-for-sr"><%= t("social.twitter", org: setting["org_name"]) %></span>
+              <span class="icon-twitter" aria-hidden="true"></span>
+            <% end %>
+          </li>
+
+
+          <li class="inline-block">
+            <%= link_to "https://www.facebook.com/#{setting["facebook_handle"]}/", target: "_blank",
+                        title: t("shared.go_to_page") + t("social.facebook", org: setting["org_name"]) + t("shared.target_blank") do %>
+              <span class="show-for-sr"><%= t("social.facebook", org: setting["org_name"]) %></span>
+              <span class="icon-facebook" aria-hidden="true"></span>
+            <% end %>
+          </li>
+
+
+          <!--<li class="inline-block">
+            <--%= link_to "https://www.youtube.com/#{setting["youtube_handle"]}", target: "_blank",
+                        title: t("shared.go_to_page") + t("social.youtube", org: setting["org_name"]) + t("shared.target_blank") do %>
+              <span class="show-for-sr"><%#= t("social.youtube", org: setting["org_name"]) %></span>
+              <span class="icon-youtube" aria-hidden="true"></span>
+            <%# end %>
+          </li>
+
+
+          <li class="inline-block">
+            <--%= link_to "https://www.telegram.me/#{setting["telegram_handle"]}", target: "_blank",
+                        title: t("shared.go_to_page") + t("social.telegram", org: setting["org_name"]) + t("shared.target_blank") do %>
+              <span class="show-for-sr"><%#= t("social.telegram", org: setting["org_name"]) %></span>
+              <span class="icon-telegram" aria-hidden="true"></span>
+            <%# end %>
+          </li>
+
+
+          <li class="inline-block">
+            <--%= link_to "https://www.instagram.com/#{setting["instagram_handle"]}", target: "_blank",
+                        title: t("shared.go_to_page") + t("social.instagram", org: setting["org_name"]) + t("shared.target_blank") do %>
+              <span class="show-for-sr"><%#= t("social.instagram", org: setting["org_name"]) %></span>
+              <span class="icon-instagram" aria-hidden="true"></span>
+            <%# end %>
+          </li>-->
+
+          <%= raw content_block("footer", I18n.locale) %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
